@@ -31,7 +31,7 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-bg border-b border-surface">
+    <header className="fixed inset-x-0 top-0 z-50 bg-bg border-b border-surface print:hidden">
       <div className="mx-auto flex h-[4.5rem] max-w-[1240px] items-center justify-between px-6">
         <ApexWordmark />
 

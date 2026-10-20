@@ -5,6 +5,7 @@ import { TeamCard } from '@/components/team/TeamCard';
 import { communityContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/community' },
   title: 'Community',
   description: 'The delegates, speakers, volunteers and team behind Apex Conclave events.',
 };
@@ -36,7 +37,7 @@ export default function CommunityPage() {
         <SectionHeading eyebrow="Team" title="The people building it." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (
-            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} />
+            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} bio={m.bio} />
           ))}
         </div>
         <Link href="/about" className="mt-6 inline-block text-sm text-soft-white underline underline-offset-4">
@@ -59,7 +60,13 @@ export default function CommunityPage() {
         </div>
         <div>
           <p className="text-2xl font-bold text-soft-white md:text-3xl">Follow along.</p>
-          <p className="mt-3 text-muted-grey">Event news, dates and results are posted first on our socials.</p>
+          <p className="mt-3 text-muted-grey">
+            Event news, dates and results are posted first on our socials. Representing a school or company?{' '}
+            <Link href="/partners" className="text-soft-white underline underline-offset-4">
+              Partner with us
+            </Link>
+            .
+          </p>
           <div className="mt-6 flex flex-wrap gap-4">
             {instagram && (
               <a href={instagram} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-colors duration-200 hover:bg-soft-white hover:text-bg">

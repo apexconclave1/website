@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion, useReducedMotion, HTMLMotionProps } from 'framer-motion';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,6 +20,7 @@ export function Button({
   disabled,
   ...props
 }: ButtonProps) {
+  const reduceMotion = useReducedMotion();
   const baseStyles =
     'inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-1 focus:ring-warm-bronze max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none';
 
@@ -44,7 +45,7 @@ export function Button({
 
   return (
     <motion.button
-      whileTap={disabled ? undefined : { scale: 0.98 }}
+      whileTap={disabled || reduceMotion ? undefined : { scale: 0.98 }}
       transition={{ duration: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={twMerge(clsx(baseStyles, variants[variant], sizes[size], className))}
       disabled={disabled}

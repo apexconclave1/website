@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 import { apexFaqs } from '@/lib/data/faqs';
+import { JsonLd } from '@/components/JsonLd';
+import { faqSchema } from '@/lib/seo';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/faq' },
   title: 'FAQ',
   description: 'Answers about Apex Conclave, its events and partnerships.',
 };
@@ -20,6 +23,7 @@ export default function FAQPage() {
         </Link>
         . Anything else, <Link href="/contact" className="text-soft-white underline underline-offset-4">contact us</Link>.
       </p>
+      <JsonLd data={faqSchema(apexFaqs)} />
       <FAQAccordion items={apexFaqs} />
     </main>
   );

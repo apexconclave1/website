@@ -25,9 +25,10 @@ export default function EventsPage() {
   const past = inCategory.filter(isPast);
 
   return (
-    <div className="max-w-container mx-auto px-4 md:px-8 pt-28 pb-16 md:pt-32 md:pb-24 space-y-12">
+    <main id="main-content" className="max-w-container mx-auto px-4 md:px-8 pt-28 pb-16 md:pt-32 md:pb-24 space-y-12">
       {/* Header */}
       <SectionHeading
+        as="h1"
         eyebrow="Events Directory"
         title="Events"
         description="Everything Apex Conclave is running. New events are added here as they are announced."
@@ -103,6 +104,6 @@ export default function EventsPage() {
           </div>
         </section>
       )}
-    </div>
+    </main>
   );
 }

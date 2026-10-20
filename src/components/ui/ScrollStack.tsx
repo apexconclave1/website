@@ -301,7 +301,8 @@ const ScrollStack = ({
       card.style.webkitPerspective = '1000px';
     });
 
-    setupLenis();
+    // Reduced motion: native scrolling, no Lenis smoothing
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) setupLenis();
 
     updateCardTransforms();
 

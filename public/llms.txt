@@ -1,0 +1,25 @@
+# Apex Conclave
+
+> Apex Conclave is a youth-led events ecosystem in India. It runs conferences, simulations and competitions where high school and college students practise diplomacy, enterprise and policy. Diplovia 2026, a virtual Model United Nations, is its first event.
+
+## Pages
+
+- [Home](/): what Apex Conclave is, its events, team and network
+- [Events](/events): every event, upcoming and past
+- [Diplovia 2026](/events/diplovia-2026): virtual MUN with five committees (UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee); fees, allotment and FAQ
+- [About](/about): mission and team
+- [Community](/community): delegates, speakers, volunteers
+- [Partners](/partners): partnership options
+- [FAQ](/faq) and [Contact](/contact)
+
+## Team
+
+- Ayush Vishnoi, Founder & CEO
+- Kapish Garg, Co-Founder
+- Vansh Jain, Chief Operating Officer
+
+## Website
+
+Designed and built by Kapish Garg (Co-Founder): https://www.linkedin.com/in/gargkapish/
+
+Contact: apexconclave1@gmail.com

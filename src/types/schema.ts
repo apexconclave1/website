@@ -69,19 +69,6 @@ export interface ChamberEntity {
 }
 
 /**
- * Speaker / Dais Member / Leader Entity
- */
-export interface LeaderEntity {
-  id: string;
-  name: string;
-  role: string;          // e.g. 'Secretary-General', 'Keynote Speaker', 'Advisory Board'
-  bio: string;
-  photoUrl: string;
-  eventId?: string;      // If specific to an event, otherwise global organization leader
-  organization?: string;
-}
-
-/**
  * Partner / Sponsor Entity
  */
 export interface PartnerEntity {

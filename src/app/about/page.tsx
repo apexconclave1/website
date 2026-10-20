@@ -6,6 +6,7 @@ import { eventsData } from '@/lib/data/events';
 import { leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/about' },
   title: 'About',
   description: organizationConfig.manifesto,
 };
@@ -39,13 +40,26 @@ export default function AboutPage() {
         <SectionHeading eyebrow="Leadership" title="The team." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (
-            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} quote={m.quote} />
+            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} bio={m.bio} quote={m.quote} />
           ))}
         </div>
       </section>
 
       <section className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-surface pt-16">
-        <p className="text-xl font-bold text-soft-white">Partner with us or host an event.</p>
+        <div>
+          <p className="text-xl font-bold text-soft-white">Partner with us or host an event.</p>
+          <p className="mt-2 text-sm text-muted-grey">
+            See our{' '}
+            <Link href="/partners" className="text-soft-white underline underline-offset-4">
+              partnership options
+            </Link>{' '}
+            or meet the{' '}
+            <Link href="/community" className="text-soft-white underline underline-offset-4">
+              community
+            </Link>
+            .
+          </p>
+        </div>
         <Link
           href="/contact"
           className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"

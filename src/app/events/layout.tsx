@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 // /events/page.tsx is a client component, so its metadata lives here.
 export const metadata: Metadata = {
+  alternates: { canonical: '/events' },
   title: { absolute: 'Events | Apex Conclave', template: '%s | Apex Conclave' },
   description: 'Every event run by Apex Conclave, upcoming and past.',
 };

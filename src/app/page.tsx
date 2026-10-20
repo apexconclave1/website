@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
@@ -5,7 +6,10 @@ import HeroSection from '@/components/home/HeroSection';
 import SpecularButton from '@/components/ui/SpecularButton';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
-import { homeContent, organizationConfig } from '@/lib/data/organization';
+import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
+import { TeamCard } from '@/components/team/TeamCard';
+
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 export default function HomePage() {
   const featured = eventsData[0];
@@ -86,6 +90,16 @@ export default function HomePage() {
         >
           Read more about Apex Conclave <ArrowRight size={14} />
         </Link>
+      </section>
+
+      {/* Team */}
+      <section className="mx-auto max-w-[1240px] border-t border-surface px-6 py-20">
+        <SectionHeading eyebrow="Team" title="The people behind Apex Conclave." />
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+          {leadershipTeam.map((m) => (
+            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} bio={m.bio} />
+          ))}
+        </div>
       </section>
 
       {/* Network */}

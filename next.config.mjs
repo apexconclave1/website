@@ -8,7 +8,9 @@ const nextConfig = {
       { source: '/committees', destination: '/events/diplovia-2026#committees', permanent: true },
     ];
   },
-  // All images are local (public/). Add a specific host here if a remote image is ever needed.
+  // All images are local (public/). Add remotePatterns here if a remote image is ever needed.
+  // AVIF first (smaller), WebP for browsers without AVIF.
+  images: { formats: ['image/avif', 'image/webp'] },
   async headers() {
     return [
       {

@@ -64,6 +64,20 @@ body {
   .card-link { transition: none; transform: none; }
 }
 
+/* ─── Print: black on white, no chrome (receipt, terms, event page) ── */
+@media print {
+  *, *::before, *::after {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-color: #ccc !important;
+  }
+  main { padding-top: 0 !important; }
+  .panel { break-inside: avoid; }
+  a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
+  img[src*='brand'] { filter: invert(1); } /* light logos print dark; photos and QR stay as they are */
+}
+
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid #c7a16a;

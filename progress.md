@@ -4,7 +4,9 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to G are done. Next: **Phase H** (final docs pass), then owner steps: Supabase setup, Vercel deploy, real UPI, dates.
+Phases A to G and the launch audit are done. Skills review published (https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH) with a 7-step plan; waiting for the owner to pick steps. Then Phase H (final docs pass) and owner steps: Vercel deploy, Analytics on, Resend key, Search Console, real UPI, dates.
+
+Site credit: "Website by Kapish Garg" is not shown on the page; it lives in the author/creator meta tags, WebSite JSON-LD (`websiteSchema` in `lib/seo.ts`) and `public/llms.txt`. Kapish's team bio still says he built the website.
 
 After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` (separate folder so it does not break a running `npm run dev`), then update this file and `IMPLEMENTATION_PLAN.md`.
 
@@ -44,6 +46,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 **G (2026-10-20).** Root metadata with title template, `metadataBase` from `lib/site.ts` (site URL, else Vercel production URL, else localhost), Organization JSON-LD; all page titles shortened so the template adds "| Apex Conclave"; `app/events/layout.tsx` gives `/events` its metadata (the page is a client component) and keeps the template for event pages. Added `sitemap.xml`, `robots.txt`, favicon/apple icon/OG image built from the approved logo. Removed the wildcard `images.remotePatterns`; added basic security headers in `next.config.mjs`. New Kapish photo (`public/leadership/kapish-garg.jpg`), Ayush photo compressed. README has Vercel deploy steps. Checked on the dev server: titles, og:image, sitemap, robots, headers.
 
 **Photos (2026-10-20).** Vansh's photo added; Ayush's recropped to the face (from the original in the first commit). New `components/team/TeamCard.tsx` (80px photo, name, role, quote) replaces three separate team markups: About, Community and the event page Team section.
+
+**Launch audit (2026-10-20).** See the "Launch audit" list in `IMPLEMENTATION_PLAN.md` for every item. New files: `components/JsonLd.tsx`, `components/Breadcrumbs.tsx`, `components/UtmCapture.tsx`, `components/ui/BackToTop.tsx`, `components/team/TeamCard.tsx`, `lib/seo.ts`, `supabase/migrations/002_utm.sql`. New package: `@vercel/analytics`. New env (optional): `RESEND_API_KEY`, `RESEND_FROM`, `GOOGLE_SITE_VERIFICATION`. Verified: build, lint, events check, canonicals and JSON-LD in page HTML, link crawl, reduced-motion screenshot (hero headline renders fully).
 
 ## Site map
 

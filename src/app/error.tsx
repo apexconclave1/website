@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <main className="flex min-h-[70vh] items-center justify-center px-6 pt-24 text-center">
+    <main id="main-content" className="flex min-h-[70vh] items-center justify-center px-6 pt-24 text-center">
       <div>
         <p className="eyebrow mb-4">Error</p>
         <h1 className="mb-4 text-3xl font-bold text-soft-white md:text-5xl">Something went wrong</h1>

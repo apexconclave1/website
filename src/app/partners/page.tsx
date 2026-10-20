@@ -5,6 +5,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { organizationConfig, partners, partnersContent } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/partners' },
   title: 'Partners',
   description: 'Partner with Apex Conclave and reach students across India inside our events.',
 };
@@ -65,7 +66,13 @@ export default function PartnersPage() {
       <section className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-surface pt-16">
         <div>
           <p className="text-2xl font-bold text-soft-white md:text-3xl">Let’s build something together.</p>
-          <p className="mt-2 text-muted-grey">Or write to {organizationConfig.contactEmail}</p>
+          <p className="mt-2 text-muted-grey">
+            Or write to {organizationConfig.contactEmail}. See who you’ll reach on the{' '}
+            <Link href="/community" className="text-soft-white underline underline-offset-4">
+              Community
+            </Link>{' '}
+            page.
+          </p>
         </div>
         <Link
           href={contactHref}

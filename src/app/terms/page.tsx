@@ -3,6 +3,7 @@ import SectionNavigator, { SectionItem } from '@/components/ui/SectionNavigator'
 import { organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/terms' },
   title: 'Terms & Conditions',
   description: 'Apex Conclave delegate code of conduct, registration terms, refund policy, and privacy notice for conference participants.',
 };

@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import RegistrationWizard from '@/components/features/registration/RegistrationWizard';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/register' },
   title: 'Register',
   description:
     'Register as a delegate for Diplovia 2026. Pick a committee and country portfolio. Open to high school and college students.',
@@ -22,7 +23,7 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
 
   if (!event.registrationOpen) {
     return (
-      <main className="mx-auto max-w-[720px] px-6 pb-24 pt-36 text-center">
+      <main id="main-content" className="mx-auto max-w-[720px] px-6 pb-24 pt-36 text-center">
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-warm-bronze">{event.title}</p>
         <h1 className="text-3xl font-bold text-soft-white md:text-4xl">Registration opens soon.</h1>
         <p className="mt-4 text-base text-muted-grey">
@@ -39,7 +40,7 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
   }
 
   return (
-    <main className="mx-auto max-w-[1240px] px-6 pb-20 pt-28">
+    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-20 pt-28">
       <div className="mb-14 text-center">
         <p className="eyebrow mb-4">{event.title} · Delegate registration</p>
         <h1 className="mb-4 text-4xl font-bold text-soft-white md:text-5xl">Register</h1>
@@ -49,7 +50,25 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
         </p>
       </div>
 
-      <Suspense fallback={<p className="p-16 text-center text-muted-grey">Loading registration…</p>}>
+      <Suspense
+        fallback={
+          <div role="status" aria-label="Loading registration" className="mx-auto max-w-[820px] rounded-[12px] border border-[#1a1d1e] bg-surface p-6 md:p-10">
+            <div className="mb-8 grid grid-cols-5 gap-2 border-b border-[#2a2d2e] pb-8">
+              {Array.from({ length: 5 }, (_, i) => (
+                <span key={i} className="h-[3px] rounded-full bg-[#2a2d2e]" />
+              ))}
+            </div>
+            <div className="space-y-5 motion-safe:animate-pulse">
+              <div className="h-6 w-40 rounded-sm bg-[#1f2324]" />
+              <div className="grid grid-cols-2 gap-5">
+                {Array.from({ length: 6 }, (_, i) => (
+                  <div key={i} className="h-12 rounded-sm bg-[#1f2324]" />
+                ))}
+              </div>
+            </div>
+          </div>
+        }
+      >
         <RegistrationWizard />
       </Suspense>
     </main>

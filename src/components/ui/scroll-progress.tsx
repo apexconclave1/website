@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useScroll, useSpring, SpringOptions } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useSpring, SpringOptions } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import React from 'react';
 
@@ -19,12 +19,13 @@ export function ScrollProgress({
 }: ScrollProgressProps) {
   const { scrollYProgress } = useScroll();
 
-  const scaleX = useSpring(scrollYProgress, springOptions);
+  const spring = useSpring(scrollYProgress, springOptions);
+  const scaleX = useReducedMotion() ? scrollYProgress : spring;
 
   return (
     <motion.div
       className={cn(
-        'fixed inset-x-0 top-0 z-[100] h-[2px] origin-left bg-[#F4F2ED] pointer-events-none',
+        'fixed inset-x-0 top-0 z-[100] h-[2px] origin-left bg-[#F4F2ED] pointer-events-none print:hidden',
         className
       )}
       style={{

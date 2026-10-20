@@ -42,8 +42,12 @@ SQL migrations are in `supabase/migrations/`. Run them in order in the Supabase 
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY` (keep it server-only; never prefix it with `NEXT_PUBLIC_`)
    - `NEXT_PUBLIC_SITE_URL`: leave empty until the domain is bought. The site falls back to the Vercel production URL for metadata, sitemap and robots.
-4. Deploy. Every push to `main` redeploys.
-5. After buying the domain: **Settings → Domains** → add it, follow the DNS steps, then set `NEXT_PUBLIC_SITE_URL=https://your-domain` and redeploy.
+   - `RESEND_API_KEY` (optional): emails the team about contact messages. Sign up at resend.com with the team inbox.
+   - `GOOGLE_SITE_VERIFICATION` (optional): the `content` value of Google Search Console's HTML tag.
+4. In the project, open **Analytics** and enable Web Analytics (free on Hobby; custom conversion events need Pro).
+5. Deploy. Every push to `main` redeploys.
+6. Search Console: add the site as a URL-prefix property, choose the HTML tag method, put the code in `GOOGLE_SITE_VERIFICATION`, redeploy, verify, then submit `/sitemap.xml`.
+7. After buying the domain: **Settings → Domains** → add it, follow the DNS steps, then set `NEXT_PUBLIC_SITE_URL=https://your-domain` and redeploy.
 
 Before opening registration, check `src/lib/data/events.ts` (dates, `registrationOpensAt`, `registrationOpen: true`) and `paymentConfig` in `src/lib/data/organization.ts` (real UPI id and QR).
 

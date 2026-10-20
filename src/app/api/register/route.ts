@@ -80,6 +80,9 @@ export async function POST(req: NextRequest) {
         original_amount: fee,
         final_amount: fee,
         status: 'SUBMITTED',
+        utm_source: data.utm_source ?? null,
+        utm_medium: data.utm_medium ?? null,
+        utm_campaign: data.utm_campaign ?? null,
       })
       .select('id, tracking_code, created_at')
       .single();

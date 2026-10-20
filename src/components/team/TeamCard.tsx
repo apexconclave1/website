@@ -4,11 +4,12 @@ interface TeamCardProps {
   name: string;
   role: string;
   photo?: string;
+  bio?: string;
   quote?: string;
 }
 
-/** One team member: photo, name, role and optional quote. Used on About, Community and event pages. */
-export function TeamCard({ name, role, photo, quote }: TeamCardProps) {
+/** One team member: photo, name, role, optional bio and quote. Used on About, Community and event pages. */
+export function TeamCard({ name, role, photo, bio, quote }: TeamCardProps) {
   return (
     <figure className="panel flex flex-col gap-5">
       <div className="flex items-center gap-4">
@@ -24,6 +25,7 @@ export function TeamCard({ name, role, photo, quote }: TeamCardProps) {
           <div className="mt-1 text-xs font-medium uppercase tracking-wider text-warm-bronze">{role}</div>
         </figcaption>
       </div>
+      {bio && <p className="text-sm leading-relaxed text-soft-white">{bio}</p>}
       {quote && <blockquote className="text-sm leading-relaxed text-muted-grey">“{quote}”</blockquote>}
     </figure>
   );

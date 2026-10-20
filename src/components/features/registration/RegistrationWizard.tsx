@@ -9,6 +9,8 @@ import StepReview from './StepReview';
 import StepPayment from './StepPayment';
 import RegistrationReceipt from './RegistrationReceipt';
 import { Button } from '@/components/ui/Button';
+import { readUtm } from '@/components/UtmCapture';
+import { track } from '@vercel/analytics';
 import { eventsData } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import {
@@ -144,7 +146,7 @@ export default function RegistrationWizard() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, eventId: event.id }),
+        body: JSON.stringify({ ...formData, ...readUtm(), eventId: event.id }),
       });
 
       const data = await res.json();
@@ -156,6 +158,7 @@ export default function RegistrationWizard() {
           fee: data.fee,
           allotment: data.allotment,
         });
+        track('registration_submitted', { event: event.id });
         // Advance to Step 5 (Payment)
         setCurrentStep(5);
         window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -171,6 +174,7 @@ export default function RegistrationWizard() {
   };
 
   const handlePaymentComplete = (result: PaymentResult) => {
+    track('payment_submitted', { event: event.id, amount: result.finalAmount });
     setPaymentResult(result);
     window.scrollTo({ top: 100, behavior: 'smooth' });
   };

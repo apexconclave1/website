@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { contactCategories as categories, contactSchema, type ContactFields } from '@/lib/validators/contact';
 import { Button } from '@/components/ui/Button';
+import { track } from '@vercel/analytics';
 
 type FieldErrors = Partial<Record<keyof ContactFields, string>>;
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
@@ -52,6 +53,7 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
       });
       if (!res.ok) throw new Error('Server error');
       setSubmitState('success');
+      track('contact_sent', { category: parsed.data.category });
       setForm(emptyForm(initialCategory));
     } catch {
       setSubmitState('error');

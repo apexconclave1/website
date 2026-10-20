@@ -80,6 +80,21 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] Photos: new Kapish photo (32 KB), Ayush photo compressed (107 KB to 26 KB).
 - [x] README: Vercel deploy steps and env list.
 
+### Launch audit (DONE 2026-10-20)
+- [x] Team with photos and bios on the home page (removed from the Diplovia page); `leaders.ts` removed.
+- [x] Skip-to-content link; `<main id="main-content">` on every page; `/events` H1 (`SectionHeading as="h1"`).
+- [x] Reduced motion: DarkVeil one still frame, ScrollStack without Lenis, scroll bar without spring, Button without tap scale.
+- [x] AVIF + WebP via `images.formats`; gallery `<img>` lazy.
+- [x] Canonical on every page; JSON-LD via `components/JsonLd.tsx` + `lib/seo.ts`: Organization, FAQPage (`/faq`, event page), BreadcrumbList (event page, visible `Breadcrumbs`), Event (only once dates exist).
+- [x] Cross-links (Partners ↔ Community, About → both, event FAQ → general FAQ). Crawl of 12 internal URLs: no 404s.
+- [x] Back-to-top button, print stylesheet, confirm `<dialog>` before payment submit, register loading skeleton.
+- [x] UTM capture (`components/UtmCapture.tsx`, first touch per session) stored on registrations (`002_utm.sql`, run by owner).
+- [x] Vercel Web Analytics (`@vercel/analytics`) + events `registration_submitted`, `payment_submitted`, `contact_sent`. Custom events need a Vercel Pro plan to appear in the dashboard; page views work on Hobby.
+- [x] Contact email notification via Resend REST API (`RESEND_API_KEY`), non-blocking.
+- [x] Search Console verification tag from `GOOGLE_SITE_VERIFICATION`.
+- [x] Copy rewritten from the booklet's own wording (tagline, manifesto, pillars, overview); bios added; "Website by Kapish Garg" in the footer.
+- Skipped with reason: dark mode toggle (dark-only brand), site search (about 10 pages), password toggle (no passwords), toasts (inline feedback already), floating contact button (contact in nav, footer and CTAs), cookie banner (Vercel Analytics sets no cookies), strict CSP (needs nonces, little gain without logins).
+
 ### H. Docs
 - [ ] Final pass on README, progress, AGENTS, PRODUCT, DESIGN.
 

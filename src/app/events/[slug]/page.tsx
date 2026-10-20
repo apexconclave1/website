@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { Calendar, MapPin, ArrowUpRight } from 'lucide-react';
 import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
-import { leadersData } from '@/lib/data/leaders';
 import { faqsByEvent } from '@/lib/data/faqs';
 import { eventStories } from '@/lib/data/eventStory';
 import { Badge } from '@/components/ui/Badge';
@@ -12,7 +11,10 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import AccordionGallery from '@/components/ui/AccordionGallery';
 import SpecularButton from '@/components/ui/SpecularButton';
 import FAQAccordion from '@/components/faq/FAQAccordion';
-import { TeamCard } from '@/components/team/TeamCard';
+import Link from 'next/link';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { JsonLd } from '@/components/JsonLd';
+import { eventSchema, faqSchema } from '@/lib/seo';
 
 interface EventDetailPageProps {
   params: { slug: string };
@@ -44,7 +46,6 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
   if (!event) notFound();
 
   const chambers = chambersData.filter((c) => c.eventId === event.id).sort((a, b) => a.displayOrder - b.displayOrder);
-  const leaders = leadersData.filter((l) => !l.eventId || l.eventId === event.id);
   const faqs = faqsByEvent[event.id] ?? [];
   const story = eventStories[event.id];
 
@@ -55,16 +56,24 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
     ...(story ? ([['why-mun', 'Why MUN'], ['outcome', 'What you take home']] as [string, string][]) : []),
     ...(event.pricing ? ([['fees', 'Fees']] as [string, string][]) : []),
     ...(chambers.length ? ([['allotment', 'Allotment']] as [string, string][]) : []),
-    ['team', 'Team'],
     ...(faqs.length ? ([['faq', 'FAQ']] as [string, string][]) : []),
   ];
 
   return (
-    <div className="min-h-screen pt-[4.5rem] text-soft-white">
+    <main id="main-content" className="min-h-screen pt-[4.5rem] text-soft-white">
+      {eventSchema(event) && <JsonLd data={eventSchema(event)!} />}
+      {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
       {/* Hero: the event's own identity first, Apex Conclave secondary */}
       <div className="border-b border-surface">
         <div className="mx-auto flex min-h-[420px] max-w-container flex-col justify-end px-4 pb-10 pt-20 md:px-8 md:pb-16">
           <div className="max-w-3xl space-y-5">
+            <Breadcrumbs
+              items={[
+                { name: 'Home', href: '/' },
+                { name: 'Events', href: '/events' },
+                { name: event.title, href: `/events/${event.slug}` },
+              ]}
+            />
             <div className="flex flex-wrap items-center gap-2">
               <Badge category={event.category} />
               {event.edition && <Badge variant="accent">{event.edition}</Badge>}
@@ -328,25 +337,26 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           </section>
         )}
 
-        {/* Team */}
-        <section id="team" className={sectionClass}>
-          <SectionHeading eyebrow="Team" title="The people building the platform." />
-          <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {leaders.map((l) => (
-              <TeamCard key={l.id} name={l.name} role={l.role} photo={l.photoUrl || undefined} quote={l.bio} />
-            ))}
-          </div>
-        </section>
-
         {faqs.length > 0 && (
           <section id="faq" className={`${sectionClass} pb-24`}>
             <SectionHeading eyebrow="FAQ" title={`${event.title} questions`} />
             <div className="mt-8 max-w-[860px]">
               <FAQAccordion items={faqs} />
             </div>
+            <p className="mt-8 text-sm text-muted-grey">
+              Questions about Apex Conclave itself?{' '}
+              <Link href="/faq" className="text-soft-white underline underline-offset-4">
+                General FAQ
+              </Link>{' '}
+              or{' '}
+              <Link href="/contact" className="text-soft-white underline underline-offset-4">
+                contact us
+              </Link>
+              .
+            </p>
           </section>
         )}
       </div>
-    </div>
+    </main>
   );
 }

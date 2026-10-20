@@ -79,7 +79,14 @@ export const FullRegistrationSchema = RegistrationStep1Schema
   .and(RegistrationStep4Schema);
 
 /** Body of POST /api/register */
-export const RegistrationRequestSchema = FullRegistrationSchema.and(z.object({ eventId: z.string().min(1) }));
+export const RegistrationRequestSchema = FullRegistrationSchema.and(
+  z.object({
+    eventId: z.string().min(1),
+    utm_source: z.string().max(100).optional(),
+    utm_medium: z.string().max(100).optional(),
+    utm_campaign: z.string().max(100).optional(),
+  })
+);
 
 export type RegistrationFormData = z.infer<typeof FullRegistrationSchema>;
 export type Step1FormData = z.infer<typeof RegistrationStep1Schema>;

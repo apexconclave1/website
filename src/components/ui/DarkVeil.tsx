@@ -150,8 +150,8 @@ export default function DarkVeil({
       program.uniforms.uResolution.value.set(w, h);
     };
 
-    window.addEventListener('resize', resize);
-    resize();
+    // Reduced motion: draw one still frame (and redraw it on resize) instead of animating
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const start = performance.now();
     let frame = 0;
@@ -165,14 +165,20 @@ export default function DarkVeil({
       program.uniforms.uWarp.value = warpAmount;
       program.uniforms.uLightMode.value = lightMode ? 1 : 0;
       renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(loop);
+      if (!reduceMotion) frame = requestAnimationFrame(loop);
     };
 
+    const onResize = () => {
+      resize();
+      if (reduceMotion) loop();
+    };
+    window.addEventListener('resize', onResize);
+    resize();
     loop();
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
     };
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale, lightMode]);
 

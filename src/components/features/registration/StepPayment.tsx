@@ -28,6 +28,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
   const [submitError, setSubmitError] = useState('');
   const [upiCopied, setUpiCopied] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const confirmRef = useRef<HTMLDialogElement>(null);
 
   // Display only. The server recomputes the amount from the registration and the coupon.
   const finalAmount = couponApplied ? Math.max(0, fee - couponApplied.discount) : fee;
@@ -96,7 +97,8 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
     }
   };
 
-  const handleSubmitPayment = async () => {
+  // Step 1: validate, then ask for confirmation (submitting a payment cannot be undone)
+  const handleConfirmClick = () => {
     const utr = paymentUtr.trim();
     if (!utr) {
       setUtrError('Enter the UTR / transaction reference number.');
@@ -106,8 +108,14 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
       setUtrError('The UTR is 8 to 30 letters and numbers.');
       return;
     }
-
     setUtrError('');
+    confirmRef.current?.showModal();
+  };
+
+  // Step 2: the delegate confirmed in the dialog
+  const handleSubmitPayment = async () => {
+    confirmRef.current?.close();
+    const utr = paymentUtr.trim();
     setSubmitError('');
     setIsSubmitting(true);
 
@@ -282,9 +290,42 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         </p>
       )}
 
-      <Button type="button" size="lg" onClick={handleSubmitPayment} disabled={isSubmitting || !paymentUtr.trim()} className="w-full">
+      <Button type="button" size="lg" onClick={handleConfirmClick} disabled={isSubmitting || !paymentUtr.trim()} className="w-full">
         {isSubmitting ? 'Submitting…' : 'Confirm payment'}
       </Button>
+
+      <dialog
+        ref={confirmRef}
+        aria-labelledby="confirm-payment-title"
+        className="w-[calc(100%-2rem)] max-w-md rounded-[12px] border border-[#2a2d2e] bg-surface p-6 text-soft-white backdrop:bg-bg/80"
+      >
+        <h4 id="confirm-payment-title" className="text-lg font-semibold">Submit these payment details?</h4>
+        <p className="mt-2 text-sm text-muted-grey">You can’t change them after submitting. Check they match your UPI app.</p>
+        <dl className="mt-5 space-y-2 text-sm">
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted-grey">Amount paid</dt>
+            <dd className="font-semibold">₹{finalAmount}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted-grey">UTR</dt>
+            <dd className="font-semibold tracking-wider">{paymentUtr}</dd>
+          </div>
+          {couponApplied && (
+            <div className="flex justify-between gap-4">
+              <dt className="text-muted-grey">Coupon</dt>
+              <dd className="font-semibold">{couponApplied.code}</dd>
+            </div>
+          )}
+        </dl>
+        <div className="mt-6 flex justify-end gap-3">
+          <Button type="button" variant="outline" onClick={() => confirmRef.current?.close()}>
+            Go back
+          </Button>
+          <Button type="button" onClick={handleSubmitPayment}>
+            Submit
+          </Button>
+        </div>
+      </dialog>
 
       <p className="text-center text-xs leading-relaxed text-muted-grey">
         The team checks payments within 24 hours and confirms your seat by email.

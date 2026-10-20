@@ -2,9 +2,9 @@ import { OrganizationConfig, PartnerEntity } from '@/types/schema';
 
 export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
-  tagline: 'The Premier Youth Events Ecosystem for India’s Next Generation of Leaders',
+  tagline: 'Youth-led events where students think, compete, build and lead.',
   manifesto:
-    'Apex Conclave bridges the gap between classroom theory and real-world execution. We build high-velocity, intellectually rigorous platforms for the next generation of leaders, thinkers, and changemakers across India.',
+    'Apex Conclave is a youth-led events ecosystem. Conferences, simulations and competitions are how we work, but the point is what happens inside them: students stop reading about diplomacy, enterprise and policy and start practising them.',
   contactEmail: 'apexconclave1@gmail.com',
   socials: {
     instagram: 'https://instagram.com/apex_conclave',
@@ -44,11 +44,11 @@ export const homeContent = {
   pillars: [
     {
       title: 'What we build',
-      body: 'Intellectually rigorous events that move students from classroom theory to real-world practice.',
+      body: 'Conferences, simulations and competitions where students practise diplomacy, enterprise and policy instead of reading about them.',
     },
     {
       title: 'Who it is for',
-      body: 'High school and college students across India: future leaders, thinkers and changemakers.',
+      body: 'High school and college students across India who want a position to research, defend and negotiate.',
     },
     {
       title: 'How to take part',
@@ -57,11 +57,15 @@ export const homeContent = {
   ],
 };
 
-// Quotes from the Diplovia 2026 delegate booklet.
+// Quotes from the Diplovia 2026 delegate booklet. Bios written from each person's role; edit freely.
+// Website credit: not shown on the page; used in meta tags, JSON-LD and public/llms.txt only.
+export const siteCredit = { name: 'Kapish Garg', url: 'https://www.linkedin.com/in/kapish-garg-8335a0282/' };
+
 export const leadershipTeam = [
   {
     name: 'Ayush Vishnoi',
     role: 'Founder & CEO',
+    bio: 'Founded Apex Conclave and leads its direction, partnerships and events, starting with Diplovia.',
     photo: '/leadership/ayush-vishnoi.jpg',
     quote:
       'Apex Conclave exists to give students a place to practise what they usually only read about. Diplovia takes that online, so where you live doesn’t decide whether you get a seat in the room. Do the research, pick your position, and speak.',
@@ -69,6 +73,7 @@ export const leadershipTeam = [
   {
     name: 'Kapish Garg',
     role: 'Co-Founder',
+    bio: 'Co-founded Apex Conclave. Designed and built this website, including online registration.',
     photo: '/leadership/kapish-garg.jpg',
     quote:
       'A good committee is built by delegates who listen as carefully as they speak. Bring a strong position, and be willing to move it when the argument earns it.',
@@ -76,6 +81,7 @@ export const leadershipTeam = [
   {
     name: 'Vansh Jain',
     role: 'Chief Operating Officer',
+    bio: 'Runs operations: the schedule, access and the online setup that keeps every committee session running.',
     photo: '/leadership/vansh-jain.jpg',
     quote:
       'Running a conference online means the details decide everything: timing, access, clarity. Our job is to make those invisible, so your only concern is your country’s position.',
