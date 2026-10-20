@@ -43,6 +43,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 
 **G (2026-10-20).** Root metadata with title template, `metadataBase` from `lib/site.ts` (site URL, else Vercel production URL, else localhost), Organization JSON-LD; all page titles shortened so the template adds "| Apex Conclave"; `app/events/layout.tsx` gives `/events` its metadata (the page is a client component) and keeps the template for event pages. Added `sitemap.xml`, `robots.txt`, favicon/apple icon/OG image built from the approved logo. Removed the wildcard `images.remotePatterns`; added basic security headers in `next.config.mjs`. New Kapish photo (`public/leadership/kapish-garg.jpg`), Ayush photo compressed. README has Vercel deploy steps. Checked on the dev server: titles, og:image, sitemap, robots, headers.
 
+**Photos (2026-10-20).** Vansh's photo added; Ayush's recropped to the face (from the original in the first commit). New `components/team/TeamCard.tsx` (80px photo, name, role, quote) replaces three separate team markups: About, Community and the event page Team section.
+
 ## Site map
 
 - `/` home: hero, featured event, about, network, Attend · Partner · Collaborate CTA.

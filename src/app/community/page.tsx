@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { TeamCard } from '@/components/team/TeamCard';
 import { communityContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
@@ -33,14 +34,11 @@ export default function CommunityPage() {
 
       <section className="mt-20 border-t border-surface pt-16">
         <SectionHeading eyebrow="Team" title="The people building it." />
-        <ul className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (
-            <li key={m.name} className="panel">
-              <p className="text-base font-semibold text-soft-white">{m.name}</p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-warm-bronze">{m.role}</p>
-            </li>
+            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} />
           ))}
-        </ul>
+        </div>
         <Link href="/about" className="mt-6 inline-block text-sm text-soft-white underline underline-offset-4">
           More about the team
         </Link>

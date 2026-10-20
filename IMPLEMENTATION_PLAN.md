@@ -69,7 +69,7 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] Study-guide `#` links removed. Stock committee banners removed (UNSC was a photo of Barack Obama); the gallery returns when every committee has a real `bannerImage`.
 - [x] "QR delegate pass" claim removed from features and FAQ (no QR pass exists in the code).
 - [x] New photo of Kapish (2026-10-20).
-- [ ] Photo of Vansh when supplied.
+- [x] Photo of Vansh (2026-10-20). All three photos cropped to the face, 512px JPEG. Shared `components/team/TeamCard.tsx` shows them on About, Community and event pages.
 
 ### G. SEO, assets, Vercel (DONE 2026-10-20)
 - [x] Title template `%s | Apex Conclave` (root layout; `app/events/layout.tsx` keeps it for event pages); per-page titles and descriptions; event pages have a canonical URL.
@@ -100,6 +100,6 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - Final country/character lists per committee (`src/lib/data/chambers.ts`; HC has 4 of 18).
 - Real photos for the 5 committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
 - Decide on a QR delegate pass (removed from the copy because it was never built).
-- Photo of Vansh; SVG of the logo from the designer.
+- SVG of the logo from the designer.
 - Delete `/Users/kapishgarg1/Apex Conclave/_cleanup_trash/`.
 - Buy the domain, then set `NEXT_PUBLIC_SITE_URL`.

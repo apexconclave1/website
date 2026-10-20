@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { TeamCard } from '@/components/team/TeamCard';
 import { eventsData } from '@/lib/data/events';
 import { leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
@@ -38,13 +39,7 @@ export default function AboutPage() {
         <SectionHeading eyebrow="Leadership" title="The team." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (
-            <figure key={m.name} className="space-y-4 rounded-[10px] border border-[#1a1d1e] bg-surface p-6">
-              <figcaption>
-                <div className="text-base font-semibold text-soft-white">{m.name}</div>
-                <div className="text-xs font-medium uppercase tracking-wider text-warm-bronze">{m.role}</div>
-              </figcaption>
-              <blockquote className="text-sm leading-relaxed text-muted-grey">{m.quote}</blockquote>
-            </figure>
+            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} quote={m.quote} />
           ))}
         </div>
       </section>

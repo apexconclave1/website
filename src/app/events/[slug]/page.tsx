@@ -12,6 +12,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import AccordionGallery from '@/components/ui/AccordionGallery';
 import SpecularButton from '@/components/ui/SpecularButton';
 import FAQAccordion from '@/components/faq/FAQAccordion';
+import { TeamCard } from '@/components/team/TeamCard';
 
 interface EventDetailPageProps {
   params: { slug: string };
@@ -332,22 +333,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           <SectionHeading eyebrow="Team" title="The people building the platform." />
           <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
             {leaders.map((l) => (
-              <figure key={l.id} className="panel flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#1a1d1e] text-sm font-medium">
-                    {l.photoUrl ? (
-                      <Image src={l.photoUrl} alt={l.name} width={48} height={48} className="h-full w-full object-cover" />
-                    ) : (
-                      l.name.split(' ').map((n) => n[0]).join('')
-                    )}
-                  </div>
-                  <figcaption>
-                    <div className="text-sm font-semibold">{l.name}</div>
-                    <div className="mt-0.5 text-xs font-medium uppercase tracking-wider text-warm-bronze">{l.role}</div>
-                  </figcaption>
-                </div>
-                {l.bio && <blockquote className="text-sm leading-relaxed text-muted-grey">“{l.bio}”</blockquote>}
-              </figure>
+              <TeamCard key={l.id} name={l.name} role={l.role} photo={l.photoUrl || undefined} quote={l.bio} />
             ))}
           </div>
         </section>

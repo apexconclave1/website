@@ -1,0 +1,30 @@
+import Image from 'next/image';
+
+interface TeamCardProps {
+  name: string;
+  role: string;
+  photo?: string;
+  quote?: string;
+}
+
+/** One team member: photo, name, role and optional quote. Used on About, Community and event pages. */
+export function TeamCard({ name, role, photo, quote }: TeamCardProps) {
+  return (
+    <figure className="panel flex flex-col gap-5">
+      <div className="flex items-center gap-4">
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#1a1d1e] text-base font-medium text-soft-white">
+          {photo ? (
+            <Image src={photo} alt={name} width={160} height={160} className="h-full w-full object-cover" />
+          ) : (
+            name.split(' ').map((n) => n[0]).join('')
+          )}
+        </div>
+        <figcaption>
+          <div className="text-base font-semibold text-soft-white">{name}</div>
+          <div className="mt-1 text-xs font-medium uppercase tracking-wider text-warm-bronze">{role}</div>
+        </figcaption>
+      </div>
+      {quote && <blockquote className="text-sm leading-relaxed text-muted-grey">“{quote}”</blockquote>}
+    </figure>
+  );
+}

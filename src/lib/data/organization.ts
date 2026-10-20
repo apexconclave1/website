@@ -76,6 +76,7 @@ export const leadershipTeam = [
   {
     name: 'Vansh Jain',
     role: 'Chief Operating Officer',
+    photo: '/leadership/vansh-jain.jpg',
     quote:
       'Running a conference online means the details decide everything: timing, access, clarity. Our job is to make those invisible, so your only concern is your country’s position.',
   },
