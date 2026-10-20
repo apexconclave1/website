@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Events: Public read-only
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Committee Chambers: Public read-only
+    match /chambers/{chamberId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Country Portfolio Seats: Public read, update only for reservation
+    match /seats/{seatId} {
+      allow read: if true;
+      allow update: if request.resource.data.status == 'RESERVED';
+      allow create, delete: if false;
+    }
+    
+    // Delegate Applications: Public create-only (write-once security)
+    match /applications/{appId} {
+      allow create: if request.resource.data.delegateDetails.fullName != null
+                    && request.resource.data.delegateDetails.email != null;
+      allow read, update, delete: if false;
+    }
+  }
+}

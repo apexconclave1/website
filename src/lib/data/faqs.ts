@@ -1,0 +1,68 @@
+export interface FaqItem {
+  id: string;
+  category: string;
+  q: string;
+  a: string;
+}
+
+export const apexFaqs: FaqItem[] = [
+  {
+    id: 'apex-1',
+    category: 'About',
+    q: 'What is Apex Conclave?',
+    a: 'Apex Conclave is a student-led organisation that builds events for young people across India. Diplovia, a virtual Model United Nations, is our first event. More will follow.',
+  },
+  {
+    id: 'apex-2',
+    category: 'About',
+    q: 'Which events can I join right now?',
+    a: 'Diplovia 2026 is the only event open for registration. New events are listed on the Events page as soon as they are announced.',
+  },
+  {
+    id: 'apex-4',
+    category: 'Partnerships',
+    q: 'Can my school, college or company partner with us?',
+    a: 'Yes. Use the Contact page and choose Sponsorship & Partnership. We will reply with the options.',
+  },
+];
+
+export const faqsByEvent: Record<string, FaqItem[]> = {
+  'diplovia-2026': [
+    {
+      id: 'dip-1',
+      category: 'Registration',
+      q: 'How do I register as a delegate?',
+      a: 'Use the Register button on this page. Choose your committee and country, pay the delegate fee, and review your application. You receive a delegate pass with a QR code.',
+    },
+    {
+      id: 'dip-2',
+      category: 'Registration',
+      q: 'What does it cost?',
+      a: 'The Early Bird fee is ₹299 for the first 3 days of registration. After that the regular fee is ₹399.',
+    },
+    {
+      id: 'dip-3',
+      category: 'Registration',
+      q: 'Who can take part?',
+      a: 'High school and college students, roughly ages 15 to 23. Prior Model UN experience helps but is not required.',
+    },
+    {
+      id: 'dip-4',
+      category: 'Format',
+      q: 'Where and when is Diplovia held?',
+      a: 'Diplovia 2026 runs on October 31 and November 1, 2026. It is 100% virtual, on Zoom or Google Meet, so you can join from anywhere.',
+    },
+    {
+      id: 'dip-5',
+      category: 'Committees',
+      q: 'Which committees are there?',
+      a: 'Five: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee on the Cuban Missile Crisis of 1962. Agendas are listed in the Committees section.',
+    },
+    {
+      id: 'dip-6',
+      category: 'Committees',
+      q: 'How are country assignments made?',
+      a: 'You pick a committee and a country portfolio from the live seat matrix. Seats are confirmed in order of completed registration.',
+    },
+  ],
+};
