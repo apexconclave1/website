@@ -53,7 +53,7 @@ export function EventCard({ event }: EventCardProps) {
         </div>
       </div>
 
-      <div className="relative h-[240px] overflow-hidden rounded-[10px] border border-[#1a1d1e] bg-bg md:h-[320px]">
+      <div className="relative h-[200px] md:h-[280px]">
         <Image
           src={event.coverImage}
           alt={event.title}

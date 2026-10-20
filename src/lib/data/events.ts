@@ -18,7 +18,8 @@ export const eventsData: EventEntity[] = [
       'The first Apex Conclave event: a two-day virtual Model United Nations conference with five committees, open to high school and college students.',
     fullOverview:
       'Over two days, delegates step into the shoes of global diplomats, ministers, and health officials across five committees. Facing high-stakes geopolitical crises, they negotiate, draft resolutions, and defend complex policies without geographical barriers.',
-    coverImage: '/assets/Diplovia_logo_final.png',
+    coverImage: '/brand/diplovia-logo-light.png',
+    logo: '/brand/diplovia-logo-light.png',
     // Dates moved; set startDate/endDate, registrationOpensAt and registrationOpen: true once confirmed.
     registrationOpen: false,
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
@@ -26,7 +27,7 @@ export const eventsData: EventEntity[] = [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
       '2 days, 100% virtual (Zoom / Google Meet)',
       'Open to students aged 15 to 23, high school and college',
-      'QR delegate pass',
+      'Certificate for every delegate, awards for the best',
     ],
   },
 ];

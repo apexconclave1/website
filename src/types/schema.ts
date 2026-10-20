@@ -37,6 +37,7 @@ export interface EventEntity {
   fullOverview: string;
   coverImage: string;
   heroBanner?: string;
+  logo?: string; // Event's own logo; shown on its page with Apex Conclave secondary
   pricing?: {
     regular: number;    // INR
     earlyBird?: number; // INR, charged for the first earlyBirdDays after registrationOpensAt
@@ -57,10 +58,12 @@ export interface ChamberEntity {
   code: string;     // e.g., 'UNSC', 'WHO', 'UNHRC'
   name: string;     // e.g., 'United Nations Security Council'
   topic: string;    // Agenda description
-  executiveBoard: string; // Dais leadership description
+  theme: string;     // One-word theme, e.g. 'POWER'
+  challenge: string; // What the committee asks of delegates
+  suits: string;     // Who the committee suits
   totalSeats: number;
   bannerImage?: string;
-  studyGuidePdfUrl?: string;
+  studyGuidePdfUrl?: string; // Set only when the real guide exists
   displayOrder: number;
   portfolios: string[]; // Countries or characters delegates can list as preferences
 }

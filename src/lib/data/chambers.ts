@@ -1,5 +1,6 @@
 import { ChamberEntity } from '@/types/schema';
 
+// bannerImage: add a real photo per committee (e.g. /events/diplovia/unsc.jpg). The committee gallery shows only when every committee has one.
 // ponytail: portfolio lists are placeholders carried over from the old fallback data. Confirm with the dais before registration opens.
 
 export const chambersData: ChamberEntity[] = [
@@ -9,10 +10,10 @@ export const chambersData: ChamberEntity[] = [
     code: 'UNSC',
     name: 'United Nations Security Council',
     topic: 'The Middle East Crisis: Preventing a Regional War',
-    executiveBoard: 'Theme: POWER | High-Stakes Geopolitical Crisis Simulation',
+    theme: 'POWER',
+    challenge: 'Peace and security decisions rarely have a clean answer. You balance national interest against the risk of escalation, and work out what your country can accept when the alternative is a wider war.',
+    suits: 'Delegates who like high-stakes negotiation and precise wording.',
     totalSeats: 15,
-    bannerImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=800',
-    studyGuidePdfUrl: '#',
     displayOrder: 1,
     portfolios: [
       'United States',
@@ -38,10 +39,10 @@ export const chambersData: ChamberEntity[] = [
     code: 'WHO',
     name: 'World Health Organization',
     topic: 'Preparing for the Next Global Health Emergency',
-    executiveBoard: 'Theme: SURVIVAL | Global Health Equity & Pandemic Protocols',
+    theme: 'SURVIVAL',
+    challenge: 'Health emergencies ignore borders, budgets and politics. Delegates weigh preparedness, funding and cooperation before the next outbreak, not after it.',
+    suits: 'Delegates who prefer evidence, systems and practical solutions.',
     totalSeats: 20,
-    bannerImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800',
-    studyGuidePdfUrl: '#',
     displayOrder: 2,
     portfolios: [
       'India',
@@ -66,10 +67,10 @@ export const chambersData: ChamberEntity[] = [
     code: 'UNHRC',
     name: 'United Nations Human Rights Council',
     topic: 'Human Rights in the Age of Artificial Intelligence',
-    executiveBoard: 'Theme: PRINCIPLES | Tech Governance, Digital Rights & Privacy',
+    theme: 'PRINCIPLES',
+    challenge: 'When technology moves faster than law, whose rights are protected, and who decides? Expect debates on privacy, accountability and bias, where a principled position still has to survive compromise.',
+    suits: 'Delegates who argue from values.',
     totalSeats: 22,
-    bannerImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
-    studyGuidePdfUrl: '#',
     displayOrder: 3,
     portfolios: [
       'Sweden',
@@ -90,10 +91,10 @@ export const chambersData: ChamberEntity[] = [
     code: 'UNGA',
     name: 'United Nations General Assembly',
     topic: 'Restoring Trust in Multilateralism',
-    executiveBoard: 'Theme: DIPLOMACY | Global Consensus & Institutional Reform',
+    theme: 'DIPLOMACY',
+    challenge: 'Multilateralism only works if states believe in it. The task is to rebuild that confidence across competing interests, one clause at a time.',
+    suits: 'Delegates who enjoy building consensus.',
     totalSeats: 30,
-    bannerImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800',
-    studyGuidePdfUrl: '#',
     displayOrder: 4,
     portfolios: [
       'India',
@@ -115,10 +116,10 @@ export const chambersData: ChamberEntity[] = [
     code: 'HC',
     name: 'Historical Crisis Committee',
     topic: 'The Cuban Missile Crisis, 1962: 13 Days to the Brink',
-    executiveBoard: 'Theme: HISTORY / CRISIS | Fast-Paced Cold War Simulation',
+    theme: 'HISTORY / CRISIS',
+    challenge: 'October 1962. Thirteen days, incomplete information, and decisions you can’t undo. You respond to developments as they arrive.',
+    suits: 'Fast thinkers who stay steady when the plan falls apart.',
     totalSeats: 18,
-    bannerImage: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=800',
-    studyGuidePdfUrl: '#',
     displayOrder: 5,
     portfolios: [
       'John F. Kennedy (US President)',

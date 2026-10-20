@@ -4,7 +4,7 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to E are done. Next: **Phase F** (Diplovia booklet content), then G (SEO, assets, Vercel), H (docs).
+Phases A to F are done. Next: **Phase G** (SEO, metadata, sitemap, robots, Vercel), then H (docs final pass).
 
 After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` (separate folder so it does not break a running `npm run dev`), then update this file and `IMPLEMENTATION_PLAN.md`.
 
@@ -23,8 +23,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 | C Backend (fresh Supabase schema, server-side pricing, contact storage) | Done 2026-10-20; not yet tested against a real database |
 | D Logo and restyle to palette | Done 2026-10-20 |
 | E Community, Partners, home Network section | Done 2026-10-20 |
-| F Diplovia booklet content | Next |
-| G SEO, assets, Vercel | Pending |
+| F Diplovia booklet content | Done 2026-10-20 |
+| G SEO, assets, Vercel | Next |
 | H Docs final pass | Pending |
 
 ## Phase notes
@@ -39,11 +39,13 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 
 **E (2026-10-20).** New `/partners` and `/community` pages; copy in `partnersContent`, `communityContent` and `partners` (empty list) in `organization.ts`. Navbar has six links and switches to the desktop layout at `lg` (fits at 1024px). Home: "Network" cards (Community, Partners, Team) and an Attend · Partner · Collaborate CTA replace the old Leadership and Contact sections. Contact form accepts `?category=` and has new topics `Join the Community` and `Host an Event`. Logo 48px in the navbar. Social links (footer, contact cards, Community page) now have a clear hover: `.ext-link` (underline + sliding ↗) and `.card-link` (card lifts 2px, border brightens), both in `globals.css`, off under reduced motion. Screenshots reviewed: home, partners, community, navbar at 1024px.
 
+**F (2026-10-20).** Diplovia page rebuilt from the delegate booklet: overview and the delegate's work, How it works (Before / During / After), committees with theme, challenge and who each suits, Who sits at the table, Why MUN, What you take home, then fees, allotment, team (booklet quotes) and FAQ. Copy in `lib/data/eventStory.ts`; `ChamberEntity.executiveBoard` replaced by `theme`, `challenge`, `suits`. Event hero shows the Diplovia logo (`EventEntity.logo`) with "presented by Apex Conclave". Diplovia logo made transparent and compressed to 52 KB (`public/brand/diplovia-logo-light.png`); the old 1.1 MB file is removed and the dark boxes on the home and events cards are gone. Stock Unsplash committee banners removed (the UNSC one showed Barack Obama); the committee gallery shows again once every committee has a real `bannerImage`. "QR delegate pass" removed from the copy because it does not exist. Screenshots reviewed: full event page, home card.
+
 ## Site map
 
 - `/` home: hero, featured event, about, network, Attend · Partner · Collaborate CTA.
 - `/events` upcoming and past events from `src/lib/data/events.ts`.
-- `/events/diplovia-2026` overview, committees, fees, allotment, team, FAQ.
+- `/events/diplovia-2026` overview, how it works, committees, who sits at the table, why MUN, outcome, fees, allotment, team, FAQ.
 - `/register?event=diplovia-2026` wizard (closed until `registrationOpen: true`).
 - `/about`, `/community`, `/partners`, `/contact` (accepts `?category=`), `/terms`, `/faq`. `/committees` redirects to the Diplovia committees.
 
@@ -54,8 +56,8 @@ See the table in `IMPLEMENTATION_PLAN.md`. Short version: preference-based allot
 ## Known gaps
 
 - Hero StrokeText: headless Chrome stalls its animation; check in a real browser.
-- Diplovia logo on the home card and events page has a dark box behind it and is 1.1 MB (Phase G).
-- Committee banner images are Unsplash stock (`chambers.ts`). Study guide links are `#`.
+- Committee gallery hidden until real committee photos exist. No study guides yet.
+- No QR delegate pass exists (only a tracking code on the receipt).
 - Rate limiting is in memory per server instance (weak on Vercel); see the `ponytail:` note in `lib/security/rate-limit.ts`.
 - `lib/supabase/client.ts` and `@supabase/ssr` are unused (browser key has no access now). Left in place.
 - DarkVeil runs site-wide without pausing off-screen; each SpecularButton is its own WebGL context.

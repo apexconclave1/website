@@ -62,15 +62,18 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] Logo bumped to 48px (navbar) / 60px (footer) for a readable "CONCLAVE".
 - [x] Hover state on every social link: `.ext-link` and `.card-link` in `globals.css`.
 
-### F. Diplovia content (booklet)
-- [ ] Event page sections: How it works, Why MUN, Which room is yours, Who sits at the table, What you take home.
-- [ ] Booklet quotes for the team; Diplovia logo on its page with Apex Conclave secondary.
-- [ ] Hide study-guide links until real files exist. New photos of Kapish and Vansh when supplied.
+### F. Diplovia content (DONE 2026-10-20)
+- [x] Event page sections from the booklet: Overview ("Diplomacy without a border" + the delegate's work), How it works (Before / During / After), Committees with theme, challenge and "Suits", Who sits at the table, Why MUN (7 skills), What you take home. Copy in `lib/data/eventStory.ts` (keyed by event id); committee fields `theme`, `challenge`, `suits` in `chambers.ts`.
+- [x] Booklet quotes for the team (home, about, event page). Diplovia logo in the event hero with "presented by Apex Conclave".
+- [x] Diplovia logo made transparent and compressed: `public/brand/diplovia-logo-light.png` (52 KB, was 1.1 MB); dark boxes behind it removed.
+- [x] Study-guide `#` links removed. Stock committee banners removed (UNSC was a photo of Barack Obama); the gallery returns when every committee has a real `bannerImage`.
+- [x] "QR delegate pass" claim removed from features and FAQ (no QR pass exists in the code).
+- [ ] New photos of Kapish and Vansh when supplied.
 
 ### G. SEO, assets, Vercel
 - [ ] Title template `%s | Apex Conclave`; per-page descriptions; `metadataBase` from `NEXT_PUBLIC_SITE_URL` (fallback Vercel URL).
 - [ ] `app/sitemap.ts`, `app/robots.ts`, OG image from the logo.
-- [ ] Restrict `images.remotePatterns`; transparent + compressed Diplovia logo (now 1.1 MB, dark box behind it).
+- [ ] Restrict `images.remotePatterns` (no remote images are used any more).
 - [ ] Vercel deploy steps and env list.
 
 ### H. Docs
@@ -91,6 +94,8 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - Real UPI id and QR (`paymentConfig` in `src/lib/data/organization.ts`, `public/payment/upi-qr.jpg`).
 - New dates: set `startDate`, `endDate`, `registrationOpensAt`, `registrationOpen: true` in `src/lib/data/events.ts`.
 - Final country/character lists per committee (`src/lib/data/chambers.ts`; HC has 4 of 18).
+- Real photos for the 5 committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
+- Decide on a QR delegate pass (removed from the copy because it was never built).
 - Photos of Kapish and Vansh; SVG of the logo from the designer.
 - Delete `/Users/kapishgarg1/Apex Conclave/_cleanup_trash/`.
 - Buy the domain, then set `NEXT_PUBLIC_SITE_URL`.

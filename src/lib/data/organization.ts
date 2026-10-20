@@ -57,26 +57,27 @@ export const homeContent = {
   ],
 };
 
+// Quotes from the Diplovia 2026 delegate booklet.
 export const leadershipTeam = [
   {
     name: 'Ayush Vishnoi',
     role: 'Founder & CEO',
     photo: '/leadership/ayush-vishnoi.jpg',
     quote:
-      'Apex Conclave was built to empower young minds. With Diplovia, we are taking youth diplomacy entirely digital, removing geographic barriers to let India’s brightest minds debate without limits.',
+      'Apex Conclave exists to give students a place to practise what they usually only read about. Diplovia takes that online, so where you live doesn’t decide whether you get a seat in the room. Do the research, pick your position, and speak.',
   },
   {
     name: 'Kapish Garg',
     role: 'Co-Founder',
     photo: '/leadership/kapish-garg.png',
     quote:
-      'We don’t believe in passive student fests. Our mission is to engineer high-velocity platforms that challenge students intellectually while offering our corporate partners highly interactive, trackable engagement.',
+      'A good committee is built by delegates who listen as carefully as they speak. Bring a strong position, and be willing to move it when the argument earns it.',
   },
   {
     name: 'Vansh Jain',
     role: 'Chief Operating Officer',
     quote:
-      'Operational precision is our benchmark. By leveraging a 100% cloud-based infrastructure, Diplovia guarantees seamless execution, unmatched screen-time retention, and premium value delivery.',
+      'Running a conference online means the details decide everything: timing, access, clarity. Our job is to make those invisible, so your only concern is your country’s position.',
   },
 ];
 

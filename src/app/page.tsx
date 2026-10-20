@@ -55,7 +55,7 @@ export default function HomePage() {
               )}
             </div>
           </div>
-          <div className="relative flex h-[280px] items-center justify-center overflow-hidden rounded-[10px] border border-[#1a1d1e] bg-bg md:h-[360px]">
+          <div className="relative flex h-[200px] items-center justify-center md:h-[320px]">
             <Image
               src={featured.coverImage}
               alt="Diplovia logo"
