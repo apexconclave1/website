@@ -1,8 +1,7 @@
 /**
  * Simple in-memory sliding-window rate limiter.
- * Adequate for single-instance deployments (Edition I scale).
- *
- * For multi-instance production, replace with Redis-backed implementation.
+ * ponytail: memory is per server instance, so on Vercel it only slows bursts that hit one warm instance.
+ * Move to a shared store (Upstash Redis or a Supabase table) if abuse shows up.
  */
 
 interface RateLimitEntry {
@@ -86,4 +85,19 @@ export function getClientIp(headers: Headers): string {
     headers.get('x-real-ip') ??
     'unknown'
   );
+}
+
+/**
+ * Basic CSRF guard: a browser POST must come from this site's own host.
+ * Requests without an Origin header (curl, server-to-server) pass; they cannot carry a victim's cookies anyway.
+ */
+export function isSameOrigin(headers: Headers): boolean {
+  const origin = headers.get('origin');
+  const host = headers.get('x-forwarded-host') ?? headers.get('host');
+  if (!origin || !host) return true;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
 }

@@ -1,4 +1,7 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { eventsData } from '@/lib/data/events';
+import { chambersData } from '@/lib/data/chambers';
 import { Suspense } from 'react';
 import RegistrationWizard from '@/components/features/registration/RegistrationWizard';
 import { ShieldCheck, Calendar, Globe } from 'lucide-react';
@@ -14,7 +17,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RegisterPage() {
+export default function RegisterPage({ searchParams }: { searchParams: { event?: string } }) {
+  const event = eventsData.find((e) => e.slug === searchParams.event) ?? eventsData[0];
+  const committeeCount = chambersData.filter((c) => c.eventId === event.id).length;
+
+  if (!event.registrationOpen) {
+    return (
+      <main className="mx-auto max-w-[720px] px-6 pb-24 pt-36 text-center">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-warm-bronze">{event.title}</p>
+        <h1 className="text-3xl font-bold text-soft-white md:text-4xl">Registration opens soon.</h1>
+        <p className="mt-4 text-base text-muted-grey">
+          Dates and the registration window will be announced on the event page and on our Instagram.
+        </p>
+        <Link
+          href={`/events/${event.slug}`}
+          className="mt-8 inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+        >
+          View {event.title}
+        </Link>
+      </main>
+    );
+  }
+
   return (
     <main
       style={{
@@ -51,7 +75,7 @@ export default function RegisterPage() {
                 textTransform: 'uppercase',
               }}
             >
-              Diplovia 2026 · Delegate registration
+              {event.title} · Delegate registration
             </span>
           </div>
 
@@ -79,7 +103,7 @@ export default function RegisterPage() {
               lineHeight: 1.7,
             }}
           >
-            Secure your country portfolio across the 5 committees. Applications are reviewed on a rolling basis with provisional allotment locks.
+            List your committee and country preferences across the {committeeCount} committees. The team reviews applications and assigns seats after payment is verified.
           </p>
         </div>
 

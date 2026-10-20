@@ -62,7 +62,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-6',
       category: 'Committees',
       q: 'How are country assignments made?',
-      a: 'You pick a committee and a country portfolio from the live seat matrix. Seats are confirmed in order of completed registration.',
+      a: 'You list a first and second choice of committee and country when you register. The team assigns seats and confirms yours by email after your payment is verified.',
     },
   ],
 };

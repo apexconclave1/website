@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import ApexWordmark from '@/components/layout/ApexWordmark';
+import { eventsData } from '@/lib/data/events';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -14,8 +15,9 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ];
 
-// ponytail: single open event today, so Register goes straight to it. Point at /events once there are several.
-const registerHref = '/register?event=diplovia-2026';
+// ponytail: Register goes to the first event with open registration. Point at /events once several are open at once.
+const openEvent = eventsData.find((e) => e.registrationOpen);
+const registerHref = openEvent ? `/register?event=${openEvent.slug}` : null;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -46,11 +48,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
-          <SpecularButton href={registerHref} size="sm" radius={10}>
-            Register
-          </SpecularButton>
-        </div>
+        {registerHref && (
+          <div className="hidden md:block">
+            <SpecularButton href={registerHref} size="sm" radius={10}>
+              Register
+            </SpecularButton>
+          </div>
+        )}
 
         <button
           type="button"
@@ -80,12 +84,14 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href={registerHref}
-            className="mt-2 rounded-[10px] bg-soft-white px-3 py-3 text-center text-base font-medium text-bg"
-          >
-            Register
-          </Link>
+          {registerHref && (
+            <Link
+              href={registerHref}
+              className="mt-2 rounded-[10px] bg-soft-white px-3 py-3 text-center text-base font-medium text-bg"
+            >
+              Register
+            </Link>
+          )}
         </nav>
       )}
     </header>

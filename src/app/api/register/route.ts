@@ -1,70 +1,63 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { FullRegistrationSchema, REGISTRATION_FEE } from '@/lib/validators/registration';
+import { randomBytes } from 'node:crypto';
+import { RegistrationRequestSchema } from '@/lib/validators/registration';
 import { getServiceClient } from '@/lib/supabase/server';
-import { checkRateLimit, getClientIp } from '@/lib/security/rate-limit';
+import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
+import { eventsData, feeAt } from '@/lib/data/events';
+import { chambersData } from '@/lib/data/chambers';
 
 export async function POST(req: NextRequest) {
   try {
-    // Rate limiting: 10 registration attempts per minute per IP
     const ip = getClientIp(req.headers);
-    const rateCheck = checkRateLimit(`register:${ip}`, {
-      windowMs: 60_000,
-      maxRequests: 10,
-    });
-
+    const rateCheck = checkRateLimit(`register:${ip}`, { windowMs: 60_000, maxRequests: 10 });
     if (!rateCheck.allowed) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'Too many registration attempts. Please wait a moment and try again.',
-        },
-        {
-          status: 429,
-          headers: {
-            'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)),
-          },
-        }
+        { success: false, error: 'Too many registration attempts. Please wait a moment and try again.' },
+        { status: 429, headers: { 'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)) } }
       );
     }
 
-    // Origin verification (basic CSRF protection)
-    const origin = req.headers.get('origin');
-    const host = req.headers.get('host');
-    if (origin && host && !origin.includes(host)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid request origin.' },
-        { status: 403 }
-      );
+    if (!isSameOrigin(req.headers)) {
+      return NextResponse.json({ success: false, error: 'Invalid request origin.' }, { status: 403 });
     }
 
-    const body = await req.json();
-
-    const parseResult = FullRegistrationSchema.safeParse(body);
+    const parseResult = RegistrationRequestSchema.safeParse(await req.json());
     if (!parseResult.success) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'Validation failed',
-          issues: parseResult.error.flatten().fieldErrors,
-        },
+        { success: false, error: 'Validation failed', issues: parseResult.error.flatten().fieldErrors },
         { status: 400 }
       );
     }
-
     const data = parseResult.data;
+
+    const event = eventsData.find((e) => e.id === data.eventId);
+    const fee = event ? feeAt(event, new Date()) : null;
+    if (!event || !event.registrationOpen || fee === null) {
+      return NextResponse.json({ success: false, error: 'Registration for this event is not open.' }, { status: 400 });
+    }
+
+    // Each preference must be a real committee of this event and one of its portfolios
+    const chambers = chambersData.filter((c) => c.eventId === event.id);
+    const validChoice = (committee?: string, country?: string) =>
+      !!chambers.find((c) => c.code === committee)?.portfolios.includes(country ?? '');
+    const thirdGiven = !!(data.thirdChoiceCommittee || data.thirdChoiceCountry);
+    if (
+      !validChoice(data.firstChoiceCommittee, data.firstChoiceCountry) ||
+      !validChoice(data.secondChoiceCommittee, data.secondChoiceCountry) ||
+      (thirdGiven && !validChoice(data.thirdChoiceCommittee, data.thirdChoiceCountry))
+    ) {
+      return NextResponse.json({ success: false, error: 'Please choose a committee and country from the list.' }, { status: 400 });
+    }
+
+    // e.g. DIP-7F3A9C21
+    const trackingCode = `${event.id.slice(0, 3).toUpperCase()}-${randomBytes(4).toString('hex').toUpperCase()}`;
+
     const supabase = getServiceClient();
-
-    // Generate unique DIPLOVIA tracking code
-    // Format: DIP-REG-2026-XXXX (sequential, collision-resistant)
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const timestamp = Date.now().toString(36).slice(-4).toUpperCase();
-    const trackingCode = `DIP-REG-2026-${timestamp}${randomSuffix}`;
-
-    // Insert registration into Supabase
     const { data: registration, error: insertError } = await supabase
       .from('registrations')
       .insert({
         tracking_code: trackingCode,
+        event_id: event.id,
         full_name: data.fullName,
         email: data.email,
         phone: data.phone,
@@ -78,47 +71,46 @@ export async function POST(req: NextRequest) {
         first_choice_country: data.firstChoiceCountry,
         second_choice_committee: data.secondChoiceCommittee,
         second_choice_country: data.secondChoiceCountry,
-        third_choice_committee: data.thirdChoiceCommittee || null,
-        third_choice_country: data.thirdChoiceCountry || null,
+        third_choice_committee: thirdGiven ? data.thirdChoiceCommittee : null,
+        third_choice_country: thirdGiven ? data.thirdChoiceCountry : null,
         experience_level: data.experienceLevel,
         prior_awards: data.priorAwards || null,
         motivation: data.motivation,
         portfolio_sample_url: data.portfolioSampleUrl || null,
-        original_amount: REGISTRATION_FEE.STANDARD,
-        final_amount: REGISTRATION_FEE.STANDARD,
+        original_amount: fee,
+        final_amount: fee,
         status: 'SUBMITTED',
       })
       .select('id, tracking_code, created_at')
       .single();
 
     if (insertError) {
-      console.error('Supabase insert error:', insertError);
-
-      // Handle unique constraint violation (duplicate tracking code)
       if (insertError.code === '23505') {
+        const duplicateEmail = insertError.message.includes('registrations_event_email_key');
         return NextResponse.json(
-          { success: false, error: 'Registration conflict. Please try again.' },
+          {
+            success: false,
+            error: duplicateEmail
+              ? `This email is already registered for ${event.title}. Contact us if you need to change your application.`
+              : 'Registration conflict. Please try again.',
+          },
           { status: 409 }
         );
       }
-
-      return NextResponse.json(
-        { success: false, error: 'Failed to process registration. Please try again.' },
-        { status: 500 }
-      );
+      console.error('Supabase insert error:', insertError);
+      return NextResponse.json({ success: false, error: 'Failed to process registration. Please try again.' }, { status: 500 });
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Registration dossier successfully recorded with the Secretariat.',
       registrationId: registration.id,
       trackingCode: registration.tracking_code,
       submittedAt: registration.created_at,
-      standardFee: REGISTRATION_FEE.STANDARD,
+      fee,
       allotment: {
         committee: data.firstChoiceCommittee,
         country: data.firstChoiceCountry,
-        status: 'PROVISIONAL_RESERVED',
+        status: 'PREFERENCE_RECORDED',
         delegateName: data.fullName,
         track: data.track,
         institution: data.institutionName,
@@ -126,9 +118,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (error) {
     console.error('Registration processing error:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error processing registration' },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: 'Internal server error processing registration' }, { status: 500 });
   }
 }

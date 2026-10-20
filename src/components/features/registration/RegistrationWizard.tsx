@@ -9,6 +9,8 @@ import StepExperience from './StepExperience';
 import StepReview from './StepReview';
 import StepPayment from './StepPayment';
 import RegistrationReceipt from './RegistrationReceipt';
+import { eventsData } from '@/lib/data/events';
+import { chambersData } from '@/lib/data/chambers';
 import {
   RegistrationFormData,
   RegistrationStep1Schema,
@@ -29,6 +31,7 @@ interface RegistrationResult {
   registrationId: number;
   trackingCode: string;
   submittedAt: string;
+  fee: number;
   allotment: {
     committee: string;
     country: string;
@@ -47,6 +50,10 @@ interface PaymentResult {
 
 export default function RegistrationWizard() {
   const searchParams = useSearchParams();
+  const event = eventsData.find((e) => e.slug === searchParams.get('event')) ?? eventsData[0];
+  const chambers = chambersData
+    .filter((c) => c.eventId === event.id)
+    .sort((a, b) => a.displayOrder - b.displayOrder);
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,9 +66,9 @@ export default function RegistrationWizard() {
   const [formData, setFormData] = useState<Partial<RegistrationFormData>>({
     track: 'HIGH_SCHOOL',
     delegationType: 'INDIVIDUAL',
-    firstChoiceCommittee: 'UNSC',
+    firstChoiceCommittee: chambers[0]?.code,
     firstChoiceCountry: '',
-    secondChoiceCommittee: 'WHO',
+    secondChoiceCommittee: (chambers[1] ?? chambers[0])?.code,
     secondChoiceCountry: '',
     experienceLevel: 'FIRST_TIME',
     acceptCodeOfConduct: undefined,
@@ -77,7 +84,7 @@ export default function RegistrationWizard() {
     if (committeeParam || countryParam) {
       setFormData((prev) => ({
         ...prev,
-        firstChoiceCommittee: committeeParam || prev.firstChoiceCommittee || 'UNSC',
+        firstChoiceCommittee: committeeParam || prev.firstChoiceCommittee,
         firstChoiceCountry: countryParam || prev.firstChoiceCountry || '',
       }));
     }
@@ -135,7 +142,7 @@ export default function RegistrationWizard() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, eventId: event.id }),
       });
 
       const data = await res.json();
@@ -144,6 +151,7 @@ export default function RegistrationWizard() {
           registrationId: data.registrationId,
           trackingCode: data.trackingCode,
           submittedAt: data.submittedAt,
+          fee: data.fee,
           allotment: data.allotment,
         });
         // Advance to Step 5 (Payment)
@@ -172,9 +180,9 @@ export default function RegistrationWizard() {
     setFormData({
       track: 'HIGH_SCHOOL',
       delegationType: 'INDIVIDUAL',
-      firstChoiceCommittee: 'UNSC',
+      firstChoiceCommittee: chambers[0]?.code,
       firstChoiceCountry: '',
-      secondChoiceCommittee: 'WHO',
+      secondChoiceCommittee: (chambers[1] ?? chambers[0])?.code,
       secondChoiceCountry: '',
       experienceLevel: 'FIRST_TIME',
     });
@@ -283,7 +291,7 @@ export default function RegistrationWizard() {
           <StepIdentity formData={formData} onChange={updateFormData} errors={errors} />
         )}
         {currentStep === 2 && (
-          <StepCommitteePicker formData={formData} onChange={updateFormData} errors={errors} />
+          <StepCommitteePicker chambers={chambers} formData={formData} onChange={updateFormData} errors={errors} />
         )}
         {currentStep === 3 && (
           <StepExperience formData={formData} onChange={updateFormData} errors={errors} />
@@ -302,6 +310,7 @@ export default function RegistrationWizard() {
           <StepPayment
             registrationId={registrationResult.registrationId}
             trackingCode={registrationResult.trackingCode}
+            fee={registrationResult.fee}
             onPaymentComplete={handlePaymentComplete}
           />
         )}

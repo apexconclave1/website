@@ -4,11 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
 import SpecularButton from '@/components/ui/SpecularButton';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { eventsData } from '@/lib/data/events';
+import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
 import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
-
-const formatDate = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', timeZone: 'UTC' });
 
 export default function HomePage() {
   const featured = eventsData[0];
@@ -28,12 +25,12 @@ export default function HomePage() {
         <div className="grid items-center gap-10 rounded-[12px] border border-[#1a1d1e] bg-surface p-8 lg:grid-cols-2 lg:p-12">
           <div className="space-y-6">
             <span className="inline-block rounded-sm border border-[#1a1d1e] bg-bg px-3 py-1 text-xs font-medium uppercase tracking-widest text-warm-bronze">
-              First event · {formatDate(featured.startDate)} to {formatDate(featured.endDate)}, 2026
+              First event · {formatEventDates(featured)}
             </span>
             <h2 className="text-3xl font-bold text-soft-white md:text-5xl">{featured.title}</h2>
             <p className="text-base leading-relaxed text-muted-grey">{featured.shortDescription}</p>
             <ul className="flex flex-wrap gap-3 text-sm text-soft-white">
-              {featured.fees?.map((f) => (
+              {eventFees(featured).map((f) => (
                 <li key={f.label} className="rounded-[10px] border border-[#1a1d1e] bg-bg px-4 py-2">
                   <span className="text-muted-grey">{f.label}:</span> {f.amount}
                 </li>
@@ -46,12 +43,16 @@ export default function HomePage() {
                   Explore {featured.title} <ArrowRight size={16} />
                 </span>
               </SpecularButton>
-              <Link
-                href={`/register?event=${featured.slug}`}
-                className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
-              >
-                Register
-              </Link>
+              {featured.registrationOpen ? (
+                <Link
+                  href={`/register?event=${featured.slug}`}
+                  className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+                >
+                  Register
+                </Link>
+              ) : (
+                <span className="inline-flex items-center px-2 py-3 text-sm text-muted-grey">Registration opens soon</span>
+              )}
             </div>
           </div>
           <div className="relative flex h-[280px] items-center justify-center overflow-hidden rounded-[10px] border border-[#1a1d1e] bg-bg md:h-[360px]">

@@ -1,15 +1,13 @@
 import Image from 'next/image';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { EventEntity } from '@/types/schema';
+import { eventFees, formatEventDates } from '@/lib/data/events';
 import { Badge } from '@/components/ui/Badge';
 import SpecularButton from '@/components/ui/SpecularButton';
 
 export interface EventCardProps {
   event: EventEntity;
 }
-
-const formatDate = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', timeZone: 'UTC' });
 
 /** Full-width card body. The events page wraps it in a ScrollStackItem so one event shows at a time. */
 export function EventCard({ event }: EventCardProps) {
@@ -26,7 +24,7 @@ export function EventCard({ event }: EventCardProps) {
         <div className="flex flex-wrap items-center gap-5 text-sm text-muted-grey">
           <span className="flex items-center gap-1.5">
             <Calendar className="h-4 w-4 text-warm-bronze" />
-            {formatDate(event.startDate)} to {formatDate(event.endDate)}, {event.startDate.slice(0, 4)}
+            {formatEventDates(event)}
           </span>
           <span className="flex items-center gap-1.5">
             <MapPin className="h-4 w-4 text-warm-bronze" />
@@ -36,9 +34,9 @@ export function EventCard({ event }: EventCardProps) {
 
         <p className="text-base leading-relaxed text-muted-grey">{event.shortDescription}</p>
 
-        {event.fees && (
+        {event.pricing && (
           <ul className="flex flex-wrap gap-3 text-sm text-soft-white">
-            {event.fees.map((f) => (
+            {eventFees(event).map((f) => (
               <li key={f.label} className="rounded-[10px] border border-[#1a1d1e] bg-bg px-4 py-2">
                 <span className="text-muted-grey">{f.label}:</span> {f.amount}
               </li>

@@ -1,4 +1,4 @@
-import { EventEntity } from '@/types/schema';
+import type { EventEntity } from '@/types/schema';
 
 // Add new events here. Everything (directory, home, footer, event pages) reads from this list.
 export const eventsData: EventEntity[] = [
@@ -9,8 +9,6 @@ export const eventsData: EventEntity[] = [
     edition: 'Virtual Edition',
     category: 'MUN',
     status: 'UPCOMING',
-    startDate: '2026-10-31',
-    endDate: '2026-11-01',
     location: {
       city: 'Online',
       venue: '100% Virtual (Zoom / Google Meet)',
@@ -21,11 +19,9 @@ export const eventsData: EventEntity[] = [
     fullOverview:
       'Over two days, delegates step into the shoes of global diplomats, ministers, and health officials across five committees. Facing high-stakes geopolitical crises, they negotiate, draft resolutions, and defend complex policies without geographical barriers.',
     coverImage: '/assets/Diplovia_logo_final.png',
-    registrationOpen: true,
-    fees: [
-      { label: 'Early Bird', amount: '₹299', note: 'First 3 days of registration' },
-      { label: 'Regular', amount: '₹399' },
-    ],
+    // Dates moved; set startDate/endDate, registrationOpensAt and registrationOpen: true once confirmed.
+    registrationOpen: false,
+    pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
       '2 days, 100% virtual (Zoom / Google Meet)',
@@ -34,3 +30,44 @@ export const eventsData: EventEntity[] = [
     ],
   },
 ];
+
+const DAY_MS = 86_400_000;
+
+const formatDay = (iso: string, withYear: boolean) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    ...(withYear && { year: 'numeric' }),
+    timeZone: 'UTC',
+  });
+
+/** "31 Oct to 1 Nov 2026", or "Dates to be announced" when no dates are set. */
+export function formatEventDates(event: EventEntity): string {
+  const { startDate, endDate } = event;
+  if (!startDate) return 'Dates to be announced';
+  if (!endDate || endDate === startDate) return formatDay(startDate, true);
+  return `${formatDay(startDate, startDate.slice(0, 4) !== endDate.slice(0, 4))} to ${formatDay(endDate, true)}`;
+}
+
+/** Fee rows for display. */
+export function eventFees(event: EventEntity): { label: string; amount: string; note?: string }[] {
+  const p = event.pricing;
+  if (!p) return [];
+  return [
+    ...(p.earlyBird != null
+      ? [{ label: 'Early Bird', amount: `₹${p.earlyBird}`, note: `First ${p.earlyBirdDays ?? 0} days of registration` }]
+      : []),
+    { label: 'Regular', amount: `₹${p.regular}` },
+  ];
+}
+
+/** Fee in INR charged at `now`. Early bird runs from registrationOpensAt (IST midnight) for earlyBirdDays. */
+export function feeAt(event: EventEntity, now: Date): number | null {
+  const p = event.pricing;
+  if (!p) return null;
+  if (p.earlyBird != null && event.registrationOpensAt) {
+    const earlyBirdEnds = Date.parse(`${event.registrationOpensAt}T00:00:00+05:30`) + (p.earlyBirdDays ?? 0) * DAY_MS;
+    if (now.getTime() < earlyBirdEnds) return p.earlyBird;
+  }
+  return p.regular;
+}

@@ -48,7 +48,7 @@ export const RegistrationStep3Schema = z.object({
 
 export const RegistrationStep4Schema = z.object({
   acceptCodeOfConduct: z.literal(true, {
-    message: 'You must agree to the DIPLOVIA Code of Diplomatic Conduct & Academic Norms',
+    message: 'You must agree to the Code of Conduct',
   }),
   verifyAccuracy: z.literal(true, {
     message: 'You must certify the accuracy of your academic details under anti-forgery rules',
@@ -78,6 +78,9 @@ export const FullRegistrationSchema = RegistrationStep1Schema
   .and(RegistrationStep3Schema)
   .and(RegistrationStep4Schema);
 
+/** Body of POST /api/register */
+export const RegistrationRequestSchema = FullRegistrationSchema.and(z.object({ eventId: z.string().min(1) }));
+
 export type RegistrationFormData = z.infer<typeof FullRegistrationSchema>;
 export type Step1FormData = z.infer<typeof RegistrationStep1Schema>;
 export type Step2FormData = z.infer<typeof RegistrationStep2Schema>;
@@ -85,10 +88,3 @@ export type Step3FormData = z.infer<typeof RegistrationStep3Schema>;
 export type Step4FormData = z.infer<typeof RegistrationStep4Schema>;
 export type PaymentFormData = z.infer<typeof PaymentSchema>;
 export type CouponFormData = z.infer<typeof CouponSchema>;
-
-/** Registration fee constants */
-export const REGISTRATION_FEE = {
-  STANDARD: 399,
-  DISCOUNTED: 299,
-  COUPON_DISCOUNT: 100,
-} as const;

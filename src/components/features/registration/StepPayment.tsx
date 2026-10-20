@@ -13,11 +13,13 @@ import {
   X,
   IndianRupee,
 } from 'lucide-react';
-import { REGISTRATION_FEE } from '@/lib/validators/registration';
+import { paymentConfig } from '@/lib/data/organization';
 
 interface StepPaymentProps {
   registrationId: number;
   trackingCode: string;
+  /** Fee in INR set by the server for this registration */
+  fee: number;
   onPaymentComplete: (result: {
     trackingCode: string;
     status: string;
@@ -52,6 +54,7 @@ const labelStyle: React.CSSProperties = {
 export default function StepPayment({
   registrationId,
   trackingCode,
+  fee,
   onPaymentComplete,
 }: StepPaymentProps) {
   const [couponCode, setCouponCode] = useState('');
@@ -75,8 +78,8 @@ export default function StepPayment({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const finalAmount = couponApplied
-    ? REGISTRATION_FEE.STANDARD - couponApplied.discount
-    : REGISTRATION_FEE.STANDARD;
+    ? Math.max(0, fee - couponApplied.discount)
+    : fee;
 
   const handleApplyCoupon = async () => {
     if (!couponCode.trim()) return;
@@ -154,7 +157,7 @@ export default function StepPayment({
 
   const copyUpiId = async () => {
     try {
-      await navigator.clipboard.writeText('diplovia@demo');
+      await navigator.clipboard.writeText(paymentConfig.upiId);
       setUpiCopied(true);
       setTimeout(() => setUpiCopied(false), 2000);
     } catch {
@@ -281,7 +284,7 @@ export default function StepPayment({
               textDecoration: couponApplied ? 'line-through' : 'none',
             }}
           >
-            ₹{REGISTRATION_FEE.STANDARD}
+            ₹{fee}
           </span>
         </div>
 
@@ -512,7 +515,7 @@ export default function StepPayment({
           }}
         >
           <img
-            src="/payment/upi-qr.jpg"
+            src={paymentConfig.qrImage}
             alt="DIPLOVIA UPI QR Code for payment"
             style={{
               width: '100%',
@@ -581,7 +584,7 @@ export default function StepPayment({
               transition: 'border-color 200ms ease',
             }}
           >
-            diplovia@demo
+            {paymentConfig.upiId}
             {upiCopied ? (
               <Check size={13} color="#6FCF97" />
             ) : (

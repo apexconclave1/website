@@ -1,37 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Globe, Award, CheckCircle2 } from 'lucide-react';
 import { Step2FormData } from '@/lib/validators/registration';
-import { fetchCountryMatrix, FALLBACK_MATRIX_DATA, CommitteeMatrixData } from '@/lib/sanity';
+import { ChamberEntity } from '@/types/schema';
 
 interface StepCommitteePickerProps {
+  chambers: ChamberEntity[];
   formData: Partial<Step2FormData>;
   onChange: (updates: Partial<Step2FormData>) => void;
   errors: Record<string, string[] | undefined>;
 }
 
-export default function StepCommitteePicker({ formData, onChange, errors }: StepCommitteePickerProps) {
-  const [matrices, setMatrices] = useState<Record<string, CommitteeMatrixData>>(FALLBACK_MATRIX_DATA);
+export default function StepCommitteePicker({ chambers, formData, onChange, errors }: StepCommitteePickerProps) {
+  const byCode = (code?: string) => chambers.find((c) => c.code === code);
+  const activePrimaryComm = formData.firstChoiceCommittee || chambers[0]?.code;
+  const primaryCountries = byCode(activePrimaryComm)?.portfolios ?? [];
 
-  useEffect(() => {
-    let isMounted = true;
-    fetchCountryMatrix().then((data) => {
-      if (isMounted && data && Object.keys(data).length > 0) {
-        setMatrices(data);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const committeeKeys = Object.keys(matrices);
-  const activePrimaryComm = formData.firstChoiceCommittee || (committeeKeys.length > 0 ? committeeKeys[0] : 'UNSC');
-  const primaryCountries = matrices[activePrimaryComm]?.countries || [];
-
-  const activeSecondaryComm = formData.secondChoiceCommittee || (committeeKeys.length > 1 ? committeeKeys[1] : committeeKeys[0]);
-  const secondaryCountries = matrices[activeSecondaryComm]?.countries || [];
+  const activeSecondaryComm = formData.secondChoiceCommittee || (chambers[1] ?? chambers[0])?.code;
+  const secondaryCountries = byCode(activeSecondaryComm)?.portfolios ?? [];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -135,9 +120,9 @@ export default function StepCommitteePicker({ formData, onChange, errors }: Step
                 outline: 'none',
               }}
             >
-              {committeeKeys.map((code) => (
-                <option key={code} value={code}>
-                  {code} — {matrices[code]?.name}
+              {chambers.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code} — {c.name}
                 </option>
               ))}
             </select>
@@ -175,9 +160,9 @@ export default function StepCommitteePicker({ formData, onChange, errors }: Step
               }}
             >
               <option value="">-- Select Country Portfolio --</option>
-              {primaryCountries.map((c) => (
-                <option key={c.code + c.name} value={c.name}>
-                  {c.name} ({c.continent}) — [{c.status}]
+              {primaryCountries.map((name) => (
+                <option key={name} value={name}>
+                  {name}
                 </option>
               ))}
             </select>
@@ -275,9 +260,9 @@ export default function StepCommitteePicker({ formData, onChange, errors }: Step
                 outline: 'none',
               }}
             >
-              {committeeKeys.map((code) => (
-                <option key={code} value={code}>
-                  {code} — {matrices[code]?.name}
+              {chambers.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code} — {c.name}
                 </option>
               ))}
             </select>
@@ -315,9 +300,9 @@ export default function StepCommitteePicker({ formData, onChange, errors }: Step
               }}
             >
               <option value="">-- Select Country Portfolio --</option>
-              {secondaryCountries.map((c) => (
-                <option key={c.code + c.name} value={c.name}>
-                  {c.name} ({c.continent}) — [{c.status}]
+              {secondaryCountries.map((name) => (
+                <option key={name} value={name}>
+                  {name}
                 </option>
               ))}
             </select>

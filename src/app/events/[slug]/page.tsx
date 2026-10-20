@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Calendar, MapPin, ArrowUpRight } from 'lucide-react';
-import { eventsData } from '@/lib/data/events';
+import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { leadersData } from '@/lib/data/leaders';
 import { faqsByEvent } from '@/lib/data/faqs';
@@ -10,7 +10,6 @@ import { Badge } from '@/components/ui/Badge';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import AccordionGallery from '@/components/ui/AccordionGallery';
 import SpecularButton from '@/components/ui/SpecularButton';
-import SeatSection from '@/components/events/SeatSection';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 
 interface EventDetailPageProps {
@@ -29,9 +28,6 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
     description: event.shortDescription,
   };
 }
-
-const formatDate = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 const sectionClass = 'scroll-mt-24 border-t border-[#141718] py-16';
 
@@ -53,14 +49,14 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <Badge category={event.category} />
               {event.edition && <Badge variant="accent">{event.edition}</Badge>}
               <Badge variant={event.registrationOpen ? 'default' : 'muted'}>
-                {event.registrationOpen ? 'Registration open' : 'Registration closed'}
+                {event.registrationOpen ? 'Registration open' : 'Registration opens soon'}
               </Badge>
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl">{event.title}</h1>
             <div className="flex flex-wrap items-center gap-5 text-sm text-[#A5A6A2]">
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4 text-[#C7A16A]" />
-                {formatDate(event.startDate)} to {formatDate(event.endDate)}
+                {formatEventDates(event)}
               </span>
               <span className="flex items-center gap-1.5">
                 <MapPin className="h-4 w-4 text-[#C7A16A]" />
@@ -85,8 +81,8 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           {[
             ['overview', 'Overview'],
             ...(chambers.length ? [['committees', 'Committees']] : []),
-            ...(event.fees ? [['fees', 'Fees']] : []),
-            ...(chambers.length ? [['seats', 'Seat matrix']] : []),
+            ...(event.pricing ? [['fees', 'Fees']] : []),
+            ...(chambers.length ? [['allotment', 'Allotment']] : []),
             ['team', 'Team'],
             ...(faqs.length ? [['faq', 'FAQ']] : []),
           ].map(([id, label]) => (
@@ -157,11 +153,11 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           </section>
         )}
 
-        {event.fees && (
+        {event.pricing && (
           <section id="fees" className={sectionClass}>
             <SectionHeading eyebrow="Fees" title="Delegate fee" />
             <div className="mt-8 grid max-w-xl grid-cols-1 gap-5 sm:grid-cols-2">
-              {event.fees.map((fee) => (
+              {eventFees(event).map((fee) => (
                 <div key={fee.label} className="rounded-[10px] border border-[#1a1d1e] bg-[#141718] p-6">
                   <div className="text-xs font-medium uppercase tracking-widest text-[#A5A6A2]">{fee.label}</div>
                   <div className="mt-2 text-3xl font-bold">{fee.amount}</div>
@@ -173,15 +169,12 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         )}
 
         {chambers.length > 0 && (
-          <section id="seats" className={sectionClass}>
+          <section id="allotment" className={sectionClass}>
             <SectionHeading
-              eyebrow="Seat matrix"
-              title="Claim your seat directly."
-              description="Pick a committee, find your country, and apply."
+              eyebrow="Allotment"
+              title="How seats are given out."
+              description="When you register, you list a first and second choice of committee and country. The team assigns every delegate a seat and confirms it by email after your payment is verified."
             />
-            <div className="mt-8">
-              <SeatSection chambers={chambers} />
-            </div>
           </section>
         )}
 

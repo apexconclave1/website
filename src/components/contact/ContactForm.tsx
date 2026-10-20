@@ -1,39 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { z } from 'zod';
 import { Send, CheckCircle, AlertTriangle, Loader } from 'lucide-react';
+import { contactCategories as categories, contactSchema, type ContactFields } from '@/lib/validators/contact';
 
-const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().optional(),
-  institution: z.string().optional(),
-  category: z.enum([
-    'General Inquiry',
-    'Diplovia 2026 Registration',
-    'Diplovia 2026 Committees',
-    'Institutional Workshop & Training',
-    'Campus Ambassador Application',
-    'Sponsorship & Partnership',
-    'Other',
-  ]),
-  subject: z.string().min(3, 'Subject must be at least 3 characters'),
-  message: z.string().min(20, 'Message must be at least 20 characters').max(1000, 'Message must be under 1000 characters'),
-});
-
-type ContactFields = z.infer<typeof contactSchema>;
 type FieldErrors = Partial<Record<keyof ContactFields, string>>;
-
-const categories = [
-  'General Inquiry',
-  'Diplovia 2026 Registration',
-  'Diplovia 2026 Committees',
-  'Institutional Workshop & Training',
-  'Campus Ambassador Application',
-  'Sponsorship & Partnership',
-  'Other',
-] as const;
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 

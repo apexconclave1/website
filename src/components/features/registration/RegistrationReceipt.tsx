@@ -279,7 +279,7 @@ export default function RegistrationReceipt({
                 gap: '0.3rem',
               }}
             >
-              <ShieldCheck size={12} /> PROVISIONAL ALLOTMENT
+              <ShieldCheck size={12} /> FIRST PREFERENCE
             </span>
           )}
         </div>

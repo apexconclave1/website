@@ -1,64 +1,37 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { contactSchema } from '@/lib/validators/contact';
+import { getServiceClient } from '@/lib/supabase/server';
+import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
 
-// Simple in-memory store for first draft.
-// 🚩 FLAG: Replace with Prisma ContactInquiry model insert in production.
-
-// Simple rate limiter
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 5;
-const RATE_WINDOW_MS = 60_000;
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-  if (!entry || entry.resetAt < now) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return true;
+export async function POST(req: NextRequest) {
+  if (!checkRateLimit(`contact:${getClientIp(req.headers)}`, { windowMs: 60_000, maxRequests: 5 }).allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded. Please try again in a minute.' }, { status: 429 });
   }
-  if (entry.count >= RATE_LIMIT) return false;
-  entry.count++;
-  return true;
-}
-
-export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-
-  if (!checkRateLimit(ip)) {
-    return NextResponse.json(
-      { error: 'Rate limit exceeded. Please try again in a minute.' },
-      { status: 429 }
-    );
+  if (!isSameOrigin(req.headers)) {
+    return NextResponse.json({ error: 'Invalid request origin.' }, { status: 403 });
   }
 
   let body: unknown;
   try {
-    body = await request.json();
+    body = await req.json();
   } catch {
     return NextResponse.json({ error: 'Invalid JSON body.' }, { status: 400 });
   }
 
-  if (
-    typeof body !== 'object' ||
-    body === null ||
-    !('name' in body) ||
-    !('email' in body) ||
-    !('message' in body)
-  ) {
-    return NextResponse.json({ error: 'Missing required fields.' }, { status: 422 });
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Validation failed', issues: parsed.error.flatten().fieldErrors }, { status: 422 });
   }
 
-  const { name, email, message } = body as Record<string, unknown>;
+  const { phone, institution, ...rest } = parsed.data;
+  const { error } = await getServiceClient()
+    .from('contact_messages')
+    .insert({ ...rest, phone: phone || null, institution: institution || null });
 
-  if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return NextResponse.json({ error: 'Invalid email address.' }, { status: 422 });
+  if (error) {
+    console.error('Contact insert error:', error);
+    return NextResponse.json({ error: 'Could not send your message. Please email us instead.' }, { status: 500 });
   }
-
-  if (typeof message !== 'string' || message.length < 20) {
-    return NextResponse.json({ error: 'Message too short.' }, { status: 422 });
-  }
-
-  // In production: await prisma.contactInquiry.create({ data: { name, email, message, ... } })
-  console.log('[ContactInquiry]', { name, email, subject: (body as Record<string, unknown>).subject });
 
   return NextResponse.json({ success: true }, { status: 201 });
 }

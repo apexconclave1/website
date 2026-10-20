@@ -1,5 +1,7 @@
 import { ChamberEntity } from '@/types/schema';
 
+// ponytail: portfolio lists are placeholders carried over from the old fallback data. Confirm with the dais before registration opens.
+
 export const chambersData: ChamberEntity[] = [
   {
     id: 'diplovia-unsc',
@@ -12,6 +14,23 @@ export const chambersData: ChamberEntity[] = [
     bannerImage: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=800',
     studyGuidePdfUrl: '#',
     displayOrder: 1,
+    portfolios: [
+      'United States',
+      'United Kingdom',
+      'France',
+      'Russian Federation',
+      "People's Republic of China",
+      'Japan',
+      'Republic of Korea',
+      'Switzerland',
+      'Malta',
+      'Algeria',
+      'Sierra Leone',
+      'Mozambique',
+      'Guyana',
+      'Ecuador',
+      'Slovenia',
+    ],
   },
   {
     id: 'diplovia-who',
@@ -24,6 +43,22 @@ export const chambersData: ChamberEntity[] = [
     bannerImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800',
     studyGuidePdfUrl: '#',
     displayOrder: 2,
+    portfolios: [
+      'India',
+      'United States',
+      'Germany',
+      'Brazil',
+      'South Africa',
+      'Australia',
+      'Canada',
+      'Japan',
+      'Italy',
+      'Egypt',
+      'Nigeria',
+      'Indonesia',
+      'Saudi Arabia',
+      'Singapore',
+    ],
   },
   {
     id: 'diplovia-unhrc',
@@ -36,6 +71,18 @@ export const chambersData: ChamberEntity[] = [
     bannerImage: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
     studyGuidePdfUrl: '#',
     displayOrder: 3,
+    portfolios: [
+      'Sweden',
+      'Norway',
+      'Bangladesh',
+      'Netherlands',
+      'Mexico',
+      'Kenya',
+      'Argentina',
+      'Philippines',
+      'Chile',
+      'Vietnam',
+    ],
   },
   {
     id: 'diplovia-unga',
@@ -48,6 +95,19 @@ export const chambersData: ChamberEntity[] = [
     bannerImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800',
     studyGuidePdfUrl: '#',
     displayOrder: 4,
+    portfolios: [
+      'India',
+      'France',
+      'United Arab Emirates',
+      'Singapore',
+      'South Africa',
+      'Qatar',
+      'Turkey',
+      'Spain',
+      'Malaysia',
+      'Thailand',
+      'New Zealand',
+    ],
   },
   {
     id: 'diplovia-hc',
@@ -60,5 +120,11 @@ export const chambersData: ChamberEntity[] = [
     bannerImage: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&q=80&w=800',
     studyGuidePdfUrl: '#',
     displayOrder: 5,
+    portfolios: [
+      'John F. Kennedy (US President)',
+      'Nikita Khrushchev (Soviet Premier)',
+      'Fidel Castro (Prime Minister of Cuba)',
+      'Robert McNamara (US Sec. of Defense)',
+    ],
   },
 ];

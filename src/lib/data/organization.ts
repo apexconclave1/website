@@ -13,6 +13,12 @@ export const organizationConfig: OrganizationConfig = {
   },
 };
 
+// ponytail: placeholder UPI id and QR. Replace both before registration opens.
+export const paymentConfig = {
+  upiId: 'diplovia@demo',
+  qrImage: '/payment/upi-qr.jpg',
+};
+
 export const homeContent = {
   eyebrow: 'Youth events, built by young people',
   headline: 'An umbrella for youth events.',

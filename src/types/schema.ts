@@ -27,8 +27,8 @@ export interface EventEntity {
   edition?: string;
   category: EventCategory;
   status: EventStatus;
-  startDate: string;
-  endDate: string;
+  startDate?: string; // ISO date. Leave both dates out to show "Dates to be announced"
+  endDate?: string;
   location: {
     city: string;
     venue: string;
@@ -38,8 +38,13 @@ export interface EventEntity {
   fullOverview: string;
   coverImage: string;
   heroBanner?: string;
-  fees?: { label: string; amount: string; note?: string }[];
+  pricing?: {
+    regular: number;    // INR
+    earlyBird?: number; // INR, charged for the first earlyBirdDays after registrationOpensAt
+    earlyBirdDays?: number;
+  };
   registrationOpen: boolean;
+  registrationOpensAt?: string; // ISO date (IST). Early-bird window starts here
   registrationUrl?: string;
   features: string[];
 }
@@ -58,21 +63,7 @@ export interface ChamberEntity {
   bannerImage?: string;
   studyGuidePdfUrl?: string;
   displayOrder: number;
-}
-
-/**
- * Agent-Free Country / Character / Seat Portfolio Matrix
- */
-export interface SeatPortfolioEntity {
-  id: string;
-  eventId: string;
-  chamberId: string;
-  portfolioName: string; // e.g. 'United States', 'United Kingdom', 'Delegate of India'
-  isoCode?: string;       // e.g. 'US', 'GB', 'IN'
-  region: 'Africa' | 'Americas' | 'Asia-Pacific' | 'Europe' | 'Middle East' | 'Observer';
-  status: PortfolioStatus;
-  assignedDelegateName?: string;
-  institution?: string;
+  portfolios: string[]; // Countries or characters delegates can list as preferences
 }
 
 /**
@@ -97,21 +88,4 @@ export interface PartnerEntity {
   tier: 'TITANIUM' | 'PLATINUM' | 'GOLD' | 'INSTITUTIONAL_PARTNER';
   logoUrl: string;
   websiteUrl: string;
-}
-
-/**
- * Direct Agent-Free Delegate Application Schema
- */
-export interface DelegateApplicationPayload {
-  eventId: string;
-  chamberId: string;
-  preferredPortfolios: string[]; // List of seat IDs chosen by delegate directly
-  delegateDetails: {
-    fullName: string;
-    email: string;
-    phone: string;
-    institution: string;
-    experienceLevel: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
-    statementOfPurpose?: string;
-  };
 }

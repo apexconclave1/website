@@ -5,7 +5,7 @@ import { eventsData } from '@/lib/data/events';
 import { EventCard } from '@/components/EventCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
-import { EventCategory, EventStatus } from '@/types/schema';
+import { EventCategory } from '@/types/schema';
 
 const CATEGORIES: { label: string; value: EventCategory | 'ALL' }[] = [
   { label: 'All Events', value: 'ALL' },
@@ -16,22 +16,13 @@ const CATEGORIES: { label: string; value: EventCategory | 'ALL' }[] = [
   { label: 'Cultural', value: 'CULTURAL' },
 ];
 
-const STATUSES: { label: string; value: EventStatus | 'ALL' }[] = [
-  { label: 'All', value: 'ALL' },
-  { label: 'Upcoming', value: 'UPCOMING' },
-  { label: 'Live', value: 'LIVE' },
-  { label: 'Completed', value: 'COMPLETED' },
-];
-
 export default function EventsPage() {
   const [activeCategory, setActiveCategory] = useState<EventCategory | 'ALL'>('ALL');
-  const [activeStatus, setActiveStatus] = useState<EventStatus | 'ALL'>('ALL');
 
-  const filtered = eventsData.filter((event) => {
-    const catMatch = activeCategory === 'ALL' || event.category === activeCategory;
-    const statusMatch = activeStatus === 'ALL' || event.status === activeStatus;
-    return catMatch && statusMatch;
-  });
+  const inCategory = eventsData.filter((e) => activeCategory === 'ALL' || e.category === activeCategory);
+  const isPast = (e: (typeof eventsData)[number]) => e.status === 'COMPLETED' || e.status === 'ARCHIVED';
+  const filtered = inCategory.filter((e) => !isPast(e));
+  const past = inCategory.filter(isPast);
 
   return (
     <div className="max-w-container mx-auto px-4 md:px-8 pt-28 pb-16 md:pt-32 md:pb-24 space-y-12">
@@ -64,26 +55,6 @@ export default function EventsPage() {
             </button>
           ))}
         </div>
-
-        {/* Status Filter */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs uppercase tracking-widest text-muted-grey font-medium w-16 shrink-0">
-            Status
-          </span>
-          {STATUSES.map((s) => (
-            <button
-              key={s.value}
-              onClick={() => setActiveStatus(s.value)}
-              className={`px-4 py-1.5 rounded text-xs font-semibold uppercase tracking-wider transition-colors ${
-                activeStatus === s.value
-                  ? 'bg-soft-white text-bg'
-                  : 'bg-surface border border-[#212527] text-muted-grey hover:text-soft-white hover:border-[#353c40]'
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
       </div>
       )}
 
@@ -109,15 +80,28 @@ export default function EventsPage() {
       ) : (
         <div className="text-center py-20 space-y-3">
           <p className="text-muted-grey text-sm">
-            No events match the selected filters.
+            No upcoming events{activeCategory === 'ALL' ? ' right now.' : ' in this category.'}
           </p>
           <button
-            onClick={() => { setActiveCategory('ALL'); setActiveStatus('ALL'); }}
+            onClick={() => setActiveCategory('ALL')}
             className="text-xs text-warm-bronze underline underline-offset-4"
           >
             Clear filters
           </button>
         </div>
+      )}
+
+      {past.length > 0 && (
+        <section className="space-y-6 border-t border-[#141718] pt-12">
+          <SectionHeading eyebrow="Archive" title="Past events" />
+          <div className="space-y-5">
+            {past.map((event) => (
+              <div key={event.id} className="rounded-[12px] border border-[#1a1d1e] bg-surface p-6 md:p-10">
+                <EventCard event={event} />
+              </div>
+            ))}
+          </div>
+        </section>
       )}
     </div>
   );
