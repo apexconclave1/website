@@ -93,13 +93,10 @@ export default function SectionNavigator({
     >
       <div
         style={{
-          backgroundColor: isHovered ? 'rgba(8, 10, 14, 0.82)' : 'transparent',
-          backdropFilter: isHovered ? 'blur(16px)' : 'none',
-          WebkitBackdropFilter: isHovered ? 'blur(16px)' : 'none',
+          backgroundColor: isHovered ? '#141718' : 'transparent',
           padding: isHovered ? '0.75rem 1.15rem 0.75rem 0.5rem' : '0.25rem 0',
           borderRadius: '8px',
-          border: 'none',
-          boxShadow: isHovered ? '0 12px 36px -8px rgba(0, 0, 0, 0.85)' : 'none',
+          border: isHovered ? '1px solid #1a1d1e' : '1px solid transparent',
           transition: 'all 240ms cubic-bezier(0.16, 1, 0.3, 1)',
           cursor: 'pointer',
           width: 'fit-content',
@@ -110,7 +107,7 @@ export default function SectionNavigator({
           activeControlled={activeIdx}
           isCollapsed={!isHovered}
           accentColor="#C7A16A"
-          textColor="#CDC7C0"
+          textColor="#A5A6A2"
           markerColor="rgba(199, 161, 106, 0.35)"
           showIndex={true}
           showMarker={true}

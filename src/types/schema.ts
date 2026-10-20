@@ -13,7 +13,6 @@ export interface OrganizationConfig {
   socials: {
     instagram?: string;
     linkedin?: string;
-    twitter?: string;
   };
 }
 

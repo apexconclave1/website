@@ -28,12 +28,13 @@ src/
 ├── app/              # Next.js App Router pages & layouts
 ├── components/       # Shared UI components
 │   ├── layout/       # Navbar, Footer, ApexWordmark (rendered once in app/layout.tsx)
-│   ├── events/       # Event page client pieces (SeatSection)
+│   ├── features/registration/  # Registration wizard
 │   └── ui/           # Primitive UI components (Button, Badge, WebGL effects)
 ├── lib/              # Utilities, data, Supabase services
 │   ├── data/         # Static content data files
-│   ├── supabase/     # Supabase browser and server clients
-│   └── security/     # Rate limiting
+│   ├── supabase/     # Supabase server client (service role)
+│   ├── validators/   # Zod schemas shared by forms and API routes
+│   └── security/     # Rate limiting, same-origin check
 ├── types/            # TypeScript type definitions
 └── styles/           # Global styles (if separate from app/)
 ```
@@ -64,7 +65,7 @@ src/
 
 ## Strict Design Prohibitions
 
-> Owner exception (2026-10-06): the 4 React Bits components in `components/ui` (DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack) are used as supplied, including their gradients, glow, shadows and blur. The rules below apply to everything else.
+> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton and ScrollStack are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
 
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.
@@ -75,17 +76,19 @@ src/
 - ❌ **NO Decorative Icons** (no random vectors, emoji, or ornamental graphics)
 - ❌ **NO Excessive Bronze** (`#C7A16A` is for tiny badges and text highlights ONLY)
 - ❌ **NO Heavy Parallax / Spinning Animations** (subtle transitions only)
-- ❌ **NO Icon Logos** (the logo is a typography-only wordmark: `apex CONCLAVE`)
+- ❌ **NO Icon Logos** and **no redrawn logo**: use `public/brand/apex-conclave-logo-*.png` via `ApexWordmark`
 
 ---
 
 ## Backend Guidelines (Supabase)
 
 - Use **Supabase** on the free tier (enough for the first event). Free projects pause after about a week of inactivity.
-- Seat reservation goes through the `reserve_seat_atomic()` SQL function (row lock) so two delegates cannot book the same seat.
-- Live seat counts use Supabase Realtime on `registrations`.
+- Schema: `supabase/migrations/001_init.sql`. RLS is on and the anon key has no access; every read/write goes through API routes with the service-role key.
+- Seats are not booked online. Delegates list two preferences; the team fills `assigned_committee` / `assigned_country` by hand.
+- Prices come from `pricing` in `lib/data/events.ts` and are computed on the server (`feeAt`). Never trust an amount sent by the browser.
+- Coupons are redeemed with the `redeem_coupon()` SQL function (atomic).
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
-- Content that changes per event lives in `lib/data/*` (events, chambers, leaders, faqs). Sanity is not part of v1.
+- Content that changes per event lives in `lib/data/*` (events, chambers with country lists, leaders, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.
 - Font is Inter only (next/font, `--font-inter`). Do not add other font families.
 - Contact email comes from `organizationConfig.contactEmail`. Do not hard-code addresses.

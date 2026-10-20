@@ -16,7 +16,7 @@ The platform is not a single event website. It is an **event ecosystem** that ca
 
 1. **Multi-Event Architecture**: One brand, many events. Diplovia (MUN), Tech Summits, Leadership Forums, Business Conclaves, Cultural Festivals — all under one roof.
 2. **Agent-Free Registration**: Delegates apply directly for their preferred committee seats without intermediary agents. Transparent, fast, friction-free.
-3. **Real-Time Seat Tracking**: Live portfolio availability across all chambers and committees. Powered by Supabase Realtime.
+3. **Preference-Based Allotment**: Delegates list their committee and country preferences; the team assigns seats and confirms them after payment is verified.
 4. **Premium Brand Identity**: Dark-first, typography-led design that communicates intelligence, youth, and authority.
 
 ---
@@ -29,7 +29,7 @@ The platform is not a single event website. It is an **event ecosystem** that ca
 - Country/character seat portfolio allocation
 - Executive Board (Dais) leadership
 - Study guide documents and agenda briefings
-- Direct delegate registration with live seat availability
+- Direct online registration with committee and country preferences
 
 ---
 

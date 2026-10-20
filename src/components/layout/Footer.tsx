@@ -9,7 +9,6 @@ const headingClass = 'mb-4 text-xs font-medium uppercase tracking-[0.18em] text-
 const socials = [
   { label: 'Instagram', href: organizationConfig.socials.instagram },
   { label: 'LinkedIn', href: organizationConfig.socials.linkedin },
-  { label: 'X', href: organizationConfig.socials.twitter },
 ].filter((s) => s.href);
 
 export default function Footer() {

@@ -2,215 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── CSS Custom Properties ────────────────────────────────────────── */
+/* ─── Design tokens (from docs/Apex_Conclave_Developer_Design_Sheet.pdf) ─── */
 :root {
-  /* Default: Obsidian Midnight Base */
-  --bg-base:        #080A0E;
-  --bg-surface:     #0F1218;
-  --bg-surface-elevated: #151A22;
-  --text-primary:   #F4F1EA;
-  --text-secondary: #9A9490;
-  --border-muted:   rgba(205, 199, 192, 0.12);
-  --border-gold:    rgba(199, 161, 106, 0.25);
-  --accent-brand:   #C7A16A;
-  --accent-gold-light: #D4B896;
-}
-
-.dark {
-  --bg-base:        #080A0E;
-  --bg-surface:     #0F1218;
-  --bg-surface-elevated: #151A22;
-  --text-primary:   #F4F1EA;
-  --text-secondary: #9A9490;
-  --border-muted:   rgba(205, 199, 192, 0.12);
-  --border-gold:    rgba(199, 161, 106, 0.25);
-  --accent-brand:   #C7A16A;
-  --accent-gold-light: #D4B896;
+  --bg: #080909;
+  --surface: #141718;
+  --text: #f4f2ed;
+  --muted: #a5a6a2;
+  --accent: #c7a16a;
+  --teal: #21474d;
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--bg-base);
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* ─── Form + panel primitives (registration, contact, terms) ───────── */
+@layer components {
+  .field-label { @apply mb-2 block text-xs font-medium text-muted-grey; }
+  .field-input {
+    @apply w-full rounded-sm border border-[#2a2d2e] bg-bg px-4 py-3 text-sm text-soft-white outline-none
+      transition-colors duration-200 placeholder:text-[#6f716e] focus:border-soft-white
+      aria-[invalid=true]:border-[#E06C75];
+  }
+  .field-error { @apply mt-1.5 text-xs text-[#E06C75]; }
+  .panel { @apply rounded-[10px] border border-[#1a1d1e] bg-surface p-6; }
+  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-warm-bronze; }
+}
+
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #C7A16A;
+  outline: 2px solid #c7a16a;
   outline-offset: 2px;
 }
 
-/* Registration stepper: on phones only the current step shows its label, so five labels never clip */
-@media (max-width: 639px) {
-  .reg-stepper {
-    grid-template-columns: repeat(5, auto) !important;
-    justify-content: space-between;
-  }
-}
-
-/* ─── Typography Utilities ─────────────────────────────────────────── */
-.font-serif { font-family: var(--font-inter), system-ui, sans-serif; }
-.font-sans  { font-family: var(--font-inter), system-ui, sans-serif; }
-
-/* ─── Horizon Rule Motif ───────────────────────────────────────────── */
-.horizon-rule {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 3rem 0;
-}
-.horizon-rule::before {
-  content: '';
-  width: 100%;
-  height: 1px;
-  background-color: var(--border-muted);
-  opacity: 0.5;
-}
-.horizon-rule-break {
-  position: absolute;
-  padding: 0 1rem;
-  background-color: var(--bg-base);
-  color: var(--border-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  font-family: var(--font-inter), sans-serif;
-}
-
-/* ─── Perspective Clip Mask ────────────────────────────────────────── */
-.clip-perspective {
-  clip-path: polygon(0 0, 100% 0, 100% 88%, 94% 100%, 0 100%);
-}
-
-/* ─── Scroll-Reveal Animations ─────────────────────────────────────── */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Staggered hero words */
-  @keyframes word-fade-up {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-word {
-    display: inline-block;
-    opacity: 0;
-    animation: word-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  .hero-word:nth-child(1) { animation-delay: 0.1s; }
-  .hero-word:nth-child(2) { animation-delay: 0.2s; }
-  .hero-word:nth-child(3) { animation-delay: 0.3s; }
-  .hero-word:nth-child(4) { animation-delay: 0.4s; }
-  .hero-word:nth-child(5) { animation-delay: 0.5s; }
-  .hero-word:nth-child(6) { animation-delay: 0.6s; }
-
-  /* Horizon line draw */
-  @keyframes horizon-draw {
-    from { width: 0; }
-    to   { width: 100%; }
-  }
-
-  /* Badge confirm scale */
-  @keyframes badge-confirm {
-    0%   { transform: scale(0.92); opacity: 0; }
-    60%  { transform: scale(1.03); }
-    100% { transform: scale(1);    opacity: 1; }
-  }
-  .badge-confirm {
-    animation: badge-confirm 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  /* FAQ height expand */
-  .faq-content {
-    overflow: hidden;
-    transition: max-height 0.28s ease-in-out, opacity 0.28s ease-in-out;
-  }
-}
-
-/* ─── Apple Design Fluid Motion & Tactile Utilities ─────────────────── */
-.btn-tactile {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: pointer;
-  transition: transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 180ms ease,
-              background-color 180ms ease,
-              border-color 180ms ease;
-  will-change: transform;
-}
-
-.btn-tactile:active {
-  transform: scale(0.96) !important;
-  transition: transform 80ms cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-}
-
-.card-tactile {
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
-              border-color 200ms ease;
-  will-change: transform;
-}
-
-.card-tactile:active {
-  transform: scale(0.985);
-  transition: transform 90ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* Layered Glassmorphism with Apple Specular Top Highlight */
-.glass-panel {
-  background: rgba(15, 18, 24, 0.72);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(205, 199, 192, 0.1);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7),
-              inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-}
-
-.glass-specular-gold {
-  background: rgba(15, 18, 24, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(199, 161, 106, 0.25);
-  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8),
-              inset 0 1px 0 0 rgba(199, 161, 106, 0.35);
-}
-
-/* Critically Damped Accordion Physics */
-.accordion-spring {
-  transition: max-height 350ms cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 300ms cubic-bezier(0.16, 1, 0.3, 1),
-              padding 350ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Reduced-motion: ensure everything is visible */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; }
-  .hero-word { opacity: 1; animation: none; }
-  .btn-tactile, .card-tactile { transform: none !important; transition: none !important; }
+  html {
+    scroll-behavior: auto;
+  }
 }

@@ -46,7 +46,7 @@ export interface LineSidebarProps {
 export default function LineSidebar({
   items = DEFAULT_ITEMS,
   accentColor = '#C7A16A',
-  textColor = '#9A9490',
+  textColor = '#A5A6A2',
   markerColor = 'rgba(199, 161, 106, 0.35)',
   showIndex = true,
   showMarker = true,

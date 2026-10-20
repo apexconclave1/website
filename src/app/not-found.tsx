@@ -2,71 +2,18 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        backgroundColor: '#1A1D1F',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
-        textAlign: 'center',
-      }}
-    >
+    <main className="flex min-h-[70vh] items-center justify-center px-6 pt-24 text-center">
       <div>
-        <p
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.6875rem',
-            fontWeight: 700,
-            letterSpacing: '0.2em',
-            color: '#C7A16A',
-            textTransform: 'uppercase',
-            marginBottom: '1rem',
-          }}
-        >
-          404 · Not Found
-        </p>
-        <h1
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontWeight: 400,
-            fontSize: 'clamp(2rem, 5vw, 3rem)',
-            color: '#F4F1EA',
-            lineHeight: 1.15,
-            letterSpacing: '-0.02em',
-            marginBottom: '1rem',
-          }}
-        >
-          Page Not Found
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.9375rem',
-            color: '#9A9490',
-            lineHeight: 1.7,
-            maxWidth: '400px',
-            margin: '0 auto 2rem',
-          }}
-        >
-          The page you requested does not exist. You may have followed an incorrect link or the page has been moved.
+        <p className="eyebrow mb-4">404</p>
+        <h1 className="mb-4 text-3xl font-bold text-soft-white md:text-5xl">Page not found</h1>
+        <p className="mx-auto mb-8 max-w-[400px] text-base leading-relaxed text-muted-grey">
+          This page does not exist or has moved.
         </p>
         <Link
           href="/"
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            color: '#1A1D1F',
-            backgroundColor: '#C7A16A',
-            padding: '0.75rem 2rem',
-            textDecoration: 'none',
-            letterSpacing: '0.04em',
-            display: 'inline-block',
-          }}
+          className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"
         >
-          Return Home
+          Go home
         </Link>
       </div>
     </main>

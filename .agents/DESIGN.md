@@ -8,7 +8,7 @@
 
 - **Brand Character**: Minimal · Youthful · Intelligent · Premium · Flexible · Typography-Led · Dark-First
 - **Primary Philosophy**: "The website should feel like a serious modern organization built for young people. Let typography, layout, photography and spacing create the personality."
-- **Logo Rule**: Typography-only wordmark — `apex CONCLAVE`. Use approved typography only. **Do NOT add icons, globes, crowns, 3D effects, or cinematic glows.**
+- **Logo Rule**: Use the supplied logo file, `public/brand/apex-conclave-logo-light.png` (dark backgrounds) or `-dark.png` (light backgrounds), via `components/layout/ApexWordmark.tsx`. **Never redraw it in type.** Do not add icons, globes, crowns, 3D effects, or cinematic glows. Keep clear space around it. When an event has its own identity, Apex Conclave is secondary.
 
 ---
 
@@ -46,11 +46,11 @@
 
 ## Typography
 
-- **Font Stack**: `Inter`, `Manrope`, `Geist`, `Satoshi`, `sans-serif`
+- **Font**: Inter only (loaded with `next/font`). The sheet allows Manrope, Geist or Satoshi, but the site uses one family.
 - **Headlines**: Large, bold, restrained. Let size and weight carry the hierarchy.
 - **Body**: 16–18px, regular weight.
 - **Micro Text**: 12–14px, medium weight, tracked (letter-spacing).
-- **Logo Wordmark**: `apex` in lowercase, `CONCLAVE` in uppercase. Clean sans-serif only.
+- **Logo**: image file only (see Logo Rule).
 
 ---
 
@@ -90,12 +90,22 @@ Based on an **8px grid**:
 
 ---
 
+## Approved effects (owner decision, 2026-10-20)
+
+These five components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
+
+| Component | Where it is allowed |
+|---|---|
+| `DarkVeil` | One fixed background for the whole site (`app/layout.tsx`) |
+| `StrokeText` | Home hero headline only. Never use it to draw the logo |
+| `AccordionGallery` | Event committee galleries |
+| `SpecularButton` | Primary CTAs only, at most 2 or 3 per page (each is a WebGL context) |
+| `ScrollStack` | Events directory list |
+
 ## STRICT PROHIBITIONS
 
 > [!CAUTION]
 > **These rules are ABSOLUTE. Violating any of them breaks the Apex Conclave brand.**
-
-> Owner exception (2026-10-06): DarkVeil, StrokeText, AccordionGallery, SpecularButton and ScrollStack are used as supplied, including their gradients, glow, shadows and blur. The rules below apply to everything else.
 
 | Rule | Description |
 |---|---|
@@ -105,7 +115,7 @@ Based on an **8px grid**:
 | ❌ NO Decorative Icons | No random vector icons, emoji, or ornamental graphics |
 | ❌ NO Excessive Bronze | `#C7A16A` is for tiny badges and text highlights ONLY — not backgrounds, borders, or large elements |
 | ❌ NO Heavy Parallax | No spinning, rotating, or heavy scroll-triggered animations |
-| ❌ NO Icon Logos | The logo is text-only: `apex CONCLAVE`. No icons, shields, or emblems |
+| ❌ NO Icon Logos | Use the supplied logo file only. No icons, shields, or emblems |
 
 ---
 
@@ -132,6 +142,12 @@ Hover: opacity-90 or slight scale
 AVAILABLE: border border-[#F4F2ED] text-[#F4F2ED] text-xs px-2 py-0.5
 RESERVED: bg-[#A5A6A2]/10 text-[#A5A6A2] text-xs px-2 py-0.5
 ALLOCATED: bg-[#C7A16A]/10 text-[#C7A16A] text-xs px-2 py-0.5
+```
+
+### Forms
+```
+Use the classes in app/globals.css: .field-label, .field-input (set aria-invalid for errors), .field-error, .panel, .eyebrow
+Error colour: #E06C75 (errors only)
 ```
 
 ### Section Headings

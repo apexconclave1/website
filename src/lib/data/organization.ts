@@ -9,7 +9,6 @@ export const organizationConfig: OrganizationConfig = {
   socials: {
     instagram: 'https://instagram.com/apex_conclave',
     linkedin: 'https://linkedin.com/company/apex-conclave',
-    twitter: 'https://twitter.com/apex_conclave',
   },
 };
 

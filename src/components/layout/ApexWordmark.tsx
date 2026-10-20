@@ -1,20 +1,23 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface ApexWordmarkProps {
   size?: 'sm' | 'md';
   href?: string;
 }
 
+// Approved logo from the design sheet (docs/). Do not redraw it in type.
 export default function ApexWordmark({ size = 'sm', href = '/' }: ApexWordmarkProps) {
-  const text = size === 'sm' ? 'text-xl' : 'text-2xl';
+  const height = size === 'sm' ? 40 : 52;
   return (
-    <Link
-      href={href}
-      aria-label="Apex Conclave home"
-      className={`${text} inline-flex items-baseline gap-1.5 text-soft-white select-none`}
-    >
-      <span className="font-medium tracking-tight">apex</span>
-      <span className="font-bold uppercase tracking-[0.12em]">Conclave</span>
+    <Link href={href} aria-label="Apex Conclave home" className="inline-flex shrink-0 select-none">
+      <Image
+        src="/brand/apex-conclave-logo-light.png"
+        alt="Apex Conclave"
+        width={Math.round((height * 692) / 234)}
+        height={height}
+        priority
+      />
     </Link>
   );
 }

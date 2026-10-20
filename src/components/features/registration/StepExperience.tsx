@@ -1,6 +1,5 @@
 'use client';
 
-import { Award, FileText, Link2 } from 'lucide-react';
 import { Step3FormData } from '@/lib/validators/registration';
 
 interface StepExperienceProps {
@@ -10,235 +9,95 @@ interface StepExperienceProps {
 }
 
 const experienceTiers = [
-  {
-    id: 'FIRST_TIME',
-    label: 'First-Time Delegate',
-    desc: 'Foundational diplomacy, zero or first conference experience',
-  },
-  {
-    id: 'INTERMEDIATE_1_3',
-    label: '1–3 Conferences',
-    desc: 'Familiar with parliamentary procedure and resolution drafting',
-  },
-  {
-    id: 'ADVANCED_4_7',
-    label: '4–7 Conferences',
-    desc: 'Seasoned debater with committee leadership track record',
-  },
-  {
-    id: 'VETERAN_8_PLUS',
-    label: '8+ Conferences / Veteran',
-    desc: 'Extensive high-level crisis and general assembly experience',
-  },
+  { id: 'FIRST_TIME', label: 'First MUN', desc: 'No conferences yet, or this is your first' },
+  { id: 'INTERMEDIATE_1_3', label: '1 to 3 conferences', desc: 'You know the procedure and have drafted clauses' },
+  { id: 'ADVANCED_4_7', label: '4 to 7 conferences', desc: 'You have led blocs or won awards' },
+  { id: 'VETERAN_8_PLUS', label: '8 or more', desc: 'Long experience across crisis and GA committees' },
 ] as const;
 
 export default function StepExperience({ formData, onChange, errors }: StepExperienceProps) {
+  const motivationLength = (formData.motivation || '').length;
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+    <div className="flex flex-col gap-7">
       <div>
-        <h3
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '1.35rem',
-            color: '#F4F1EA',
-            marginBottom: '0.35rem',
-          }}
-        >
-          Diplomatic Track Record & Intent
-        </h3>
-        <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.8125rem', color: '#9A9490' }}>
-          Help the Executive Board evaluate your allocation tier and ensure equitable, rigorous debate in each chamber.
-        </p>
+        <h3 className="mb-1 text-xl font-semibold text-soft-white">Experience</h3>
+        <p className="text-sm text-muted-grey">This helps the team balance experience across committees.</p>
       </div>
 
-      {/* Experience Level Selection */}
-      <div>
-        <label
-          style={{
-            display: 'block',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#C7A16A',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: '0.65rem',
-          }}
-        >
-          Conference Experience Level *
-        </label>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.85rem' }}>
+      <fieldset>
+        <legend className="field-label">MUN experience *</legend>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {experienceTiers.map((tier) => {
-            const isSelected = formData.experienceLevel === tier.id;
+            const active = formData.experienceLevel === tier.id;
             return (
               <button
                 key={tier.id}
                 type="button"
+                aria-pressed={active}
                 onClick={() => onChange({ experienceLevel: tier.id })}
-                className="btn-tactile"
-                style={{
-                  padding: '1rem',
-                  borderRadius: '6px',
-                  border: isSelected ? '1px solid #C7A16A' : '1px solid rgba(205, 199, 192, 0.15)',
-                  backgroundColor: isSelected ? 'rgba(199, 161, 106, 0.12)' : 'rgba(255, 255, 255, 0.02)',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.35rem',
-                }}
+                className={`rounded-[10px] border p-4 text-left transition-colors duration-200 ${
+                  active ? 'border-soft-white bg-bg' : 'border-[#2a2d2e] hover:border-[#4a4d4e]'
+                }`}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.875rem', fontWeight: 600, color: '#F4F1EA' }}>
-                    {tier.label}
-                  </span>
-                  {isSelected && (
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#C7A16A' }} />
-                  )}
-                </div>
-                <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.75rem', color: '#9A9490' }}>
-                  {tier.desc}
-                </span>
+                <span className="block text-sm font-semibold text-soft-white">{tier.label}</span>
+                <span className="mt-1 block text-xs text-muted-grey">{tier.desc}</span>
               </button>
             );
           })}
         </div>
-        {errors.experienceLevel && (
-          <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.75rem', color: '#E06C75', marginTop: '0.4rem' }}>
-            {errors.experienceLevel[0]}
-          </p>
-        )}
-      </div>
+        {errors.experienceLevel && <p className="field-error">{errors.experienceLevel[0]}</p>}
+      </fieldset>
 
-      {/* Prior Awards / Commendations */}
       <div>
-        <label
-          htmlFor="priorAwards"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#CDC7C0',
-            marginBottom: '0.45rem',
-          }}
-        >
-          <Award size={13} color="#C7A16A" /> Prior Awards & Commendations (Optional)
+        <label htmlFor="priorAwards" className="field-label">
+          Awards (optional)
         </label>
         <input
           id="priorAwards"
           type="text"
-          placeholder="e.g. Best Delegate (HMUN 2025), High Commendation (ILMUN)"
+          placeholder="e.g. Best Delegate, XYZ MUN 2025"
           value={formData.priorAwards || ''}
           onChange={(e) => onChange({ priorAwards: e.target.value })}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            borderRadius: '6px',
-            backgroundColor: 'rgba(10, 13, 18, 0.65)',
-            border: '1px solid rgba(205, 199, 192, 0.18)',
-            color: '#F4F1EA',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.875rem',
-            outline: 'none',
-          }}
+          className="field-input"
         />
       </div>
 
-      {/* Statement of Motivation */}
       <div>
-        <label
-          htmlFor="motivation"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#CDC7C0',
-            marginBottom: '0.45rem',
-          }}
-        >
-          <FileText size={13} color="#C7A16A" /> Statement of Intent & Policy Vision *
+        <label htmlFor="motivation" className="field-label">
+          Why do you want to join? *
         </label>
         <textarea
           id="motivation"
-          required
           rows={4}
-          placeholder="In 2–4 sentences, explain your perspective on your preferred committee agenda and how you intend to contribute to resolution drafting."
+          maxLength={1200}
+          placeholder="Two to four sentences on your preferred agenda and what you want to bring to the committee."
           value={formData.motivation || ''}
           onChange={(e) => onChange({ motivation: e.target.value })}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            borderRadius: '6px',
-            backgroundColor: 'rgba(10, 13, 18, 0.65)',
-            border: errors.motivation ? '1px solid #E06C75' : '1px solid rgba(205, 199, 192, 0.18)',
-            color: '#F4F1EA',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.875rem',
-            lineHeight: 1.6,
-            outline: 'none',
-            resize: 'vertical',
-          }}
+          aria-invalid={!!errors.motivation}
+          aria-describedby="motivation-help"
+          className="field-input resize-y leading-relaxed"
         />
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.35rem' }}>
-          {errors.motivation ? (
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.75rem', color: '#E06C75' }}>
-              {errors.motivation[0]}
-            </p>
-          ) : (
-            <span />
-          )}
-          <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.6875rem', color: '#8A8480' }}>
-            {(formData.motivation || '').length} / 1200 characters
-          </span>
+        <div id="motivation-help" className="mt-1.5 flex justify-between gap-4 text-xs">
+          <span className="text-[#E06C75]">{errors.motivation?.[0]}</span>
+          <span className="shrink-0 text-muted-grey">{motivationLength} / 1200</span>
         </div>
       </div>
 
-      {/* Writing Sample / Resolution Link */}
       <div>
-        <label
-          htmlFor="portfolioSampleUrl"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.75rem',
-            fontWeight: 600,
-            color: '#CDC7C0',
-            marginBottom: '0.45rem',
-          }}
-        >
-          <Link2 size={13} color="#C7A16A" /> Position Paper / Writing Sample URL (Optional)
+        <label htmlFor="portfolioSampleUrl" className="field-label">
+          Writing sample link (optional)
         </label>
         <input
           id="portfolioSampleUrl"
           type="url"
-          placeholder="e.g. https://drive.google.com/file/d/... or personal website"
+          placeholder="e.g. a Google Drive link to a position paper"
           value={formData.portfolioSampleUrl || ''}
           onChange={(e) => onChange({ portfolioSampleUrl: e.target.value })}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            borderRadius: '6px',
-            backgroundColor: 'rgba(10, 13, 18, 0.65)',
-            border: errors.portfolioSampleUrl ? '1px solid #E06C75' : '1px solid rgba(205, 199, 192, 0.18)',
-            color: '#F4F1EA',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.875rem',
-            outline: 'none',
-          }}
+          aria-invalid={!!errors.portfolioSampleUrl}
+          className="field-input"
         />
-        {errors.portfolioSampleUrl && (
-          <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.75rem', color: '#E06C75', marginTop: '0.35rem' }}>
-            {errors.portfolioSampleUrl[0]}
-          </p>
-        )}
+        {errors.portfolioSampleUrl && <p className="field-error">{errors.portfolioSampleUrl[0]}</p>}
       </div>
     </div>
   );

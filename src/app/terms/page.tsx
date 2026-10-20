@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import HorizonDivider from '@/components/layout/HorizonDivider';
 import SectionNavigator, { SectionItem } from '@/components/ui/SectionNavigator';
 import { organizationConfig } from '@/lib/data/organization';
 
@@ -71,106 +70,30 @@ export default function TermsPage() {
     <>
       <SectionNavigator sections={termsSectionsNav} position="left" />
 
-      <main id="main-content" style={{ paddingTop: '64px' }}>
-        <section
-          aria-label="Terms and Conditions"
-          style={{
-            minHeight: '100vh',
-            backgroundColor: 'transparent',
-            padding: '5rem 1.5rem',
-          }}
-        >
-          <div style={{ maxWidth: '780px', margin: '0 auto' }}>
-            <div style={{ marginBottom: '3rem' }}>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter), system-ui, sans-serif",
-                  fontSize: '0.6875rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.2em',
-                  color: '#C7A16A',
-                  textTransform: 'uppercase',
-                  marginBottom: '0.875rem',
-                }}
-              >
-                Legal
-              </p>
-              <h1
-                style={{
-                  fontFamily: "var(--font-inter), system-ui, sans-serif",
-                  fontWeight: 400,
-                  fontSize: 'clamp(1.875rem, 3.5vw, 2.5rem)',
-                  letterSpacing: '-0.02em',
-                  color: '#F4F1EA',
-                  lineHeight: 1.15,
-                  marginBottom: '1rem',
-                }}
-              >
-                Terms & Conditions
-              </h1>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter), system-ui, sans-serif",
-                  fontSize: '0.875rem',
-                  color: '#9A9490',
-                  lineHeight: 1.7,
-                }}
-              >
-                Last updated: September 2026. By registering as a delegate or using Apex Conclave services,
-                you agree to the following terms in their entirety.
-              </p>
-            </div>
+      <main id="main-content" className="mx-auto max-w-[780px] px-6 pb-24 pt-32">
+        <p className="eyebrow mb-3">Legal</p>
+        <h1 className="mb-4 text-3xl font-bold text-soft-white md:text-4xl">Terms & conditions</h1>
+        <p className="mb-12 text-sm leading-relaxed text-muted-grey">
+          Last updated: September 2026. By registering as a delegate or using Apex Conclave services, you agree to these
+          terms.
+        </p>
 
-            {sections.map((section, i) => (
-              <div key={section.id}>
-                {i > 0 && <HorizonDivider />}
-                <article
-                  id={section.id}
-                  aria-label={section.title}
-                  style={{
-                    marginBottom: '2rem',
-                    backgroundColor: 'rgba(15, 18, 24, 0.4)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(199, 161, 106, 0.15)',
-                    borderRadius: '12px',
-                    padding: '1.75rem',
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-inter), system-ui, sans-serif",
-                      fontWeight: 400,
-                      fontSize: '1.375rem',
-                      color: '#F4F1EA',
-                      marginBottom: '1.25rem',
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {section.title}
-                  </h2>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
-                    {section.content.map((para, pi) => (
-                      <p
-                        key={pi}
-                        style={{
-                          fontFamily: "var(--font-inter), system-ui, sans-serif",
-                          fontSize: '0.9375rem',
-                          color: '#CDC7C0',
-                          lineHeight: 1.75,
-                          paddingLeft: '1rem',
-                          borderLeft: '2px solid rgba(199, 161, 106,0.3)',
-                        }}
-                      >
-                        {para}
-                      </p>
-                    ))}
-                  </div>
-                </article>
+        <div className="flex flex-col gap-6">
+          {sections.map((section) => (
+            <article key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="panel scroll-mt-24 md:p-8">
+              <h2 id={`${section.id}-title`} className="mb-5 text-xl font-semibold text-soft-white">
+                {section.title}
+              </h2>
+              <div className="flex flex-col gap-3.5">
+                {section.content.map((para, pi) => (
+                  <p key={pi} className="border-l-2 border-[#2a2d2e] pl-4 text-[15px] leading-relaxed text-muted-grey">
+                    {para}
+                  </p>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            </article>
+          ))}
+        </div>
       </main>
     </>
   );

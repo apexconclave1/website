@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Check, ArrowRight, ArrowLeft } from 'lucide-react';
 import StepIdentity from './StepIdentity';
 import StepCommitteePicker from './StepCommitteePicker';
 import StepExperience from './StepExperience';
 import StepReview from './StepReview';
 import StepPayment from './StepPayment';
 import RegistrationReceipt from './RegistrationReceipt';
+import { Button } from '@/components/ui/Button';
 import { eventsData } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import {
@@ -20,8 +20,8 @@ import {
 } from '@/lib/validators/registration';
 
 const STEPS = [
-  { id: 1, label: 'Identity', desc: 'Delegate details' },
-  { id: 2, label: 'Chamber', desc: 'Portfolio choice' },
+  { id: 1, label: 'About you', desc: 'Delegate details' },
+  { id: 2, label: 'Committee', desc: 'Portfolio choice' },
   { id: 3, label: 'Experience', desc: 'Track record' },
   { id: 4, label: 'Review', desc: 'Confirmation' },
   { id: 5, label: 'Payment', desc: 'Complete registration' },
@@ -56,6 +56,7 @@ export default function RegistrationWizard() {
     .sort((a, b) => a.displayOrder - b.displayOrder);
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   // After Step 4 submit → registration saved in Supabase
   const [registrationResult, setRegistrationResult] = useState<RegistrationResult | null>(null);
@@ -138,6 +139,7 @@ export default function RegistrationWizard() {
     if (!validateStep(4)) return;
 
     setIsSubmitting(true);
+    setSubmitError('');
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
@@ -158,11 +160,11 @@ export default function RegistrationWizard() {
         setCurrentStep(5);
         window.scrollTo({ top: 100, behavior: 'smooth' });
       } else {
-        alert(data.error || 'Failed to submit registration. Please try again.');
+        setSubmitError(data.error || 'Could not submit your application. Please try again.');
       }
     } catch (err) {
       console.error('Submission error:', err);
-      alert('Network error submitting application. Please try again.');
+      setSubmitError('Network error. Check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -192,6 +194,7 @@ export default function RegistrationWizard() {
   if (paymentResult && registrationResult) {
     return (
       <RegistrationReceipt
+        event={event}
         trackingCode={registrationResult.trackingCode}
         submittedAt={registrationResult.submittedAt}
         allotment={registrationResult.allotment}
@@ -203,108 +206,46 @@ export default function RegistrationWizard() {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: '820px',
-        margin: '0 auto',
-        borderRadius: '12px',
-        backgroundColor: 'rgba(10, 13, 18, 0.42)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(199, 161, 106, 0.22)',
-        borderTop: '1px solid rgba(199, 161, 106, 0.4)',
-        boxShadow: '0 24px 60px -20px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.08)',
-        padding: 'clamp(1.5rem, 3.5vw, 2.75rem)',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Progress Steps Header */}
-      <div
-        className="reg-stepper"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(5, 1fr)',
-          gap: '0.5rem',
-          paddingBottom: '2rem',
-          marginBottom: '2rem',
-          borderBottom: '1px solid rgba(205, 199, 192, 0.1)',
-        }}
-      >
+    <div className="mx-auto max-w-[820px] rounded-[12px] border border-[#1a1d1e] bg-surface p-6 md:p-10">
+      {/* Stepper: on phones only the current step shows its label */}
+      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-[#2a2d2e] pb-8">
         {STEPS.map((step) => {
           const isComplete = currentStep > step.id;
           const isCurrent = currentStep === step.id;
           return (
-            <div
-              key={step.id}
-              aria-current={isCurrent ? 'step' : undefined}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.35rem',
-                opacity: isCurrent ? 1 : isComplete ? 0.85 : 0.6,
-                transition: 'opacity 200ms ease',
-              }}
-            >
-              {/* Progress Bar Segment */}
-              <div
-                style={{
-                  height: '3px',
-                  width: '100%',
-                  borderRadius: '2px',
-                  backgroundColor: isComplete || isCurrent ? '#C7A16A' : 'rgba(205, 199, 192, 0.15)',
-                  boxShadow: isCurrent ? '0 0 8px #C7A16A' : 'none',
-                }}
-              />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <span
-                  style={{
-                    fontFamily: "var(--font-inter), system-ui, sans-serif",
-                    fontSize: '0.625rem',
-                    fontWeight: 700,
-                    color: isCurrent ? '#C7A16A' : '#CDC7C0',
-                  }}
-                >
-                  {isComplete ? <Check size={10} color="#C7A16A" /> : `0${step.id}`}
-                </span>
-                <span
-                  className={isCurrent ? undefined : 'hidden sm:inline'}
-                  style={{
-                    fontFamily: "var(--font-inter), system-ui, sans-serif",
-                    fontSize: '0.6875rem',
-                    fontWeight: 600,
-                    color: isCurrent ? '#F4F1EA' : '#8A8480',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                  }}
-                >
-                  {step.label}
-                </span>
-              </div>
-            </div>
+            <li key={step.id} aria-current={isCurrent ? 'step' : undefined} className="flex flex-col gap-2">
+              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-soft-white' : 'bg-[#2a2d2e]'}`} />
+              <span className={`text-xs font-medium ${isCurrent ? 'text-soft-white' : 'text-muted-grey'}`}>
+                <span className="tabular-nums">{isComplete ? '✓' : `0${step.id}`}</span>
+                <span className={isCurrent ? 'ml-1.5' : 'ml-1.5 hidden sm:inline'}>{step.label}</span>
+              </span>
+            </li>
           );
         })}
-      </div>
+      </ol>
 
-      {/* Step Content Shell */}
-      <div style={{ minHeight: '380px' }}>
-        {currentStep === 1 && (
-          <StepIdentity formData={formData} onChange={updateFormData} errors={errors} />
-        )}
+      <div className="min-h-[380px]">
+        {currentStep === 1 && <StepIdentity formData={formData} onChange={updateFormData} errors={errors} />}
         {currentStep === 2 && (
           <StepCommitteePicker chambers={chambers} formData={formData} onChange={updateFormData} errors={errors} />
         )}
-        {currentStep === 3 && (
-          <StepExperience formData={formData} onChange={updateFormData} errors={errors} />
-        )}
+        {currentStep === 3 && <StepExperience formData={formData} onChange={updateFormData} errors={errors} />}
         {currentStep === 4 && (
-          <StepReview
-            formData={formData}
-            onChange={updateFormData}
-            onJumpToStep={(s) => setCurrentStep(s)}
-            errors={errors}
-            isSubmitting={isSubmitting}
-            onSubmit={handleSubmit}
-          />
+          <>
+            <StepReview
+              formData={formData}
+              onChange={updateFormData}
+              onJumpToStep={(s) => setCurrentStep(s)}
+              errors={errors}
+              isSubmitting={isSubmitting}
+              onSubmit={handleSubmit}
+            />
+            {submitError && (
+              <p role="alert" className="mt-4 rounded-sm border border-[#E06C75] px-4 py-3 text-sm text-[#E06C75]">
+                {submitError}
+              </p>
+            )}
+          </>
         )}
         {currentStep === 5 && registrationResult && (
           <StepPayment
@@ -316,67 +257,18 @@ export default function RegistrationWizard() {
         )}
       </div>
 
-      {/* Wizard Footer Controls (only for steps 1-3) */}
       {currentStep < 4 && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: '2.5rem',
-            paddingTop: '1.5rem',
-            borderTop: '1px solid rgba(205, 199, 192, 0.1)',
-          }}
-        >
+        <div className="mt-10 flex items-center justify-between border-t border-[#2a2d2e] pt-6">
           {currentStep > 1 ? (
-            <button
-              type="button"
-              onClick={handleBack}
-              className="btn-tactile"
-              style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '6px',
-                border: '1px solid rgba(205, 199, 192, 0.2)',
-                backgroundColor: 'transparent',
-                color: '#CDC7C0',
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-                fontSize: '0.8125rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-              }}
-            >
-              <ArrowLeft size={14} /> Back
-            </button>
+            <Button type="button" variant="outline" onClick={handleBack}>
+              Back
+            </Button>
           ) : (
-            <div />
+            <span />
           )}
-
-          <button
-            type="button"
-            onClick={handleNext}
-            className="btn-tactile"
-            style={{
-              padding: '0.75rem 1.5rem',
-              borderRadius: '6px',
-              backgroundColor: '#C7A16A',
-              color: '#1A1D1F',
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-              fontSize: '0.8125rem',
-              fontWeight: 700,
-              letterSpacing: '0.05em',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              boxShadow: '0 6px 20px -4px rgba(199, 161, 106, 0.35)',
-            }}
-          >
-            Continue to {STEPS[currentStep].label} <ArrowRight size={14} />
-          </button>
+          <Button type="button" onClick={handleNext}>
+            Continue to {STEPS[currentStep].label}
+          </Button>
         </div>
       )}
     </div>

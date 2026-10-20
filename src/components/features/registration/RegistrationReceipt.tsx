@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle2, Copy, Check, Calendar, ArrowRight, ShieldCheck, Clock, IndianRupee } from 'lucide-react';
 import Link from 'next/link';
+import { EventEntity } from '@/types/schema';
+import { Button } from '@/components/ui/Button';
 
 interface RegistrationReceiptProps {
+  event: EventEntity;
   trackingCode: string;
   submittedAt: string;
   allotment: {
@@ -20,7 +22,24 @@ interface RegistrationReceiptProps {
   onNewRegistration: () => void;
 }
 
+/** Google Calendar link, only when the event has dates (all-day, end date exclusive). */
+function calendarUrl(event: EventEntity): string | null {
+  if (!event.startDate) return null;
+  const end = new Date(`${event.endDate ?? event.startDate}T00:00:00Z`);
+  end.setUTCDate(end.getUTCDate() + 1);
+  const ymd = (d: string) => d.replace(/-/g, '');
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: event.title,
+    dates: `${ymd(event.startDate)}/${ymd(end.toISOString().slice(0, 10))}`,
+    details: event.shortDescription,
+    location: event.location.venue,
+  });
+  return `https://calendar.google.com/calendar/render?${params}`;
+}
+
 export default function RegistrationReceipt({
+  event,
   trackingCode,
   submittedAt,
   allotment,
@@ -29,323 +48,85 @@ export default function RegistrationReceipt({
   onNewRegistration,
 }: RegistrationReceiptProps) {
   const [copied, setCopied] = useState(false);
+  const paid = paymentStatus === 'PAYMENT_SUBMITTED';
+  const calendar = calendarUrl(event);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(trackingCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(trackingCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard blocked: the code is visible on screen
+    }
   };
 
-  const formattedDate = new Date(submittedAt).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const formattedDate = new Date(submittedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  const rows: [string, string][] = [
+    ['First preference', `${allotment.committee} — ${allotment.country}`],
+    ['Name', allotment.delegateName],
+    ['Track', allotment.track === 'HIGH_SCHOOL' ? 'High school' : 'College'],
+    ['Submitted', formattedDate],
+    ...(amountPaid !== undefined ? ([['Amount', `₹${amountPaid}`]] as [string, string][]) : []),
+    ['Status', paid ? 'Payment being verified' : 'Awaiting payment'],
+  ];
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-        gap: '2rem',
-        animation: 'badge-confirm 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-      }}
-    >
-      {/* Success Icon */}
-      <div
-        style={{
-          width: '64px',
-          height: '64px',
-          borderRadius: '50%',
-          backgroundColor: 'rgba(76, 175, 122, 0.15)',
-          border: '1px solid rgba(76, 175, 122, 0.4)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#4CAF7A',
-          boxShadow: '0 0 30px rgba(76, 175, 122, 0.25)',
-        }}
-      >
-        <CheckCircle2 size={32} />
-      </div>
-
-      {/* Title */}
+    <div className="flex flex-col items-center gap-8 text-center">
       <div>
-        <span
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.6875rem',
-            fontWeight: 700,
-            letterSpacing: '0.2em',
-            color: '#C7A16A',
-            textTransform: 'uppercase',
-            marginBottom: '0.5rem',
-            display: 'block',
-          }}
-        >
-          {paymentStatus === 'PAYMENT_SUBMITTED' ? 'Payment Submitted' : 'Registration Logged'}
-        </span>
-        <h2
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)',
-            color: '#F4F1EA',
-            lineHeight: 1.2,
-          }}
-        >
-          {paymentStatus === 'PAYMENT_SUBMITTED'
-            ? 'Registration & Payment Recorded'
-            : 'Registration Provisionally Confirmed'}
+        <p className="eyebrow mb-2">{paid ? 'Payment submitted' : 'Application saved'}</p>
+        <h2 className="text-2xl font-bold text-soft-white md:text-3xl">
+          {paid ? 'You’re registered. We’re checking your payment.' : 'Application saved.'}
         </h2>
-        <p
-          style={{
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.875rem',
-            color: '#9A9490',
-            maxWidth: '520px',
-            margin: '0.65rem auto 0',
-            lineHeight: 1.6,
-          }}
-        >
-          {paymentStatus === 'PAYMENT_SUBMITTED'
-            ? 'Your application and payment details have been recorded. The Secretariat will verify your payment within 24 hours and send a confirmation email.'
-            : 'Your allocation preference has been recorded with the DIPLOVIA Secretariat. An email confirmation has been dispatched.'}
+        <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-muted-grey">
+          {paid
+            ? 'The team verifies payments within 24 hours, assigns your seat and confirms it by email.'
+            : 'Complete the payment to finish your registration.'}
         </p>
       </div>
 
-      {/* Credential Reference Box */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '540px',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(10, 13, 18, 0.75)',
-          border: '1px solid rgba(199, 161, 106, 0.4)',
-          padding: '1.75rem',
-          boxShadow: '0 20px 50px -15px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.08)',
-          textAlign: 'left',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.25rem',
-        }}
-      >
-        {/* Code & Copy Banner */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingBottom: '1rem',
-            borderBottom: '1px solid rgba(205, 199, 192, 0.12)',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-          }}
-        >
+      <div className="panel w-full max-w-[540px] text-left">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2d2e] pb-4">
           <div>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              Application Reference Code
-            </span>
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '1.15rem', fontWeight: 700, color: '#C7A16A', letterSpacing: '0.05em' }}>
-              {trackingCode}
-            </p>
+            <p className="text-xs text-muted-grey">Tracking code (keep it for any query)</p>
+            <p className="mt-1 text-lg font-bold tracking-wider text-soft-white">{trackingCode}</p>
           </div>
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="btn-tactile"
-            style={{
-              padding: '0.45rem 0.85rem',
-              borderRadius: '4px',
-              backgroundColor: copied ? 'rgba(76, 175, 122, 0.15)' : 'rgba(255, 255, 255, 0.05)',
-              border: copied ? '1px solid #4CAF7A' : '1px solid rgba(205, 199, 192, 0.2)',
-              color: copied ? '#4CAF7A' : '#CDC7C0',
-              fontFamily: "var(--font-inter), system-ui, sans-serif",
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-            }}
-          >
-            {copied ? <Check size={13} /> : <Copy size={13} />}
-            {copied ? 'Copied' : 'Copy Code'}
-          </button>
+          <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+            {copied ? 'Copied' : 'Copy code'}
+          </Button>
         </div>
-
-        {/* Structured Allotment Details */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-          <div>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase' }}>
-              Allocated Chamber
-            </span>
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.875rem', fontWeight: 600, color: '#F4F1EA', marginTop: '0.15rem' }}>
-              {allotment.committee}
-            </p>
-          </div>
-
-          <div>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase' }}>
-              Provisional Country
-            </span>
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.875rem', fontWeight: 600, color: '#C7A16A', marginTop: '0.15rem' }}>
-              {allotment.country}
-            </p>
-          </div>
-
-          <div>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase' }}>
-              Delegate Name
-            </span>
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.8125rem', color: '#CDC7C0', marginTop: '0.15rem' }}>
-              {allotment.delegateName}
-            </p>
-          </div>
-
-          <div>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase' }}>
-              Educational Track
-            </span>
-            <p style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.8125rem', color: '#CDC7C0', marginTop: '0.15rem' }}>
-              {allotment.track === 'HIGH_SCHOOL' ? 'High School' : 'Collegiate'}
-            </p>
-          </div>
-        </div>
-
-        {/* Amount Paid */}
-        {amountPaid !== undefined && (
-          <div
-            style={{
-              paddingTop: '0.75rem',
-              borderTop: '1px solid rgba(205, 199, 192, 0.08)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.625rem', color: '#8A8480', textTransform: 'uppercase' }}>
-              Amount Paid
-            </span>
-            <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '1rem', fontWeight: 700, color: '#C7A16A', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-              <IndianRupee size={14} />{amountPaid}
-            </span>
-          </div>
-        )}
-
-        {/* Status Pill */}
-        <div
-          style={{
-            paddingTop: '0.75rem',
-            borderTop: '1px solid rgba(205, 199, 192, 0.08)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <span style={{ fontFamily: "var(--font-inter), system-ui, sans-serif", fontSize: '0.6875rem', color: '#8A8480' }}>
-            Submitted: {formattedDate}
-          </span>
-          {paymentStatus === 'PAYMENT_SUBMITTED' ? (
-            <span
-              style={{
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-                fontSize: '0.6875rem',
-                fontWeight: 700,
-                color: '#FFB74D',
-                backgroundColor: 'rgba(255, 183, 77, 0.12)',
-                padding: '0.2rem 0.6rem',
-                borderRadius: '3px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-              }}
-            >
-              <Clock size={12} /> AWAITING VERIFICATION
-            </span>
-          ) : (
-            <span
-              style={{
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-                fontSize: '0.6875rem',
-                fontWeight: 700,
-                color: '#4CAF7A',
-                backgroundColor: 'rgba(76, 175, 122, 0.12)',
-                padding: '0.2rem 0.6rem',
-                borderRadius: '3px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-              }}
-            >
-              <ShieldCheck size={12} /> FIRST PREFERENCE
-            </span>
-          )}
-        </div>
+        <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {rows.map(([label, value]) => (
+            <div key={label}>
+              <dt className="text-xs text-muted-grey">{label}</dt>
+              <dd className="mt-0.5 text-sm font-medium text-soft-white">{value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
-      {/* Action Buttons */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-        <a
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=DIPLOVIA+Edition+I+Conference&dates=20261120T090000Z/20261122T180000Z&details=DIPLOVIA+Inaugural+Conference+Chambers&location=New+Delhi,+India"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-tactile"
-          style={{
-            padding: '0.75rem 1.35rem',
-            borderRadius: '6px',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(205, 199, 192, 0.2)',
-            color: '#F4F1EA',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.8125rem',
-            fontWeight: 600,
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-          }}
-        >
-          <Calendar size={14} color="#C7A16A" /> Add to Calendar
-        </a>
-
+      <div className="flex flex-wrap justify-center gap-4">
+        {calendar && (
+          <a
+            href={calendar}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+          >
+            Add to calendar
+          </a>
+        )}
         <Link
-          href="/committees"
-          className="btn-tactile"
-          style={{
-            padding: '0.75rem 1.35rem',
-            borderRadius: '6px',
-            backgroundColor: '#C7A16A',
-            color: '#1A1D1F',
-            fontFamily: "var(--font-inter), system-ui, sans-serif",
-            fontSize: '0.8125rem',
-            fontWeight: 700,
-            textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.45rem',
-          }}
+          href={`/events/${event.slug}#committees`}
+          className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"
         >
-          Explore Committees <ArrowRight size={14} />
+          Read about the committees
         </Link>
       </div>
 
-      <button
-        type="button"
-        onClick={onNewRegistration}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: '#8A8480',
-          fontFamily: "var(--font-inter), system-ui, sans-serif",
-          fontSize: '0.75rem',
-          cursor: 'pointer',
-          textDecoration: 'underline',
-          marginTop: '0.5rem',
-        }}
-      >
-        Submit another delegation dossier
+      <button type="button" onClick={onNewRegistration} className="text-xs text-muted-grey underline underline-offset-4 hover:text-soft-white">
+        Register another delegate
       </button>
     </div>
   );
