@@ -21,7 +21,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div
-      className={cn('space-y-3', align === 'center' ? 'text-center max-w-2xl mx-auto' : 'max-w-3xl', className)}
+      className={cn('rise space-y-3', align === 'center' ? 'text-center max-w-2xl mx-auto' : 'max-w-3xl', className)}
     >
       {eyebrow && (
         <p className="eyebrow">{eyebrow}</p>

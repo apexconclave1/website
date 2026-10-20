@@ -86,7 +86,8 @@ Based on an **8px grid**:
 - **Allowed properties**: `opacity`, `transform` (scale, translateY, translateX)
 - **Hover effects**: Subtle `scale(1.01)` or `translateY(-2px)` with border color shift
 - **Page transitions**: Fade in with `opacity` + slight `translateY(8px → 0)`
-- **Tool**: CSS transitions (Tailwind utilities); no animation library
+- **Tool**: CSS transitions (Tailwind utilities); no animation library. `transition` classes use the brand curve by default
+- **Height**: only through a `grid-template-rows` 0fr→1fr transition (FAQ), never by animating `height`
 
 ---
 

@@ -102,7 +102,8 @@ Report: https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH
 - [x] Step 3: `SpecularButton` imports ogl inside its effect (link still server-rendered); `/events` is a server page with `components/events/EventsDirectory.tsx` as the only client part; `lib/supabase/client.ts` and `@supabase/ssr` removed (anon key no longer needed); `Badge` and `SectionHeading` use `cn()`. First-load JS: `/` 164 to 151 kB, `/events` 135 to 122 kB, event page 148 to 135 kB.
 - [x] Step 4: events `register_viewed`, `registration_step_completed` (steps 1-3); site-wide `components/ClickTracker.tsx` sends any `data-track` click (CTAs: `cta_hero_explore_events`, `cta_home_featured_event`, `cta_events_view_event`, `cta_event_register`, `cta_nav_register`, `cta_card_register`; `social_click` / `email_click` with platform and place). `supabase/migrations/003_funnel_view.sql`: `registration_funnel` view by event, UTM source and campaign (security_invoker, no API access). Privacy notice in Terms now covers analytics, UTM tags and service providers (updated October 2026).
 - [x] Step 5: Tailwind tokens `line` (#1a1d1e) and `line-strong` (#2a2d2e) replace 39 literals; container token set to 1240px and used everywhere (13 `max-w-[1240px]` replaced); `SectionHeading` eyebrow is the plain `.eyebrow` text (bronze chip on #16130F removed); home featured event reuses `EventCard`, which now shows Register / "Registration opens soon".
-- [ ] Steps 6 (motion polish) and 7 (rewrite skill files): owner to choose.
+- [x] Step 6: brand easing as Tailwind's default transition curve; 200ms fade-and-rise between wizard steps; 8px scroll-linked rise on `SectionHeading` (never hidden at rest); FAQ plus/minus icon and `grid-template-rows` open/close.
+- [x] Step 7: five skill files in `.agents/skills/` rewritten to match the site; `SKILLS_MASTER_GUIDE.md` index updated. `003_funnel_view.sql` run by owner.
 
 ### H. Docs
 - [ ] Final pass on README, progress, AGENTS, PRODUCT, DESIGN.

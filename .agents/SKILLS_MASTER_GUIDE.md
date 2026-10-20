@@ -9,13 +9,12 @@
 | # | Skill | Directory | Purpose |
 |---|---|---|---|
 | 1 | **Frontend Design** | `skills/frontend-design/` | Dark-first, typography-led UI engineering patterns |
-| 2 | **Improve Animations** | `skills/improve-animations/` | 150–350ms motion curves & micro-interactions with Framer Motion |
-| 3 | **Improve React** | `skills/improve-react/` | React Server Components performance tuning & re-render triage |
-| 4 | **Modern Web Guidance** | `skills/modern-web-guidance/` | Modern CSS (`:has()`, container queries, `@layer`) & HTML5 semantics |
+| 2 | **Improve Animations** | `skills/improve-animations/` | 150–350ms CSS-only motion, brand easing, reduced motion, approved effect exceptions |
+| 3 | **Improve React** | `skills/improve-react/` | Server-first components, on-demand heavy pieces, bundle budget |
+| 4 | **Modern Web Guidance** | `skills/modern-web-guidance/` | Native platform features, semantic HTML, accessibility, metadata |
 | 5 | **SEO Audit** | `skills/seo-audit/` | Event JSON-LD schema, OpenGraph, Twitter Cards, technical SEO |
 | 6 | **Programmatic SEO** | `skills/programmatic-seo/` | Scalable multi-event landing page architecture & dynamic routes |
-| 7 | **Sanity Best Practices** | `skills/sanity-best-practices/` | Sanity CMS schema modeling, GROQ queries (for future CMS integration) |
-| 8 | **Analytics Tracking** | `skills/analytics-tracking/` | Privacy-first event telemetry & conversion tracking |
+| 7 | **Analytics Tracking** | `skills/analytics-tracking/` | Cookie-free Vercel Analytics, `data-track` clicks, Supabase registration funnel |
 
 ---
 
@@ -40,5 +39,4 @@ Each skill directory contains a `SKILL.md` file with detailed instructions. AI a
 | Using modern CSS features, semantic HTML | `modern-web-guidance` |
 | Adding meta tags, structured data, OG images | `seo-audit` |
 | Creating dynamic event pages, URL structures | `programmatic-seo` |
-| Integrating Sanity CMS (future) | `sanity-best-practices` |
 | Adding analytics, tracking events, conversions | `analytics-tracking` |

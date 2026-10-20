@@ -9,7 +9,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const baseStyles =
-  'inline-flex items-center justify-center font-medium transition duration-150 ease-out focus:outline-none focus:ring-1 focus:ring-warm-bronze max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none enabled:active:scale-[0.98]';
+  'inline-flex items-center justify-center font-medium transition duration-150 focus:outline-none focus:ring-1 focus:ring-warm-bronze max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none enabled:active:scale-[0.98]';
 
 const variants = {
   primary: 'bg-soft-white text-bg hover:bg-[#E2DFD7] border border-transparent font-semibold',

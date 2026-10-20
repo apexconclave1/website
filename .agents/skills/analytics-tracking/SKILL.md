@@ -1,138 +1,93 @@
 # Skill: Analytics Tracking
 
-> Privacy-first event telemetry and conversion tracking patterns for the Apex Conclave website.
+> Privacy-first, cookie-free tracking for the Apex Conclave website. Vercel Web Analytics for page views and events, Supabase for the first-party registration funnel.
 
 ---
 
 ## When to Activate
 
-Use this skill when:
-- Adding analytics or tracking to the website
-- Implementing conversion tracking for registrations
-- Setting up event telemetry for user behavior
-- Ensuring privacy compliance
+- Adding a tracked button, link or form
+- Adding a step to the registration wizard
+- Reading or changing the registration funnel
+- Changing what the privacy notice (`app/terms/page.tsx`) says about data
 
 ---
 
-## Privacy-First Principles
+## Rules
 
-1. **No tracking without consent**: Implement a cookie consent banner before loading analytics
-2. **Minimal data collection**: Only track what's necessary for improving the event experience
-3. **No PII in analytics**: Never send names, emails, or phone numbers to analytics services
-4. **First-party analytics preferred**: Consider privacy-friendly tools (Plausible, Umami, Fathom) over Google Analytics
+1. **No personal data in analytics.** Never send names, emails, phones, institutions or tracking codes. Send ids, step numbers, amounts and topics only.
+2. **No cookies, no consent banner.** Vercel Web Analytics is cookie-free. Do not add an analytics tool that sets cookies without asking the owner first (it would need a consent banner).
+3. **Free tier only.** Vercel shows custom events only on Pro; the free answer to "where do people drop off" is the Supabase view below.
+4. **Analytics never blocks the page.** `<Analytics />` loads after hydration; tracking calls are fire-and-forget.
+5. **Update the privacy notice** in `app/terms/page.tsx` when you start storing or sending a new kind of data.
 
 ---
 
-## Recommended Analytics Stack
+## Stack
 
-| Tool | Purpose | Privacy |
+| Piece | Where | What it records |
 |---|---|---|
-| **Plausible** or **Umami** | Page views, referrers, basic metrics | Privacy-first, no cookies |
-| **Firebase Analytics** (optional) | If already using Firebase | Google-owned, requires consent |
-| **Custom events** | Registration funnel tracking | First-party, stored in Firestore |
+| `@vercel/analytics` `<Analytics />` | `app/layout.tsx` | Page views, referrers, countries, devices |
+| `track()` from `@vercel/analytics` | Client components | Named events (below) |
+| `ClickTracker` | `components/ClickTracker.tsx`, mounted once in the layout | Any click on an element with `data-track` |
+| `UtmCapture` / `readUtm()` | `components/UtmCapture.tsx` | First-touch `utm_source`, `utm_medium`, `utm_campaign` per session (sessionStorage) |
+| `registrations.utm_*` columns | `supabase/migrations/002_utm.sql` | UTM stored with each registration |
+| `registration_funnel` view | `supabase/migrations/003_funnel_view.sql` | Registrations, paid, confirmed, paid %, verified revenue per event, source and campaign |
 
 ---
 
-## Key Events to Track
+## Tracking a click (preferred, works in Server Components)
 
-### Page-Level Events
-```typescript
-// Track key page views
-trackEvent('page_view', { page: '/events/diplovia-2025', referrer: document.referrer });
-trackEvent('page_view', { page: '/events', filter: 'MUN' });
-```
+Add attributes; no JS and no `"use client"` needed. Extra `data-track-*` attributes become properties.
 
-### Registration Funnel
-```typescript
-// Step 1: User views seat matrix
-trackEvent('seat_matrix_viewed', { eventId: 'diplovia-2025', chamberId: 'unsc' });
-
-// Step 2: User clicks on an available seat
-trackEvent('seat_selected', { eventId: 'diplovia-2025', seatId: 'us', chamber: 'unsc' });
-
-// Step 3: User opens application modal
-trackEvent('application_started', { eventId: 'diplovia-2025', seatId: 'us' });
-
-// Step 4: User submits application
-trackEvent('application_submitted', { eventId: 'diplovia-2025', seatId: 'us' });
-
-// Step 5: Application confirmed (success)
-trackEvent('application_confirmed', { eventId: 'diplovia-2025', seatId: 'us' });
-```
-
-### Engagement Events
-```typescript
-trackEvent('study_guide_downloaded', { chamberId: 'unsc', eventId: 'diplovia-2025' });
-trackEvent('cta_clicked', { label: 'Explore Events', page: '/' });
-trackEvent('social_link_clicked', { platform: 'instagram' });
-```
-
----
-
-## Implementation Pattern
-
-### Custom Analytics Hook
 ```tsx
-// hooks/useAnalytics.ts
-"use client"
-
-export function useAnalytics() {
-  const trackEvent = (eventName: string, properties?: Record<string, string>) => {
-    // Send to your analytics service
-    if (typeof window !== 'undefined' && window.plausible) {
-      window.plausible(eventName, { props: properties });
-    }
-
-    // Optionally log to Firestore for custom dashboards
-    // logToFirestore('analytics_events', { eventName, properties, timestamp: new Date() });
-  };
-
-  return { trackEvent };
-}
+<a href={instagram} data-track="social_click" data-track-platform="instagram">Instagram</a>
 ```
 
-### Cookie Consent (Required for EU/GDPR)
+`SpecularButton` and `EventCard` take a `trackAs` prop that renders `data-track`.
+
+## Tracking a state change (client components)
+
 ```tsx
-// components/CookieConsent.tsx
-"use client"
-import { useState, useEffect } from 'react';
+import { track } from '@vercel/analytics';
 
-export function CookieConsent() {
-  const [consented, setConsented] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const consent = localStorage.getItem('analytics_consent');
-    setConsented(consent === 'true');
-  }, []);
-
-  if (consented !== null && consented) return null;
-
-  return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#141718] border-t border-[#1a1d1e] p-4 z-50">
-      <div className="max-w-[1240px] mx-auto flex items-center justify-between">
-        <p className="text-sm text-[#A5A6A2]">
-          We use privacy-friendly analytics to improve your experience.
-        </p>
-        <div className="flex gap-3">
-          <button onClick={() => { localStorage.setItem('analytics_consent', 'false'); setConsented(false); }}
-            className="text-sm text-[#A5A6A2] hover:text-[#F4F2ED]">Decline</button>
-          <button onClick={() => { localStorage.setItem('analytics_consent', 'true'); setConsented(true); }}
-            className="text-sm bg-[#F4F2ED] text-[#080909] px-4 py-1.5 rounded-[8px]">Accept</button>
-        </div>
-      </div>
-    </div>
-  );
-}
+track('registration_step_completed', { event: event.id, step: currentStep });
 ```
 
 ---
 
-## Conversion Metrics to Monitor
+## Event names in use
 
-| Metric | Formula |
+| Event | Fired from | Properties |
+|---|---|---|
+| `register_viewed` | `RegistrationWizard` mount | `event` |
+| `registration_step_completed` | Wizard "Continue" after a valid step | `event`, `step` |
+| `registration_submitted` | Wizard, after `/api/register` succeeds | `event` |
+| `payment_submitted` | Wizard, after `/api/register/payment` succeeds | `event`, `amount` |
+| `contact_sent` | `ContactForm` success | `category` |
+| `cta_hero_explore_events` | Home hero button | — |
+| `cta_home_featured_event`, `cta_events_view_event` | `EventCard` "Explore" button | — |
+| `cta_card_register`, `cta_event_register`, `cta_nav_register` | Register buttons (card, event page, navbar) | — |
+| `social_click`, `email_click` | Footer, contact and community social and email links | `platform`, `place` |
+
+Naming: `snake_case`, object first then action for funnel events (`registration_submitted`), `cta_<place>_<action>` for buttons. Reuse a name before adding one.
+
+---
+
+## Reading the funnel
+
+Supabase SQL editor (service role only; the view is revoked from `anon` and `authenticated`):
+
+```sql
+select * from registration_funnel order by registrations desc;
+```
+
+Share campaign links as `https://<site>/events/diplovia-2026?utm_source=instagram&utm_campaign=<post-or-school>`.
+
+| Metric | Source |
 |---|---|
-| **Seat View Rate** | Seat Matrix Views / Event Page Views |
-| **Seat Selection Rate** | Seats Selected / Seat Matrix Views |
-| **Application Start Rate** | Applications Started / Seats Selected |
-| **Application Completion Rate** | Applications Submitted / Applications Started |
-| **Overall Conversion** | Applications Submitted / Event Page Views |
+| Event page views | Vercel Analytics, page `/events/diplovia-2026` |
+| Started registration | `register_viewed` (Vercel, Pro) or page views of `/register` (free) |
+| Submitted | `registration_funnel.registrations` |
+| Paid | `registration_funnel.paid` / `paid_percent` |
+| Confirmed | `registration_funnel.confirmed` |

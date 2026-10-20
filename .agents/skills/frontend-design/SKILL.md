@@ -1,87 +1,75 @@
 # Skill: Frontend Design
 
-> Dark-first, typography-led UI engineering patterns for the Apex Conclave website.
+> Dark-first, typography-led UI for the Apex Conclave website. Full rules: `.agents/DESIGN.md` (from `docs/Apex_Conclave_Developer_Design_Sheet.pdf`).
 
 ---
 
 ## When to Activate
 
-Use this skill when:
-- Building new UI components or page sections
-- Reviewing existing component designs for brand compliance
+- Building a new page, section or component
+- Reviewing a component for brand compliance
 - Making layout decisions (grid, spacing, container width)
 
 ---
 
-## Core Principles
+## Tokens (use these, never raw hex)
 
-### 1. Dark-First Design
-- **Background**: Always `#080909` (Ink Black) as the base canvas
-- **Surface**: Use `#141718` for cards, panels, modals, and interactive surfaces
-- **Contrast**: Rely on the contrast between `#080909` and `#141718` for visual hierarchy — NOT shadows or gradients
+| Tailwind token | Hex | Use |
+|---|---|---|
+| `bg` | `#080909` | Page background (layer 0) |
+| `surface` | `#141718` | Cards, panels, dialogs (layer 1) |
+| `line` | `#1a1d1e` | Default borders, dividers (layer 2) |
+| `line-strong` | `#2a2d2e` | Hover and highlighted borders (layer 3) |
+| `soft-white` | `#F4F2ED` | Headings, body text, primary button fill |
+| `muted-grey` | `#A5A6A2` | Secondary text and meta |
+| `warm-bronze` | `#C7A16A` | Eyebrows, small badges, focus ring only |
+| `deep-teal` | `#21474D` | Rare accent |
+| `max-w-container` | 1240px | Every page's content width |
 
-### 2. Typography-Led Hierarchy
-- Headlines carry the visual weight. Make them **large** and **bold** but restrained.
-- Body text at 16–18px in `#F4F2ED` (Soft White) for readability.
-- Secondary/meta text at 12–14px in `#A5A6A2` (Muted Grey).
-- Let font size, weight, and spacing communicate hierarchy — NOT color or decoration.
+Font: Inter only (`font-sans`). Radius: `rounded` (10px) for cards and buttons, `rounded-sm` (8px) inside cards.
 
-### 3. Spatial Breathing Room
-- Use generous whitespace. The design should breathe.
-- Sections should have at least `64px–96px` vertical padding.
-- Cards should have at least `24px` internal padding.
-- Don't crowd elements — let each component have its own visual space.
+## Shared classes (`app/globals.css`)
 
-### 4. Surface-Based Depth
-```
-Layer 0 (Background):  #080909
-Layer 1 (Surface):     #141718  — Cards, panels, modals
-Layer 2 (Hover):       #1a1d1e  — Hovered cards, active states
-Layer 3 (Border):      #2a2d2e  — Highlighted borders, focus rings
-```
+`.panel` (surface card), `.field-label`, `.field-input`, `.field-error` (all forms), `.eyebrow` (section label, plain bronze text), `.ext-link` and `.card-link` (social links with hover arrow and lift).
+
+## Shared components — reuse before writing markup
+
+`SectionHeading` (eyebrow, title, description, `as="h1"` for page titles), `EventCard` (every event listing, home included), `Button`, `Badge`, `TeamCard`, `Breadcrumbs`, `ApexWordmark` (the logo image; never redraw the logo in type), `SpecularButton` (primary CTAs only).
 
 ---
 
-## Component Patterns
+## Principles
 
-### Editorial Event Card
-```tsx
-<div className="bg-[#141718] border border-[#1a1d1e] rounded-[10px] p-6 hover:border-[#2a2d2e] transition-colors duration-200">
-  {/* Cover image */}
-  <div className="aspect-[16/9] rounded-[8px] overflow-hidden mb-4">
-    <Image ... className="object-cover w-full h-full" />
-  </div>
-  {/* Category badge */}
-  <span className="text-xs text-[#A5A6A2] tracking-wider uppercase">MUN</span>
-  {/* Title */}
-  <h3 className="text-xl font-bold text-[#F4F2ED] mt-2">Diplovia 2025</h3>
-  {/* Meta */}
-  <p className="text-sm text-[#A5A6A2] mt-1">15–17 Nov · New Delhi</p>
-</div>
-```
+1. **Depth from surfaces, not shadows.** `bg` → `surface` → `line` → `line-strong`.
+2. **Typography carries hierarchy.** Headings large and bold; body 16–18px `soft-white`; meta 12–14px `muted-grey`. Headings use `text-wrap: balance`.
+3. **Breathing room.** Sections 64–96px vertical padding (`py-16 md:py-24`); cards at least 24px inside (`p-6`).
+4. **Bronze is small.** One eyebrow per section at most; never bronze fills or large bronze text.
+5. **Content lives in `src/lib/data/`**, not in components (events, chambers, FAQs, organisation, booklet story).
+6. **Private things stay private.** Sponsorship tiers and prices are never on the site. The site credit (Kapish Garg) is in metadata, JSON-LD and `llms.txt` only, never visible.
 
-### Section Layout
+## Section pattern
+
 ```tsx
 <section className="py-16 md:py-24">
-  <div className="max-w-[1240px] mx-auto px-6">
-    <h2 className="text-3xl md:text-4xl font-bold text-[#F4F2ED]">Section Title</h2>
-    <p className="text-base text-[#A5A6A2] mt-2 max-w-2xl">Supporting text.</p>
-    {/* Content grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-      ...
-    </div>
+  <div className="mx-auto max-w-container px-6">
+    <SectionHeading eyebrow="Committees" title="Five rooms, one weekend" description="…" />
+    <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">…</div>
   </div>
 </section>
 ```
 
 ---
 
-## Checklist Before Shipping a Component
+## Approved effects
 
-- [ ] Uses only approved colors (`#080909`, `#141718`, `#F4F2ED`, `#A5A6A2`, `#C7A16A`, `#21474D`)
-- [ ] No gradients, glassmorphism, or heavy shadows
-- [ ] Bronze (`#C7A16A`) used only for tiny badges or text highlights
-- [ ] Hover transitions are 150–350ms, eased out
-- [ ] Typography creates hierarchy (not color or decoration)
-- [ ] Responsive at mobile, tablet, and desktop breakpoints
-- [ ] Sufficient whitespace and breathing room
+`DarkVeil`, `StrokeText`, `AccordionGallery`, `SpecularButton` and `ScrollStack` keep their own gradients, glow, blur and timing (owner decision, 2026-10-20). Where each is allowed: `.agents/DESIGN.md`. Do not "fix" them, and do not copy their styling into other components.
+
+## Checklist before shipping
+
+- [ ] Tokens only; no raw hex, no new colours
+- [ ] No gradients, glass or shadows outside the five approved effects
+- [ ] Bronze only for eyebrows, small badges, focus ring
+- [ ] Width `max-w-container`; existing shared component reused where one fits
+- [ ] Hover 150–350ms (`transition` uses the brand curve by default)
+- [ ] Works at 390px with a 16–24px gutter and no horizontal scroll (check on a real phone)
+- [ ] Contrast at least 4.5:1 for text

@@ -4,7 +4,7 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to G and the launch audit are done. Skills review published (https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH) with a 7-step plan; waiting for the owner to pick steps. Then Phase H (final docs pass) and owner steps: Vercel deploy, Analytics on, Resend key, Search Console, real UPI, dates.
+Phases A to G and the launch audit are done. Skills review published (https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH) with a 7-step plan; all 7 steps done. Next: Phase H (final docs pass) and owner steps: Vercel deploy, Analytics on, Resend key, Search Console, real UPI, dates.
 
 Site credit: "Website by Kapish Garg" is not shown on the page; it lives in the author/creator meta tags, WebSite JSON-LD (`websiteSchema` in `lib/seo.ts`) and `public/llms.txt`. Kapish's team bio still says he built the website.
 
@@ -51,7 +51,9 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis
 
 **Skills steps 1–2 (2026-10-20).** Form autocomplete, Escape on the mobile menu, footer heading semantics, `text-wrap`, global reduced-motion rule; framer-motion removed (Button and ScrollProgress now CSS). Bundles: `/contact` 121 kB (was 159), `/register` 145 kB (was 182). Not verified in a real browser: the CSS scroll-progress bar (headless Chrome does not update scroll timelines).
 
-**Skills steps 3–5 (2026-10-20).** Server `/events`, lazy ogl in SpecularButton, Supabase browser client removed, funnel and click tracking (`ClickTracker`, `003_funnel_view.sql`, owner to run), privacy notice updated, `line`/`line-strong` and 1240px container tokens, one eyebrow style, home reuses `EventCard`. After changing `tailwind.config.ts`, restart `npm run dev` (the running dev server keeps the old config and shows "border-line-strong does not exist").
+**Skills steps 3–5 (2026-10-20).** Server `/events`, lazy ogl in SpecularButton, Supabase browser client removed, funnel and click tracking (`ClickTracker`, `003_funnel_view.sql`, run by owner 2026-10-20), privacy notice updated, `line`/`line-strong` and 1240px container tokens, one eyebrow style, home reuses `EventCard`. After changing `tailwind.config.ts`, restart `npm run dev` (the running dev server keeps the old config and shows "border-line-strong does not exist").
+
+**Skills steps 6–7 (2026-10-20).** Motion: brand curve is Tailwind's default `transition` easing (`ease-out` classes removed); wizard steps fade and rise 8px over 200ms (`animate-step-in`, re-keyed per step); `SectionHeading` has an 8px scroll-linked rise (`.rise`, transform only, `@supports animation-timeline: view()`, off under reduced motion); FAQ uses plus/minus instead of a rotating chevron and opens with a `grid-template-rows` transition (answers now always in the HTML, `invisible` when closed). Skill files: the five in `.agents/skills/` rewritten for the real stack (Supabase, preference allotment, Vercel Analytics, CSS-only motion, approved effect exceptions, bundle budget); `SKILLS_MASTER_GUIDE.md` drops the missing Sanity skill. `seo-audit` and `programmatic-seo` skills still mention 2025, seat pages and Sanity (not in scope). Bundle unchanged. FAQ open state and the rise still need a look in a real browser.
 
 ## Site map
 
@@ -71,7 +73,6 @@ See the table in `IMPLEMENTATION_PLAN.md`. Short version: preference-based allot
 - Committee gallery hidden until real committee photos exist. No study guides yet.
 - No QR delegate pass exists (only a tracking code on the receipt).
 - Rate limiting is in memory per server instance (weak on Vercel); see the `ponytail:` note in `lib/security/rate-limit.ts`.
-- `lib/supabase/client.ts` and `@supabase/ssr` are unused (browser key has no access now). Left in place.
 - DarkVeil runs site-wide without pausing off-screen; each SpecularButton is its own WebGL context.
 
 ## Owner to-do

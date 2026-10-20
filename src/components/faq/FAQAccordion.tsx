@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { Minus, Plus } from 'lucide-react';
 import type { FaqItem } from '@/lib/data/faqs';
 
 export default function FAQAccordion({ items }: { items: FaqItem[] }) {
@@ -52,16 +52,25 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
                 <span className={`text-base font-medium ${isOpen ? 'text-soft-white' : 'text-muted-grey'}`}>
                   {faq.q}
                 </span>
-                <ChevronDown
-                  size={16}
-                  className={`shrink-0 text-warm-bronze transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                />
+                {isOpen ? (
+                  <Minus size={16} aria-hidden className="shrink-0 text-warm-bronze" />
+                ) : (
+                  <Plus size={16} aria-hidden className="shrink-0 text-warm-bronze" />
+                )}
               </button>
-              {isOpen && (
-                <div id={`faq-panel-${faq.id}`} role="region" aria-labelledby={`faq-btn-${faq.id}`} className="pb-6">
-                  <p className="max-w-[65ch] text-sm leading-relaxed text-muted-grey">{faq.a}</p>
+              {/* 0fr to 1fr animates height without measuring; invisible keeps closed answers out of tab order */}
+              <div
+                id={`faq-panel-${faq.id}`}
+                role="region"
+                aria-labelledby={`faq-btn-${faq.id}`}
+                className={`grid transition-[grid-template-rows,visibility] duration-200 ${
+                  isOpen ? 'visible grid-rows-[1fr]' : 'invisible grid-rows-[0fr]'
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <p className="max-w-[65ch] pb-6 text-sm leading-relaxed text-muted-grey">{faq.a}</p>
                 </div>
-              )}
+              </div>
             </div>
           );
         })}

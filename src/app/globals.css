@@ -49,7 +49,7 @@ body {
   }
   .ext-link::after {
     content: '↗';
-    @apply -translate-x-1 text-xs opacity-0 transition duration-200 ease-out;
+    @apply -translate-x-1 text-xs opacity-0 transition duration-200;
   }
   .ext-link:hover::after,
   .ext-link:focus-visible::after,
@@ -59,7 +59,7 @@ body {
 
   /* Clickable cards: border brightens and the card lifts 2px */
   .card-link {
-    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[#4a4d4e] focus-visible:border-[#4a4d4e];
+    @apply transition duration-200 hover:-translate-y-0.5 hover:border-[#4a4d4e] focus-visible:border-[#4a4d4e];
   }
 }
 
@@ -97,6 +97,18 @@ body {
   img[src*='brand'] { filter: invert(1); } /* light logos print dark; photos and QR stay as they are */
 }
 
+/* Section-enter rise: 8px, tied to scroll, so content is never hidden (no support = no motion) */
+@supports (animation-timeline: view()) {
+  .rise {
+    animation: rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+@keyframes rise {
+  from { transform: translateY(8px); }
+}
+
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid #c7a16a;
@@ -113,6 +125,7 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .rise { animation: none !important; }
   /* The progress bar follows scroll position, not time, so it keeps working */
   .scroll-progress { animation-duration: auto !important; }
 }

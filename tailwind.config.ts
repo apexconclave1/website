@@ -31,6 +31,16 @@ const config: Config = {
       maxWidth: {
         container: '1240px', // design sheet: 1200-1280px
       },
+      // Brand ease-out curve; every `transition` class uses it unless it names another
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      },
+      keyframes: {
+        'step-in': { from: { opacity: '0', transform: 'translateY(8px)' } },
+      },
+      animation: {
+        'step-in': 'step-in 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      },
     },
   },
   plugins: [],

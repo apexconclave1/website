@@ -234,7 +234,7 @@ export default function RegistrationWizard() {
         })}
       </ol>
 
-      <div className="min-h-[380px]">
+      <div key={currentStep} className="min-h-[380px] animate-step-in">
         {currentStep === 1 && <StepIdentity formData={formData} onChange={updateFormData} errors={errors} />}
         {currentStep === 2 && (
           <StepCommitteePicker chambers={chambers} formData={formData} onChange={updateFormData} errors={errors} />
