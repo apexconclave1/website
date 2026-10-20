@@ -93,7 +93,7 @@ Based on an **8px grid**:
 
 ## Approved effects (owner decision, 2026-10-20)
 
-These five components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
+These six components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
 
 | Component | Where it is allowed |
 |---|---|
@@ -102,6 +102,7 @@ These five components are part of the design system and are used as supplied, in
 | `AccordionGallery` | Event committee galleries |
 | `SpecularButton` | Primary CTAs only, at most 2 or 3 per page (each is a WebGL context) |
 | `ScrollStack` | Events directory list |
+| `FuzzyText` | The "404" on the not-found page only (`components/ui/FuzzyText.jsx`, React Bits source as supplied, added 2026-10-20) |
 
 ## STRICT PROHIBITIONS
 

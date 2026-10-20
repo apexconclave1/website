@@ -59,6 +59,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis
 
 **SEO steps 1–5 (2026-10-20).** `pageMetadata()` in `lib/seo.ts` gives every page its own title, description (all 120–160 chars), canonical, `og:url`, image and Twitter tags. Diplovia share image `app/events/[slug]/opengraph-image.tsx` (also used in the Event schema). Event title from `searchTitle`: "Diplovia 2026: Virtual Model UN". `/register` is `noindex`; robots.txt blocks only `/api/`. Home `h1` has visually hidden text; the StrokeText SVG is `aria-hidden`. New descriptions were written by Claude: owner to review.
 
+**404 page (2026-10-20).** "404" drawn with React Bits `FuzzyText` (`components/ui/FuzzyText.jsx`, JS source as supplied, no new package; intro static then light fuzz, stronger on hover; still under reduced motion). Recorded as the sixth approved effect in DESIGN.md and the design and animation skills.
+
 ## Site map
 
 - `/` home: hero, featured event, about, network, Attend · Partner · Collaborate CTA.

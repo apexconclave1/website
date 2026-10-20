@@ -62,12 +62,12 @@ Font: Inter only (`font-sans`). Radius: `rounded` (10px) for cards and buttons, 
 
 ## Approved effects
 
-`DarkVeil`, `StrokeText`, `AccordionGallery`, `SpecularButton` and `ScrollStack` keep their own gradients, glow, blur and timing (owner decision, 2026-10-20). Where each is allowed: `.agents/DESIGN.md`. Do not "fix" them, and do not copy their styling into other components.
+`DarkVeil`, `StrokeText`, `AccordionGallery`, `SpecularButton`, `ScrollStack` and `FuzzyText` (404 only) keep their own gradients, glow, blur and timing (owner decision, 2026-10-20). Where each is allowed: `.agents/DESIGN.md`. Do not "fix" them, and do not copy their styling into other components.
 
 ## Checklist before shipping
 
 - [ ] Tokens only; no raw hex, no new colours
-- [ ] No gradients, glass or shadows outside the five approved effects
+- [ ] No gradients, glass or shadows outside the six approved effects
 - [ ] Bronze only for eyebrows, small badges, focus ring
 - [ ] Width `max-w-container`; existing shared component reused where one fits
 - [ ] Hover 150–350ms (`transition` uses the brand curve by default)

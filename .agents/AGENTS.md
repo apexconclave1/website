@@ -65,7 +65,7 @@ src/
 
 ## Strict Design Prohibitions
 
-> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton and ScrollStack are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
+> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack and FuzzyText (404 only) are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
 
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.

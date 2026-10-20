@@ -15,7 +15,7 @@ Sources of truth: the design sheet PDF, `docs/Diplovia_2026_Delegate_Booklet_hom
 | Sanity / Firebase | Removed. |
 | Logo | Use the approved logo from the design sheet (`public/brand/`). Never redraw it in type. |
 | Pages | Add Community and Partners now. Sponsorship tiers and prices are **not** public. |
-| Effects | Keep DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack. DESIGN.md updated to allow them. |
+| Effects | Keep DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack; FuzzyText added for the 404 (owner request, 2026-10-20). DESIGN.md updated to allow them. |
 | Email | Skip paid services. Contact messages are stored in Supabase. Revisit Resend (free tier) once a domain exists. |
 | Hosting | Vercel. Domain not bought yet. |
 | Social | Instagram and LinkedIn only (no X). |
