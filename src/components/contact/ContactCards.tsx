@@ -15,6 +15,9 @@ export default function ContactCards() {
           key={c.label}
           href={c.href}
           {...(c.href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+          data-track={c.label === 'Email' ? 'email_click' : 'social_click'}
+          data-track-platform={c.label.toLowerCase()}
+          data-track-place="contact"
           className="panel card-link block"
         >
           <p className="eyebrow mb-2">{c.label}</p>

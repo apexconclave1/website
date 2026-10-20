@@ -46,7 +46,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-bg border-b border-surface print:hidden">
-      <div className="mx-auto flex h-[4.5rem] max-w-[1240px] items-center justify-between px-6">
+      <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between px-6">
         <ApexWordmark />
 
         <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-7">
@@ -66,7 +66,7 @@ export default function Navbar() {
 
         {registerHref && (
           <div className="hidden lg:block">
-            <SpecularButton href={registerHref} size="sm" radius={10}>
+            <SpecularButton href={registerHref} size="sm" radius={10} trackAs="cta_nav_register">
               Register
             </SpecularButton>
           </div>
@@ -106,6 +106,8 @@ export default function Navbar() {
           {registerHref && (
             <Link
               href={registerHref}
+              data-track="cta_nav_register"
+              data-track-place="mobile"
               className="mt-2 rounded-[10px] bg-soft-white px-3 py-3 text-center text-base font-medium text-bg"
             >
               Register

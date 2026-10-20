@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage({ searchParams }: { searchParams: { category?: string } }) {
   return (
-    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-24 pt-32">
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
       <p className="eyebrow mb-3">Contact</p>
       <h1 className="max-w-3xl text-4xl font-bold leading-tight text-soft-white md:text-5xl">Talk to us.</h1>
       <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-muted-grey">

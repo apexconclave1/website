@@ -37,7 +37,7 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
                 aria-pressed={active}
                 onClick={() => onChange({ experienceLevel: tier.id })}
                 className={`rounded-[10px] border p-4 text-left transition-colors duration-200 ${
-                  active ? 'border-soft-white bg-bg' : 'border-[#2a2d2e] hover:border-[#4a4d4e]'
+                  active ? 'border-soft-white bg-bg' : 'border-line-strong hover:border-[#4a4d4e]'
                 }`}
               >
                 <span className="block text-sm font-semibold text-soft-white">{tier.label}</span>

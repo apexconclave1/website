@@ -1,6 +1,5 @@
 import React from 'react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '@/lib/utils';
 import { PortfolioStatus, EventCategory } from '@/types/schema';
 
 export interface BadgeProps {
@@ -23,30 +22,30 @@ export function Badge({
   if (status) {
     switch (status) {
       case 'AVAILABLE':
-        badgeStyles = twMerge(
+        badgeStyles = cn(
           badgeStyles,
           'bg-surface text-soft-white border border-[#2a2f32]'
         );
-        return <span className={twMerge(badgeStyles, className)}>{children || 'AVAILABLE'}</span>;
+        return <span className={cn(badgeStyles, className)}>{children || 'AVAILABLE'}</span>;
       case 'RESERVED':
-        badgeStyles = twMerge(
+        badgeStyles = cn(
           badgeStyles,
           'bg-[#191C1E] text-muted-grey border border-[#262B2E]'
         );
-        return <span className={twMerge(badgeStyles, className)}>{children || 'RESERVED'}</span>;
+        return <span className={cn(badgeStyles, className)}>{children || 'RESERVED'}</span>;
       case 'ALLOCATED':
-        badgeStyles = twMerge(
+        badgeStyles = cn(
           badgeStyles,
           'bg-[#1F1B15] text-warm-bronze border border-[#3A3022]'
         );
-        return <span className={twMerge(badgeStyles, className)}>{children || 'ALLOCATED'}</span>;
+        return <span className={cn(badgeStyles, className)}>{children || 'ALLOCATED'}</span>;
     }
   }
 
   if (category) {
     return (
       <span
-        className={twMerge(
+        className={cn(
           badgeStyles,
           'bg-surface text-soft-white border border-[#222729]',
           className
@@ -65,7 +64,7 @@ export function Badge({
   };
 
   return (
-    <span className={twMerge(clsx(badgeStyles, variants[variant], className))}>
+    <span className={cn(badgeStyles, variants[variant], className)}>
       {children}
     </span>
   );

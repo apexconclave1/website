@@ -14,7 +14,7 @@ const contactHref = `/contact?category=${encodeURIComponent('Sponsorship & Partn
 
 export default function PartnersPage() {
   return (
-    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-24 pt-32">
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
       <p className="eyebrow mb-3">Partners</p>
       <h1 className="max-w-3xl text-4xl font-bold leading-tight text-soft-white md:text-5xl">{partnersContent.headline}</h1>
       <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-muted-grey">{partnersContent.intro}</p>

@@ -14,7 +14,7 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="border-t border-surface bg-bg px-6 pb-8 pt-16 print:hidden">
-      <div className="mx-auto max-w-[1240px]">
+      <div className="mx-auto max-w-container">
         <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="max-w-xs">
             <ApexWordmark size="md" />
@@ -60,7 +60,15 @@ export default function Footer() {
               </li>
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={`${linkClass} ext-link`}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${linkClass} ext-link`}
+                    data-track="social_click"
+                    data-track-platform={s.label.toLowerCase()}
+                    data-track-place="footer"
+                  >
                     {s.label}
                   </a>
                 </li>

@@ -125,8 +125,14 @@ export default function RegistrationWizard() {
     return true;
   };
 
+  // Funnel: one event when the wizard opens, one per completed step (1-3; step 4 is registration_submitted)
+  useEffect(() => {
+    track('register_viewed', { event: event.id });
+  }, [event.id]);
+
   const handleNext = () => {
     if (validateStep(currentStep)) {
+      track('registration_step_completed', { event: event.id, step: currentStep });
       setCurrentStep((prev) => Math.min(prev + 1, 4));
       window.scrollTo({ top: 120, behavior: 'smooth' });
     }
@@ -210,15 +216,15 @@ export default function RegistrationWizard() {
   }
 
   return (
-    <div className="mx-auto max-w-[820px] rounded-[12px] border border-[#1a1d1e] bg-surface p-6 md:p-10">
+    <div className="mx-auto max-w-[820px] rounded-[12px] border border-line bg-surface p-6 md:p-10">
       {/* Stepper: on phones only the current step shows its label */}
-      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-[#2a2d2e] pb-8">
+      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-line-strong pb-8">
         {STEPS.map((step) => {
           const isComplete = currentStep > step.id;
           const isCurrent = currentStep === step.id;
           return (
             <li key={step.id} aria-current={isCurrent ? 'step' : undefined} className="flex flex-col gap-2">
-              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-soft-white' : 'bg-[#2a2d2e]'}`} />
+              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-soft-white' : 'bg-line-strong'}`} />
               <span className={`text-xs font-medium ${isCurrent ? 'text-soft-white' : 'text-muted-grey'}`}>
                 <span className="tabular-nums">{isComplete ? '✓' : `0${step.id}`}</span>
                 <span className={isCurrent ? 'ml-1.5' : 'ml-1.5 hidden sm:inline'}>{step.label}</span>
@@ -262,7 +268,7 @@ export default function RegistrationWizard() {
       </div>
 
       {currentStep < 4 && (
-        <div className="mt-10 flex items-center justify-between border-t border-[#2a2d2e] pt-6">
+        <div className="mt-10 flex items-center justify-between border-t border-line-strong pt-6">
           {currentStep > 1 ? (
             <Button type="button" variant="outline" onClick={handleBack}>
               Back

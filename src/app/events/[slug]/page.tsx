@@ -109,7 +109,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               </span>
             </div>
             {event.registrationOpen && (
-              <SpecularButton href={`/register?event=${event.slug}`} size="md" radius={10}>
+              <SpecularButton href={`/register?event=${event.slug}`} size="md" radius={10} trackAs="cta_event_register">
                 <span className="inline-flex items-center gap-2 whitespace-nowrap">
                   Register for {event.title}
                   <ArrowUpRight className="h-4 w-4" />
@@ -177,7 +177,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 <div key={phase.name}>
                   <h3 className="text-2xl font-bold">{phase.name}</h3>
                   <p className="mt-1 text-sm text-muted-grey">{phase.lead}</p>
-                  <ol className="mt-6 space-y-4 border-l border-[#2a2d2e] pl-5">
+                  <ol className="mt-6 space-y-4 border-l border-line-strong pl-5">
                     {phase.steps.map((step, i) => (
                       <li key={step.title}>
                         <p className="text-sm font-semibold">
@@ -235,7 +235,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                     {c.topic}
                   </p>
                   <p className="text-sm leading-relaxed text-muted-grey">{c.challenge}</p>
-                  <p className="border-t border-[#2a2d2e] pt-3 text-sm text-muted-grey">
+                  <p className="border-t border-line-strong pt-3 text-sm text-muted-grey">
                     <span className="text-soft-white">Suits: </span>
                     {c.suits}
                   </p>

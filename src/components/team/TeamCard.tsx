@@ -13,7 +13,7 @@ export function TeamCard({ name, role, photo, bio, quote }: TeamCardProps) {
   return (
     <figure className="panel flex flex-col gap-5">
       <div className="flex items-center gap-4">
-        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#1a1d1e] text-base font-medium text-soft-white">
+        <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-line text-base font-medium text-soft-white">
           {photo ? (
             <Image src={photo} alt={name} width={160} height={160} className="h-full w-full object-cover" />
           ) : (

@@ -40,7 +40,7 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
   }
 
   return (
-    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-20 pt-28">
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-20 pt-28">
       <div className="mb-14 text-center">
         <p className="eyebrow mb-4">{event.title} · Delegate registration</p>
         <h1 className="mb-4 text-4xl font-bold text-soft-white md:text-5xl">Register</h1>
@@ -52,10 +52,10 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
 
       <Suspense
         fallback={
-          <div role="status" aria-label="Loading registration" className="mx-auto max-w-[820px] rounded-[12px] border border-[#1a1d1e] bg-surface p-6 md:p-10">
-            <div className="mb-8 grid grid-cols-5 gap-2 border-b border-[#2a2d2e] pb-8">
+          <div role="status" aria-label="Loading registration" className="mx-auto max-w-[820px] rounded-[12px] border border-line bg-surface p-6 md:p-10">
+            <div className="mb-8 grid grid-cols-5 gap-2 border-b border-line-strong pb-8">
               {Array.from({ length: 5 }, (_, i) => (
-                <span key={i} className="h-[3px] rounded-full bg-[#2a2d2e]" />
+                <span key={i} className="h-[3px] rounded-full bg-line-strong" />
               ))}
             </div>
             <div className="space-y-5 motion-safe:animate-pulse">

@@ -51,6 +51,9 @@ const sections = [
     title: 'Privacy Notice',
     content: [
       'Personal information collected via registration and contact forms (name, email, phone, institution) is processed solely for the purpose of Apex Conclave event operations.',
+      'We use Vercel Web Analytics to count page visits and key actions (for example, a submitted registration). It sets no cookies and does not identify you; no names, emails or phone numbers are sent to it.',
+      'If you arrive through a link with campaign tags (utm_source, utm_medium, utm_campaign), those tags are stored with your registration so we know which channels reach delegates.',
+      'Your data is held with the services that run this website: Supabase (database and payment screenshots), Vercel (hosting and analytics) and Resend (email notifications about contact messages).',
       'We do not sell, rent, or otherwise transfer personal data to commercial third parties.',
       `Delegates may request deletion of their personal data by contacting the Secretariat at ${organizationConfig.contactEmail}. Requests will be honoured within 14 business days, subject to legal retention obligations.`,
     ],
@@ -75,7 +78,7 @@ export default function TermsPage() {
         <p className="eyebrow mb-3">Legal</p>
         <h1 className="mb-4 text-3xl font-bold text-soft-white md:text-4xl">Terms & conditions</h1>
         <p className="mb-12 text-sm leading-relaxed text-muted-grey">
-          Last updated: September 2026. By registering as a delegate or using Apex Conclave services, you agree to these
+          Last updated: October 2026. By registering as a delegate or using Apex Conclave services, you agree to these
           terms.
         </p>
 
@@ -87,7 +90,7 @@ export default function TermsPage() {
               </h2>
               <div className="flex flex-col gap-3.5">
                 {section.content.map((para, pi) => (
-                  <p key={pi} className="border-l-2 border-[#2a2d2e] pl-4 text-[15px] leading-relaxed text-muted-grey">
+                  <p key={pi} className="border-l-2 border-line-strong pl-4 text-[15px] leading-relaxed text-muted-grey">
                     {para}
                   </p>
                 ))}

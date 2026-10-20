@@ -16,7 +16,7 @@ export default function CommunityPage() {
   const { instagram, linkedin } = organizationConfig.socials;
 
   return (
-    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-24 pt-32">
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
       <p className="eyebrow mb-3">Community</p>
       <h1 className="max-w-3xl text-4xl font-bold leading-tight text-soft-white md:text-5xl">{communityContent.headline}</h1>
       <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-muted-grey">{communityContent.intro}</p>
@@ -69,13 +69,13 @@ export default function CommunityPage() {
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             {instagram && (
-              <a href={instagram} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-colors duration-200 hover:bg-soft-white hover:text-bg">
+              <a href={instagram} target="_blank" rel="noopener noreferrer" data-track="social_click" data-track-platform="instagram" data-track-place="community" className="group inline-flex items-center gap-2 rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-colors duration-200 hover:bg-soft-white hover:text-bg">
                 Instagram
                 <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
               </a>
             )}
             {linkedin && (
-              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-colors duration-200 hover:bg-soft-white hover:text-bg">
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" data-track="social_click" data-track-platform="linkedin" data-track-place="community" className="group inline-flex items-center gap-2 rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-colors duration-200 hover:bg-soft-white hover:text-bg">
                 LinkedIn
                 <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
               </a>

@@ -25,7 +25,6 @@ npm run dev                  # http://localhost:3000
 | Name | Where it is used |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only (API routes). Never expose it to the browser. |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL for metadata, sitemap and robots (optional on Vercel until the domain exists) |
 
@@ -39,7 +38,6 @@ SQL migrations are in `supabase/migrations/`. Run them in order in the Supabase 
 2. On [vercel.com](https://vercel.com), choose **Add New → Project** and import the GitHub repo. Framework preset: **Next.js**. If the repo root is above `website/`, set **Root Directory** to `website`.
 3. Under **Environment Variables**, add (Production and Preview):
    - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY` (keep it server-only; never prefix it with `NEXT_PUBLIC_`)
    - `NEXT_PUBLIC_SITE_URL`: leave empty until the domain is bought. The site falls back to the Vercel production URL for metadata, sitemap and robots.
    - `RESEND_API_KEY` (optional): emails the team about contact messages. Sign up at resend.com with the team inbox.

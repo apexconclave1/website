@@ -92,7 +92,7 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
         <p className="text-sm text-muted-grey">Check your details before you submit.</p>
       </div>
 
-      <div className="divide-y divide-[#1a1d1e] rounded-[10px] border border-[#1a1d1e] bg-surface">
+      <div className="divide-y divide-line rounded-[10px] border border-line bg-surface">
         {sections.map((s) => (
           <div key={s.step} className="flex flex-wrap items-start justify-between gap-4 p-5">
             <div className="min-w-0">
@@ -111,7 +111,7 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
           <div key={c.key}>
             <label
               className={`flex cursor-pointer items-start gap-3 rounded-[10px] border p-4 ${
-                errors[c.key] ? 'border-[#E06C75]' : 'border-[#1a1d1e]'
+                errors[c.key] ? 'border-[#E06C75]' : 'border-line'
               }`}
             >
               <input

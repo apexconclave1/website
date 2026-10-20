@@ -5,6 +5,7 @@ import ScrollProgress from '@/components/ui/scroll-progress';
 import DarkVeilWrapper from '@/components/ui/DarkVeilWrapper';
 import BackToTop from '@/components/ui/BackToTop';
 import UtmCapture from '@/components/UtmCapture';
+import ClickTracker from '@/components/ClickTracker';
 import { Analytics } from '@vercel/analytics/next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -78,6 +79,7 @@ export default function RootLayout({
           <BackToTop />
           <UtmCapture />
           <Analytics />
+          <ClickTracker />
         </div>
       </body>
     </html>

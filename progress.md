@@ -51,6 +51,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis
 
 **Skills steps 1–2 (2026-10-20).** Form autocomplete, Escape on the mobile menu, footer heading semantics, `text-wrap`, global reduced-motion rule; framer-motion removed (Button and ScrollProgress now CSS). Bundles: `/contact` 121 kB (was 159), `/register` 145 kB (was 182). Not verified in a real browser: the CSS scroll-progress bar (headless Chrome does not update scroll timelines).
 
+**Skills steps 3–5 (2026-10-20).** Server `/events`, lazy ogl in SpecularButton, Supabase browser client removed, funnel and click tracking (`ClickTracker`, `003_funnel_view.sql`, owner to run), privacy notice updated, `line`/`line-strong` and 1240px container tokens, one eyebrow style, home reuses `EventCard`. After changing `tailwind.config.ts`, restart `npm run dev` (the running dev server keeps the old config and shows "border-line-strong does not exist").
+
 ## Site map
 
 - `/` home: hero, featured event, about, network, Attend · Partner · Collaborate CTA.

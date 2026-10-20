@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main id="main-content" className="mx-auto max-w-[1240px] px-6 pb-24 pt-32">
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
       <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-warm-bronze">About</p>
       <h1 className="max-w-3xl text-4xl font-bold leading-tight text-soft-white md:text-5xl">
         {organizationConfig.tagline}
@@ -27,7 +27,7 @@ export default function AboutPage() {
             <Link
               key={event.id}
               href={`/events/${event.slug}`}
-              className="space-y-2 rounded-[10px] border border-[#1a1d1e] bg-surface p-6 transition-colors duration-200 hover:border-[#2a2d2e]"
+              className="space-y-2 rounded-[10px] border border-line bg-surface p-6 transition-colors duration-200 hover:border-line-strong"
             >
               <div className="text-lg font-bold text-soft-white">{event.title}</div>
               <p className="text-sm leading-relaxed text-muted-grey">{event.shortDescription}</p>

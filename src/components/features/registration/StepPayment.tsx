@@ -166,7 +166,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
               <span>Coupon {couponApplied.code}</span>
               <span>−₹{couponApplied.discount}</span>
             </div>
-            <div className="flex items-center justify-between border-t border-[#2a2d2e] pt-3">
+            <div className="flex items-center justify-between border-t border-line-strong pt-3">
               <span className="text-sm font-semibold text-soft-white">To pay</span>
               <span className="text-xl font-bold text-soft-white">₹{finalAmount}</span>
             </div>
@@ -180,7 +180,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           Coupon code (optional)
         </label>
         {couponApplied ? (
-          <div className="flex items-center justify-between rounded-sm border border-[#2a2d2e] px-4 py-3 text-sm text-soft-white">
+          <div className="flex items-center justify-between rounded-sm border border-line-strong px-4 py-3 text-sm text-soft-white">
             <span>
               {couponApplied.code}: ₹{couponApplied.discount} off
             </span>
@@ -228,7 +228,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         <button
           type="button"
           onClick={copyUpiId}
-          className="inline-flex items-center gap-2 rounded-sm border border-[#2a2d2e] px-4 py-2 text-sm font-semibold text-soft-white transition-colors duration-200 hover:border-soft-white"
+          className="inline-flex items-center gap-2 rounded-sm border border-line-strong px-4 py-2 text-sm font-semibold text-soft-white transition-colors duration-200 hover:border-soft-white"
         >
           {paymentConfig.upiId}
           <span className="text-xs font-normal text-muted-grey">{upiCopied ? 'Copied' : 'Copy'}</span>
@@ -266,7 +266,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         <p className="field-label">Payment screenshot (optional)</p>
         {screenshotPreview ? (
           <div className="flex items-end gap-4">
-            <div className="h-40 w-40 overflow-hidden rounded-[10px] border border-[#2a2d2e]">
+            <div className="h-40 w-40 overflow-hidden rounded-[10px] border border-line-strong">
               {/* eslint-disable-next-line @next/next/no-img-element -- local data URL preview */}
               <img src={screenshotPreview} alt="Payment screenshot preview" className="h-full w-full object-cover" />
             </div>
@@ -278,7 +278,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full rounded-[10px] border border-dashed border-[#2a2d2e] p-5 text-sm text-muted-grey transition-colors duration-200 hover:border-soft-white hover:text-soft-white"
+            className="w-full rounded-[10px] border border-dashed border-line-strong p-5 text-sm text-muted-grey transition-colors duration-200 hover:border-soft-white hover:text-soft-white"
           >
             Upload a screenshot of your UPI payment
           </button>
@@ -299,7 +299,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
       <dialog
         ref={confirmRef}
         aria-labelledby="confirm-payment-title"
-        className="w-[calc(100%-2rem)] max-w-md rounded-[12px] border border-[#2a2d2e] bg-surface p-6 text-soft-white backdrop:bg-bg/80"
+        className="w-[calc(100%-2rem)] max-w-md rounded-[12px] border border-line-strong bg-surface p-6 text-soft-white backdrop:bg-bg/80"
       >
         <h4 id="confirm-payment-title" className="text-lg font-semibold">Submit these payment details?</h4>
         <p className="mt-2 text-sm text-muted-grey">You can’t change them after submitting. Check they match your UPI app.</p>

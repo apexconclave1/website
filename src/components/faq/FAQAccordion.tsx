@@ -28,7 +28,7 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
               className={`rounded-[10px] border px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                 activeCategory === cat
                   ? 'border-soft-white bg-soft-white text-bg'
-                  : 'border-[#1a1d1e] bg-surface text-muted-grey hover:text-soft-white'
+                  : 'border-line bg-surface text-muted-grey hover:text-soft-white'
               }`}
             >
               {cat}
@@ -41,7 +41,7 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
         {filtered.map((faq) => {
           const isOpen = openId === faq.id;
           return (
-            <div key={faq.id} className="border-b border-[#1a1d1e]">
+            <div key={faq.id} className="border-b border-line">
               <button
                 id={`faq-btn-${faq.id}`}
                 aria-expanded={isOpen}

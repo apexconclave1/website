@@ -87,7 +87,7 @@ export default function RegistrationReceipt({
       </div>
 
       <div className="panel w-full max-w-[540px] text-left">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#2a2d2e] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-strong pb-4">
           <div>
             <p className="text-xs text-muted-grey">Tracking code (keep it for any query)</p>
             <p className="mt-1 text-lg font-bold tracking-wider text-soft-white">{trackingCode}</p>

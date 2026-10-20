@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { EventEntity } from '@/types/schema';
 import { eventFees, formatEventDates } from '@/lib/data/events';
@@ -7,10 +8,14 @@ import SpecularButton from '@/components/ui/SpecularButton';
 
 export interface EventCardProps {
   event: EventEntity;
+  /** Analytics name for the main button (ClickTracker) */
+  trackAs?: string;
+  /** Load the cover image eagerly when the card is near the top of the page */
+  priority?: boolean;
 }
 
 /** Full-width card body. The events page wraps it in a ScrollStackItem so one event shows at a time. */
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, trackAs = 'cta_events_view_event', priority = false }: EventCardProps) {
   return (
     <div className="grid items-center gap-8 lg:grid-cols-2">
       <div className="space-y-5">
@@ -37,25 +42,37 @@ export function EventCard({ event }: EventCardProps) {
         {event.pricing && (
           <ul className="flex flex-wrap gap-3 text-sm text-soft-white">
             {eventFees(event).map((f) => (
-              <li key={f.label} className="rounded-[10px] border border-[#1a1d1e] bg-bg px-4 py-2">
+              <li key={f.label} className="rounded-[10px] border border-line bg-bg px-4 py-2">
                 <span className="text-muted-grey">{f.label}:</span> {f.amount}
               </li>
             ))}
           </ul>
         )}
 
-        <div className="pt-2">
-          <SpecularButton href={`/events/${event.slug}`} size="md" radius={10}>
+        <div className="flex flex-wrap items-center gap-4 pt-2">
+          <SpecularButton href={`/events/${event.slug}`} size="md" radius={10} trackAs={trackAs}>
             <span className="inline-flex items-center gap-2 whitespace-nowrap">
-              View event <ArrowRight size={16} />
+              Explore {event.title} <ArrowRight size={16} />
             </span>
           </SpecularButton>
+          {event.registrationOpen ? (
+            <Link
+              href={`/register?event=${event.slug}`}
+              data-track="cta_card_register"
+              className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+            >
+              Register
+            </Link>
+          ) : (
+            <span className="text-sm text-muted-grey">Registration opens soon</span>
+          )}
         </div>
       </div>
 
       <div className="relative h-[200px] md:h-[280px]">
         <Image
           src={event.coverImage}
+          priority={priority}
           alt={event.title}
           fill
           className="object-contain p-8"

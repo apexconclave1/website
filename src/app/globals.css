@@ -34,12 +34,12 @@ body {
 @layer components {
   .field-label { @apply mb-2 block text-xs font-medium text-muted-grey; }
   .field-input {
-    @apply w-full rounded-sm border border-[#2a2d2e] bg-bg px-4 py-3 text-sm text-soft-white outline-none
+    @apply w-full rounded-sm border border-line-strong bg-bg px-4 py-3 text-sm text-soft-white outline-none
       transition-colors duration-200 placeholder:text-[#6f716e] focus:border-soft-white
       aria-[invalid=true]:border-[#E06C75];
   }
   .field-error { @apply mt-1.5 text-xs text-[#E06C75]; }
-  .panel { @apply rounded-[10px] border border-[#1a1d1e] bg-surface p-6; }
+  .panel { @apply rounded-[10px] border border-line bg-surface p-6; }
   .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-warm-bronze; }
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */
