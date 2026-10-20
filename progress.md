@@ -4,7 +4,7 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to F are done. Next: **Phase G** (SEO, metadata, sitemap, robots, Vercel), then H (docs final pass).
+Phases A to G are done. Next: **Phase H** (final docs pass), then owner steps: Supabase setup, Vercel deploy, real UPI, dates.
 
 After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` (separate folder so it does not break a running `npm run dev`), then update this file and `IMPLEMENTATION_PLAN.md`.
 
@@ -24,8 +24,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 | D Logo and restyle to palette | Done 2026-10-20 |
 | E Community, Partners, home Network section | Done 2026-10-20 |
 | F Diplovia booklet content | Done 2026-10-20 |
-| G SEO, assets, Vercel | Next |
-| H Docs final pass | Pending |
+| G SEO, assets, Vercel | Done 2026-10-20 |
+| H Docs final pass | Next |
 
 ## Phase notes
 
@@ -40,6 +40,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 **E (2026-10-20).** New `/partners` and `/community` pages; copy in `partnersContent`, `communityContent` and `partners` (empty list) in `organization.ts`. Navbar has six links and switches to the desktop layout at `lg` (fits at 1024px). Home: "Network" cards (Community, Partners, Team) and an Attend · Partner · Collaborate CTA replace the old Leadership and Contact sections. Contact form accepts `?category=` and has new topics `Join the Community` and `Host an Event`. Logo 48px in the navbar. Social links (footer, contact cards, Community page) now have a clear hover: `.ext-link` (underline + sliding ↗) and `.card-link` (card lifts 2px, border brightens), both in `globals.css`, off under reduced motion. Screenshots reviewed: home, partners, community, navbar at 1024px.
 
 **F (2026-10-20).** Diplovia page rebuilt from the delegate booklet: overview and the delegate's work, How it works (Before / During / After), committees with theme, challenge and who each suits, Who sits at the table, Why MUN, What you take home, then fees, allotment, team (booklet quotes) and FAQ. Copy in `lib/data/eventStory.ts`; `ChamberEntity.executiveBoard` replaced by `theme`, `challenge`, `suits`. Event hero shows the Diplovia logo (`EventEntity.logo`) with "presented by Apex Conclave". Diplovia logo made transparent and compressed to 52 KB (`public/brand/diplovia-logo-light.png`); the old 1.1 MB file is removed and the dark boxes on the home and events cards are gone. Stock Unsplash committee banners removed (the UNSC one showed Barack Obama); the committee gallery shows again once every committee has a real `bannerImage`. "QR delegate pass" removed from the copy because it does not exist. Screenshots reviewed: full event page, home card.
+
+**G (2026-10-20).** Root metadata with title template, `metadataBase` from `lib/site.ts` (site URL, else Vercel production URL, else localhost), Organization JSON-LD; all page titles shortened so the template adds "| Apex Conclave"; `app/events/layout.tsx` gives `/events` its metadata (the page is a client component) and keeps the template for event pages. Added `sitemap.xml`, `robots.txt`, favicon/apple icon/OG image built from the approved logo. Removed the wildcard `images.remotePatterns`; added basic security headers in `next.config.mjs`. New Kapish photo (`public/leadership/kapish-garg.jpg`), Ayush photo compressed. README has Vercel deploy steps. Checked on the dev server: titles, og:image, sitemap, robots, headers.
 
 ## Site map
 

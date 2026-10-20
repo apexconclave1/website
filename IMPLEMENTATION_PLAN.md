@@ -68,13 +68,17 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] Diplovia logo made transparent and compressed: `public/brand/diplovia-logo-light.png` (52 KB, was 1.1 MB); dark boxes behind it removed.
 - [x] Study-guide `#` links removed. Stock committee banners removed (UNSC was a photo of Barack Obama); the gallery returns when every committee has a real `bannerImage`.
 - [x] "QR delegate pass" claim removed from features and FAQ (no QR pass exists in the code).
-- [ ] New photos of Kapish and Vansh when supplied.
+- [x] New photo of Kapish (2026-10-20).
+- [ ] Photo of Vansh when supplied.
 
-### G. SEO, assets, Vercel
-- [ ] Title template `%s | Apex Conclave`; per-page descriptions; `metadataBase` from `NEXT_PUBLIC_SITE_URL` (fallback Vercel URL).
-- [ ] `app/sitemap.ts`, `app/robots.ts`, OG image from the logo.
-- [ ] Restrict `images.remotePatterns` (no remote images are used any more).
-- [ ] Vercel deploy steps and env list.
+### G. SEO, assets, Vercel (DONE 2026-10-20)
+- [x] Title template `%s | Apex Conclave` (root layout; `app/events/layout.tsx` keeps it for event pages); per-page titles and descriptions; event pages have a canonical URL.
+- [x] `metadataBase` and URLs from `lib/site.ts`: `NEXT_PUBLIC_SITE_URL`, else `VERCEL_PROJECT_PRODUCTION_URL`, else localhost.
+- [x] `app/sitemap.ts`, `app/robots.ts` (disallow `/api/`, `/register`), Organization JSON-LD in the root layout.
+- [x] Favicon, apple icon, OG/Twitter image generated from the approved logo (the old favicon was an unrelated emblem).
+- [x] `images.remotePatterns` removed (all images local). Security headers (nosniff, frame DENY, referrer, permissions).
+- [x] Photos: new Kapish photo (32 KB), Ayush photo compressed (107 KB to 26 KB).
+- [x] README: Vercel deploy steps and env list.
 
 ### H. Docs
 - [ ] Final pass on README, progress, AGENTS, PRODUCT, DESIGN.
@@ -96,6 +100,6 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - Final country/character lists per committee (`src/lib/data/chambers.ts`; HC has 4 of 18).
 - Real photos for the 5 committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
 - Decide on a QR delegate pass (removed from the copy because it was never built).
-- Photos of Kapish and Vansh; SVG of the logo from the designer.
+- Photo of Vansh; SVG of the logo from the designer.
 - Delete `/Users/kapishgarg1/Apex Conclave/_cleanup_trash/`.
 - Buy the domain, then set `NEXT_PUBLIC_SITE_URL`.

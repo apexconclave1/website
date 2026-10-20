@@ -5,7 +5,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { organizationConfig, partners, partnersContent } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
-  title: 'Partners | Apex Conclave',
+  title: 'Partners',
   description: 'Partner with Apex Conclave and reach students across India inside our events.',
 };
 

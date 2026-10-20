@@ -4,7 +4,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { communityContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
-  title: 'Community | Apex Conclave',
+  title: 'Community',
   description: 'The delegates, speakers, volunteers and team behind Apex Conclave events.',
 };
 

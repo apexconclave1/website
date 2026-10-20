@@ -25,8 +25,13 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
   const event = eventsData.find((e) => e.slug === params.slug);
   if (!event) return {};
   return {
-    title: `${event.title} | Apex Conclave`,
+    title: event.title,
     description: event.shortDescription,
+    alternates: { canonical: `/events/${event.slug}` },
+    openGraph: {
+      title: `${event.title} | Apex Conclave`,
+      description: event.shortDescription,
+    },
   };
 }
 

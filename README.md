@@ -27,11 +27,25 @@ npm run dev                  # http://localhost:3000
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase public key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only (API routes). Never expose it to the browser. |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL for metadata and sitemap |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL for metadata, sitemap and robots (optional on Vercel until the domain exists) |
 
 ### Database
 
 SQL migrations are in `supabase/migrations/`. Run them in order in the Supabase SQL editor of a new project.
+
+## Deploy to Vercel
+
+1. Push the repo to GitHub (`git push -u origin main`).
+2. On [vercel.com](https://vercel.com), choose **Add New → Project** and import the GitHub repo. Framework preset: **Next.js**. If the repo root is above `website/`, set **Root Directory** to `website`.
+3. Under **Environment Variables**, add (Production and Preview):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (keep it server-only; never prefix it with `NEXT_PUBLIC_`)
+   - `NEXT_PUBLIC_SITE_URL`: leave empty until the domain is bought. The site falls back to the Vercel production URL for metadata, sitemap and robots.
+4. Deploy. Every push to `main` redeploys.
+5. After buying the domain: **Settings → Domains** → add it, follow the DNS steps, then set `NEXT_PUBLIC_SITE_URL=https://your-domain` and redeploy.
+
+Before opening registration, check `src/lib/data/events.ts` (dates, `registrationOpensAt`, `registrationOpen: true`) and `paymentConfig` in `src/lib/data/organization.ts` (real UPI id and QR).
 
 ## Scripts
 
@@ -42,6 +56,8 @@ SQL migrations are in `supabase/migrations/`. Run them in order in the Supabase 
 | `npm start` | Serve the production build |
 | `npm run lint` | ESLint |
 | `npx tsc --noEmit` | Type-check |
+| `NEXT_DIST_DIR=.next-build npm run build` | Check build without disturbing a running dev server |
+| `node scripts/check-events.mjs` | Check the date and early-bird fee logic |
 
 ## Project structure
 

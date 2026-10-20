@@ -5,7 +5,7 @@ import { eventsData } from '@/lib/data/events';
 import { leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = {
-  title: 'About | Apex Conclave',
+  title: 'About',
   description: organizationConfig.manifesto,
 };
 

@@ -3,7 +3,7 @@ import ContactForm from '@/components/contact/ContactForm';
 import ContactCards from '@/components/contact/ContactCards';
 
 export const metadata: Metadata = {
-  title: 'Contact | Apex Conclave',
+  title: 'Contact',
   description: 'Reach out to Apex Conclave about events, registration, partnerships and sponsorship.',
 };
 

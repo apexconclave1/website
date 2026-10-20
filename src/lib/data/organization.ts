@@ -69,7 +69,7 @@ export const leadershipTeam = [
   {
     name: 'Kapish Garg',
     role: 'Co-Founder',
-    photo: '/leadership/kapish-garg.png',
+    photo: '/leadership/kapish-garg.jpg',
     quote:
       'A good committee is built by delegates who listen as carefully as they speak. Bring a strong position, and be willing to move it when the argument earns it.',
   },

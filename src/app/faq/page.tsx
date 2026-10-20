@@ -4,7 +4,7 @@ import FAQAccordion from '@/components/faq/FAQAccordion';
 import { apexFaqs } from '@/lib/data/faqs';
 
 export const metadata: Metadata = {
-  title: 'FAQ | Apex Conclave',
+  title: 'FAQ',
   description: 'Answers about Apex Conclave, its events and partnerships.',
 };
 

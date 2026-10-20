@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import RegistrationWizard from '@/components/features/registration/RegistrationWizard';
 
 export const metadata: Metadata = {
-  title: 'Register | Apex Conclave',
+  title: 'Register',
   description:
     'Register as a delegate for Diplovia 2026. Pick a committee and country portfolio. Open to high school and college students.',
   openGraph: {

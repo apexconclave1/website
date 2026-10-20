@@ -8,13 +8,19 @@ const nextConfig = {
       { source: '/committees', destination: '/events/diplovia-2026#committees', permanent: true },
     ];
   },
-  images: {
-    remotePatterns: [
+  // All images are local (public/). Add a specific host here if a remote image is ever needed.
+  async headers() {
+    return [
       {
-        protocol: 'https',
-        hostname: '**',
+        source: '/:path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+        ],
       },
-    ],
+    ];
   },
 };
 

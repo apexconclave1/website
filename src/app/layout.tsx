@@ -5,6 +5,8 @@ import ScrollProgress from '@/components/ui/scroll-progress';
 import DarkVeilWrapper from '@/components/ui/DarkVeilWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { siteUrl } from '@/lib/site';
+import { homeContent, organizationConfig } from '@/lib/data/organization';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -13,29 +15,33 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Apex Conclave',
-  description:
-    'Apex Conclave is an umbrella for multiple youth events. Diplovia 2026, a virtual Model United Nations, is the first.',
-  keywords: ['Apex Conclave', 'Model UN', 'MUN', 'diplomacy', 'Diplovia 2026', 'debate', 'UNSC', 'UNHRC', 'Kapish Garg', 'Ayush Vishnoi'],
-  authors: [
-    {
-      name: 'Kapish Garg',
-      url: 'https://www.linkedin.com/in/kapish-garg-8335a0282/',
-    },
-    {
-      name: 'Ayush Vishnoi',
-    },
-  ],
-  creator: 'Kapish Garg (Co-Founder)',
+  metadataBase: new URL(siteUrl),
+  title: { default: 'Apex Conclave', template: '%s | Apex Conclave' },
+  description: homeContent.summary,
+  applicationName: 'Apex Conclave',
+  keywords: ['Apex Conclave', 'Diplovia', 'Model UN', 'MUN', 'youth events', 'India', 'diplomacy', 'debate'],
+  authors: [{ name: 'Apex Conclave' }],
   publisher: 'Apex Conclave',
   openGraph: {
     title: 'Apex Conclave',
-    description: 'An umbrella for multiple youth events. Diplovia 2026 is the first.',
+    description: homeContent.summary,
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_IN',
     siteName: 'Apex Conclave',
   },
+  twitter: { card: 'summary_large_image' },
   robots: { index: true, follow: true },
+};
+
+// Organisation details for search engines
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: organizationConfig.name,
+  url: siteUrl,
+  logo: `${siteUrl}/brand/apex-conclave-logo-dark.png`,
+  email: organizationConfig.contactEmail,
+  sameAs: Object.values(organizationConfig.socials).filter(Boolean),
 };
 
 export default function RootLayout({
@@ -49,6 +55,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning className="font-sans antialiased bg-[#080909] text-[#F4F2ED] min-h-screen relative selection:bg-[#C7A16A]/30 selection:text-[#F4F2ED]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {/* Global Scroll Progress Bar */}
         <ScrollProgress />
 
