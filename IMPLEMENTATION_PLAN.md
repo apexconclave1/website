@@ -95,6 +95,12 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] Copy rewritten from the booklet's own wording (tagline, manifesto, pillars, overview); bios added; "Website by Kapish Garg" in the footer.
 - Skipped with reason: dark mode toggle (dark-only brand), site search (about 10 pages), password toggle (no passwords), toasts (inline feedback already), floating contact button (contact in nav, footer and CTAs), cookie banner (Vercel Analytics sets no cookies), strict CSP (needs nonces, little gain without logins).
 
+### Skills review, steps 1 and 2 (DONE 2026-10-20)
+Report: https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH
+- [x] Step 1: `autocomplete` on registration and contact fields (name, email, tel, organization, address-level2, country-name; off for partner, coupon, UTR, subject); Escape closes the mobile menu and returns focus (`aria-controls` added); footer column headings are `<p>` instead of `<h4>`; `text-wrap: balance` on headings and `pretty` on paragraphs; global reduced-motion rule for CSS transitions and animations.
+- [x] Step 2: `framer-motion` uninstalled. `Button` is a plain `<button>` with CSS `active:scale-[0.98]` and uses `cn()`; `ScrollProgress` runs on a CSS scroll-driven animation (`.scroll-progress` in `globals.css`) with a passive scroll listener only where unsupported. `/contact` 159 to 121 kB, `/register` 182 to 145 kB first-load JS; other routes unchanged.
+- [ ] Steps 3 to 7 of the report: owner to choose.
+
 ### H. Docs
 - [ ] Final pass on README, progress, AGENTS, PRODUCT, DESIGN.
 

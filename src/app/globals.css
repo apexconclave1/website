@@ -17,6 +17,10 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
 body {
   background-color: var(--bg);
   color: var(--text);
@@ -64,6 +68,21 @@ body {
   .card-link { transition: none; transform: none; }
 }
 
+/* ─── Reading progress bar: driven by page scroll, no JS where supported ── */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes scroll-progress-grow {
+  to { transform: scaleX(1); }
+}
+
 /* ─── Print: black on white, no chrome (receipt, terms, event page) ── */
 @media print {
   *, *::before, *::after {
@@ -84,8 +103,16 @@ body {
   outline-offset: 2px;
 }
 
+/* Reduced motion: a catch-all for every CSS transition and animation (WebGL effects handle themselves) */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* The progress bar follows scroll position, not time, so it keeps working */
+  .scroll-progress { animation-duration: auto !important; }
 }

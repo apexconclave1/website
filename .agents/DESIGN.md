@@ -86,7 +86,7 @@ Based on an **8px grid**:
 - **Allowed properties**: `opacity`, `transform` (scale, translateY, translateX)
 - **Hover effects**: Subtle `scale(1.01)` or `translateY(-2px)` with border color shift
 - **Page transitions**: Fade in with `opacity` + slight `translateY(8px → 0)`
-- **Tool**: Framer Motion
+- **Tool**: CSS transitions (Tailwind utilities); no animation library
 
 ---
 

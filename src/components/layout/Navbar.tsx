@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SpecularButton from '@/components/ui/SpecularButton';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -25,7 +25,21 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => setOpen(false), [pathname]);
+
+  // Escape closes the mobile menu and returns focus to its button
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
@@ -60,9 +74,11 @@ export default function Navbar() {
 
         <button
           type="button"
+          ref={menuButtonRef}
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           className="lg:hidden flex h-11 w-11 items-center justify-center rounded-[10px] border border-surface text-soft-white"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -71,6 +87,7 @@ export default function Navbar() {
 
       {open && (
         <nav
+          id="mobile-menu"
           aria-label="Mobile navigation"
           className="lg:hidden flex flex-col gap-1 border-t border-surface bg-bg px-6 py-4"
         >

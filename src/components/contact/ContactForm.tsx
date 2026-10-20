@@ -69,7 +69,12 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
     );
   }
 
-  const input = (key: 'name' | 'email' | 'phone' | 'institution' | 'subject', label: string, type = 'text') => (
+  const input = (
+    key: 'name' | 'email' | 'phone' | 'institution' | 'subject',
+    label: string,
+    autoComplete: string,
+    type = 'text'
+  ) => (
     <div>
       <label htmlFor={`contact-${key}`} className="field-label">
         {label}
@@ -77,6 +82,7 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
       <input
         id={`contact-${key}`}
         type={type}
+        autoComplete={autoComplete}
         value={form[key] ?? ''}
         onChange={(e) => update(key, e.target.value)}
         aria-invalid={!!errors[key]}
@@ -94,10 +100,10 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
   return (
     <form onSubmit={handleSubmit} noValidate aria-label="Contact Apex Conclave" className="panel flex flex-col gap-5 md:p-8">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {input('name', 'Name *')}
-        {input('email', 'Email *', 'email')}
-        {input('phone', 'Phone (optional)', 'tel')}
-        {input('institution', 'School / college / company (optional)')}
+        {input('name', 'Name *', 'name')}
+        {input('email', 'Email *', 'email', 'email')}
+        {input('phone', 'Phone (optional)', 'tel', 'tel')}
+        {input('institution', 'School / college / company (optional)', 'organization')}
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -118,7 +124,7 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
             ))}
           </select>
         </div>
-        {input('subject', 'Subject *')}
+        {input('subject', 'Subject *', 'off')}
       </div>
 
       <div>

@@ -16,7 +16,7 @@ const TRACKS: { value: Step1FormData['track']; title: string; note: string }[] =
 ];
 
 export default function StepIdentity({ formData, onChange, errors }: StepIdentityProps) {
-  const field = (key: TextKey, label: string, placeholder: string, type = 'text') => (
+  const field = (key: TextKey, label: string, placeholder: string, autoComplete: string, type = 'text') => (
     <div>
       <label htmlFor={key} className="field-label">
         {label}
@@ -24,6 +24,7 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
       <input
         id={key}
         type={type}
+        autoComplete={autoComplete}
         placeholder={placeholder}
         value={formData[key] || ''}
         onChange={(e) => onChange({ [key]: e.target.value })}
@@ -71,12 +72,12 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
       </fieldset>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {field('fullName', 'Full name *', 'e.g. Alex Rivera')}
-        {field('email', 'Email *', 'e.g. alex@example.com', 'email')}
+        {field('fullName', 'Full name *', 'e.g. Alex Rivera', 'name')}
+        {field('email', 'Email *', 'e.g. alex@example.com', 'email', 'email')}
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {field('phone', 'WhatsApp / phone *', 'e.g. +91 98765 43210', 'tel')}
+        {field('phone', 'WhatsApp / phone *', 'e.g. +91 98765 43210', 'tel', 'tel')}
         <div>
           <label htmlFor="delegationType" className="field-label">
             Delegation *
@@ -95,13 +96,13 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
         </div>
       </div>
 
-      {formData.delegationType === 'DOUBLE_DELEGATION' && field('partnerName', 'Partner’s full name *', 'e.g. Maya Chen')}
+      {formData.delegationType === 'DOUBLE_DELEGATION' && field('partnerName', 'Partner’s full name *', 'e.g. Maya Chen', 'off')}
 
-      {field('institutionName', 'School / college *', 'e.g. Modern School')}
+      {field('institutionName', 'School / college *', 'e.g. Modern School', 'organization')}
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        {field('city', 'City *', 'e.g. New Delhi')}
-        {field('country', 'Country *', 'e.g. India')}
+        {field('city', 'City *', 'e.g. New Delhi', 'address-level2')}
+        {field('country', 'Country *', 'e.g. India', 'country-name')}
       </div>
     </div>
   );

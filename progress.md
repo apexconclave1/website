@@ -14,7 +14,7 @@ After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build
 
 Website of **Apex Conclave**, an umbrella brand for youth events. **Diplovia 2026** (virtual Model UN, dates moving, to be announced) is the first event.
 
-Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion, ogl/GSAP/Lenis (effects), Supabase, Zod. Font: Inter only. Hosting: Vercel (planned).
+Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis (effects only), Supabase, Zod, Vercel Analytics. Font: Inter only. Hosting: Vercel (planned).
 
 ## Status
 
@@ -48,6 +48,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 **Photos (2026-10-20).** Vansh's photo added; Ayush's recropped to the face (from the original in the first commit). New `components/team/TeamCard.tsx` (80px photo, name, role, quote) replaces three separate team markups: About, Community and the event page Team section.
 
 **Launch audit (2026-10-20).** See the "Launch audit" list in `IMPLEMENTATION_PLAN.md` for every item. New files: `components/JsonLd.tsx`, `components/Breadcrumbs.tsx`, `components/UtmCapture.tsx`, `components/ui/BackToTop.tsx`, `components/team/TeamCard.tsx`, `lib/seo.ts`, `supabase/migrations/002_utm.sql`. New package: `@vercel/analytics`. New env (optional): `RESEND_API_KEY`, `RESEND_FROM`, `GOOGLE_SITE_VERIFICATION`. Verified: build, lint, events check, canonicals and JSON-LD in page HTML, link crawl, reduced-motion screenshot (hero headline renders fully).
+
+**Skills steps 1–2 (2026-10-20).** Form autocomplete, Escape on the mobile menu, footer heading semantics, `text-wrap`, global reduced-motion rule; framer-motion removed (Button and ScrollProgress now CSS). Bundles: `/contact` 121 kB (was 159), `/register` 145 kB (was 182). Not verified in a real browser: the CSS scroll-progress bar (headless Chrome does not update scroll timelines).
 
 ## Site map
 

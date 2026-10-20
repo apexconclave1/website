@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className={headingClass}>Events</h4>
+            <p className={headingClass}>Events</p>
             <ul className="flex flex-col gap-3">
               {eventsData.map((event) => (
                 <li key={event.id}>
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className={headingClass}>Apex Conclave</h4>
+            <p className={headingClass}>Apex Conclave</p>
             <ul className="flex flex-col gap-3">
               <li><Link href="/about" className={linkClass}>About</Link></li>
               <li><Link href="/community" className={linkClass}>Community</Link></li>
@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className={headingClass}>Connect</h4>
+            <p className={headingClass}>Connect</p>
             <ul className="flex flex-col gap-3">
               <li>
                 <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>

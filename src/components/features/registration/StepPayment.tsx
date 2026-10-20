@@ -192,6 +192,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           <div className="flex gap-2">
             <input
               id="coupon"
+              autoComplete="off"
               type="text"
               placeholder="Enter code"
               value={couponCode}
@@ -241,6 +242,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         </label>
         <input
           id="utr"
+          autoComplete="off"
           type="text"
           inputMode="text"
           placeholder="e.g. 425619287345"

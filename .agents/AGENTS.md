@@ -8,7 +8,7 @@
 
 **Apex Conclave** is an elite umbrella organization hosting multiple premier events, conferences, and youth initiatives. The flagship event is **Diplovia**, a diplomatic Model United Nations conference.
 
-- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, Framer Motion, GSAP, ogl (WebGL), Lenis, Lucide React, Supabase (Postgres + Realtime)
+- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, GSAP, ogl (WebGL), Lenis, Lucide React, Supabase (Postgres), Vercel Analytics
 - **Design Philosophy**: Minimal · Youthful · Intelligent · Premium · Typography-Led · Dark-First
 
 ---
@@ -56,7 +56,7 @@ src/
 - Avoid unnecessary re-renders: memoize callbacks and values where needed.
 
 ### Animation
-- Use **Framer Motion** for all animations.
+- Use **CSS transitions** (Tailwind) for UI motion. There is no animation library; GSAP and ogl are used only inside the approved effect components.
 - Keep durations between **150ms–350ms**.
 - Preferred easing: `[0.25, 0.46, 0.45, 0.94]` (ease-out).
 - Only animate `opacity`, `transform` (scale, translateY). Never animate layout-triggering properties.
