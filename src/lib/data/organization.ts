@@ -67,6 +67,7 @@ export const leadershipTeam = [
     role: 'Founder & CEO',
     bio: 'Founded Apex Conclave and leads its direction, partnerships and events, starting with Diplovia.',
     photo: '/leadership/ayush-vishnoi.jpg',
+    linkedin: 'https://www.linkedin.com/in/ayush-vishnoi-53394135b/',
     quote:
       'Apex Conclave exists to give students a place to practise what they usually only read about. Diplovia takes that online, so where you live doesn’t decide whether you get a seat in the room. Do the research, pick your position, and speak.',
   },
@@ -75,6 +76,7 @@ export const leadershipTeam = [
     role: 'Co-Founder',
     bio: 'Co-founded Apex Conclave and works across its events, from planning to the delegate experience.',
     photo: '/leadership/kapish-garg.jpg',
+    linkedin: siteCredit.url,
     quote:
       'A good committee is built by delegates who listen as carefully as they speak. Bring a strong position, and be willing to move it when the argument earns it.',
   },
@@ -83,6 +85,7 @@ export const leadershipTeam = [
     role: 'Chief Operating Officer',
     bio: 'Runs operations: the schedule, access and the online setup that keeps every committee session running.',
     photo: '/leadership/vansh-jain.jpg',
+    linkedin: 'https://www.linkedin.com/in/vansh-jain-939a5b349/',
     quote:
       'Running a conference online means the details decide everything: timing, access, clarity. Our job is to make those invisible, so your only concern is your country’s position.',
   },

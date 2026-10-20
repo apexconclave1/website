@@ -8,6 +8,7 @@ interface Member {
   role: string;
   photo: string;
   bio: string;
+  linkedin?: string;
 }
 
 /** Home Team section: photos in the DepthCarousel, the front person's name, role and bio underneath. */
@@ -36,7 +37,24 @@ export function TeamCarousel({ members }: { members: Member[] }) {
       <div aria-live="polite" className="min-h-[7rem] max-w-[52ch] text-center">
         {members.map((m, i) => (
           <div key={m.name} hidden={i !== active}>
-            <h3 className="text-lg font-semibold text-soft-white">{m.name}</h3>
+            <h3 className="text-lg font-semibold text-soft-white">
+              {m.linkedin ? (
+                <a
+                  href={m.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${m.name} on LinkedIn`}
+                  className="ext-link relative after:absolute after:left-full after:ml-1.5"
+                  data-track="social_click"
+                  data-track-platform="linkedin"
+                  data-track-place="team"
+                >
+                  {m.name}
+                </a>
+              ) : (
+                m.name
+              )}
+            </h3>
             <p className="mt-1 text-xs font-medium uppercase tracking-wider text-warm-bronze">{m.role}</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-grey">{m.bio}</p>
           </div>
