@@ -60,12 +60,13 @@ export default function EventsDirectory() {
           itemDistance={80}
           baseScale={0.92}
           itemScale={0.02}
-          className="[&_.scroll-stack-inner]:!min-h-0 [&_.scroll-stack-inner]:!px-0 [&_.scroll-stack-inner]:!pb-24 [&_.scroll-stack-inner]:!pt-0"
+          holdDistance={96}
+          className="events-stack"
         >
           {filtered.map((event) => (
             <ScrollStackItem
               key={event.id}
-              itemClassName="!h-auto !rounded-[12px] !p-6 md:!p-10 border border-line bg-surface"
+              itemClassName="!h-auto !rounded-[12px] !p-6 md:!p-10 !bg-surface !text-soft-white"
             >
               <EventCard event={event} />
             </ScrollStackItem>

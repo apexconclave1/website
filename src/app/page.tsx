@@ -6,7 +6,7 @@ import { EventCard } from '@/components/EventCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData } from '@/lib/data/events';
 import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
-import { TeamCard } from '@/components/team/TeamCard';
+import { TeamCarousel } from '@/components/team/TeamCarousel';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata(
@@ -58,10 +58,8 @@ export default function HomePage() {
       {/* Team */}
       <section className="mx-auto max-w-container border-t border-surface px-6 py-20">
         <SectionHeading eyebrow="Team" title="The people behind Apex Conclave." />
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {leadershipTeam.map((m) => (
-            <TeamCard key={m.name} name={m.name} role={m.role} photo={m.photo} bio={m.bio} />
-          ))}
+        <div className="mt-10">
+          <TeamCarousel members={leadershipTeam} />
         </div>
       </section>
 

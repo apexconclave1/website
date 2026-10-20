@@ -109,6 +109,9 @@ body {
   from { transform: translateY(8px); }
 }
 
+/* Events directory: the page container already sets the side padding */
+.events-stack .scroll-stack__inner { padding-inline: 0; }
+
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid #c7a16a;

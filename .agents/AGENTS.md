@@ -8,7 +8,7 @@
 
 **Apex Conclave** is an elite umbrella organization hosting multiple premier events, conferences, and youth initiatives. The flagship event is **Diplovia**, a diplomatic Model United Nations conference.
 
-- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, GSAP, ogl (WebGL), Lenis, Lucide React, Supabase (Postgres), Vercel Analytics
+- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, GSAP, ogl (WebGL), Lucide React, Supabase (Postgres), Vercel Analytics
 - **Design Philosophy**: Minimal · Youthful · Intelligent · Premium · Typography-Led · Dark-First
 
 ---
@@ -65,7 +65,7 @@ src/
 
 ## Strict Design Prohibitions
 
-> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack and FuzzyText (404 only) are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
+> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack, FuzzyText (404 only) and DepthCarousel (home Team only) are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
 
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.

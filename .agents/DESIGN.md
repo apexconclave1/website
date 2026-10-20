@@ -93,7 +93,7 @@ Based on an **8px grid**:
 
 ## Approved effects (owner decision, 2026-10-20)
 
-These six components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
+These seven components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
 
 | Component | Where it is allowed |
 |---|---|
@@ -101,8 +101,9 @@ These six components are part of the design system and are used as supplied, inc
 | `StrokeText` | Home hero headline only. Never use it to draw the logo |
 | `AccordionGallery` | Event committee galleries |
 | `SpecularButton` | Primary CTAs only, at most 2 or 3 per page (each is a WebGL context) |
-| `ScrollStack` | Events directory list |
+| `ScrollStack` | Events directory list (`components/ui/ScrollStack.jsx`, React Bits JS version as supplied, replaced 2026-10-20; types in `ScrollStack.d.ts`) |
 | `FuzzyText` | The "404" on the not-found page only (`components/ui/FuzzyText.jsx`, React Bits source as supplied, added 2026-10-20) |
+| `DepthCarousel` | Home Team section only, via `components/team/TeamCarousel.tsx` (`components/ui/DepthCarousel.jsx`, React Bits source as supplied, added 2026-10-20). Network stays as cards: it has no images |
 
 ## STRICT PROHIBITIONS
 

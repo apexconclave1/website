@@ -14,7 +14,7 @@ After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build
 
 Website of **Apex Conclave**, an umbrella brand for youth events. **Diplovia 2026** (virtual Model UN, dates moving, to be announced) is the first event.
 
-Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis (effects only), Supabase, Zod, Vercel Analytics. Font: Inter only. Hosting: Vercel (planned).
+Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP (effects only), Supabase, Zod, Vercel Analytics. Font: Inter only. Hosting: Vercel (planned).
 
 ## Status
 
@@ -60,6 +60,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP/Lenis
 **SEO steps 1–5 (2026-10-20).** `pageMetadata()` in `lib/seo.ts` gives every page its own title, description (all 120–160 chars), canonical, `og:url`, image and Twitter tags. Diplovia share image `app/events/[slug]/opengraph-image.tsx` (also used in the Event schema). Event title from `searchTitle`: "Diplovia 2026: Virtual Model UN". `/register` is `noindex`; robots.txt blocks only `/api/`. Home `h1` has visually hidden text; the StrokeText SVG is `aria-hidden`. New descriptions were written by Claude: owner to review.
 
 **404 page (2026-10-20).** "404" drawn with React Bits `FuzzyText` (`components/ui/FuzzyText.jsx`, JS source as supplied, no new package; intro static then light fuzz, stronger on hover; still under reduced motion). Recorded as the sixth approved effect in DESIGN.md and the design and animation skills.
+
+**Team carousel and new ScrollStack (2026-10-20).** Home Team section uses React Bits `DepthCarousel` (`components/ui/DepthCarousel.jsx` + `.css`, uses the installed GSAP) through `components/team/TeamCarousel.tsx`: photos turn in 3D; the front person's name, role and bio show below (all three bios stay in the HTML). Network stays as cards (no images; owner choice). `/events` uses the newer React Bits `ScrollStack.jsx` (no Lenis; types in `ScrollStack.d.ts`; side padding reset by `.events-stack` in `globals.css`). `/events` 122 to 117 kB, home 151 to 154 kB. `lenis` is now unused in `package.json`; uninstall pending owner approval. TeamCard still used on About and Community.
 
 ## Site map
 

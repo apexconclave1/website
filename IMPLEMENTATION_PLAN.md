@@ -15,7 +15,7 @@ Sources of truth: the design sheet PDF, `docs/Diplovia_2026_Delegate_Booklet_hom
 | Sanity / Firebase | Removed. |
 | Logo | Use the approved logo from the design sheet (`public/brand/`). Never redraw it in type. |
 | Pages | Add Community and Partners now. Sponsorship tiers and prices are **not** public. |
-| Effects | Keep DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack; FuzzyText added for the 404 (owner request, 2026-10-20). DESIGN.md updated to allow them. |
+| Effects | Keep DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack; FuzzyText added for the 404 and DepthCarousel for the home Team section; ScrollStack replaced by the newer React Bits JS version without Lenis (owner requests, 2026-10-20). DESIGN.md updated to allow them. |
 | Email | Skip paid services. Contact messages are stored in Supabase. Revisit Resend (free tier) once a domain exists. |
 | Hosting | Vercel. Domain not bought yet. |
 | Social | Instagram and LinkedIn only (no X). |
@@ -83,7 +83,7 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 ### Launch audit (DONE 2026-10-20)
 - [x] Team with photos and bios on the home page (removed from the Diplovia page); `leaders.ts` removed.
 - [x] Skip-to-content link; `<main id="main-content">` on every page; `/events` H1 (`SectionHeading as="h1"`).
-- [x] Reduced motion: DarkVeil one still frame, ScrollStack without Lenis, scroll bar without spring, Button without tap scale.
+- [x] Reduced motion: DarkVeil one still frame, ScrollStack without smooth wheel scrolling, scroll bar without spring, Button without tap scale.
 - [x] AVIF + WebP via `images.formats`; gallery `<img>` lazy.
 - [x] Canonical on every page; JSON-LD via `components/JsonLd.tsx` + `lib/seo.ts`: Organization, FAQPage (`/faq`, event page), BreadcrumbList (event page, visible `Breadcrumbs`), Event (only once dates exist).
 - [x] Cross-links (Partners ↔ Community, About → both, event FAQ → general FAQ). Crawl of 12 internal URLs: no 404s.

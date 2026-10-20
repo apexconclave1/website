@@ -5,7 +5,7 @@ Website of **Apex Conclave**, an umbrella brand that runs multiple youth events.
 ## Stack
 
 - Next.js 14 (App Router), React 18, TypeScript
-- Tailwind CSS 3, ogl/GSAP/Lenis (effects only), Vercel Analytics
+- Tailwind CSS 3, ogl/GSAP (effects only), Vercel Analytics
 - Supabase (Postgres + Storage) for registrations, coupons and contact messages
 - Zod for validation
 - Hosting: Vercel (planned)
