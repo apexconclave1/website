@@ -6,6 +6,7 @@ export const eventsData: EventEntity[] = [
     id: 'diplovia-2026',
     slug: 'diplovia-2026',
     title: 'Diplovia 2026',
+    searchTitle: 'Diplovia 2026: Virtual Model UN',
     edition: 'Virtual Edition',
     category: 'MUN',
     status: 'UPCOMING',

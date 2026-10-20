@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { TeamCard } from '@/components/team/TeamCard';
 import { communityContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/community' },
-  title: 'Community',
-  description: 'The delegates, speakers, volunteers and team behind Apex Conclave events.',
-};
+export const metadata: Metadata = pageMetadata('Community', 'Meet the delegates, speakers, volunteers and team behind Apex Conclave events, and find out how to join the community on Instagram and LinkedIn.', '/community');
 
 const joinHref = `/contact?category=${encodeURIComponent('Join the Community')}`;
 

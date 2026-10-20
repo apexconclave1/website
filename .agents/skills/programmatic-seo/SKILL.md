@@ -1,110 +1,50 @@
 # Skill: Programmatic SEO
 
-> Scalable multi-event landing page architecture and dynamic route patterns for the Apex Conclave website.
+> Data-driven event pages and URL rules for the Apex Conclave website. Pages are generated from TypeScript data, not a CMS.
 
 ---
 
 ## When to Activate
 
-Use this skill when:
-- Creating dynamic event pages from data
-- Designing URL structures for events, chambers, or categories
-- Implementing `generateStaticParams` for static generation
-- Building category/filter landing pages
+- Adding an event or a new edition of an event
+- Proposing a new page type (committee, category, study guide)
+- Changing a slug or URL
 
 ---
 
-## URL Architecture
+## URL architecture (current)
 
 ```
-/                           → Home page
-/events                     → Events directory (filterable)
-/events/diplovia-2025       → Event microsite (dynamic [slug])
-/events/tech-summit-2025    → Another event microsite
-/about                      → About Apex Conclave
-/contact                    → Contact page
+/                         Home (Apex Conclave)
+/events                   Directory: upcoming + past (category filter appears with 2+ categories)
+/events/diplovia-2026     Event page, statically generated from eventsData
+/about /community /partners /contact /faq /terms
+/register?event=<slug>    Registration (noindex)
+/committees               Redirects to /events/diplovia-2026#committees
 ```
 
-### Future URL Expansion
-```
-/events/diplovia-2025/unsc              → Chamber-specific page
-/events/diplovia-2025/unsc/seats        → Seat matrix for specific chamber
-/community                              → Community hub
-/alumni                                 → Alumni directory
-/blog                                   → Content hub
-/blog/[slug]                            → Blog post
-```
+## How event pages are generated
 
----
+- `app/events/[slug]/page.tsx`: `generateStaticParams()` from `eventsData`; `generateMetadata()` per event; unknown slug → `notFound()`.
+- Content comes from `src/lib/data/`: `events.ts` (event), `chambers.ts` (committees, keyed by event id), `faqs.ts` (`faqsByEvent`), `eventStory.ts` (booklet copy). Adding an event = adding entries there; home, directory, footer, sitemap and event page update themselves.
 
-## Dynamic Route Implementation
+## Slug rules
 
-### Static Generation of Event Pages
-```tsx
-// app/events/[slug]/page.tsx
-import { getAllEvents, getEventBySlug } from '@/lib/data/events';
+- Lowercase, hyphenated, `{event-name}-{year}`: `diplovia-2026`.
+- **Never change or delete a published slug.** When Diplovia 2027 starts, add `diplovia-2027` and set 2026 to `PAST`; the 2026 page stays as the record (results, photos, recap). If a slug must move, add a permanent redirect in `next.config.mjs`.
 
-export function generateStaticParams() {
-  const events = getAllEvents();
-  return events.map((event) => ({
-    slug: event.slug,
-  }));
-}
+## New page types: only with real content
 
-export default function EventPage({ params }: { params: { slug: string } }) {
-  const event = getEventBySlug(params.slug);
-  if (!event) notFound();
-  return <EventMicrosite event={event} />;
-}
-```
+A generated page must answer a search on its own. Thin pages (a name and two lines) are worse than no page.
 
-### Category Landing Pages (Programmatic)
-When events grow, create category-specific landing pages:
-```
-/events?category=mun       → All MUN events
-/events?category=tech      → All Tech events
-/events?status=upcoming    → All upcoming events
-```
+| Page type | Add when | Not before |
+|---|---|---|
+| Committee page `/events/[slug]/committees/[id]` | Each committee has a final country list, an agenda background of a few hundred words, and a study guide | Country lists are placeholders today |
+| Study guide as an HTML page | A guide exists; HTML is indexable and readable on phones, a PDF alone is not | — |
+| Category page `/events/category/[category]` | 2+ categories with several events each | One event today; the directory filter is enough |
+| Past-edition recap | An edition has ended and has results or photos | — |
 
-These can be server-rendered with search params:
-```tsx
-// app/events/page.tsx
-export default function EventsPage({
-  searchParams,
-}: {
-  searchParams: { category?: string; status?: string };
-}) {
-  const events = getFilteredEvents(searchParams.category, searchParams.status);
-  return <EventGrid events={events} />;
-}
-```
+## Scaling
 
----
-
-## Slug Generation Rules
-
-- Lowercase, hyphenated: `diplovia-2025`, `tech-summit-2025`
-- Include year for recurring events
-- Keep slugs short and descriptive
-- Never change a slug once published (breaks SEO)
-- Format: `{event-name}-{year}` or `{event-name}-{edition}`
-
----
-
-## Scaling Patterns
-
-### When to Move from Static Data to CMS
-- **< 10 events**: Static data files in `lib/data/` are fine
-- **10–50 events**: Consider Sanity CMS for content management
-- **50+ events**: Full CMS with API routes and ISR (Incremental Static Regeneration)
-
-### ISR for Dynamic Content
-```tsx
-// When using CMS, enable ISR for event pages
-export const revalidate = 3600; // Revalidate every hour
-
-export default async function EventPage({ params }) {
-  const event = await fetchEventFromCMS(params.slug);
-  return <EventMicrosite event={event} />;
-}
-```
+- Static data files in `src/lib/data/` until editing them becomes the bottleneck (roughly 10+ events or non-technical editors). Then choose a CMS with the owner; Sanity was removed on purpose.
+- Pages stay statically generated; if data ever comes from a database or CMS, use `export const revalidate = 3600` instead of rendering on every request.

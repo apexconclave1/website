@@ -1,161 +1,65 @@
 # Skill: SEO Audit
 
-> Event JSON-LD structured data, OpenGraph tags, Twitter Cards, and technical SEO patterns for the Apex Conclave website.
+> Metadata, share previews, structured data and technical SEO for the Apex Conclave website (Next.js 14 Metadata API).
 
 ---
 
 ## When to Activate
 
-Use this skill when:
-- Adding or updating meta tags on any page
-- Implementing structured data (JSON-LD)
-- Optimizing for social sharing previews (OG/Twitter)
-- Reviewing technical SEO compliance
+- Adding a page, or changing a page's title, description or main heading
+- Changing what a link preview shows on WhatsApp, Instagram, LinkedIn
+- Adding or changing JSON-LD
+- Before launch, after buying the domain, after changing event dates
 
 ---
 
-## Meta Tag Templates
+## How metadata works here
 
-### Organization (Home Page)
-```tsx
-// app/layout.tsx or app/page.tsx
-export const metadata = {
-  title: 'Apex Conclave — Where Visionary Minds Converge',
-  description: 'Apex Conclave is the umbrella organization for premier events, conferences, and youth initiatives including Diplovia MUN.',
-  keywords: ['Apex Conclave', 'MUN', 'Diplovia', 'Youth Conference', 'Leadership Summit'],
-  openGraph: {
-    title: 'Apex Conclave',
-    description: 'Where visionary minds converge to shape what\'s next.',
-    url: 'https://apexconclave.org',
-    siteName: 'Apex Conclave',
-    type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Apex Conclave',
-    description: 'Where visionary minds converge to shape what\'s next.',
-    images: ['/og-image.png'],
-  },
-};
-```
+- `app/layout.tsx` sets the defaults: `metadataBase` (from `lib/site.ts`), title template `%s | Apex Conclave`, description, `openGraph`, `twitter`, robots, Search Console verification (`GOOGLE_SITE_VERIFICATION`), author/creator (site credit, metadata only).
+- Every page builds its metadata with `pageMetadata(title, description, path, imageUrl?)` from `lib/seo.ts`: full title, description, canonical, Open Graph (url, type, site name, locale, image) and Twitter tags.
+- **Next.js merges metadata shallowly.** A page that sets `openGraph` by hand replaces the layout's whole `openGraph` object and loses the image. Always use `pageMetadata`.
+- Page metadata also beats a route's `opengraph-image` file, so a page with its own image passes the URL as `imageUrl` (event pages pass `/events/<slug>/opengraph-image`).
+- Default share image: `app/opengraph-image.png` (1200×630). Events get their own from `app/events/[slug]/opengraph-image.tsx` (`next/og`: event logo, subtitle from `searchTitle`, dates, Apex logo). It uses Satori's default font, not Inter.
+- Event `searchTitle` (in `events.ts`) is the search and preview title, e.g. "Diplovia 2026: Virtual Model UN".
+- Base URL: `NEXT_PUBLIC_SITE_URL`, else Vercel's production URL, else localhost. Canonicals, sitemap and robots follow it, so set it the day the domain is live.
 
-### Event Detail Page
-```tsx
-// app/events/[slug]/page.tsx
-export async function generateMetadata({ params }) {
-  const event = getEventBySlug(params.slug);
-  return {
-    title: `${event.title} — Apex Conclave`,
-    description: event.shortDescription,
-    openGraph: {
-      title: event.title,
-      description: event.shortDescription,
-      type: 'article',
-      images: [{ url: event.heroBanner, width: 1200, height: 630 }],
-    },
-  };
-}
-```
+## Structured data
+
+Builders in `lib/seo.ts`, rendered with `<JsonLd data={…} />`:
+
+| Schema | Where |
+|---|---|
+| `Organization`, `WebSite` (with `creator`) | Every page (layout) |
+| `FAQPage` | `/faq` and each event page |
+| `BreadcrumbList` | Event pages |
+| `Event` | Event pages, **only when `startDate` exists** (`eventSchema` returns `null` otherwise). Includes `VirtualLocation`, organizer, and an `Offer` from `feeAt()` |
+
+Do not publish an `Event` schema with guessed dates. When dates change after publishing, set `eventStatus` to `EventRescheduled` and keep `previousStartDate`.
+
+## Crawling
+
+- `app/robots.ts`: allow all, disallow `/api/`. `/register` is kept out with `robots: { index: false }`. A page that should stay out of search uses `robots: { index: false }` in its metadata, not a robots.txt block (Google cannot read a noindex on a page it is blocked from).
+- `app/sitemap.ts`: every public page plus every event from `eventsData`. Add new pages there.
+- `public/llms.txt`: plain summary for AI agents (includes the site credit).
+- Unknown event slugs return 404 (`notFound()`); `/committees` redirects to the event page.
 
 ---
 
-## JSON-LD Structured Data
+## Checklist per page
 
-### Organization Schema (Home Page)
-```tsx
-const orgJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Apex Conclave',
-  url: 'https://apexconclave.org',
-  logo: 'https://apexconclave.org/logo.png',
-  description: 'Umbrella organization for premier events, conferences, and youth initiatives.',
-  sameAs: [
-    'https://instagram.com/apexconclave',
-    'https://linkedin.com/company/apexconclave',
-  ],
-};
+- [ ] Unique title; the template adds "| Apex Conclave". Put the words people search first ("Diplovia 2026: Virtual Model UN"), the brand last
+- [ ] Description 120–160 characters, written for the person deciding whether to click
+- [ ] Canonical set (`alternates.canonical`)
+- [ ] Metadata built with `pageMetadata`; check the preview with a link-preview tool after deploy
+- [ ] One `<h1>` containing real text (an image needs `alt`; an SVG heading needs visually hidden text)
+- [ ] Every image has `alt`; decorative ones `alt=""`
+- [ ] Link text says where it goes (no "click here")
+- [ ] Listed in `app/sitemap.ts` if public; `index: false` if not
+- [ ] JSON-LD only for facts that are true and visible on the page
 
-// In page component:
-<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
-```
+## After deploy (owner)
 
-### Event Schema (Event Detail Pages)
-```tsx
-const eventJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Event',
-  name: event.title,
-  description: event.shortDescription,
-  startDate: event.startDate,
-  endDate: event.endDate,
-  location: {
-    '@type': event.location.isVirtual ? 'VirtualLocation' : 'Place',
-    name: event.location.venue,
-    address: { '@type': 'PostalAddress', addressLocality: event.location.city },
-  },
-  organizer: {
-    '@type': 'Organization',
-    name: 'Apex Conclave',
-    url: 'https://apexconclave.org',
-  },
-  eventStatus: 'https://schema.org/EventScheduled',
-  eventAttendanceMode: event.location.isVirtual
-    ? 'https://schema.org/OnlineEventAttendanceMode'
-    : 'https://schema.org/OfflineEventAttendanceMode',
-  image: event.heroBanner,
-  offers: {
-    '@type': 'Offer',
-    availability: event.registrationOpen
-      ? 'https://schema.org/InStock'
-      : 'https://schema.org/SoldOut',
-  },
-};
-```
-
----
-
-## Technical SEO Checklist
-
-- [ ] Every page has a unique `<title>` tag
-- [ ] Every page has a `<meta name="description">` (120–160 characters)
-- [ ] Single `<h1>` per page with clear hierarchy (`h1` > `h2` > `h3`)
-- [ ] All images have descriptive `alt` attributes
-- [ ] All links have meaningful anchor text (not "click here")
-- [ ] `robots.txt` allows search engine crawling
-- [ ] `sitemap.xml` generated for all public pages
-- [ ] Canonical URLs set for all pages
-- [ ] No broken internal links (404s)
-- [ ] Page load time under 3 seconds
-- [ ] Mobile-friendly responsive layout
-
----
-
-## Robots & Sitemap
-
-### `public/robots.txt`
-```
-User-agent: *
-Allow: /
-Sitemap: https://apexconclave.org/sitemap.xml
-```
-
-### `app/sitemap.ts`
-```tsx
-import { MetadataRoute } from 'next';
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  const events = getAllEvents();
-  return [
-    { url: 'https://apexconclave.org', lastModified: new Date() },
-    { url: 'https://apexconclave.org/events', lastModified: new Date() },
-    { url: 'https://apexconclave.org/about', lastModified: new Date() },
-    { url: 'https://apexconclave.org/contact', lastModified: new Date() },
-    ...events.map(event => ({
-      url: `https://apexconclave.org/events/${event.slug}`,
-      lastModified: new Date(),
-    })),
-  ];
-}
-```
+1. Search Console: verify with `GOOGLE_SITE_VERIFICATION`, submit `/sitemap.xml`.
+2. PageSpeed Insights on `/` and the event page (mobile). DarkVeil is WebGL; watch LCP and INP.
+3. Rich Results Test on the event page once dates are set.
+4. After the domain: set `NEXT_PUBLIC_SITE_URL`, redeploy, redirect the `vercel.app` address to the domain in Vercel → Domains.

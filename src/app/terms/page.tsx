@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import SectionNavigator, { SectionItem } from '@/components/ui/SectionNavigator';
 import { organizationConfig } from '@/lib/data/organization';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/terms' },
-  title: 'Terms & Conditions',
-  description: 'Apex Conclave delegate code of conduct, registration terms, refund policy, and privacy notice for conference participants.',
-};
+export const metadata: Metadata = pageMetadata('Terms & Conditions', 'Apex Conclave delegate code of conduct, registration terms, refund policy, and privacy notice for conference participants.', '/terms');
 
 const termsSectionsNav: SectionItem[] = [
   { id: 'code-of-conduct', label: 'Conduct' },

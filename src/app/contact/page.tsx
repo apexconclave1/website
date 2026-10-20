@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import ContactForm from '@/components/contact/ContactForm';
 import ContactCards from '@/components/contact/ContactCards';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/contact' },
-  title: 'Contact',
-  description: 'Reach out to Apex Conclave about events, registration, partnerships and sponsorship.',
-};
+export const metadata: Metadata = pageMetadata('Contact', 'Contact Apex Conclave about Diplovia registration, partnerships, sponsorship, joining the community or hosting an event. The team replies by email.', '/contact');
 
 export default function ContactPage({ searchParams }: { searchParams: { category?: string } }) {
   return (

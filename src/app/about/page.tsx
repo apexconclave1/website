@@ -1,15 +1,12 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { TeamCard } from '@/components/team/TeamCard';
 import { eventsData } from '@/lib/data/events';
 import { leadershipTeam, organizationConfig } from '@/lib/data/organization';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/about' },
-  title: 'About',
-  description: organizationConfig.manifesto,
-};
+export const metadata: Metadata = pageMetadata('About', 'Apex Conclave is a youth-led events ecosystem: conferences, simulations and competitions where students practise diplomacy, enterprise and leadership.', '/about');
 
 export default function AboutPage() {
   return (

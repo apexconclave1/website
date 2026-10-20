@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { organizationConfig, partners, partnersContent } from '@/lib/data/organization';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/partners' },
-  title: 'Partners',
-  description: 'Partner with Apex Conclave and reach students across India inside our events.',
-};
+export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Conclave to reach high school and college students across India through Diplovia and future youth events. Talk to the team.', '/partners');
 
 const contactHref = `/contact?category=${encodeURIComponent('Sponsorship & Partnership')}`;
 

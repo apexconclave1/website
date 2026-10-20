@@ -7,8 +7,13 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData } from '@/lib/data/events';
 import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 import { TeamCard } from '@/components/team/TeamCard';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = { alternates: { canonical: '/' } };
+export const metadata: Metadata = pageMetadata(
+  'Apex Conclave',
+  'Apex Conclave runs youth-led events where students think, compete, build and lead. Its first event is Diplovia 2026, a virtual Model United Nations.',
+  '/',
+);
 
 export default function HomePage() {
   const featured = eventsData[0];

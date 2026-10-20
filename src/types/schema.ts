@@ -23,6 +23,7 @@ export interface EventEntity {
   id: string;
   slug: string;
   title: string;
+  searchTitle?: string; // Page title for search results and link previews, e.g. 'Diplovia 2026: Virtual Model UN'
   edition?: string;
   category: EventCategory;
   status: EventStatus;

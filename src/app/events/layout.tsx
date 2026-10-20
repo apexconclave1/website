@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 
-// /events/page.tsx is a client component, so its metadata lives here.
-export const metadata: Metadata = {
-  alternates: { canonical: '/events' },
-  title: { absolute: 'Events | Apex Conclave', template: '%s | Apex Conclave' },
-  description: 'Every event run by Apex Conclave, upcoming and past.',
-};
+// Metadata for /events; event pages set their own in generateMetadata.
+export const metadata: Metadata = pageMetadata(
+  'Events',
+  'All Apex Conclave events, upcoming and past. Start with Diplovia 2026, a two-day virtual Model United Nations for high school and college students.',
+  '/events',
+);
 
 export default function EventsLayout({ children }: { children: React.ReactNode }) {
   return children;

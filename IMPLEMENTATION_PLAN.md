@@ -104,6 +104,7 @@ Report: https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH
 - [x] Step 5: Tailwind tokens `line` (#1a1d1e) and `line-strong` (#2a2d2e) replace 39 literals; container token set to 1240px and used everywhere (13 `max-w-[1240px]` replaced); `SectionHeading` eyebrow is the plain `.eyebrow` text (bronze chip on #16130F removed); home featured event reuses `EventCard`, which now shows Register / "Registration opens soon".
 - [x] Step 6: brand easing as Tailwind's default transition curve; 200ms fade-and-rise between wizard steps; 8px scroll-linked rise on `SectionHeading` (never hidden at rest); FAQ plus/minus icon and `grid-template-rows` open/close.
 - [x] Step 7: five skill files in `.agents/skills/` rewritten to match the site; `SKILLS_MASTER_GUIDE.md` index updated. `003_funnel_view.sql` run by owner.
+- [x] SEO audit (https://claude.ai/artifact/9MSL3fbNmAtAeGcsYbHVHw) steps 1–5: `pageMetadata()` helper on every page, Diplovia share image, `searchTitle` and 120–160 char descriptions, `/register` noindex, real text in the home `h1`. Both SEO skill files rewritten.
 
 ### H. Docs
 - [ ] Final pass on README, progress, AGENTS, PRODUCT, DESIGN.

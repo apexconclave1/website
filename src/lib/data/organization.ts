@@ -59,7 +59,7 @@ export const homeContent = {
 
 // Quotes from the Diplovia 2026 delegate booklet. Bios written from each person's role; edit freely.
 // Website credit: not shown on the page; used in meta tags, JSON-LD and public/llms.txt only.
-export const siteCredit = { name: 'Kapish Garg', url: 'https://www.linkedin.com/in/kapish-garg-8335a0282/' };
+export const siteCredit = { name: 'Kapish Garg', url: 'https://www.linkedin.com/in/gargkapish/' };
 
 export const leadershipTeam = [
   {
@@ -73,7 +73,7 @@ export const leadershipTeam = [
   {
     name: 'Kapish Garg',
     role: 'Co-Founder',
-    bio: 'Co-founded Apex Conclave. Designed and built this website, including online registration.',
+    bio: 'Co-founded Apex Conclave and works across its events, from planning to the delegate experience.',
     photo: '/leadership/kapish-garg.jpg',
     quote:
       'A good committee is built by delegates who listen as carefully as they speak. Bring a strong position, and be willing to move it when the argument earns it.',

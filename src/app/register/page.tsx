@@ -2,19 +2,18 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { eventsData } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
+import { pageMetadata } from '@/lib/seo';
 import { Suspense } from 'react';
 import RegistrationWizard from '@/components/features/registration/RegistrationWizard';
 
+// Kept out of search with noindex (not a robots.txt block, which would hide the noindex from Google)
 export const metadata: Metadata = {
-  alternates: { canonical: '/register' },
-  title: 'Register',
-  description:
+  ...pageMetadata(
+    'Register',
     'Register as a delegate for Diplovia 2026. Pick a committee and country portfolio. Open to high school and college students.',
-  openGraph: {
-    title: 'Register | Apex Conclave',
-    description:
-      'Register as a delegate for Diplovia 2026. Pick a committee and country portfolio. Open to high school and college students.',
-  },
+    '/register',
+  ),
+  robots: { index: false, follow: true },
 };
 
 export default function RegisterPage({ searchParams }: { searchParams: { event?: string } }) {

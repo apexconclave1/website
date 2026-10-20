@@ -14,7 +14,7 @@ import FAQAccordion from '@/components/faq/FAQAccordion';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { JsonLd } from '@/components/JsonLd';
-import { eventSchema, faqSchema } from '@/lib/seo';
+import { eventSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 interface EventDetailPageProps {
   params: { slug: string };
@@ -27,15 +27,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: EventDetailPageProps): Promise<Metadata> {
   const event = eventsData.find((e) => e.slug === params.slug);
   if (!event) return {};
-  return {
-    title: event.title,
-    description: event.shortDescription,
-    alternates: { canonical: `/events/${event.slug}` },
-    openGraph: {
-      title: `${event.title} | Apex Conclave`,
-      description: event.shortDescription,
-    },
-  };
+  return pageMetadata(
+    event.searchTitle ?? event.title,
+    event.shortDescription,
+    `/events/${event.slug}`,
+    `/events/${event.slug}/opengraph-image`,
+  );
 }
 
 const sectionClass = 'scroll-mt-24 border-t border-surface py-16';

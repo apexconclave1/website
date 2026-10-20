@@ -3,13 +3,9 @@ import Link from 'next/link';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 import { apexFaqs } from '@/lib/data/faqs';
 import { JsonLd } from '@/components/JsonLd';
-import { faqSchema } from '@/lib/seo';
+import { faqSchema, pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/faq' },
-  title: 'FAQ',
-  description: 'Answers about Apex Conclave, its events and partnerships.',
-};
+export const metadata: Metadata = pageMetadata('FAQ', 'Answers to common questions about Apex Conclave: what it is, which events you can join right now, and how schools, colleges and brands can partner.', '/faq');
 
 export default function FAQPage() {
   return (

@@ -1,8 +1,29 @@
+import type { Metadata } from 'next';
 import type { EventEntity } from '@/types/schema';
 import type { FaqItem } from '@/lib/data/faqs';
 import { organizationConfig, siteCredit } from '@/lib/data/organization';
 import { feeAt } from '@/lib/data/events';
 import { siteUrl } from '@/lib/site';
+
+const shareImage = { url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Apex Conclave' };
+
+/**
+ * Title, description, canonical and link preview for one page. Next.js merges metadata shallowly
+ * (a page's openGraph replaces the layout's, image included), so the preview is rebuilt in full here.
+ * Page metadata beats a route's opengraph-image file, so a page with its own image passes its URL here.
+ */
+export function pageMetadata(title: string, description: string, path: string, imageUrl?: string): Metadata {
+  const name = organizationConfig.name;
+  const fullTitle = title === name ? name : `${title} | ${name}`;
+  const image = imageUrl ? { ...shareImage, url: imageUrl, alt: title } : shareImage;
+  return {
+    title: { absolute: fullTitle },
+    description,
+    alternates: { canonical: path },
+    openGraph: { title: fullTitle, description, url: path, type: 'website', locale: 'en_IN', siteName: name, images: [image] },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, images: [image.url] },
+  };
+}
 
 // Schema.org objects rendered with <JsonLd />.
 
@@ -65,7 +86,7 @@ export const eventSchema = (event: EventEntity) => {
     location: event.location.isVirtual
       ? { '@type': 'VirtualLocation', url: `${siteUrl}/events/${event.slug}` }
       : { '@type': 'Place', name: event.location.venue, address: event.location.city },
-    image: [`${siteUrl}/opengraph-image.png`],
+    image: [`${siteUrl}/events/${event.slug}/opengraph-image`],
     organizer: { '@type': 'Organization', name: organizationConfig.name, url: siteUrl },
     ...(fee !== null && {
       offers: {
