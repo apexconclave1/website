@@ -4,7 +4,7 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to D are done. Next: **Phase E** (Community and Partners pages, home "Network" section), then F (Diplovia booklet content), G (SEO, assets, Vercel), H (docs).
+Phases A to E are done. Next: **Phase F** (Diplovia booklet content), then G (SEO, assets, Vercel), H (docs).
 
 After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` (separate folder so it does not break a running `npm run dev`), then update this file and `IMPLEMENTATION_PLAN.md`.
 
@@ -22,8 +22,8 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 | B Event data (TBA dates, pricing, closed registration, past events) | Done 2026-10-20 |
 | C Backend (fresh Supabase schema, server-side pricing, contact storage) | Done 2026-10-20; not yet tested against a real database |
 | D Logo and restyle to palette | Done 2026-10-20 |
-| E Community, Partners, home Network section | Next |
-| F Diplovia booklet content | Pending |
+| E Community, Partners, home Network section | Done 2026-10-20 |
+| F Diplovia booklet content | Next |
 | G SEO, assets, Vercel | Pending |
 | H Docs final pass | Pending |
 
@@ -37,13 +37,15 @@ Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Framer Motion,
 
 **D (2026-10-20).** Logo extracted from the design sheet PDF to `public/brand/apex-conclave-logo-light.png` (and `-dark.png`), transparent background; `ApexWordmark` now renders it (40px in the navbar). Hero: StrokeText animates the headline, one CTA. Register page, wizard (stepper, 5 steps, receipt), contact page/form/cards, terms, 404 and error pages rewritten with Tailwind palette classes; decorative icons and `alert()` removed. Shared classes in `globals.css`: `.field-label`, `.field-input`, `.field-error`, `.panel`, `.eyebrow`. Glass, glow and off-palette CSS variables deleted; `HorizonDivider` deleted. Placeholder phone number and X link removed. `next.config.mjs` reads `NEXT_DIST_DIR` so check builds do not overwrite the dev server's `.next`. Screenshots at 1280px reviewed (home, register wizard, contact, terms).
 
+**E (2026-10-20).** New `/partners` and `/community` pages; copy in `partnersContent`, `communityContent` and `partners` (empty list) in `organization.ts`. Navbar has six links and switches to the desktop layout at `lg` (fits at 1024px). Home: "Network" cards (Community, Partners, Team) and an Attend · Partner · Collaborate CTA replace the old Leadership and Contact sections. Contact form accepts `?category=` and has new topics `Join the Community` and `Host an Event`. Logo 48px in the navbar. Social links (footer, contact cards, Community page) now have a clear hover: `.ext-link` (underline + sliding ↗) and `.card-link` (card lifts 2px, border brightens), both in `globals.css`, off under reduced motion. Screenshots reviewed: home, partners, community, navbar at 1024px.
+
 ## Site map
 
-- `/` home: hero, featured event, about, leadership, contact CTA.
+- `/` home: hero, featured event, about, network, Attend · Partner · Collaborate CTA.
 - `/events` upcoming and past events from `src/lib/data/events.ts`.
 - `/events/diplovia-2026` overview, committees, fees, allotment, team, FAQ.
 - `/register?event=diplovia-2026` wizard (closed until `registrationOpen: true`).
-- `/about`, `/contact` (accepts `?category=`), `/terms`, `/faq`. `/committees` redirects to the Diplovia committees.
+- `/about`, `/community`, `/partners`, `/contact` (accepts `?category=`), `/terms`, `/faq`. `/committees` redirects to the Diplovia committees.
 
 ## Decisions
 

@@ -8,7 +8,7 @@ interface ApexWordmarkProps {
 
 // Approved logo from the design sheet (docs/). Do not redraw it in type.
 export default function ApexWordmark({ size = 'sm', href = '/' }: ApexWordmarkProps) {
-  const height = size === 'sm' ? 40 : 52;
+  const height = size === 'sm' ? 48 : 60;
   return (
     <Link href={href} aria-label="Apex Conclave home" className="inline-flex shrink-0 select-none">
       <Image

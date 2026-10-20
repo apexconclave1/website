@@ -12,6 +12,8 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/events', label: 'Events' },
   { href: '/about', label: 'About' },
+  { href: '/community', label: 'Community' },
+  { href: '/partners', label: 'Partners' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -33,7 +35,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-[4.5rem] max-w-[1240px] items-center justify-between px-6">
         <ApexWordmark />
 
-        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
+        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -49,7 +51,7 @@ export default function Navbar() {
         </nav>
 
         {registerHref && (
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <SpecularButton href={registerHref} size="sm" radius={10}>
               Register
             </SpecularButton>
@@ -61,7 +63,7 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
-          className="md:hidden flex h-11 w-11 items-center justify-center rounded-[10px] border border-surface text-soft-white"
+          className="lg:hidden flex h-11 w-11 items-center justify-center rounded-[10px] border border-surface text-soft-white"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -70,7 +72,7 @@ export default function Navbar() {
       {open && (
         <nav
           aria-label="Mobile navigation"
-          className="md:hidden flex flex-col gap-1 border-t border-surface bg-bg px-6 py-4"
+          className="lg:hidden flex flex-col gap-1 border-t border-surface bg-bg px-6 py-4"
         >
           {navLinks.map((link) => (
             <Link

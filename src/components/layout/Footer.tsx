@@ -43,6 +43,8 @@ export default function Footer() {
             <h4 className={headingClass}>Apex Conclave</h4>
             <ul className="flex flex-col gap-3">
               <li><Link href="/about" className={linkClass}>About</Link></li>
+              <li><Link href="/community" className={linkClass}>Community</Link></li>
+              <li><Link href="/partners" className={linkClass}>Partners</Link></li>
               <li><Link href="/contact" className={linkClass}>Contact</Link></li>
               <li><Link href="/faq" className={linkClass}>FAQ</Link></li>
             </ul>
@@ -52,13 +54,13 @@ export default function Footer() {
             <h4 className={headingClass}>Connect</h4>
             <ul className="flex flex-col gap-3">
               <li>
-                <a href={`mailto:${organizationConfig.contactEmail}`} className={linkClass}>
+                <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>
                   {organizationConfig.contactEmail}
                 </a>
               </li>
               {socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className={`${linkClass} ext-link`}>
                     {s.label}
                   </a>
                 </li>

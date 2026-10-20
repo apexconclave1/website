@@ -15,10 +15,12 @@ export default function ContactCards() {
           key={c.label}
           href={c.href}
           {...(c.href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
-          className="panel block transition-colors duration-200 hover:border-[#2a2d2e]"
+          className="panel card-link block"
         >
           <p className="eyebrow mb-2">{c.label}</p>
-          <p className="text-base text-soft-white">{c.value}</p>
+          <p className="ext-link text-base text-soft-white">
+            {c.value}
+          </p>
         </a>
       ))}
       <div className="panel">

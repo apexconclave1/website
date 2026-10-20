@@ -7,6 +7,7 @@ export const contactCategories = [
   'Institutional Workshop & Training',
   'Campus Ambassador Application',
   'Join the Community',
+  'Host an Event',
   'Sponsorship & Partnership',
   'Other',
 ] as const;

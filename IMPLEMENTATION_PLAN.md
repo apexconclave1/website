@@ -54,11 +54,13 @@ While `npm run dev` runs, build into a separate folder: `NEXT_DIST_DIR=.next-bui
 - [x] DESIGN.md / AGENTS.md: effects officially allowed.
 - [x] Placeholder phone "+91 XXXXX XXXXX" and X link removed.
 
-### E. New pages (design-sheet information architecture)
-- [ ] Nav: Home, Events, About, Community, Partners, Contact.
-- [ ] `/partners`: why partner (from the brochure, no tiers or prices), partner logo area (`PartnerEntity`), CTA to `/contact?category=Sponsorship%20%26%20Partnership`.
-- [ ] `/community`: what the community is, team, Instagram/LinkedIn, "Join us" CTA to `/contact?category=Join%20the%20Community`.
-- [ ] Home: "Network" section and Attend · Partner · Collaborate CTA (design sheet homepage flow 04–05).
+### E. New pages (DONE 2026-10-20)
+- [x] Nav: Home, Events, About, Community, Partners, Contact (desktop nav from `lg`; hamburger below). Footer links added.
+- [x] `/partners`: why partner and what a partnership can include (from the brochure, no tiers, prices or unverified numbers), partner logo grid from `partners` in `organization.ts` (empty state until confirmed), CTA to `/contact?category=Sponsorship & Partnership`.
+- [x] `/community`: delegates, speakers and dais, volunteers; team; "Get involved" CTA (`Join the Community` topic); Instagram/LinkedIn.
+- [x] Home: Leadership and Contact sections replaced by "Network" (Community, Partners, Team) and an Attend · Partner · Collaborate CTA. New contact topic `Host an Event`.
+- [x] Logo bumped to 48px (navbar) / 60px (footer) for a readable "CONCLAVE".
+- [x] Hover state on every social link: `.ext-link` and `.card-link` in `globals.css`.
 
 ### F. Diplovia content (booklet)
 - [ ] Event page sections: How it works, Why MUN, Which room is yours, Who sits at the table, What you take home.

@@ -5,7 +5,7 @@ import HeroSection from '@/components/home/HeroSection';
 import SpecularButton from '@/components/ui/SpecularButton';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
-import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
+import { homeContent, organizationConfig } from '@/lib/data/organization';
 
 export default function HomePage() {
   const featured = eventsData[0];
@@ -88,31 +88,48 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* Leadership */}
+      {/* Network */}
       <section className="mx-auto max-w-[1240px] border-t border-surface px-6 py-20">
-        <SectionHeading eyebrow="Leadership" title="Who runs it." />
+        <SectionHeading eyebrow="Network" title="Who it brings together." />
         <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {leadershipTeam.map((m) => (
-            <div key={m.name} className="space-y-2 rounded-[10px] border border-[#1a1d1e] bg-surface p-6">
-              <div className="text-base font-semibold text-soft-white">{m.name}</div>
-              <div className="text-xs font-medium uppercase tracking-wider text-warm-bronze">{m.role}</div>
-            </div>
+          {homeContent.network.map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              className="panel group space-y-2 transition-colors duration-200 hover:border-[#2a2d2e]"
+            >
+              <h3 className="flex items-center justify-between text-base font-semibold text-soft-white">
+                {n.title}
+                <ArrowRight size={16} className="text-muted-grey transition-transform duration-200 group-hover:translate-x-0.5" />
+              </h3>
+              <p className="text-sm leading-relaxed text-muted-grey">{n.body}</p>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Contact */}
+      {/* Attend · Partner · Collaborate */}
       <section className="mx-auto max-w-[1240px] border-t border-surface px-6 py-20">
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <h2 className="text-2xl font-bold text-soft-white md:text-3xl">Want to partner or host an event with us?</h2>
-            <p className="mt-2 text-muted-grey">Write to {organizationConfig.contactEmail}</p>
-          </div>
+        <h2 className="text-2xl font-bold text-soft-white md:text-3xl">Attend. Partner. Collaborate.</h2>
+        <p className="mt-2 text-muted-grey">Questions? Write to {organizationConfig.contactEmail}</p>
+        <div className="mt-8 flex flex-wrap gap-4">
           <Link
-            href="/contact"
+            href="/events"
             className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"
           >
-            Contact us
+            Attend an event
+          </Link>
+          <Link
+            href="/partners"
+            className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+          >
+            Partner with us
+          </Link>
+          <Link
+            href={`/contact?category=${encodeURIComponent('Host an Event')}`}
+            className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+          >
+            Host an event with us
           </Link>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { OrganizationConfig } from '@/types/schema';
+import { OrganizationConfig, PartnerEntity } from '@/types/schema';
 
 export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
@@ -24,6 +24,23 @@ export const homeContent = {
   summary:
     'Apex Conclave runs multiple events under one brand. Diplovia, a virtual Model United Nations, is the first.',
   moreEventsNote: 'More events will be announced here.',
+  network: [
+    {
+      title: 'Community',
+      href: '/community',
+      body: 'Delegates, chairs, speakers and volunteers from schools and colleges across India.',
+    },
+    {
+      title: 'Partners',
+      href: '/partners',
+      body: 'Institutions and brands that back our events and meet students inside them.',
+    },
+    {
+      title: 'Team',
+      href: '/about',
+      body: 'The students who build and run Apex Conclave.',
+    },
+  ],
   pillars: [
     {
       title: 'What we build',
@@ -62,3 +79,54 @@ export const leadershipTeam = [
       'Operational precision is our benchmark. By leveraging a 100% cloud-based infrastructure, Diplovia guarantees seamless execution, unmatched screen-time retention, and premium value delivery.',
   },
 ];
+
+// Partner logos once confirmed. Tiers stay internal; they are not shown on the site.
+export const partners: PartnerEntity[] = [];
+
+export const partnersContent = {
+  headline: 'Partner with Apex Conclave.',
+  intro:
+    'Our events reach high school and college students across India who choose to spend their weekends debating, negotiating and building. Partners meet them inside the event, not on a banner they walk past.',
+  why: [
+    {
+      title: 'Inside the room',
+      body: 'Our events run online. Your brand sits in the committee backdrop and on screen during live sessions, where delegates are looking all day.',
+    },
+    {
+      title: 'A focused audience',
+      body: 'Students aged 15 to 23 from schools and colleges across India, selected for events that ask them to research, speak and lead.',
+    },
+    {
+      title: 'Built with you',
+      body: 'Packages are shaped around your goals: visibility, recruitment, product trials or awards. Cash or in kind.',
+    },
+  ],
+  placements: [
+    'Naming of a committee or of the event',
+    'Logo on committee backdrops and slides',
+    'Short brand video between sessions',
+    'Logo on every participation certificate',
+    'Awards and prizes for top delegates',
+    'Joint posts on Instagram and LinkedIn',
+  ],
+};
+
+export const communityContent = {
+  headline: 'The people who show up.',
+  intro:
+    'Apex Conclave is more than its events. It is the students who take part, the chairs who run the rooms, and the team that builds the platform between events.',
+  groups: [
+    {
+      title: 'Delegates',
+      body: 'High school and college students who research a position, defend it under time pressure and negotiate with people who disagree.',
+    },
+    {
+      title: 'Speakers and dais',
+      body: 'Chairs, crisis directors and guest speakers who run committees and push delegates. Names for each event are announced on its page.',
+    },
+    {
+      title: 'Volunteers and campus ambassadors',
+      body: 'Students who help run events and bring Apex Conclave to their school or college.',
+    },
+  ],
+};
