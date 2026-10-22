@@ -75,6 +75,14 @@ export const leadershipTeam = [
   },
 ];
 
+// "How we run events" next to the team on home (owner-approved commitments, 2026-10-22)
+export const operatingStandards = [
+  { title: 'Student-led', body: 'Run by students, for students.' },
+  { title: 'Clear rules up front', body: 'Format, fees and allotment explained before you register.' },
+  { title: 'Fair competition', body: 'Published criteria and an impartial dais or panel.' },
+  { title: 'We reply', body: 'Every message answered within 48 hours.' },
+];
+
 // Partner logos once confirmed. Tiers stay internal; they are not shown on the site.
 export const partners: PartnerEntity[] = [];
 
