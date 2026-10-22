@@ -47,7 +47,7 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-ink print:hidden">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-soft/15 bg-deep print:hidden">
       <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-6 px-6">
         <ApexWordmark />
 
@@ -59,8 +59,8 @@ export default function Navbar() {
               aria-current={isActive(link.href) ? 'page' : undefined}
               className={`whitespace-nowrap text-sm transition-colors duration-200 ${
                 isActive(link.href)
-                  ? 'text-cream underline decoration-bronze decoration-1 underline-offset-[10px]'
-                  : 'text-cream/70 hover:text-cream'
+                  ? 'text-bright underline decoration-accent decoration-1 underline-offset-[10px]'
+                  : 'text-soft hover:text-bright'
               }`}
             >
               {link.label}
@@ -79,27 +79,27 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="flex h-11 w-11 items-center justify-center rounded border border-cream/20 text-cream lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded border border-soft/25 text-bright lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-cream/10 bg-ink px-6 pb-6 lg:hidden">
+        <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-soft/15 bg-deep px-6 pb-6 lg:hidden">
           <ul>
             {navLinks.map((link) => (
-              <li key={link.href} className="border-b border-cream/10">
+              <li key={link.href} className="border-b border-soft/15">
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
                   aria-current={isActive(link.href) ? 'page' : undefined}
                   className={`flex items-center justify-between py-4 text-base ${
-                    isActive(link.href) ? 'text-cream' : 'text-cream/70'
+                    isActive(link.href) ? 'text-bright' : 'text-soft'
                   }`}
                 >
                   {link.label}
-                  {isActive(link.href) && <span aria-hidden="true" className="h-px w-6 bg-bronze" />}
+                  {isActive(link.href) && <span aria-hidden="true" className="h-px w-6 bg-accent" />}
                 </Link>
               </li>
             ))}

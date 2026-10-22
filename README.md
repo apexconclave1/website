@@ -91,7 +91,7 @@ The home page, events directory, footer and event page all read from these files
 
 ## Design
 
-Rules are in `.agents/DESIGN.md` (owner redesign brief, 2026-10-22). Palette: ink `#0C0C0D`, cream `#EAE6DF`, bronze `#8C7B5A` (accents only), paper `#F4F1EA`, stone `#6E6A62`, hairline `#CFC9BD`. Fonts: Newsreader (headlines) and Inter.
+Rules are in `.agents/DESIGN.md`. Colours are role tokens (`deep`, `ground`, `soft`, `bright`, `accent`) with two palettes: charcoal/silver/red (default) and teal (`?palette=teal`). Fonts: Newsreader (headlines) and Inter.
 
 ## Project notes
 

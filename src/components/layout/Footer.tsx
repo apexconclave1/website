@@ -3,7 +3,7 @@ import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 
-const linkClass = 'inline-block py-1 text-sm text-cream/70 transition-colors duration-200 hover:text-cream';
+const linkClass = 'inline-block py-1 text-sm text-soft transition-colors duration-200 hover:text-bright';
 // Column headings and the description are hidden on phones to keep the footer short
 const headingClass = 'eyebrow mb-4 hidden sm:block';
 
@@ -23,12 +23,12 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-cream/10 bg-ink pb-8 pt-12 sm:pt-16 print:hidden">
+    <footer className="border-t border-soft/15 bg-deep pb-8 pt-12 sm:pt-16 print:hidden">
       <div className="mx-auto max-w-container px-6">
         <div className="grid gap-8 pb-10 sm:grid-cols-2 sm:gap-12 sm:pb-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
           <div className="max-w-sm">
             <ApexWordmark size="md" />
-            <p className="mt-6 hidden text-sm leading-relaxed text-cream/70 sm:block">{organizationConfig.description}</p>
+            <p className="mt-6 hidden text-sm leading-relaxed text-soft sm:block">{organizationConfig.description}</p>
           </div>
 
           <nav aria-label="Footer">
@@ -65,7 +65,7 @@ export default function Footer() {
 
           <div>
             <p className={headingClass}>Connect</p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-1 border-t border-cream/10 pt-6 sm:flex-col sm:gap-2 sm:border-0 sm:pt-0">
+            <ul className="flex flex-wrap gap-x-6 gap-y-1 border-t border-soft/15 pt-6 sm:flex-col sm:gap-2 sm:border-0 sm:pt-0">
               <li>
                 <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>
                   {organizationConfig.contactEmail}
@@ -90,13 +90,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-cream/10 pt-6">
-          <p className="text-xs text-cream/70">© {new Date().getFullYear()} Apex Conclave. All rights reserved.</p>
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-soft/15 pt-6">
+          <p className="text-xs text-soft">© {new Date().getFullYear()} Apex Conclave. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="text-xs text-cream/70 transition-colors duration-200 hover:text-cream">
+            <Link href="/terms" className="text-xs text-soft transition-colors duration-200 hover:text-bright">
               Terms &amp; Privacy
             </Link>
-            <Link href="/terms#code-of-conduct" className="text-xs text-cream/70 transition-colors duration-200 hover:text-cream">
+            <Link href="/terms#code-of-conduct" className="text-xs text-soft transition-colors duration-200 hover:text-bright">
               Code of Conduct
             </Link>
           </div>

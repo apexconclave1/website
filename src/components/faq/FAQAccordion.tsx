@@ -27,8 +27,8 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
               }}
               className={`rounded border px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                 activeCategory === cat
-                  ? 'border-cream bg-cream text-ink'
-                  : 'border-cream/10 bg-ink text-cream/70 hover:text-cream'
+                  ? 'border-bright bg-bright text-deep'
+                  : 'border-soft/15 bg-ground text-soft hover:text-bright'
               }`}
             >
               {cat}
@@ -41,7 +41,7 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
         {filtered.map((faq) => {
           const isOpen = openId === faq.id;
           return (
-            <div key={faq.id} className="border-b border-cream/10">
+            <div key={faq.id} className="border-b border-soft/15">
               <button
                 id={`faq-btn-${faq.id}`}
                 aria-expanded={isOpen}
@@ -49,13 +49,13 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
                 onClick={() => setOpenId(isOpen ? null : faq.id)}
                 className="flex w-full items-center justify-between gap-4 py-5 text-left"
               >
-                <span className={`text-base font-medium ${isOpen ? 'text-cream' : 'text-cream/70'}`}>
+                <span className={`text-base font-medium ${isOpen ? 'text-bright' : 'text-soft'}`}>
                   {faq.q}
                 </span>
                 {isOpen ? (
-                  <Minus size={16} aria-hidden className="shrink-0 text-bronze" />
+                  <Minus size={16} aria-hidden className="shrink-0 text-accent" />
                 ) : (
-                  <Plus size={16} aria-hidden className="shrink-0 text-bronze" />
+                  <Plus size={16} aria-hidden className="shrink-0 text-accent" />
                 )}
               </button>
               {/* 0fr to 1fr animates height without measuring; invisible keeps closed answers out of tab order */}
@@ -68,7 +68,7 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <p className="max-w-[65ch] pb-6 text-sm leading-relaxed text-cream/70">{faq.a}</p>
+                  <p className="max-w-[65ch] pb-6 text-sm leading-relaxed text-soft">{faq.a}</p>
                 </div>
               </div>
             </div>

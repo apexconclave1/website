@@ -9,8 +9,8 @@ export default function ContactPage({ searchParams }: { searchParams: { category
   return (
     <main id="main-content" className="mx-auto max-w-container px-6 pb-16 pt-28 md:pb-24 md:pt-36">
       <p className="eyebrow mb-5">Contact</p>
-      <h1 className="max-w-3xl text-[2.625rem] font-normal leading-[1.04] text-cream md:text-6xl">Talk to us.</h1>
-      <p className="mt-6 max-w-[65ch] text-base leading-relaxed text-cream/70 md:text-lg">
+      <h1 className="max-w-3xl text-[2.625rem] font-normal leading-[1.04] text-bright md:text-6xl">Talk to us.</h1>
+      <p className="mt-6 max-w-[65ch] text-base leading-relaxed text-soft md:text-lg">
         Questions about an event, registration, partnerships or hosting an event with us. Send a message and we reply
         within 48 hours.
       </p>

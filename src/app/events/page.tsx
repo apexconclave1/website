@@ -7,9 +7,9 @@ export default function EventsPage() {
       <header className="grid gap-8 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-7">
           <p className="eyebrow mb-5">Events</p>
-          <h1 className="text-[2.625rem] font-normal leading-[1.04] text-cream md:text-6xl">What’s on.</h1>
+          <h1 className="text-[2.625rem] font-normal leading-[1.04] text-bright md:text-6xl">What’s on.</h1>
         </div>
-        <p className="max-w-[48ch] text-base leading-relaxed text-cream/70 md:text-lg lg:col-span-5">
+        <p className="max-w-[48ch] text-base leading-relaxed text-soft md:text-lg lg:col-span-5">
           Everything Apex Conclave is running. New events are added here as they are announced.
         </p>
       </header>

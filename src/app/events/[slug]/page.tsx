@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
   );
 }
 
-const sectionClass = 'scroll-mt-24 border-t border-cream/10 py-16';
+const sectionClass = 'scroll-mt-24 border-t border-soft/15 py-16';
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
 export default function EventDetailPage({ params }: EventDetailPageProps) {
@@ -55,11 +55,11 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen pt-[4.5rem] text-cream">
+    <main id="main-content" className="min-h-screen pt-[4.5rem] text-bright">
       {eventSchema(event) && <JsonLd data={eventSchema(event)!} />}
       {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
       {/* Hero: the event's own identity first, Apex Conclave secondary */}
-      <div className="border-b border-cream/10">
+      <div className="border-b border-soft/15">
         <div className="mx-auto flex min-h-[420px] max-w-container flex-col justify-end px-6 pb-12 pt-20 md:pb-16">
           <div className="max-w-3xl space-y-5">
             <Breadcrumbs
@@ -90,16 +90,16 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 <span className="font-serif text-[2.625rem] font-normal leading-tight md:text-6xl">{event.title}</span>
               )}
             </h1>
-            <p className="text-sm text-cream/70">
-              {event.title} · presented by <span className="text-cream">Apex Conclave</span>
+            <p className="text-sm text-soft">
+              {event.title} · presented by <span className="text-bright">Apex Conclave</span>
             </p>
-            <div className="flex flex-wrap items-center gap-5 text-sm text-cream/70">
+            <div className="flex flex-wrap items-center gap-5 text-sm text-soft">
               <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-bronze" aria-hidden="true" />
+                <Calendar className="h-4 w-4 text-accent" aria-hidden="true" />
                 {formatEventDates(event)}
               </span>
               <span className="flex items-center gap-1.5">
-                <MapPin className="h-4 w-4 text-bronze" aria-hidden="true" />
+                <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
                 {event.location.venue}
               </span>
             </div>
@@ -114,9 +114,9 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
       </div>
 
       <div className="mx-auto max-w-container px-6">
-        <nav aria-label="Event sections" className="flex gap-6 overflow-x-auto border-b border-cream/10 py-4 text-sm text-cream/70">
+        <nav aria-label="Event sections" className="flex gap-6 overflow-x-auto border-b border-soft/15 py-4 text-sm text-soft">
           {nav.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="whitespace-nowrap transition-colors duration-200 hover:text-cream">
+            <a key={id} href={`#${id}`} className="whitespace-nowrap transition-colors duration-200 hover:text-bright">
               {label}
             </a>
           ))}
@@ -128,7 +128,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             <div className="space-y-6 md:col-span-2">
               <SectionHeading eyebrow="Overview" title={story?.intro.title ?? `What is ${event.title}?`} />
               {(story?.intro.body ?? [event.fullOverview]).map((p) => (
-                <p key={p} className="max-w-[65ch] text-base leading-relaxed text-cream/70">
+                <p key={p} className="max-w-[65ch] text-base leading-relaxed text-soft">
                   {p}
                 </p>
               ))}
@@ -137,8 +137,8 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <h3 className="eyebrow">Key features</h3>
               <ul className="space-y-3">
                 {event.features.map((f) => (
-                  <li key={f} className="flex items-start gap-3 text-sm text-cream/70">
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-bronze" />
+                  <li key={f} className="flex items-start gap-3 text-sm text-soft">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                     {f}
                   </li>
                 ))}
@@ -150,10 +150,10 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <h3 className="eyebrow mb-6">The delegate’s work</h3>
               <ol className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
                 {story.work.map((w, i) => (
-                  <li key={w.title} className="space-y-2 border-t border-cream/20 pt-5">
-                    <span className="text-xs font-medium text-bronze">{pad2(i + 1)}</span>
+                  <li key={w.title} className="space-y-2 border-t border-soft/25 pt-5">
+                    <span className="text-xs font-medium text-accent">{pad2(i + 1)}</span>
                     <h4 className="text-base font-medium">{w.title}</h4>
-                    <p className="text-sm leading-relaxed text-cream/70">{w.body}</p>
+                    <p className="text-sm leading-relaxed text-soft">{w.body}</p>
                   </li>
                 ))}
               </ol>
@@ -169,15 +169,15 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               {story.phases.map((phase) => (
                 <div key={phase.name}>
                   <h3 className="font-serif text-3xl font-normal">{phase.name}</h3>
-                  <p className="mt-1 text-sm text-cream/70">{phase.lead}</p>
-                  <ol className="mt-6 space-y-4 border-l border-cream/20 pl-5">
+                  <p className="mt-1 text-sm text-soft">{phase.lead}</p>
+                  <ol className="mt-6 space-y-4 border-l border-soft/25 pl-5">
                     {phase.steps.map((step, i) => (
                       <li key={step.title}>
                         <p className="text-sm font-medium">
-                          <span className="mr-2 text-xs font-medium text-bronze">{pad2(i + 1)}</span>
+                          <span className="mr-2 text-xs font-medium text-accent">{pad2(i + 1)}</span>
                           {step.title}
                         </p>
-                        <p className="mt-1 text-sm leading-relaxed text-cream/70">{step.body}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-soft">{step.body}</p>
                       </li>
                     ))}
                   </ol>
@@ -195,12 +195,12 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               title={`${chambers.length} rooms. ${chambers.length} ways to test yourself.`}
               description="Not sure? Choose the agenda you can’t stop thinking about."
             />
-            <div className="mt-10 grid grid-cols-1 gap-px border border-cream/10 bg-cream/10 md:grid-cols-2">
+            <div className="mt-10 grid grid-cols-1 gap-px border border-soft/15 bg-soft/10 md:grid-cols-2">
               {chambers.map((c) => (
-                <article key={c.id} className="space-y-4 bg-ink p-6 md:p-8 md:last:odd:col-span-2">
+                <article key={c.id} className="space-y-4 bg-ground p-6 md:p-8 md:last:odd:col-span-2">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="mb-1 text-xs font-medium uppercase tracking-widest text-bronze">
+                      <div className="mb-1 text-xs font-medium uppercase tracking-widest text-accent">
                         {c.code} · {c.theme}
                       </div>
                       <h3 className="font-serif text-2xl font-normal leading-tight">{c.name}</h3>
@@ -208,12 +208,12 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                     <Badge variant="muted" className="shrink-0 whitespace-nowrap">{c.totalSeats} seats</Badge>
                   </div>
                   <p className="text-sm leading-relaxed">
-                    <span className="mb-0.5 block text-xs uppercase tracking-wider text-cream/70">Agenda</span>
+                    <span className="mb-0.5 block text-xs uppercase tracking-wider text-soft">Agenda</span>
                     {c.topic}
                   </p>
-                  <p className="text-sm leading-relaxed text-cream/70">{c.challenge}</p>
-                  <p className="border-t border-cream/20 pt-3 text-sm text-cream/70">
-                    <span className="text-cream">Suits: </span>
+                  <p className="text-sm leading-relaxed text-soft">{c.challenge}</p>
+                  <p className="border-t border-soft/25 pt-3 text-sm text-soft">
+                    <span className="text-bright">Suits: </span>
                     {c.suits}
                   </p>
                 </article>
@@ -223,15 +223,15 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             {story && (
               <div className="mt-14">
                 <h3 className="font-serif text-3xl font-normal">Who sits at the table?</h3>
-                <p className="mt-1 text-sm text-cream/70">Five kinds of delegate, and most people are a mix.</p>
+                <p className="mt-1 text-sm text-soft">Five kinds of delegate, and most people are a mix.</p>
                 <ol className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-5">
                   {story.delegateTypes.map((d, i) => (
-                    <li key={d.title} className="flex flex-col gap-2 border-t border-cream/20 pt-5">
-                      <span className="text-xs font-medium text-bronze">{pad2(i + 1)}</span>
+                    <li key={d.title} className="flex flex-col gap-2 border-t border-soft/25 pt-5">
+                      <span className="text-xs font-medium text-accent">{pad2(i + 1)}</span>
                       <p className="text-base font-medium">{d.title}</p>
-                      <p className="flex-1 text-sm leading-relaxed text-cream/70">{d.body}</p>
-                      <p className="text-xs uppercase tracking-wider text-cream/70">
-                        Look at <span className="text-cream">{d.lookAt.join(', ')}</span>
+                      <p className="flex-1 text-sm leading-relaxed text-soft">{d.body}</p>
+                      <p className="text-xs uppercase tracking-wider text-soft">
+                        Look at <span className="text-bright">{d.lookAt.join(', ')}</span>
                       </p>
                     </li>
                   ))}
@@ -250,11 +250,11 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             />
             <ol className="mt-10 grid grid-cols-1 gap-x-10 md:grid-cols-2">
               {story.skills.map((s, i) => (
-                <li key={s.title} className="flex gap-5 border-b border-cream/10 py-5">
-                  <span className="pt-0.5 text-xs font-medium text-bronze">{pad2(i + 1)}</span>
+                <li key={s.title} className="flex gap-5 border-b border-soft/15 py-5">
+                  <span className="pt-0.5 text-xs font-medium text-accent">{pad2(i + 1)}</span>
                   <div>
                     <p className="text-base font-medium">{s.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-cream/70">{s.body}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-soft">{s.body}</p>
                   </div>
                 </li>
               ))}
@@ -277,7 +277,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                     {(items as { title: string; body: string }[]).map((o) => (
                       <li key={o.title}>
                         <p className="text-base font-medium">{o.title}</p>
-                        <p className="mt-0.5 text-sm text-cream/70">{o.body}</p>
+                        <p className="mt-0.5 text-sm text-soft">{o.body}</p>
                       </li>
                     ))}
                   </ul>
@@ -291,12 +291,12 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         {event.pricing && (
           <section id="fees" className={sectionClass}>
             <SectionHeading eyebrow="Fees" title="Delegate fee" />
-            <div className="mt-10 grid max-w-xl grid-cols-1 gap-px border border-cream/10 bg-cream/10 sm:grid-cols-2">
+            <div className="mt-10 grid max-w-xl grid-cols-1 gap-px border border-soft/15 bg-soft/10 sm:grid-cols-2">
               {eventFees(event).map((fee) => (
-                <div key={fee.label} className="bg-ink p-6">
-                  <div className="text-xs font-medium uppercase tracking-widest text-cream/70">{fee.label}</div>
+                <div key={fee.label} className="bg-ground p-6">
+                  <div className="text-xs font-medium uppercase tracking-widest text-soft">{fee.label}</div>
                   <div className="mt-2 font-serif text-4xl font-normal">{fee.amount}</div>
-                  {fee.note && <div className="mt-1 text-sm text-cream/70">{fee.note}</div>}
+                  {fee.note && <div className="mt-1 text-sm text-soft">{fee.note}</div>}
                 </div>
               ))}
             </div>
@@ -320,13 +320,13 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             <div className="mt-8 max-w-[860px]">
               <FAQAccordion items={faqs} />
             </div>
-            <p className="mt-8 text-sm text-cream/70">
+            <p className="mt-8 text-sm text-soft">
               Questions about Apex Conclave itself?{' '}
-              <Link href="/faq" className="text-cream underline underline-offset-4">
+              <Link href="/faq" className="text-bright underline underline-offset-4">
                 General FAQ
               </Link>{' '}
               or{' '}
-              <Link href="/contact" className="text-cream underline underline-offset-4">
+              <Link href="/contact" className="text-bright underline underline-offset-4">
                 contact us
               </Link>
               .

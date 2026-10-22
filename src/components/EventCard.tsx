@@ -23,26 +23,26 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           {event.edition && <Badge variant="accent">{event.edition}</Badge>}
         </div>
 
-        <h2 className="text-4xl font-normal leading-tight text-cream md:text-5xl">{event.title}</h2>
+        <h2 className="text-4xl font-normal leading-tight text-bright md:text-5xl">{event.title}</h2>
 
-        <div className="flex flex-wrap items-center gap-5 text-sm text-cream/70">
+        <div className="flex flex-wrap items-center gap-5 text-sm text-soft">
           <span className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4 text-bronze" />
+            <Calendar className="h-4 w-4 text-accent" />
             {formatEventDates(event)}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-bronze" />
+            <MapPin className="h-4 w-4 text-accent" />
             {event.location.venue}
           </span>
         </div>
 
-        <p className="text-base leading-relaxed text-cream/70">{event.shortDescription}</p>
+        <p className="text-base leading-relaxed text-soft">{event.shortDescription}</p>
 
         {event.pricing && (
-          <ul className="flex flex-wrap gap-3 text-sm text-cream">
+          <ul className="flex flex-wrap gap-3 text-sm text-bright">
             {eventFees(event).map((f) => (
-              <li key={f.label} className="rounded border border-cream/10 bg-ink px-4 py-2">
-                <span className="text-cream/70">{f.label}:</span> {f.amount}
+              <li key={f.label} className="rounded border border-soft/15 bg-ground px-4 py-2">
+                <span className="text-soft">{f.label}:</span> {f.amount}
               </li>
             ))}
           </ul>
@@ -61,7 +61,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
               Register
             </Link>
           ) : (
-            <span className="text-sm text-cream/70">Registration opens soon</span>
+            <span className="text-sm text-soft">Registration opens soon</span>
           )}
         </div>
       </div>

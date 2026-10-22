@@ -24,6 +24,8 @@ export const paymentConfig = {
 
 export const homeContent = {
   headline: 'A bigger stage for a bolder generation.',
+  // Part of the headline shown in the accent colour (hero only)
+  headlineHighlight: 'bolder generation.',
   summary:
     'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.',
   about: {

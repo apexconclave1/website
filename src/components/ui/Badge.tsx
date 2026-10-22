@@ -24,19 +24,19 @@ export function Badge({
       case 'AVAILABLE':
         badgeStyles = cn(
           badgeStyles,
-          'bg-ink text-cream border border-cream/20'
+          'bg-ground text-bright border border-soft/25'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'AVAILABLE'}</span>;
       case 'RESERVED':
         badgeStyles = cn(
           badgeStyles,
-          'bg-ink text-cream/70 border border-cream/15'
+          'bg-ground text-soft border border-soft/20'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'RESERVED'}</span>;
       case 'ALLOCATED':
         badgeStyles = cn(
           badgeStyles,
-          'bg-ink text-bronze border border-bronze/40'
+          'bg-ground text-accent border border-accent/40'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'ALLOCATED'}</span>;
     }
@@ -47,7 +47,7 @@ export function Badge({
       <span
         className={cn(
           badgeStyles,
-          'bg-ink text-cream border border-cream/15',
+          'bg-ground text-bright border border-soft/20',
           className
         )}
       >
@@ -57,10 +57,10 @@ export function Badge({
   }
 
   const variants = {
-    default: 'bg-ink text-cream border border-cream/15',
-    outline: 'bg-transparent text-cream/70 border border-cream/15',
-    accent: 'bg-ink text-bronze border border-bronze/40',
-    muted: 'bg-cream/5 text-cream/70',
+    default: 'bg-ground text-bright border border-soft/20',
+    outline: 'bg-transparent text-soft border border-soft/20',
+    accent: 'bg-ground text-accent border border-accent/40',
+    muted: 'bg-soft/5 text-soft',
   };
 
   return (

@@ -76,10 +76,10 @@ export default function RegistrationReceipt({
     <div className="flex flex-col items-center gap-8 text-center">
       <div>
         <p className="eyebrow mb-2">{paid ? 'Payment submitted' : 'Application saved'}</p>
-        <h2 className="text-3xl font-normal text-cream md:text-4xl">
+        <h2 className="text-3xl font-normal text-bright md:text-4xl">
           {paid ? 'You’re registered. We’re checking your payment.' : 'Application saved.'}
         </h2>
-        <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-cream/70">
+        <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-soft">
           {paid
             ? 'The team verifies payments within 24 hours, assigns your seat and confirms it by email.'
             : 'Complete the payment to finish your registration.'}
@@ -87,10 +87,10 @@ export default function RegistrationReceipt({
       </div>
 
       <div className="panel w-full max-w-[540px] text-left">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream/20 pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-soft/25 pb-4">
           <div>
-            <p className="text-xs text-cream/70">Tracking code (keep it for any query)</p>
-            <p className="mt-1 text-lg font-bold tracking-wider text-cream">{trackingCode}</p>
+            <p className="text-xs text-soft">Tracking code (keep it for any query)</p>
+            <p className="mt-1 text-lg font-bold tracking-wider text-bright">{trackingCode}</p>
           </div>
           <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
             {copied ? 'Copied' : 'Copy code'}
@@ -99,8 +99,8 @@ export default function RegistrationReceipt({
         <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {rows.map(([label, value]) => (
             <div key={label}>
-              <dt className="text-xs text-cream/70">{label}</dt>
-              <dd className="mt-0.5 text-sm font-medium text-cream">{value}</dd>
+              <dt className="text-xs text-soft">{label}</dt>
+              <dd className="mt-0.5 text-sm font-medium text-bright">{value}</dd>
             </div>
           ))}
         </dl>
@@ -125,7 +125,7 @@ export default function RegistrationReceipt({
         </Link>
       </div>
 
-      <button type="button" onClick={onNewRegistration} className="text-xs text-cream/70 underline underline-offset-4 hover:text-cream">
+      <button type="button" onClick={onNewRegistration} className="text-xs text-soft underline underline-offset-4 hover:text-bright">
         Register another delegate
       </button>
     </div>

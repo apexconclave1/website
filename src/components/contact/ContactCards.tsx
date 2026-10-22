@@ -10,9 +10,9 @@ export default function ContactCards() {
   ];
 
   return (
-    <dl className="border-t border-cream/10">
+    <dl className="border-t border-soft/15">
       {rows.map((r) => (
-        <div key={r.label} className="border-b border-cream/10 py-5">
+        <div key={r.label} className="border-b border-soft/15 py-5">
           <dt className="eyebrow mb-2">{r.label}</dt>
           <dd>
             <a
@@ -21,16 +21,16 @@ export default function ContactCards() {
               data-track={r.label === 'Email' ? 'email_click' : 'social_click'}
               data-track-platform={r.label.toLowerCase()}
               data-track-place="contact"
-              className="ext-link text-base text-cream"
+              className="ext-link text-base text-bright"
             >
               {r.value}
             </a>
           </dd>
         </div>
       ))}
-      <div className="border-b border-cream/10 py-5">
+      <div className="border-b border-soft/15 py-5">
         <dt className="eyebrow mb-2">Response time</dt>
-        <dd className="text-base text-cream">Within 48 hours</dd>
+        <dd className="text-base text-bright">Within 48 hours</dd>
       </div>
     </dl>
   );

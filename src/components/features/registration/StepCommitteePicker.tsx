@@ -33,8 +33,8 @@ export default function StepCommitteePicker({ chambers, formData, onChange, erro
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-medium text-cream">Committee and country</h3>
-        <p className="text-sm text-cream/70">
+        <h3 className="mb-1 text-xl font-medium text-bright">Committee and country</h3>
+        <p className="text-sm text-soft">
           List two preferences. The team assigns every delegate a seat and confirms it after payment is verified.
         </p>
       </div>
@@ -43,7 +43,7 @@ export default function StepCommitteePicker({ chambers, formData, onChange, erro
         const countries = byCode(c.committee)?.portfolios ?? [];
         const err = errors[c.countryKey] ?? errors[c.committeeKey];
         return (
-          <fieldset key={c.n} className={`panel ${err ? 'border-[#E06C75]' : ''}`}>
+          <fieldset key={c.n} className={`panel ${err ? 'border-accent' : ''}`}>
             <legend className="sr-only">{c.title}</legend>
             <p className="eyebrow mb-4">{c.title}</p>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">

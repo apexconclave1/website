@@ -21,19 +21,19 @@ export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemb
         width={512}
         height={512}
         sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 96px"
-        className="aspect-square w-full border border-cream/10 object-cover grayscale"
+        className="aspect-square w-full border border-soft/15 object-cover grayscale"
       />
       <figcaption className="sm:mt-5">
-        <h3 className="text-lg font-medium text-cream">{name}</h3>
+        <h3 className="text-lg font-medium text-bright">{name}</h3>
         <p className="eyebrow mt-1">{role}</p>
-        <p className="mt-3 text-sm leading-relaxed text-cream/70">{bio}</p>
+        <p className="mt-3 text-sm leading-relaxed text-soft">{bio}</p>
         {linkedin && (
           <a
             href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${name} on LinkedIn`}
-            className="ext-link mt-3 text-sm text-cream/70"
+            className="ext-link mt-3 text-sm text-soft"
             data-track="social_click"
             data-track-platform="linkedin"
             data-track-place="team"
@@ -44,7 +44,7 @@ export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemb
       </figcaption>
       {/* Full width under photo and text on phones */}
       {quote && (
-        <blockquote className="col-span-2 border-l border-bronze pl-4 font-serif text-base leading-relaxed text-cream sm:mt-5">
+        <blockquote className="col-span-2 border-l border-accent pl-4 font-serif text-base leading-relaxed text-bright sm:mt-5">
           “{quote}”
         </blockquote>
       )}

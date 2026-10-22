@@ -61,7 +61,18 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="font-sans antialiased bg-ink text-cream min-h-screen relative selection:bg-bronze/40 selection:text-cream">
+      <head>
+        {/* ponytail: palette preview while the owner compares palettes. ?palette=teal or ?palette=red is
+            remembered in this browser; everyone else gets the default (red). Delete this and the
+            html[data-palette='teal'] block in globals.css once one palette is chosen. Runs before paint, so no flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var p=new URLSearchParams(location.search).get('palette');if(p==='teal'||p==='red'){localStorage.setItem('apc-palette',p)}else{p=localStorage.getItem('apc-palette')}if(p==='teal'){document.documentElement.dataset.palette='teal'}}catch(e){}",
+          }}
+        />
+      </head>
+      <body suppressHydrationWarning className="font-sans antialiased bg-ground text-bright min-h-screen relative selection:bg-accent/40 selection:text-bright">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         {/* Global Scroll Progress Bar */}
@@ -71,7 +82,7 @@ export default function RootLayout({
         <div className="relative z-10">
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-cream focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-bright focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-deep"
           >
             Skip to content
           </a>

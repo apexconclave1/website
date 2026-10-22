@@ -145,30 +145,30 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="mb-1 text-xl font-medium text-cream">Payment</h3>
-        <p className="text-sm leading-relaxed text-cream/70">
+        <h3 className="mb-1 text-xl font-medium text-bright">Payment</h3>
+        <p className="text-sm leading-relaxed text-soft">
           Your application is saved with tracking code{' '}
-          <span className="font-semibold text-cream">{trackingCode}</span>. Note it down, then pay below.
+          <span className="font-semibold text-bright">{trackingCode}</span>. Note it down, then pay below.
         </p>
       </div>
 
       {/* Fee summary */}
       <div className="panel space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-cream/70">Delegate fee</span>
-          <span className={`text-lg font-bold ${couponApplied ? 'text-cream/70 line-through' : 'text-cream'}`}>
+          <span className="text-sm text-soft">Delegate fee</span>
+          <span className={`text-lg font-bold ${couponApplied ? 'text-soft line-through' : 'text-bright'}`}>
             ₹{fee}
           </span>
         </div>
         {couponApplied && (
           <>
-            <div className="flex items-center justify-between text-sm text-cream/70">
+            <div className="flex items-center justify-between text-sm text-soft">
               <span>Coupon {couponApplied.code}</span>
               <span>−₹{couponApplied.discount}</span>
             </div>
-            <div className="flex items-center justify-between border-t border-cream/20 pt-3">
-              <span className="text-sm font-semibold text-cream">To pay</span>
-              <span className="text-xl font-bold text-cream">₹{finalAmount}</span>
+            <div className="flex items-center justify-between border-t border-soft/25 pt-3">
+              <span className="text-sm font-semibold text-bright">To pay</span>
+              <span className="text-xl font-bold text-bright">₹{finalAmount}</span>
             </div>
           </>
         )}
@@ -180,11 +180,11 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           Coupon code (optional)
         </label>
         {couponApplied ? (
-          <div className="flex items-center justify-between rounded-sm border border-cream/20 px-4 py-3 text-sm text-cream">
+          <div className="flex items-center justify-between rounded-sm border border-soft/25 px-4 py-3 text-sm text-bright">
             <span>
               {couponApplied.code}: ₹{couponApplied.discount} off
             </span>
-            <button type="button" onClick={handleRemoveCoupon} className="text-cream/70 underline underline-offset-4 hover:text-cream">
+            <button type="button" onClick={handleRemoveCoupon} className="text-soft underline underline-offset-4 hover:text-bright">
               Remove
             </button>
           </div>
@@ -224,14 +224,14 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         <div className="mx-auto mb-4 h-[200px] w-[200px] overflow-hidden rounded bg-white p-2">
           <Image src={paymentConfig.qrImage} alt="UPI QR code for payment" width={184} height={184} className="h-full w-full object-contain" />
         </div>
-        <p className="mb-2 text-xs text-cream/70">Or pay to this UPI id</p>
+        <p className="mb-2 text-xs text-soft">Or pay to this UPI id</p>
         <button
           type="button"
           onClick={copyUpiId}
-          className="inline-flex items-center gap-2 rounded-sm border border-cream/20 px-4 py-2 text-sm font-semibold text-cream transition-colors duration-200 hover:border-cream"
+          className="inline-flex items-center gap-2 rounded-sm border border-soft/25 px-4 py-2 text-sm font-semibold text-bright transition-colors duration-200 hover:border-bright"
         >
           {paymentConfig.upiId}
-          <span className="text-xs font-normal text-cream/70">{upiCopied ? 'Copied' : 'Copy'}</span>
+          <span className="text-xs font-normal text-soft">{upiCopied ? 'Copied' : 'Copy'}</span>
         </button>
       </div>
 
@@ -256,7 +256,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           aria-describedby="utr-help"
           className="field-input tracking-wider"
         />
-        <p id="utr-help" className={utrError ? 'field-error' : 'mt-1.5 text-xs text-cream/70'}>
+        <p id="utr-help" className={utrError ? 'field-error' : 'mt-1.5 text-xs text-soft'}>
           {utrError || 'Find it in your UPI app under the transaction details.'}
         </p>
       </div>
@@ -266,11 +266,11 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         <p className="field-label">Payment screenshot (optional)</p>
         {screenshotPreview ? (
           <div className="flex items-end gap-4">
-            <div className="h-40 w-40 overflow-hidden rounded border border-cream/20">
+            <div className="h-40 w-40 overflow-hidden rounded border border-soft/25">
               {/* eslint-disable-next-line @next/next/no-img-element -- local data URL preview */}
               <img src={screenshotPreview} alt="Payment screenshot preview" className="h-full w-full object-cover" />
             </div>
-            <button type="button" onClick={handleRemoveScreenshot} className="text-sm text-cream/70 underline underline-offset-4 hover:text-cream">
+            <button type="button" onClick={handleRemoveScreenshot} className="text-sm text-soft underline underline-offset-4 hover:text-bright">
               Remove
             </button>
           </div>
@@ -278,7 +278,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="w-full rounded border border-dashed border-cream/20 p-5 text-sm text-cream/70 transition-colors duration-200 hover:border-cream hover:text-cream"
+            className="w-full rounded border border-dashed border-soft/25 p-5 text-sm text-soft transition-colors duration-200 hover:border-bright hover:text-bright"
           >
             Upload a screenshot of your UPI payment
           </button>
@@ -287,7 +287,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
       </div>
 
       {submitError && (
-        <p role="alert" className="rounded-sm border border-[#E06C75] px-4 py-3 text-sm text-[#E06C75]">
+        <p role="alert" className="alert-error">
           {submitError}
         </p>
       )}
@@ -299,22 +299,22 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
       <dialog
         ref={confirmRef}
         aria-labelledby="confirm-payment-title"
-        className="w-[calc(100%-2rem)] max-w-md rounded border border-cream/20 bg-ink p-6 text-cream backdrop:bg-ink/80"
+        className="w-[calc(100%-2rem)] max-w-md rounded border border-soft/25 bg-ground p-6 text-bright backdrop:bg-deep/80"
       >
         <h4 id="confirm-payment-title" className="text-lg font-semibold">Submit these payment details?</h4>
-        <p className="mt-2 text-sm text-cream/70">You can’t change them after submitting. Check they match your UPI app.</p>
+        <p className="mt-2 text-sm text-soft">You can’t change them after submitting. Check they match your UPI app.</p>
         <dl className="mt-5 space-y-2 text-sm">
           <div className="flex justify-between gap-4">
-            <dt className="text-cream/70">Amount paid</dt>
+            <dt className="text-soft">Amount paid</dt>
             <dd className="font-semibold">₹{finalAmount}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-cream/70">UTR</dt>
+            <dt className="text-soft">UTR</dt>
             <dd className="font-semibold tracking-wider">{paymentUtr}</dd>
           </div>
           {couponApplied && (
             <div className="flex justify-between gap-4">
-              <dt className="text-cream/70">Coupon</dt>
+              <dt className="text-soft">Coupon</dt>
               <dd className="font-semibold">{couponApplied.code}</dd>
             </div>
           )}
@@ -329,7 +329,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         </div>
       </dialog>
 
-      <p className="text-center text-xs leading-relaxed text-cream/70">
+      <p className="text-center text-xs leading-relaxed text-soft">
         The team checks payments within 24 hours and confirms your seat by email.
       </p>
     </div>

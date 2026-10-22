@@ -2,14 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Brand palette (owner brief 2026-10-22; Tailwind names in tailwind.config.ts) ─── */
+/* ─── Palettes (owner, 2026-10-22). Values are RGB triplets so Tailwind opacity modifiers work.
+   Default: charcoal / silver / red. Teal is previewed with ?palette=teal (see the script in app/layout.tsx). ─── */
 :root {
-  --ink: #0c0c0d;
-  --cream: #eae6df;
-  --bronze: #8c7b5a;
-  --paper: #f4f1ea;
-  --stone: #6e6a62;
-  --hairline: #cfc9bd;
+  --c-deep: 22 22 22; /* #161616, derived */
+  --c-ground: 42 42 42; /* #2A2A2A */
+  --c-soft: 192 192 192; /* #C0C0C0 */
+  --c-bright: 237 237 237; /* #EDEDED, derived */
+  --c-accent: 225 6 0; /* #E10600 */
+  --c-on-accent: 255 255 255; /* white text on red, 5:1 (off-white is only 4.2:1) */
+  --c-accent-on-soft: 225 6 0; /* labels on light sections (owner accepted 2.7:1) */
+  --c-logo: 237 237 237; /* off-white logo */
+  --fade: 3.5rem;
+}
+html[data-palette='teal'] {
+  --c-deep: 1 10 9; /* #010A09, derived */
+  --c-ground: 3 18 17; /* #031211 */
+  --c-soft: 232 228 211; /* #E8E4D3 */
+  --c-bright: 247 244 232; /* #F7F4E8, derived */
+  --c-accent: 0 174 187; /* #00AEBB */
+  --c-on-accent: 3 18 17; /* dark text on teal, 7:1 (cream fails at 2.1:1) */
+  --c-accent-on-soft: 3 18 17; /* teal fails on cream (2.1:1), so labels there are dark */
+  --c-logo: 234 230 223; /* the original cream logo colour */
+}
+@media (min-width: 768px) {
+  :root { --fade: 6rem; }
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
@@ -24,8 +41,12 @@ h1, h2 { font-family: var(--font-newsreader), Georgia, serif; }
 p { text-wrap: pretty; }
 
 body {
-  background-color: var(--ink);
-  color: var(--cream);
+  background-color: rgb(var(--c-ground));
+  /* Depth for the all-dark pages: deep under the nav, ground in the middle, deep again at the foot */
+  background-image:
+    radial-gradient(ellipse 90% 40rem at 50% 0%, rgb(var(--c-soft) / 0.06), transparent 70%),
+    linear-gradient(to bottom, rgb(var(--c-deep)) 0, rgb(var(--c-ground)) 32rem, rgb(var(--c-ground)) 70%, rgb(var(--c-deep)) 100%);
+  color: rgb(var(--c-soft));
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,35 +55,86 @@ body {
 
 /* ─── Form + panel primitives (registration, contact, terms) ───────── */
 @layer components {
-  .field-label { @apply mb-2 block text-xs font-medium text-cream/70; }
+  .field-label { @apply mb-2 block text-xs font-medium text-soft; }
   .field-input {
-    @apply w-full rounded-sm border border-cream/20 bg-ink px-4 py-3 text-sm text-cream outline-none
-      transition-colors duration-200 placeholder:text-cream/55 focus:border-cream
-      aria-[invalid=true]:border-[#E06C75];
+    @apply w-full rounded-sm border border-soft/25 bg-ground px-4 py-3 text-sm text-bright outline-none
+      transition-colors duration-200 placeholder:text-soft/70 focus:border-bright
+      aria-[invalid=true]:border-accent;
   }
-  .field-error { @apply mt-1.5 text-xs text-[#E06C75]; }
-  .panel { @apply rounded border border-cream/10 bg-ink p-6; }
-  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-bronze; }
+  /* Errors: readable light text, marked with an accent warning sign (accent text alone would fail contrast) */
+  .field-error { @apply mt-1.5 text-xs text-bright; }
+  .field-error::before,
+  .alert-error::before { content: '⚠\00a0'; @apply text-accent; }
+  .alert-error { @apply rounded-sm border border-accent px-4 py-3 text-sm text-bright; }
+  .panel { @apply rounded border border-soft/15 bg-ground p-6; }
+  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-accent; }
 
-  /* Buttons (links styled as buttons). Primary: cream on ink. Secondary: cream outline. */
+  /* Buttons (links styled as buttons). Primary: accent fill, works on dark and light sections. Secondary: outline on dark. */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded border border-cream bg-cream px-6 py-3 text-sm font-medium text-ink
-      transition-colors duration-200 hover:bg-transparent hover:text-cream;
-  }
-  /* Primary button on paper sections */
-  .btn-ink {
-    @apply inline-flex items-center justify-center gap-2 rounded border border-ink bg-ink px-6 py-3 text-sm font-medium text-cream
-      transition-colors duration-200 hover:bg-transparent hover:text-ink;
+    @apply inline-flex items-center justify-center gap-2 rounded border border-accent bg-accent px-6 py-3 text-sm font-medium text-on-accent
+      transition-colors duration-200 hover:border-deep hover:bg-deep hover:text-bright;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded border border-cream/40 px-6 py-3 text-sm font-medium text-cream
-      transition-colors duration-200 hover:border-cream;
+    @apply inline-flex items-center justify-center gap-2 rounded border border-soft/50 px-6 py-3 text-sm font-medium text-bright
+      transition-colors duration-200 hover:border-accent;
   }
+
+  /* Logo drawn from the logo file's shape in the palette's logo colour (one asset, colour per palette) */
+  .logo-mark {
+    background-color: rgb(var(--c-logo));
+    -webkit-mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
+    mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
+  }
+
+  /* ─── Section tones: depth inside dark sections, eased fades where dark meets light (color-mix stops) ───
+     Add a fade-top-* class naming the colour of the section above (and fade-bottom-* for the one below). */
+  .tone-dark {
+    --fade-top: var(--c-ground);
+    background-color: rgb(var(--c-ground));
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgb(var(--c-soft) / 0.07), transparent 70%),
+      linear-gradient(to bottom,
+        rgb(var(--fade-top)) 0,
+        color-mix(in srgb, rgb(var(--fade-top)) 72%, rgb(var(--c-ground))) calc(var(--fade) * 0.3),
+        color-mix(in srgb, rgb(var(--fade-top)) 28%, rgb(var(--c-ground))) calc(var(--fade) * 0.6),
+        rgb(var(--c-ground)) var(--fade),
+        rgb(var(--c-deep)) 100%);
+  }
+  .tone-soft {
+    --fade-top: var(--c-soft);
+    --fade-bottom: var(--c-soft);
+    background-color: rgb(var(--c-soft));
+    background-image:
+      radial-gradient(ellipse 70% 60% at 15% 10%, rgb(var(--c-bright) / 0.55), transparent 70%),
+      linear-gradient(to bottom,
+        rgb(var(--fade-top)) 0,
+        color-mix(in srgb, rgb(var(--fade-top)) 72%, rgb(var(--c-soft))) calc(var(--fade) * 0.3),
+        color-mix(in srgb, rgb(var(--fade-top)) 28%, rgb(var(--c-soft))) calc(var(--fade) * 0.6),
+        rgb(var(--c-soft)) var(--fade),
+        rgb(var(--c-soft)) calc(100% - var(--fade)),
+        color-mix(in srgb, rgb(var(--fade-bottom)) 28%, rgb(var(--c-soft))) calc(100% - var(--fade) * 0.6),
+        color-mix(in srgb, rgb(var(--fade-bottom)) 72%, rgb(var(--c-soft))) calc(100% - var(--fade) * 0.3),
+        rgb(var(--fade-bottom)) 100%);
+  }
+  /* Hero: deepest tone with a low accent glow rising from the bottom edge, like light on a stage */
+  .tone-hero {
+    background-color: rgb(var(--c-deep));
+    background-image:
+      radial-gradient(ellipse 75% 55% at 50% 118%, rgb(var(--c-accent) / 0.32), transparent 72%),
+      radial-gradient(ellipse 50% 45% at 90% -5%, rgb(var(--c-soft) / 0.08), transparent 70%);
+  }
+  .fade-top-deep { --fade-top: var(--c-deep); }
+  .fade-top-ground { --fade-top: var(--c-ground); }
+  .fade-top-soft { --fade-top: var(--c-soft); }
+  .fade-bottom-deep { --fade-bottom: var(--c-deep); }
+  /* Labels inside light sections use the palette's light-safe label colour */
+  .tone-soft .eyebrow { color: rgb(var(--c-accent-on-soft)); }
+  .tone-soft .tone-dark .eyebrow { color: rgb(var(--c-accent)); } /* dark tiles inside light sections */
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */
   .ext-link {
     @apply inline-flex items-center gap-1.5 underline-offset-4 transition-colors duration-200
-      hover:text-cream hover:underline focus-visible:underline;
+      hover:text-bright hover:underline focus-visible:underline;
   }
   .ext-link::after {
     content: '↗';
@@ -74,6 +146,18 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .ext-link::after { transition: none; transform: none; }
+}
+
+/* ─── Film grain over the whole page (static texture, no animation) ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 45; /* above sections, below the navbar */
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ─── Reading progress bar: driven by page scroll, no JS where supported ── */
@@ -103,6 +187,8 @@ body {
   .panel { break-inside: avoid; }
   a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
   img[src*='brand'] { filter: invert(1); } /* light logos print dark; photos and QR stay as they are */
+  .logo-mark { background-color: #000 !important; }
+  body::after { display: none; }
 }
 
 /* Section-enter rise: 8px, tied to scroll, so content is never hidden (no support = no motion) */
@@ -122,7 +208,7 @@ body {
 
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--bronze);
+  outline: 2px solid currentColor; /* matches the text, so it shows on dark and light sections */
   outline-offset: 2px;
 }
 

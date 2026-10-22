@@ -10,13 +10,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand palette (owner brief, 2026-10-22). No other colours.
-        ink: '#0C0C0D', // dark backgrounds: hero, nav, footer
-        cream: '#EAE6DF', // logo, text on ink, light sections
-        bronze: '#8C7B5A', // accents only: thin lines, icons, highlights
-        paper: '#F4F1EA', // alternate light sections
-        stone: '#6E6A62', // secondary text on paper only (fails contrast on ink; use cream/70 there)
-        hairline: '#CFC9BD', // borders on paper (on ink use cream/10 to cream/30)
+        // Colours by role, set per palette as CSS variables in globals.css (html[data-palette]).
+        // <alpha-value> keeps opacity modifiers like border-soft/20 working.
+        deep: 'rgb(var(--c-deep) / <alpha-value>)', // darkest: nav, footer, hero, bottom of dark sections
+        ground: 'rgb(var(--c-ground) / <alpha-value>)', // dark base; text on light sections
+        soft: 'rgb(var(--c-soft) / <alpha-value>)', // body text on dark; light section background
+        bright: 'rgb(var(--c-bright) / <alpha-value>)', // headlines on dark
+        accent: 'rgb(var(--c-accent) / <alpha-value>)', // highlight: buttons, lines, labels
+        'on-accent': 'rgb(var(--c-on-accent) / <alpha-value>)', // text on accent fills
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'Inter', 'sans-serif'],

@@ -216,16 +216,16 @@ export default function RegistrationWizard() {
   }
 
   return (
-    <div className="mx-auto max-w-[820px] rounded border border-cream/10 bg-ink p-6 md:p-10">
+    <div className="mx-auto max-w-[820px] rounded border border-soft/15 bg-ground p-6 md:p-10">
       {/* Stepper: on phones only the current step shows its label */}
-      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-cream/20 pb-8">
+      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-soft/25 pb-8">
         {STEPS.map((step) => {
           const isComplete = currentStep > step.id;
           const isCurrent = currentStep === step.id;
           return (
             <li key={step.id} aria-current={isCurrent ? 'step' : undefined} className="flex flex-col gap-2">
-              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-cream' : 'bg-cream/20'}`} />
-              <span className={`text-xs font-medium ${isCurrent ? 'text-cream' : 'text-cream/70'}`}>
+              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-bright' : 'bg-soft/20'}`} />
+              <span className={`text-xs font-medium ${isCurrent ? 'text-bright' : 'text-soft'}`}>
                 <span className="tabular-nums">{isComplete ? '✓' : `0${step.id}`}</span>
                 <span className={isCurrent ? 'ml-1.5' : 'ml-1.5 hidden sm:inline'}>{step.label}</span>
               </span>
@@ -251,7 +251,7 @@ export default function RegistrationWizard() {
               onSubmit={handleSubmit}
             />
             {submitError && (
-              <p role="alert" className="mt-4 rounded-sm border border-[#E06C75] px-4 py-3 text-sm text-[#E06C75]">
+              <p role="alert" className="alert-error mt-4">
                 {submitError}
               </p>
             )}
@@ -268,7 +268,7 @@ export default function RegistrationWizard() {
       </div>
 
       {currentStep < 4 && (
-        <div className="mt-10 flex items-center justify-between border-t border-cream/20 pt-6">
+        <div className="mt-10 flex items-center justify-between border-t border-soft/25 pt-6">
           {currentStep > 1 ? (
             <Button type="button" variant="outline" onClick={handleBack}>
               Back

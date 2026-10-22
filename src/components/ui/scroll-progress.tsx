@@ -38,7 +38,7 @@ export function ScrollProgress({ className }: { className?: string }) {
       ref={ref}
       aria-hidden="true"
       className={cn(
-        'scroll-progress pointer-events-none fixed inset-x-0 top-0 z-[100] h-[2px] bg-cream print:hidden',
+        'scroll-progress pointer-events-none fixed inset-x-0 top-0 z-[100] h-[2px] bg-accent print:hidden',
         className
       )}
     />

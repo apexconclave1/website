@@ -78,21 +78,21 @@ export default function TermsPage() {
 
       <main id="main-content" className="mx-auto max-w-[780px] px-6 pb-16 pt-28 md:pb-24 md:pt-36">
         <p className="eyebrow mb-5">Legal</p>
-        <h1 className="mb-6 text-[2.625rem] font-normal leading-[1.04] text-cream md:text-6xl">Terms &amp; conditions</h1>
-        <p className="mb-12 text-sm leading-relaxed text-cream/70">
+        <h1 className="mb-6 text-[2.625rem] font-normal leading-[1.04] text-bright md:text-6xl">Terms &amp; conditions</h1>
+        <p className="mb-12 text-sm leading-relaxed text-soft">
           Last updated: October 2026. These terms apply to every Apex Conclave event. By registering for an event or using
           this website, you agree to them.
         </p>
 
-        <div className="border-b border-cream/10">
+        <div className="border-b border-soft/15">
           {sections.map((section) => (
-            <article key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-24 border-t border-cream/10 py-10">
-              <h2 id={`${section.id}-title`} className="mb-5 text-3xl font-normal text-cream">
+            <article key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-24 border-t border-soft/15 py-10">
+              <h2 id={`${section.id}-title`} className="mb-5 text-3xl font-normal text-bright">
                 {section.title}
               </h2>
               <div className="flex flex-col gap-3.5">
                 {section.content.map((para, pi) => (
-                  <p key={pi} className="text-[15px] leading-relaxed text-cream/70">
+                  <p key={pi} className="text-[15px] leading-relaxed text-soft">
                     {para}
                   </p>
                 ))}

@@ -65,8 +65,8 @@ export default function ContactForm({ defaultCategory, defaultSubject }: { defau
   if (submitState === 'success') {
     return (
       <div role="status" aria-live="polite" className="panel p-10 text-center">
-        <h3 className="mb-2 text-xl font-medium text-cream">Message received</h3>
-        <p className="text-sm text-cream/70">Thanks for writing. We reply within 48 hours.</p>
+        <h3 className="mb-2 text-xl font-medium text-bright">Message received</h3>
+        <p className="text-sm text-soft">Thanks for writing. We reply within 48 hours.</p>
       </div>
     );
   }
@@ -144,13 +144,13 @@ export default function ContactForm({ defaultCategory, defaultSubject }: { defau
           className="field-input resize-y leading-relaxed"
         />
         <div id="message-help" className="mt-1.5 flex justify-between gap-4 text-xs">
-          <span className="text-[#E06C75]">{errors.message}</span>
-          <span className="shrink-0 text-cream/70">{form.message.length} / 1000</span>
+          <span className={errors.message ? 'field-error mt-0' : ''}>{errors.message}</span>
+          <span className="shrink-0 text-soft">{form.message.length} / 1000</span>
         </div>
       </div>
 
       {submitState === 'error' && (
-        <p role="alert" className="rounded-sm border border-[#E06C75] px-4 py-3 text-sm text-[#E06C75]">
+        <p role="alert" className="alert-error">
           Your message could not be sent. Please try again or email us directly.
         </p>
       )}

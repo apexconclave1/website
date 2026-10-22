@@ -46,7 +46,7 @@ src/
 
 ### Styling
 - Use **Tailwind CSS** utility classes with the custom design tokens defined in `tailwind.config.ts`.
-- For custom hex values, use Tailwind's arbitrary value syntax: prefer the palette tokens (`ink`, `cream`, `bronze`, `paper`, `stone`, `hairline`); see `DESIGN.md`.
+- For custom hex values, use Tailwind's arbitrary value syntax: prefer the role tokens (`deep`, `ground`, `soft`, `bright`, `accent`, `on-accent`); see `DESIGN.md`.
 - Prefer design token classes (`bg-bg`, `text-soft-white`, `bg-surface`) over raw hex when tokens are configured.
 
 ### Performance
@@ -72,9 +72,9 @@ src/
 
 - ❌ **NO Gradients** (linear or radial)
 - ❌ **NO Glassmorphism** (frosted glass, backdrop-blur panels)
-- ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-cream/10` on ink, `border-hairline` on paper)
+- ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-soft/15` on dark, `border-deep/20` on light sections)
 - ❌ **NO Decorative Icons** (no random vectors, emoji, or ornamental graphics)
-- ❌ **NO Excessive Bronze** (bronze `#8C7B5A` is for thin lines, icons and small labels only)
+- ❌ **NO Large Accent Areas** (accent is for buttons, lines, labels and the hero highlight)
 - ❌ **NO Heavy Parallax / Spinning Animations** (subtle transitions only)
 - ❌ **NO Icon Logos** and **no redrawn logo**: use `public/brand/apex-conclave-logo-*.png` via `ApexWordmark`
 

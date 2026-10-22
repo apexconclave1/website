@@ -46,6 +46,8 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Terms | Rewritten for all events (owner request in Phase 9): same refund numbers for every event plus a per-event override line; general conduct rules plus one line per format; guardian consent for under-18s; 'organising team' decides in-event matters, Apex Conclave handles disputes |
 | Event page hero | Logo only, no artwork |
 | Team link | Removed from navbar and footer (owner, 2026-10-22); `/about#team` still works |
+| Palette (supersedes the brief's) | Charcoal #2A2A2A / silver #C0C0C0 / red #E10600, with derived #161616 and #EDEDED; silver light sections; red on buttons, lines, labels (contrast exception accepted) and the hero 'bolder generation.'; off-white logo; errors in brand colour with an icon. Second palette to compare: #031211 / #E8E4D3 / #00AEBB, same roles, original cream logo. Both live, `?palette=` switch, red default |
+| Blending | Soft (eased) fades between sections, depth in dark sections, film grain, noticeable strength |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
 
@@ -61,6 +63,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404) (2026-10-22)
 - [x] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`) (2026-10-22)
 - [x] 9b. Phone layout pass on every page + shorter phone footer (owner request, 2026-10-22)
+- [x] 9c. Colour rework: new palettes, depth, fades, grain (owner request, 2026-10-22)
 - [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
 - [ ] 11. Declutter: merge `IMPLEMENTATION_PLAN.md` into `progress.md`, move the project md files into one folder, tidy the folder structure (owner request, 2026-10-22)
 

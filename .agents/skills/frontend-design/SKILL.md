@@ -14,14 +14,16 @@
 
 ## Tokens (use these, never raw hex)
 
-| Tailwind token | Hex | Use |
-|---|---|---|
-| `ink` | `#0C0C0D` | Dark backgrounds (hero, nav, footer, dark sections) |
-| `cream` | `#EAE6DF` | Text on ink, primary button fill; `cream/70` secondary text, `cream/10`–`/30` borders on ink |
-| `bronze` | `#8C7B5A` | Thin lines, icons, labels, focus ring. Never text on paper |
-| `paper` | `#F4F1EA` | Light sections |
-| `stone` | `#6E6A62` | Secondary text on paper only |
-| `hairline` | `#CFC9BD` | Borders on paper |
+| Tailwind token | Use |
+|---|---|
+| `deep` | Darkest: nav, footer, hero, bottom of dark sections |
+| `ground` | Dark base; text on light sections |
+| `soft` | Body text on dark (`text-soft`); light sections (`tone-soft`); lines `border-soft/15`–`/25` |
+| `bright` | Headlines on dark |
+| `accent` | Buttons, lines, markers, labels, hero highlight |
+| `on-accent` | Text on accent fills |
+
+Values per palette (red default, teal preview via `?palette=teal`) are in `.agents/DESIGN.md` and `globals.css`. Use roles, never hex.
 | `max-w-container` | 1240px | Every page's content width |
 
 Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Radius: 2px everywhere.
@@ -39,9 +41,9 @@ Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Ra
 ## Principles
 
 1. **Depth from hairlines, not shadows.** Borders and dark/light section changes.
-2. **Typography carries hierarchy.** Serif headings at 400–500 weight; body 16–18px `cream`; meta 12–14px `cream/70` (on paper: `ink` and `stone`). Headings use `text-wrap: balance`.
+2. **Typography carries hierarchy.** Serif headings at 400–500 weight; body 16–18px `soft`; meta 12–14px `cream/70` (on paper: `ink` and `stone`). Headings use `text-wrap: balance`.
 3. **Breathing room.** Sections 64–96px vertical padding (`py-16 md:py-24`); cards at least 24px inside (`p-6`).
-4. **Bronze is small.** One eyebrow per section at most; never bronze fills or large bronze text.
+4. **Accent with intent.** Buttons, lines, labels and one hero highlight; no large accent backgrounds.
 5. **Content lives in `src/lib/data/`**, not in components (events, chambers, FAQs, organisation, booklet story).
 6. **Private things stay private.** Sponsorship tiers and prices are never on the site. The site credit (Kapish Garg) is in metadata, JSON-LD and `llms.txt` only, never visible.
 

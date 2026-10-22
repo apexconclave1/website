@@ -27,11 +27,11 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
       title: 'About you',
       body: (
         <>
-          <p className="text-base font-semibold text-cream">{formData.fullName || '—'}</p>
-          <p className="mt-1 text-sm text-cream/70">
+          <p className="text-base font-semibold text-bright">{formData.fullName || '—'}</p>
+          <p className="mt-1 text-sm text-soft">
             {formData.email} · {formData.phone}
           </p>
-          <p className="mt-1 text-sm text-cream/70">
+          <p className="mt-1 text-sm text-soft">
             {formData.institutionName} · {formData.city}, {formData.country} ·{' '}
             {formData.track === 'HIGH_SCHOOL' ? 'High school' : 'College'}
           </p>
@@ -43,10 +43,10 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
       title: 'Preferences',
       body: (
         <>
-          <p className="text-sm text-cream">
+          <p className="text-sm text-bright">
             1. {formData.firstChoiceCommittee} — {formData.firstChoiceCountry || 'Not selected'}
           </p>
-          <p className="mt-1 text-sm text-cream/70">
+          <p className="mt-1 text-sm text-soft">
             2. {formData.secondChoiceCommittee} — {formData.secondChoiceCountry || 'Not selected'}
           </p>
         </>
@@ -57,8 +57,8 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
       title: 'Experience',
       body: (
         <>
-          <p className="text-sm text-cream">{EXPERIENCE_LABELS[formData.experienceLevel ?? ''] ?? '—'}</p>
-          <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-cream/70">{formData.motivation}</p>
+          <p className="text-sm text-bright">{EXPERIENCE_LABELS[formData.experienceLevel ?? ''] ?? '—'}</p>
+          <p className="mt-1 max-w-[60ch] text-sm leading-relaxed text-soft">{formData.motivation}</p>
         </>
       ),
     },
@@ -71,7 +71,7 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
       text: (
         <>
           I agree to the{' '}
-          <Link href="/terms#code-of-conduct" target="_blank" className="text-cream underline underline-offset-4">
+          <Link href="/terms#code-of-conduct" target="_blank" className="text-bright underline underline-offset-4">
             code of conduct
           </Link>
           : rules of procedure, respectful debate, no plagiarism and zero tolerance for harassment.
@@ -88,11 +88,11 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="mb-1 text-xl font-medium text-cream">Review</h3>
-        <p className="text-sm text-cream/70">Check your details before you submit.</p>
+        <h3 className="mb-1 text-xl font-medium text-bright">Review</h3>
+        <p className="text-sm text-soft">Check your details before you submit.</p>
       </div>
 
-      <div className="divide-y divide-cream/10 rounded border border-cream/10 bg-ink">
+      <div className="divide-y divide-soft/15 rounded border border-soft/15 bg-ground">
         {sections.map((s) => (
           <div key={s.step} className="flex flex-wrap items-start justify-between gap-4 p-5">
             <div className="min-w-0">
@@ -111,18 +111,18 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
           <div key={c.key}>
             <label
               className={`flex cursor-pointer items-start gap-3 rounded border p-4 ${
-                errors[c.key] ? 'border-[#E06C75]' : 'border-cream/10'
+                errors[c.key] ? 'border-accent' : 'border-soft/15'
               }`}
             >
               <input
                 type="checkbox"
                 checked={Boolean(formData[c.key])}
                 onChange={(e) => onChange({ [c.key]: e.target.checked as true })}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-cream"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-bright"
               />
               <span>
-                <span className="block text-sm font-semibold text-cream">{c.title}</span>
-                <span className="mt-1 block text-sm leading-relaxed text-cream/70">{c.text}</span>
+                <span className="block text-sm font-semibold text-bright">{c.title}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-soft">{c.text}</span>
               </span>
             </label>
             {errors[c.key] && <p className="field-error">{errors[c.key]![0]}</p>}

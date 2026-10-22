@@ -9,12 +9,13 @@ const current = eventsData.find((e) => e.status === 'UPCOMING' || e.status === '
 
 export default function HeroSection() {
   return (
-    <section id="hero" aria-label="Apex Conclave" className="flex min-h-[min(100svh,60rem)] flex-col pt-[4.5rem]">
+    <section id="hero" aria-label="Apex Conclave" className="tone-hero flex min-h-[min(100svh,60rem)] flex-col pt-[4.5rem]">
       <div className="mx-auto flex w-full max-w-container flex-1 flex-col justify-center px-6 py-20">
-        <h1 className="max-w-[14ch] text-[3.25rem] font-normal leading-[0.98] tracking-[-0.02em] text-cream sm:text-7xl lg:text-[6.5rem]">
-          {homeContent.headline}
+        <h1 className="max-w-[14ch] text-[3.25rem] font-normal leading-[0.98] tracking-[-0.02em] text-bright sm:text-7xl lg:text-[6.5rem]">
+          {homeContent.headline.replace(homeContent.headlineHighlight, '')}
+          <span className="text-accent">{homeContent.headlineHighlight}</span>
         </h1>
-        <p className="mt-10 max-w-[52ch] text-lg leading-relaxed text-cream/70">{homeContent.summary}</p>
+        <p className="mt-10 max-w-[52ch] text-lg leading-relaxed text-soft">{homeContent.summary}</p>
         <div className="mt-10 flex flex-wrap gap-3">
           <Link href="/events" className="btn-primary" data-track="cta_hero_explore_events">
             Explore Events
@@ -26,7 +27,7 @@ export default function HeroSection() {
       </div>
 
       {/* Disciplines index: every vertical, planned ones included, links to its row on /verticals */}
-      <div className="border-t border-cream/10">
+      <div className="border-t border-soft/15">
         <div className="mx-auto flex max-w-container flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between">
           <nav aria-label="Event verticals">
             <ul className="grid grid-cols-3 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-8">
@@ -34,7 +35,7 @@ export default function HeroSection() {
                 <li key={v.id}>
                   <Link
                     href={`/verticals#${v.id}`}
-                    className="text-sm text-cream/70 transition-colors duration-200 hover:text-cream"
+                    className="text-sm text-soft transition-colors duration-200 hover:text-bright"
                   >
                     {v.short}
                   </Link>
@@ -45,12 +46,12 @@ export default function HeroSection() {
           {current && (
             <Link
               href={`/events/${current.slug}`}
-              className="group inline-flex items-center gap-3 text-sm text-cream/70 transition-colors duration-200 hover:text-cream"
+              className="group inline-flex items-center gap-3 text-sm text-soft transition-colors duration-200 hover:text-bright"
               data-track="cta_hero_current_event"
             >
               <span className="eyebrow">Now</span>
               <span>
-                <span className="text-cream">{current.title}</span> · {formatEventDates(current)}
+                <span className="text-bright">{current.title}</span> · {formatEventDates(current)}
               </span>
               <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
