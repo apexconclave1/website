@@ -66,7 +66,8 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
         </div>
       </div>
 
-      <div className="relative h-[200px] md:h-[280px]">
+      {/* The event logo repeats the title, so it only shows beside the text on large screens */}
+      <div className="relative hidden h-[280px] lg:block">
         <Image
           src={event.coverImage}
           priority={priority}

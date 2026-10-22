@@ -13,15 +13,15 @@ export const metadata: Metadata = pageMetadata(
 export default function VerticalsPage() {
   return (
     <main id="main-content" className="bg-paper text-ink">
-      <div className="mx-auto max-w-container px-6 pb-24 pt-36 md:pb-32">
+      <div className="mx-auto max-w-container px-6 pb-16 pt-28 md:pb-32 md:pt-36">
         <header className="grid gap-8 pb-16 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <p className="eyebrow mb-5 text-stone">Event Verticals</p>
-            <h1 className="max-w-[16ch] text-5xl font-normal leading-[1.04] tracking-[-0.01em] md:text-6xl">
+            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] tracking-[-0.01em] md:text-6xl">
               Six kinds of stage, one standard.
             </h1>
           </div>
-          <p className="max-w-[48ch] text-lg leading-relaxed text-stone lg:col-span-5">
+          <p className="max-w-[48ch] text-base leading-relaxed text-stone md:text-lg lg:col-span-5">
             Apex Conclave is built to run events across disciplines under one name. Diplomacy is running now. The others
             are planned: they are listed so you know where we are going, not because they have happened yet.
           </p>

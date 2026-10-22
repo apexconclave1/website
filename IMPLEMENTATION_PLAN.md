@@ -60,7 +60,9 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 7. Team (2026-10-22)
 - [x] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404) (2026-10-22)
 - [x] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`) (2026-10-22)
+- [x] 9b. Phone layout pass on every page + shorter phone footer (owner request, 2026-10-22)
 - [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
+- [ ] 11. Declutter: merge `IMPLEMENTATION_PLAN.md` into `progress.md`, move the project md files into one folder, tidy the folder structure (owner request, 2026-10-22)
 
 ## Owner decisions (2026-10-20)
 

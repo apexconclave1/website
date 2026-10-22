@@ -4,7 +4,8 @@ import { eventsData } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 
 const linkClass = 'inline-block py-1 text-sm text-cream/70 transition-colors duration-200 hover:text-cream';
-const headingClass = 'eyebrow mb-4';
+// Column headings and the description are hidden on phones to keep the footer short
+const headingClass = 'eyebrow mb-4 hidden sm:block';
 
 const siteLinks = [
   { href: '/about', label: 'About' },
@@ -22,17 +23,17 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-cream/10 bg-ink pb-8 pt-16 print:hidden">
+    <footer className="border-t border-cream/10 bg-ink pb-8 pt-12 sm:pt-16 print:hidden">
       <div className="mx-auto max-w-container px-6">
-        <div className="grid gap-12 pb-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
+        <div className="grid gap-8 pb-10 sm:grid-cols-2 sm:gap-12 sm:pb-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
           <div className="max-w-sm">
             <ApexWordmark size="md" />
-            <p className="mt-6 text-sm leading-relaxed text-cream/70">{organizationConfig.description}</p>
+            <p className="mt-6 hidden text-sm leading-relaxed text-cream/70 sm:block">{organizationConfig.description}</p>
           </div>
 
           <nav aria-label="Footer">
             <p className={headingClass}>Apex Conclave</p>
-            <ul className="flex flex-col gap-2">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-1 sm:flex sm:flex-col sm:gap-2">
               {siteLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={linkClass}>
@@ -43,7 +44,8 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <div>
+          {/* Events column only from sm up; on phones the Events link above covers it */}
+          <div className="hidden sm:block">
             <p className={headingClass}>Events</p>
             <ul className="flex flex-col gap-2">
               {eventsData.map((event) => (
@@ -63,7 +65,7 @@ export default function Footer() {
 
           <div>
             <p className={headingClass}>Connect</p>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-wrap gap-x-6 gap-y-1 border-t border-cream/10 pt-6 sm:flex-col sm:gap-2 sm:border-0 sm:pt-0">
               <li>
                 <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>
                   {organizationConfig.contactEmail}

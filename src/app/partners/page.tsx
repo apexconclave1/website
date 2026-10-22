@@ -12,11 +12,11 @@ export default function PartnersPage() {
     <main id="main-content">
       {/* Intro and the five ways to work together, on paper */}
       <section className="bg-paper text-ink">
-        <div className="mx-auto grid max-w-container gap-14 px-6 pb-24 pt-36 md:pb-32 lg:grid-cols-12 lg:gap-10">
+        <div className="mx-auto grid max-w-container gap-10 px-6 md:gap-14 pb-16 pt-28 md:pb-32 md:pt-36 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <p className="eyebrow mb-5 text-stone">Partners</p>
-            <h1 className="max-w-[14ch] text-5xl font-normal leading-[1.04] md:text-6xl">{partnersContent.headline}</h1>
-            <p className="mt-8 max-w-[46ch] text-lg leading-relaxed text-stone">{partnersContent.intro}</p>
+            <h1 className="max-w-[14ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">{partnersContent.headline}</h1>
+            <p className="mt-8 max-w-[46ch] text-base leading-relaxed text-stone md:text-lg">{partnersContent.intro}</p>
             <Link href={partnerEnquiryHref} className="btn-ink mt-10" data-track="cta_partners_enquire">
               Partner With Us
             </Link>
@@ -28,7 +28,7 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-container px-6 py-24 md:py-32">
+      <section className="mx-auto max-w-container px-6 py-16 md:py-32">
         <p className="eyebrow mb-5">Why partner</p>
         <h2 className="max-w-[20ch] text-4xl font-normal leading-[1.08] md:text-5xl">What we are building for partners.</h2>
         <div className="mt-14 grid gap-10 md:grid-cols-3">
@@ -42,7 +42,7 @@ export default function PartnersPage() {
       </section>
 
       <section className="border-t border-cream/10">
-        <div className="mx-auto grid max-w-container gap-10 px-6 py-24 md:py-32 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-container gap-10 px-6 py-16 md:py-32 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <p className="eyebrow mb-5">Sponsorship</p>
             <h2 className="max-w-[16ch] text-4xl font-normal leading-[1.08] md:text-5xl">What a sponsorship can include.</h2>

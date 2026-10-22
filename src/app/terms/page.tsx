@@ -76,9 +76,9 @@ export default function TermsPage() {
     <>
       <SectionNavigator sections={termsSectionsNav} position="left" />
 
-      <main id="main-content" className="mx-auto max-w-[780px] px-6 pb-24 pt-36">
+      <main id="main-content" className="mx-auto max-w-[780px] px-6 pb-16 pt-28 md:pb-24 md:pt-36">
         <p className="eyebrow mb-5">Legal</p>
-        <h1 className="mb-6 text-5xl font-normal leading-[1.04] text-cream md:text-6xl">Terms &amp; conditions</h1>
+        <h1 className="mb-6 text-[2.625rem] font-normal leading-[1.04] text-cream md:text-6xl">Terms &amp; conditions</h1>
         <p className="mb-12 text-sm leading-relaxed text-cream/70">
           Last updated: October 2026. These terms apply to every Apex Conclave event. By registering for an event or using
           this website, you agree to them.

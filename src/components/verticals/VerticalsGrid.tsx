@@ -20,7 +20,10 @@ const icons: Record<string, LucideIcon> = {
 export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
   return (
     // gap-px over a hairline background draws the dividers; every cell has its own paper or ink fill
-    <ol className="grid gap-px border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-3">
+    // Home (compact): planned verticals two per row on phones, descriptions from sm up. Page: one column on phones.
+    <ol
+      className={`grid gap-px border border-hairline bg-hairline lg:grid-cols-3 ${compact ? 'grid-cols-2' : 'md:grid-cols-2'}`}
+    >
       {verticals.map((v, i) => {
         const Icon = icons[v.id];
         const number = String(i + 1).padStart(2, '0');
@@ -31,19 +34,19 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
             <li
               key={v.id}
               id={v.id}
-              className="flex scroll-mt-24 flex-col bg-ink p-8 text-cream md:col-span-2 md:p-10 lg:row-span-2"
+              className={`flex scroll-mt-24 flex-col bg-ink p-6 text-cream md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm tabular-nums text-cream/70">{number}</span>
                 <Icon size={20} strokeWidth={1.5} className="text-bronze" aria-hidden="true" />
               </div>
-              <p className="eyebrow mt-10">Active</p>
+              <p className="eyebrow mt-8 md:mt-10">Active</p>
               <h3 className="mt-3 font-serif text-4xl font-normal leading-tight md:text-5xl">{v.title}</h3>
               <p className="mt-4 max-w-[46ch] text-cream/70">{v.description}</p>
 
               {event && (
                 // pt-12 keeps a gap above the rule when the tile is short (one-row layouts); mt-auto pins it to the bottom
-                <div className="mt-auto pt-12">
+                <div className="mt-auto pt-10 md:pt-12">
                   <Link
                     href={`/events/${event.slug}`}
                     className="group flex flex-col gap-6 border-t border-cream/10 pt-8 sm:flex-row sm:items-end sm:justify-between"
@@ -73,20 +76,24 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
           <li
             key={v.id}
             id={v.id}
-            // On two columns the sixth cell would sit alone, so it spans the row
-            className={`flex scroll-mt-24 flex-col bg-paper text-ink md:last:col-span-2 lg:last:col-span-1 ${
-              compact ? 'p-7' : 'p-8'
+            // Wherever there are two columns, the sixth cell would sit alone, so it spans the row
+            className={`flex scroll-mt-24 flex-col bg-paper text-ink lg:last:col-span-1 ${
+              compact ? 'p-5 last:col-span-2 md:p-7' : 'p-6 md:p-8 md:last:col-span-2'
             }`}
           >
             <div className="flex items-center justify-between">
               <span className="text-sm tabular-nums text-stone">{number}</span>
               <Icon size={20} strokeWidth={1.5} className="text-bronze" aria-hidden="true" />
             </div>
-            <h3 className={`font-serif font-normal leading-snug ${compact ? 'mt-8 text-2xl' : 'mt-10 text-[1.75rem]'}`}>
+            <h3
+              className={`font-serif font-normal leading-snug ${
+                compact ? 'mt-5 text-lg md:mt-8 md:text-2xl' : 'mt-6 text-2xl md:mt-10 md:text-[1.75rem]'
+              }`}
+            >
               {v.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-stone">{v.description}</p>
-            <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-sm">
+            <p className={`mt-3 text-sm leading-relaxed text-stone ${compact ? 'hidden sm:block' : ''}`}>{v.description}</p>
+            <div className="mt-auto flex items-center justify-between gap-4 pt-5 text-sm md:pt-8">
               <span className="text-xs font-medium uppercase tracking-[0.14em] text-stone">Planned</span>
               {!compact && (
                 <Link

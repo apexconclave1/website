@@ -13,7 +13,7 @@ export interface Vertical {
 
 /** Contact form preset for a planned vertical: 'Register Interest' topic, subject names the vertical. */
 export const interestHref = (v: Vertical) =>
-  `/contact?category=${encodeURIComponent('Register Interest')}&subject=${encodeURIComponent(`Interest: ${v.title}`)}`;
+  `/contact?category=${encodeURIComponent('Register Interest')}&subject=${encodeURIComponent(`Interest: ${v.title.replace(/\u00AD/g, '')}`)}`;
 
 export const verticals: Vertical[] = [
   {
@@ -47,7 +47,8 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'startups',
-    title: 'Startup Pitching & Entrepreneurship',
+    // Soft hyphen (\u00AD) lets the long word break in narrow grid cells; it is invisible otherwise
+    title: 'Startup Pitching & Entre\u00ADpreneurship',
     short: 'Startups',
     description: 'Startup pitches, entrepreneurial challenges and business-building competitions.',
     status: 'planned',

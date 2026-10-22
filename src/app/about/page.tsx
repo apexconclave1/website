@@ -31,13 +31,13 @@ export default function AboutPage() {
     <main id="main-content">
       {/* Mission, on paper */}
       <section className="bg-paper text-ink">
-        <div className="mx-auto grid max-w-container gap-10 px-6 pb-24 pt-36 md:pb-32 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-container gap-10 px-6 pb-16 pt-28 md:pb-32 md:pt-36 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <p className="eyebrow mb-5 text-stone">About Apex Conclave</p>
-            <h1 className="max-w-[16ch] text-5xl font-normal leading-[1.04] md:text-6xl">{homeContent.about.headline}</h1>
+            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">{homeContent.about.headline}</h1>
           </div>
           <div className="lg:col-span-5 lg:pt-12">
-            <p className="text-lg leading-relaxed text-stone">{homeContent.about.body}</p>
+            <p className="text-base leading-relaxed text-stone md:text-lg">{homeContent.about.body}</p>
             <ul className="mt-10 border-t border-hairline">
               {homeContent.about.ideas.map((idea) => (
                 <li key={idea.title} className="grid grid-cols-[8rem_1fr] gap-4 border-b border-hairline py-4 text-sm">
@@ -51,7 +51,7 @@ export default function AboutPage() {
       </section>
 
       {/* What we run */}
-      <section className="mx-auto max-w-container px-6 py-24 md:py-32">
+      <section className="mx-auto max-w-container px-6 py-16 md:py-32">
         <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow mb-5">What we run</p>
@@ -89,7 +89,7 @@ export default function AboutPage() {
 
       {/* Who it brings together (was the Community page; /community redirects here) */}
       <section id="community" className="scroll-mt-24 border-t border-cream/10">
-        <div className="mx-auto grid max-w-container gap-12 px-6 py-24 md:py-32 lg:grid-cols-12 lg:gap-10">
+        <div className="mx-auto grid max-w-container gap-12 px-6 py-16 md:py-32 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
             <p className="eyebrow mb-5">Who it brings together</p>
             <h2 className="max-w-[14ch] text-4xl font-normal leading-[1.08] md:text-5xl">{communityContent.headline}</h2>
@@ -111,10 +111,10 @@ export default function AboutPage() {
 
       {/* Team, with booklet quotes */}
       <section id="team" className="scroll-mt-24 border-t border-cream/10">
-        <div className="mx-auto max-w-container px-6 py-24 md:py-32">
+        <div className="mx-auto max-w-container px-6 py-16 md:py-32">
           <p className="eyebrow mb-5">Team</p>
           <h2 className="max-w-[18ch] text-4xl font-normal leading-[1.08] md:text-5xl">The people behind Apex Conclave.</h2>
-          <div className="mt-14 grid gap-14 sm:grid-cols-3 sm:gap-8">
+          <div className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8 md:mt-14">
             {leadershipTeam.map((m) => (
               <TeamMember key={m.name} {...m} />
             ))}
@@ -135,7 +135,7 @@ export default function AboutPage() {
 
       {/* Get involved, on paper */}
       <section className="bg-paper text-ink">
-        <div className="mx-auto grid max-w-container gap-14 px-6 py-24 md:grid-cols-2 md:py-32">
+        <div className="mx-auto grid max-w-container gap-10 px-6 md:gap-14 py-24 md:grid-cols-2 md:py-32">
           <div>
             <p className="eyebrow mb-5 text-stone">Get involved</p>
             <h2 className="text-4xl font-normal leading-[1.08] md:text-5xl">Join us.</h2>

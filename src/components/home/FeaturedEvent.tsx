@@ -28,8 +28,8 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
   ].filter(Boolean) as { label: string; value: React.ReactNode }[];
 
   return (
-    <section aria-labelledby="featured-heading" className="mx-auto max-w-container px-6 py-24 md:py-32">
-      <div className="mb-14 flex items-end justify-between gap-6">
+    <section aria-labelledby="featured-heading" className="mx-auto max-w-container px-6 py-16 md:py-32">
+      <div className="mb-10 flex md:mb-14 items-end justify-between gap-6">
         <p className="eyebrow">Featured event</p>
         <Link href="/events" className="text-sm text-cream/70 underline underline-offset-4 transition-colors duration-200 hover:text-cream">
           All events
@@ -38,14 +38,14 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
 
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-5">
-          <h2 id="featured-heading" className="text-5xl font-normal leading-none md:text-6xl">
+          <h2 id="featured-heading" className="text-[2.75rem] font-normal leading-none md:text-6xl">
             {event.title}
           </h2>
           <p className="mt-4 text-cream/70">Presented by Apex Conclave.</p>
 
           <dl className="mt-10 border-t border-cream/10">
             {details.map((d) => (
-              <div key={d.label} className="grid grid-cols-[7.5rem_1fr] gap-4 border-b border-cream/10 py-4 text-sm">
+              <div key={d.label} className="grid gap-1 border-b border-cream/10 py-4 text-sm sm:grid-cols-[7.5rem_1fr] sm:gap-4">
                 <dt className="text-cream/70">{d.label}</dt>
                 <dd className="text-cream">{d.value}</dd>
               </div>
@@ -53,11 +53,11 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
           </dl>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href={`/events/${event.slug}`} className="btn-primary" data-track="cta_home_featured_event">
+            <Link href={`/events/${event.slug}`} className="btn-primary w-full sm:w-auto" data-track="cta_home_featured_event">
               View Event Details <ArrowRight size={16} />
             </Link>
             {event.registrationOpen ? (
-              <Link href={`/register?event=${event.slug}`} className="btn-secondary" data-track="cta_home_featured_register">
+              <Link href={`/register?event=${event.slug}`} className="btn-secondary w-full sm:w-auto" data-track="cta_home_featured_register">
                 Register
               </Link>
             ) : (
@@ -67,7 +67,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
                   href={organizationConfig.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary"
+                  className="btn-secondary w-full sm:w-auto"
                   data-track="social_click"
                   data-track-platform="instagram"
                   data-track-place="home_featured"

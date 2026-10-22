@@ -13,25 +13,20 @@ interface TeamMemberProps {
 /** Open portrait for dark sections: square black-and-white photo, name, role, bio, LinkedIn. */
 export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemberProps) {
   return (
-    <figure>
+    <figure className="grid grid-cols-[6rem_1fr] items-start gap-5 sm:block">
       {/* Grayscale evens out the different photo backgrounds; the files stay in colour */}
       <Image
         src={photo}
         alt={`${name}, ${role}`}
         width={512}
         height={512}
-        sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 100vw"
-        className="aspect-square w-full max-w-[18rem] border border-cream/10 object-cover grayscale sm:max-w-none"
+        sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 96px"
+        className="aspect-square w-full border border-cream/10 object-cover grayscale"
       />
-      <figcaption className="mt-5">
+      <figcaption className="sm:mt-5">
         <h3 className="text-lg font-medium text-cream">{name}</h3>
         <p className="eyebrow mt-1">{role}</p>
         <p className="mt-3 text-sm leading-relaxed text-cream/70">{bio}</p>
-        {quote && (
-          <blockquote className="mt-5 border-l border-bronze pl-4 font-serif text-base leading-relaxed text-cream">
-            “{quote}”
-          </blockquote>
-        )}
         {linkedin && (
           <a
             href={linkedin}
@@ -47,6 +42,12 @@ export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemb
           </a>
         )}
       </figcaption>
+      {/* Full width under photo and text on phones */}
+      {quote && (
+        <blockquote className="col-span-2 border-l border-bronze pl-4 font-serif text-base leading-relaxed text-cream sm:mt-5">
+          “{quote}”
+        </blockquote>
+      )}
     </figure>
   );
 }

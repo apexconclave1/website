@@ -87,7 +87,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                   className="h-auto w-full max-w-[520px]"
                 />
               ) : (
-                <span className="font-serif text-5xl font-normal leading-tight md:text-6xl">{event.title}</span>
+                <span className="font-serif text-[2.625rem] font-normal leading-tight md:text-6xl">{event.title}</span>
               )}
             </h1>
             <p className="text-sm text-cream/70">
@@ -148,7 +148,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           {story && (
             <div className="mt-12">
               <h3 className="eyebrow mb-6">The delegate’s work</h3>
-              <ol className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+              <ol className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
                 {story.work.map((w, i) => (
                   <li key={w.title} className="space-y-2 border-t border-cream/20 pt-5">
                     <span className="text-xs font-medium text-bronze">{pad2(i + 1)}</span>
@@ -205,7 +205,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                       </div>
                       <h3 className="font-serif text-2xl font-normal leading-tight">{c.name}</h3>
                     </div>
-                    <Badge variant="muted">{c.totalSeats} seats</Badge>
+                    <Badge variant="muted" className="shrink-0 whitespace-nowrap">{c.totalSeats} seats</Badge>
                   </div>
                   <p className="text-sm leading-relaxed">
                     <span className="mb-0.5 block text-xs uppercase tracking-wider text-cream/70">Agenda</span>
@@ -224,7 +224,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <div className="mt-14">
                 <h3 className="font-serif text-3xl font-normal">Who sits at the table?</h3>
                 <p className="mt-1 text-sm text-cream/70">Five kinds of delegate, and most people are a mix.</p>
-                <ol className="mt-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+                <ol className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-5">
                   {story.delegateTypes.map((d, i) => (
                     <li key={d.title} className="flex flex-col gap-2 border-t border-cream/20 pt-5">
                       <span className="text-xs font-medium text-bronze">{pad2(i + 1)}</span>
