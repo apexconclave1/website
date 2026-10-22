@@ -9,6 +9,7 @@ export const contactCategories = [
   'Join the Community',
   'Host an Event',
   'Sponsorship & Partnership',
+  'Register Interest',
   'Other',
 ] as const;
 

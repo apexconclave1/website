@@ -7,6 +7,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData } from '@/lib/data/events';
 import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
 import { TeamCard } from '@/components/team/TeamCard';
+import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata(
@@ -24,6 +25,27 @@ export default function HomePage() {
   return (
     <main id="main-content">
       <HeroSection />
+
+      {/* Event verticals (compact; full version on /verticals) */}
+      <section aria-labelledby="verticals-heading" className="bg-paper text-ink">
+        <div className="mx-auto max-w-container px-6 py-24 md:py-32">
+          <div className="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow mb-5 text-stone">Our Event Verticals</p>
+              <h2 id="verticals-heading" className="max-w-[18ch] text-4xl font-normal leading-[1.08] md:text-[3.25rem]">
+                One brand, many kinds of competition.
+              </h2>
+            </div>
+            <Link
+              href="/verticals"
+              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-ink underline decoration-hairline underline-offset-[6px] transition-colors duration-200 hover:decoration-ink"
+            >
+              See all verticals <ArrowRight size={14} />
+            </Link>
+          </div>
+          <VerticalsGrid compact />
+        </div>
+      </section>
 
       {/* Events under Apex Conclave (the hero index rule sits above it) */}
       <section className="mx-auto max-w-container px-6 py-20">

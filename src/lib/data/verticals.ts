@@ -11,6 +11,10 @@ export interface Vertical {
   eventSlug?: string;
 }
 
+/** Contact form preset for a planned vertical: 'Register Interest' topic, subject names the vertical. */
+export const interestHref = (v: Vertical) =>
+  `/contact?category=${encodeURIComponent('Register Interest')}&subject=${encodeURIComponent(`Interest: ${v.title}`)}`;
+
 export const verticals: Vertical[] = [
   {
     id: 'diplomacy',

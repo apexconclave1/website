@@ -9,21 +9,23 @@ type FieldErrors = Partial<Record<keyof ContactFields, string>>;
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 type Category = ContactFields['category'];
 
-const emptyForm = (category: Category): ContactFields => ({
+const emptyForm = (category: Category, subject = ''): ContactFields => ({
   name: '',
   email: '',
   phone: '',
   institution: '',
   category,
-  subject: '',
+  subject,
   message: '',
 });
 
-export default function ContactForm({ defaultCategory }: { defaultCategory?: string }) {
+export default function ContactForm({ defaultCategory, defaultSubject }: { defaultCategory?: string; defaultSubject?: string }) {
   const initialCategory: Category = (categories as readonly string[]).includes(defaultCategory ?? '')
     ? (defaultCategory as Category)
     : 'General Inquiry';
-  const [form, setForm] = useState<ContactFields>(emptyForm(initialCategory));
+  // Links can preset the subject (e.g. 'Interest: Technology & Hackathons'); capped at the schema's 150 characters
+  const initialSubject = (defaultSubject ?? '').slice(0, 150);
+  const [form, setForm] = useState<ContactFields>(emptyForm(initialCategory, initialSubject));
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
 
@@ -54,7 +56,7 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
       if (!res.ok) throw new Error('Server error');
       setSubmitState('success');
       track('contact_sent', { category: parsed.data.category });
-      setForm(emptyForm(initialCategory));
+      setForm(emptyForm(initialCategory, initialSubject));
     } catch {
       setSubmitState('error');
     }

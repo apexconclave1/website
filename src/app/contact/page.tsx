@@ -5,7 +5,7 @@ import ContactCards from '@/components/contact/ContactCards';
 
 export const metadata: Metadata = pageMetadata('Contact', 'Contact Apex Conclave about Diplovia registration, partnerships, sponsorship, joining the community or hosting an event. The team replies by email.', '/contact');
 
-export default function ContactPage({ searchParams }: { searchParams: { category?: string } }) {
+export default function ContactPage({ searchParams }: { searchParams: { category?: string; subject?: string } }) {
   return (
     <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
       <p className="eyebrow mb-3">Contact</p>
@@ -17,7 +17,7 @@ export default function ContactPage({ searchParams }: { searchParams: { category
 
       <div className="mt-16 grid grid-cols-1 items-start gap-10 border-t border-cream/10 pt-16 lg:grid-cols-[1fr_2fr]">
         <ContactCards />
-        <ContactForm defaultCategory={searchParams.category} />
+        <ContactForm defaultCategory={searchParams.category} defaultSubject={searchParams.subject} />
       </div>
     </main>
   );

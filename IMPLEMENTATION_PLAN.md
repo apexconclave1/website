@@ -35,6 +35,9 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Nav button | "Partner With Us" (contact form, Sponsorship & Partnership topic); switches to "Register" while an event's registration is open |
 | Hero | Logo in the nav only; no label above the headline; composition is headline + disciplines index (no photo) |
 | Home About | On paper |
+| Verticals on home | Yes: compact paper section after the hero, plus the full `/verticals` page |
+| Register interest | New contact topic 'Register Interest' with the subject prefilled ('Interest: <vertical>') |
+| Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
 
 ### Phases
@@ -42,7 +45,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 1. Foundation: tokens, fonts, 2px radius, effect removal, button classes, DESIGN.md (2026-10-22)
 - [x] 2. Navigation and footer (2026-10-22)
 - [x] 3. Home hero and About section (2026-10-22)
-- [ ] 4. Event Verticals (`/verticals`, data with active/planned status)
+- [x] 4. Event Verticals (`/verticals`, data with active/planned status) (2026-10-22)
 - [ ] 5. Featured Diplovia section (artwork from `docs/` PDFs)
 - [ ] 6. Partnerships (home section, `/partners`, contact form topics)
 - [ ] 7. Team
