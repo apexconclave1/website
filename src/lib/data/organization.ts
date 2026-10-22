@@ -16,6 +16,8 @@ export const organizationConfig: OrganizationConfig = {
 
 // Partnership enquiries: contact form with the topic preselected
 export const partnerEnquiryHref = `/contact?category=${encodeURIComponent('Sponsorship & Partnership')}`;
+/** Same form with the subject naming the collaboration type */
+export const partnerEnquiryFor = (title: string) => `${partnerEnquiryHref}&subject=${encodeURIComponent(`Partnership: ${title}`)}`;
 
 // ponytail: placeholder UPI id and QR. Replace both before registration opens.
 export const paymentConfig = {
@@ -27,23 +29,6 @@ export const homeContent = {
   headline: 'A bigger stage for a bolder generation.',
   summary:
     'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.',
-  network: [
-    {
-      title: 'Community',
-      href: '/community',
-      body: 'Delegates, chairs, speakers and volunteers from schools and colleges across India.',
-    },
-    {
-      title: 'Partners',
-      href: '/partners',
-      body: 'Institutions and brands that back our events and meet students inside them.',
-    },
-    {
-      title: 'Team',
-      href: '/about',
-      body: 'The students who build and run Apex Conclave.',
-    },
-  ],
   about: {
     headline: 'More than events. A platform for what’s next.',
     body: 'Apex Conclave creates platforms for students to challenge themselves, develop practical skills and connect with ambitious peers. Through competitions, conferences and collaborative experiences across multiple disciplines, we aim to make participation meaningful, competition fair and opportunities more accessible.',
@@ -94,17 +79,40 @@ export const leadershipTeam = [
 export const partners: PartnerEntity[] = [];
 
 export const partnersContent = {
-  headline: 'Partner with Apex Conclave.',
+  headline: 'Let’s build what’s next, together.',
   intro:
-    'Our events reach high school and college students across India who choose to spend their weekends debating, negotiating and building. Partners meet them inside the event, not on a banner they walk past.',
-  why: [
+    'Apex Conclave aims to work with schools, colleges, student communities, organisations and brands to create competitions and experiences for students. If you want to back an event, set a challenge or help run one, we would like to hear from you.',
+  // The five ways to work with us. Each 'Enquire' link opens the contact form with the title as its subject.
+  collaborations: [
     {
-      title: 'Inside the room',
-      body: 'Our events run online. Your brand sits in the committee backdrop and on screen during live sessions, where delegates are looking all day.',
+      title: 'Event sponsorships',
+      body: 'Support an event as a sponsor, in cash or in kind, with visibility shaped around your goals.',
     },
     {
-      title: 'A focused audience',
-      body: 'Students aged 15 to 23 from schools and colleges across India, selected for events that ask them to research, speak and lead.',
+      title: 'Institutional and college partnerships',
+      body: 'Co-host an event with your institution, bring your students in, or run an Apex Conclave event on your campus.',
+    },
+    {
+      title: 'Sponsored competition challenges',
+      body: 'Set a real problem from your organisation as a case, hackathon brief or pitch challenge, and see how students solve it.',
+    },
+    {
+      title: 'Judges and mentors',
+      body: 'Judge rounds, mentor teams or chair a committee, and give students feedback from practice.',
+    },
+    {
+      title: 'Campus ambassador and student community partnerships',
+      body: 'Student clubs and ambassadors who bring Apex Conclave events to their campus and community.',
+    },
+  ],
+  why: [
+    {
+      title: 'Students who choose to take part',
+      body: 'Our events are built for high school and college students who sign up to research, compete and present. That is the audience we intend to bring together.',
+    },
+    {
+      title: 'Part of the event, not a banner',
+      body: 'Placements are planned into the event itself: sessions, challenges, awards and certificates.',
     },
     {
       title: 'Built with you',
@@ -112,11 +120,11 @@ export const partnersContent = {
     },
   ],
   placements: [
-    'Naming of a committee or of the event',
-    'Logo on committee backdrops and slides',
+    'Naming of an event, round or challenge',
+    'Logo on session backdrops and slides',
     'Short brand video between sessions',
-    'Logo on every participation certificate',
-    'Awards and prizes for top delegates',
+    'Logo on participation certificates',
+    'Awards and prizes for top participants',
     'Joint posts on Instagram and LinkedIn',
   ],
 };

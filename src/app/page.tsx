@@ -5,7 +5,8 @@ import HeroSection from '@/components/home/HeroSection';
 import { FeaturedEvent } from '@/components/home/FeaturedEvent';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData } from '@/lib/data/events';
-import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
+import { homeContent, leadershipTeam, partnerEnquiryHref, partnersContent } from '@/lib/data/organization';
+import { CollaborationList } from '@/components/partners/CollaborationList';
 import { TeamCard } from '@/components/team/TeamCard';
 import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
 import { pageMetadata } from '@/lib/seo';
@@ -91,49 +92,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Network */}
-      <section className="mx-auto max-w-container border-t border-cream/10 px-6 py-20">
-        <SectionHeading eyebrow="Network" title="Who it brings together." />
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {homeContent.network.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="panel group space-y-2 transition-colors duration-200 hover:border-cream/20"
-            >
-              <h3 className="flex items-center justify-between text-base font-semibold text-cream">
-                {n.title}
-                <ArrowRight size={16} className="text-cream/70 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </h3>
-              <p className="text-sm leading-relaxed text-cream/70">{n.body}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Attend · Partner · Collaborate */}
-      <section className="mx-auto max-w-container border-t border-cream/10 px-6 py-20">
-        <h2 className="text-2xl font-bold text-cream md:text-3xl">Attend. Partner. Collaborate.</h2>
-        <p className="mt-2 text-cream/70">Questions? Write to {organizationConfig.contactEmail}</p>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <Link
-            href="/events"
-            className="btn-primary"
-          >
-            Attend an event
-          </Link>
-          <Link
-            href="/partners"
-            className="btn-secondary"
-          >
-            Partner with us
-          </Link>
-          <Link
-            href={`/contact?category=${encodeURIComponent('Host an Event')}`}
-            className="btn-secondary"
-          >
-            Host an event with us
-          </Link>
+      {/* Partnerships: last section before the footer */}
+      <section aria-labelledby="partner-heading" className="bg-paper text-ink">
+        <div className="mx-auto grid max-w-container gap-14 px-6 py-24 md:py-32 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
+            <p className="eyebrow mb-5 text-stone">Partner with us</p>
+            <h2 id="partner-heading" className="max-w-[14ch] text-4xl font-normal leading-[1.08] md:text-[3.25rem]">
+              {partnersContent.headline}
+            </h2>
+            <p className="mt-8 max-w-[46ch] text-lg leading-relaxed text-stone">{partnersContent.intro}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <Link href={partnerEnquiryHref} className="btn-ink" data-track="cta_home_partner">
+                Partner With Us
+              </Link>
+              <Link
+                href="/partners"
+                className="text-sm font-medium text-ink underline decoration-hairline underline-offset-[6px] transition-colors duration-200 hover:decoration-ink"
+              >
+                How partnerships work
+              </Link>
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <CollaborationList />
+          </div>
         </div>
       </section>
     </main>
