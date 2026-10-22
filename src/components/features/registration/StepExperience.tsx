@@ -21,8 +21,8 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-soft-white">Experience</h3>
-        <p className="text-sm text-muted-grey">This helps the team balance experience across committees.</p>
+        <h3 className="mb-1 text-xl font-semibold text-cream">Experience</h3>
+        <p className="text-sm text-cream/70">This helps the team balance experience across committees.</p>
       </div>
 
       <fieldset>
@@ -36,12 +36,12 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
                 type="button"
                 aria-pressed={active}
                 onClick={() => onChange({ experienceLevel: tier.id })}
-                className={`rounded-[10px] border p-4 text-left transition-colors duration-200 ${
-                  active ? 'border-soft-white bg-bg' : 'border-line-strong hover:border-[#4a4d4e]'
+                className={`rounded border p-4 text-left transition-colors duration-200 ${
+                  active ? 'border-cream bg-ink' : 'border-cream/20 hover:border-cream/30'
                 }`}
               >
-                <span className="block text-sm font-semibold text-soft-white">{tier.label}</span>
-                <span className="mt-1 block text-xs text-muted-grey">{tier.desc}</span>
+                <span className="block text-sm font-semibold text-cream">{tier.label}</span>
+                <span className="mt-1 block text-xs text-cream/70">{tier.desc}</span>
               </button>
             );
           })}
@@ -80,7 +80,7 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
         />
         <div id="motivation-help" className="mt-1.5 flex justify-between gap-4 text-xs">
           <span className="text-[#E06C75]">{errors.motivation?.[0]}</span>
-          <span className="shrink-0 text-muted-grey">{motivationLength} / 1200</span>
+          <span className="shrink-0 text-cream/70">{motivationLength} / 1200</span>
         </div>
       </div>
 

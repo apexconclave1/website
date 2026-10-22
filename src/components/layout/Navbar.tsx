@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import SpecularButton from '@/components/ui/SpecularButton';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -45,7 +44,7 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-bg border-b border-surface print:hidden">
+    <header className="fixed inset-x-0 top-0 z-50 bg-ink border-b border-cream/10 print:hidden">
       <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between px-6">
         <ApexWordmark />
 
@@ -56,7 +55,7 @@ export default function Navbar() {
               href={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
               className={`text-sm font-medium transition-colors duration-200 ${
-                isActive(link.href) ? 'text-soft-white' : 'text-muted-grey hover:text-soft-white'
+                isActive(link.href) ? 'text-cream' : 'text-cream/70 hover:text-cream'
               }`}
             >
               {link.label}
@@ -66,9 +65,9 @@ export default function Navbar() {
 
         {registerHref && (
           <div className="hidden lg:block">
-            <SpecularButton href={registerHref} size="sm" radius={10} trackAs="cta_nav_register">
+            <Link href={registerHref} className="btn-primary px-4 py-2" data-track="cta_nav_register">
               Register
-            </SpecularButton>
+            </Link>
           </div>
         )}
 
@@ -79,7 +78,7 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="lg:hidden flex h-11 w-11 items-center justify-center rounded-[10px] border border-surface text-soft-white"
+          className="lg:hidden flex h-11 w-11 items-center justify-center rounded border border-cream/10 text-cream"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -89,15 +88,15 @@ export default function Navbar() {
         <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
-          className="lg:hidden flex flex-col gap-1 border-t border-surface bg-bg px-6 py-4"
+          className="lg:hidden flex flex-col gap-1 border-t border-cream/10 bg-ink px-6 py-4"
         >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
-              className={`rounded-[10px] px-3 py-3 text-base font-medium ${
-                isActive(link.href) ? 'bg-surface text-soft-white' : 'text-muted-grey'
+              className={`rounded px-3 py-3 text-base font-medium ${
+                isActive(link.href) ? 'bg-ink text-cream' : 'text-cream/70'
               }`}
             >
               {link.label}
@@ -108,7 +107,7 @@ export default function Navbar() {
               href={registerHref}
               data-track="cta_nav_register"
               data-track-place="mobile"
-              className="mt-2 rounded-[10px] bg-soft-white px-3 py-3 text-center text-base font-medium text-bg"
+              className="mt-2 rounded bg-cream px-3 py-3 text-center text-base font-medium text-ink"
             >
               Register
             </Link>

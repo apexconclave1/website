@@ -4,7 +4,6 @@ import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { EventEntity } from '@/types/schema';
 import { eventFees, formatEventDates } from '@/lib/data/events';
 import { Badge } from '@/components/ui/Badge';
-import SpecularButton from '@/components/ui/SpecularButton';
 
 export interface EventCardProps {
   event: EventEntity;
@@ -24,47 +23,45 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           {event.edition && <Badge variant="accent">{event.edition}</Badge>}
         </div>
 
-        <h2 className="text-3xl font-bold text-soft-white md:text-5xl">{event.title}</h2>
+        <h2 className="text-3xl font-bold text-cream md:text-5xl">{event.title}</h2>
 
-        <div className="flex flex-wrap items-center gap-5 text-sm text-muted-grey">
+        <div className="flex flex-wrap items-center gap-5 text-sm text-cream/70">
           <span className="flex items-center gap-1.5">
-            <Calendar className="h-4 w-4 text-warm-bronze" />
+            <Calendar className="h-4 w-4 text-bronze" />
             {formatEventDates(event)}
           </span>
           <span className="flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-warm-bronze" />
+            <MapPin className="h-4 w-4 text-bronze" />
             {event.location.venue}
           </span>
         </div>
 
-        <p className="text-base leading-relaxed text-muted-grey">{event.shortDescription}</p>
+        <p className="text-base leading-relaxed text-cream/70">{event.shortDescription}</p>
 
         {event.pricing && (
-          <ul className="flex flex-wrap gap-3 text-sm text-soft-white">
+          <ul className="flex flex-wrap gap-3 text-sm text-cream">
             {eventFees(event).map((f) => (
-              <li key={f.label} className="rounded-[10px] border border-line bg-bg px-4 py-2">
-                <span className="text-muted-grey">{f.label}:</span> {f.amount}
+              <li key={f.label} className="rounded border border-cream/10 bg-ink px-4 py-2">
+                <span className="text-cream/70">{f.label}:</span> {f.amount}
               </li>
             ))}
           </ul>
         )}
 
         <div className="flex flex-wrap items-center gap-4 pt-2">
-          <SpecularButton href={`/events/${event.slug}`} size="md" radius={10} trackAs={trackAs}>
-            <span className="inline-flex items-center gap-2 whitespace-nowrap">
-              Explore {event.title} <ArrowRight size={16} />
-            </span>
-          </SpecularButton>
+          <Link href={`/events/${event.slug}`} className="btn-primary whitespace-nowrap" data-track={trackAs}>
+            Explore {event.title} <ArrowRight size={16} />
+          </Link>
           {event.registrationOpen ? (
             <Link
               href={`/register?event=${event.slug}`}
               data-track="cta_card_register"
-              className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+              className="btn-secondary"
             >
               Register
             </Link>
           ) : (
-            <span className="text-sm text-muted-grey">Registration opens soon</span>
+            <span className="text-sm text-cream/70">Registration opens soon</span>
           )}
         </div>
       </div>

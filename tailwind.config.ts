@@ -10,23 +10,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#080909',
-        surface: '#141718',
-        'soft-white': '#F4F2ED',
-        'muted-grey': '#A5A6A2',
-        'warm-bronze': '#C7A16A',
-        'deep-teal': '#21474D',
-        // Borders and raised hover surfaces (design skill: layer 2 and layer 3)
-        line: '#1a1d1e',
-        'line-strong': '#2a2d2e',
+        // Brand palette (owner brief, 2026-10-22). No other colours.
+        ink: '#0C0C0D', // dark backgrounds: hero, nav, footer
+        cream: '#EAE6DF', // logo, text on ink, light sections
+        bronze: '#8C7B5A', // accents only: thin lines, icons, highlights
+        paper: '#F4F1EA', // alternate light sections
+        stone: '#6E6A62', // secondary text on paper only (fails contrast on ink; use cream/70 there)
+        hairline: '#CFC9BD', // borders on paper (on ink use cream/10 to cream/30)
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        serif: ['var(--font-newsreader)', 'Newsreader', 'Georgia', 'serif'],
       },
       borderRadius: {
-        DEFAULT: '10px',
-        lg: '12px',
-        sm: '8px',
+        // 2px everywhere (owner decision)
+        DEFAULT: '2px',
+        sm: '2px',
+        md: '2px',
+        lg: '2px',
       },
       maxWidth: {
         container: '1240px', // design sheet: 1200-1280px

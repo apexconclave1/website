@@ -44,7 +44,7 @@ Add attributes; no JS and no `"use client"` needed. Extra `data-track-*` attribu
 <a href={instagram} data-track="social_click" data-track-platform="instagram">Instagram</a>
 ```
 
-`SpecularButton` and `EventCard` take a `trackAs` prop that renders `data-track`.
+`EventCard` takes a `trackAs` prop that renders `data-track`; other links set `data-track` directly.
 
 ## Tracking a state change (client components)
 

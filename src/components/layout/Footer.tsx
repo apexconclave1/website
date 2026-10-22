@@ -3,8 +3,8 @@ import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 
-const linkClass = 'inline-block py-1 text-sm text-muted-grey transition-colors duration-200 hover:text-soft-white';
-const headingClass = 'mb-4 text-xs font-medium uppercase tracking-[0.18em] text-warm-bronze';
+const linkClass = 'inline-block py-1 text-sm text-cream/70 transition-colors duration-200 hover:text-cream';
+const headingClass = 'mb-4 text-xs font-medium uppercase tracking-[0.18em] text-bronze';
 
 const socials = [
   { label: 'Instagram', href: organizationConfig.socials.instagram },
@@ -13,12 +13,12 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-surface bg-bg px-6 pb-8 pt-16 print:hidden">
+    <footer className="border-t border-cream/10 bg-ink px-6 pb-8 pt-16 print:hidden">
       <div className="mx-auto max-w-container">
         <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="max-w-xs">
             <ApexWordmark size="md" />
-            <p className="mt-4 text-sm leading-relaxed text-muted-grey">{organizationConfig.tagline}</p>
+            <p className="mt-4 text-sm leading-relaxed text-cream/70">{organizationConfig.tagline}</p>
           </div>
 
           <div>
@@ -77,13 +77,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-surface pt-6">
-          <p className="text-xs text-muted-grey">© {new Date().getFullYear()} Apex Conclave. All rights reserved.</p>
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-cream/10 pt-6">
+          <p className="text-xs text-cream/70">© {new Date().getFullYear()} Apex Conclave. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="text-xs text-muted-grey transition-colors duration-200 hover:text-soft-white">
+            <Link href="/terms" className="text-xs text-cream/70 transition-colors duration-200 hover:text-cream">
               Terms &amp; Privacy
             </Link>
-            <Link href="/terms#code-of-conduct" className="text-xs text-muted-grey transition-colors duration-200 hover:text-soft-white">
+            <Link href="/terms#code-of-conduct" className="text-xs text-cream/70 transition-colors duration-200 hover:text-cream">
               Code of Conduct
             </Link>
           </div>

@@ -76,10 +76,10 @@ export default function RegistrationReceipt({
     <div className="flex flex-col items-center gap-8 text-center">
       <div>
         <p className="eyebrow mb-2">{paid ? 'Payment submitted' : 'Application saved'}</p>
-        <h2 className="text-2xl font-bold text-soft-white md:text-3xl">
+        <h2 className="text-2xl font-bold text-cream md:text-3xl">
           {paid ? 'You’re registered. We’re checking your payment.' : 'Application saved.'}
         </h2>
-        <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-muted-grey">
+        <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-cream/70">
           {paid
             ? 'The team verifies payments within 24 hours, assigns your seat and confirms it by email.'
             : 'Complete the payment to finish your registration.'}
@@ -87,10 +87,10 @@ export default function RegistrationReceipt({
       </div>
 
       <div className="panel w-full max-w-[540px] text-left">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-strong pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cream/20 pb-4">
           <div>
-            <p className="text-xs text-muted-grey">Tracking code (keep it for any query)</p>
-            <p className="mt-1 text-lg font-bold tracking-wider text-soft-white">{trackingCode}</p>
+            <p className="text-xs text-cream/70">Tracking code (keep it for any query)</p>
+            <p className="mt-1 text-lg font-bold tracking-wider text-cream">{trackingCode}</p>
           </div>
           <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
             {copied ? 'Copied' : 'Copy code'}
@@ -99,8 +99,8 @@ export default function RegistrationReceipt({
         <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {rows.map(([label, value]) => (
             <div key={label}>
-              <dt className="text-xs text-muted-grey">{label}</dt>
-              <dd className="mt-0.5 text-sm font-medium text-soft-white">{value}</dd>
+              <dt className="text-xs text-cream/70">{label}</dt>
+              <dd className="mt-0.5 text-sm font-medium text-cream">{value}</dd>
             </div>
           ))}
         </dl>
@@ -112,20 +112,20 @@ export default function RegistrationReceipt({
             href={calendar}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center rounded-[10px] border border-soft-white px-6 py-3 text-sm font-medium text-soft-white transition-opacity duration-200 hover:opacity-90"
+            className="btn-secondary"
           >
             Add to calendar
           </a>
         )}
         <Link
           href={`/events/${event.slug}#committees`}
-          className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"
+          className="btn-primary"
         >
           Read about the committees
         </Link>
       </div>
 
-      <button type="button" onClick={onNewRegistration} className="text-xs text-muted-grey underline underline-offset-4 hover:text-soft-white">
+      <button type="button" onClick={onNewRegistration} className="text-xs text-cream/70 underline underline-offset-4 hover:text-cream">
         Register another delegate
       </button>
     </div>

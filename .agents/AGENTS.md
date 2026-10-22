@@ -8,7 +8,7 @@
 
 **Apex Conclave** is an elite umbrella organization hosting multiple premier events, conferences, and youth initiatives. The flagship event is **Diplovia**, a diplomatic Model United Nations conference.
 
-- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, GSAP, ogl (WebGL), Lucide React, Supabase (Postgres), Vercel Analytics
+- **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, Lucide React, Supabase (Postgres), Vercel Analytics
 - **Design Philosophy**: Minimal · Youthful · Intelligent · Premium · Typography-Led · Dark-First
 
 ---
@@ -46,7 +46,7 @@ src/
 
 ### Styling
 - Use **Tailwind CSS** utility classes with the custom design tokens defined in `tailwind.config.ts`.
-- For custom hex values, use Tailwind's arbitrary value syntax: `bg-[#080909]`, `text-[#F4F2ED]`.
+- For custom hex values, use Tailwind's arbitrary value syntax: prefer the palette tokens (`ink`, `cream`, `bronze`, `paper`, `stone`, `hairline`); see `DESIGN.md`.
 - Prefer design token classes (`bg-bg`, `text-soft-white`, `bg-surface`) over raw hex when tokens are configured.
 
 ### Performance
@@ -56,7 +56,7 @@ src/
 - Avoid unnecessary re-renders: memoize callbacks and values where needed.
 
 ### Animation
-- Use **CSS transitions** (Tailwind) for UI motion. There is no animation library; GSAP and ogl are used only inside the approved effect components.
+- Use **CSS transitions** (Tailwind) for UI motion. There is no animation library.
 - Keep durations between **150ms–350ms**.
 - Preferred easing: `[0.25, 0.46, 0.45, 0.94]` (ease-out).
 - Only animate `opacity`, `transform` (scale, translateY). Never animate layout-triggering properties.
@@ -65,16 +65,16 @@ src/
 
 ## Strict Design Prohibitions
 
-> Approved effects (2026-10-20): DarkVeil, StrokeText, AccordionGallery, SpecularButton, ScrollStack, FuzzyText (404 only) and DepthCarousel (home Team only) are part of the design system and keep their gradients, glow, shadows and blur. See `DESIGN.md` for where each may be used. The rules below apply to everything else.
+> Kept effects (2026-10-22): ScrollStack (`/events`) and FuzzyText (404 only). See `DESIGN.md`.
 
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.
 
 - ❌ **NO Gradients** (linear or radial)
 - ❌ **NO Glassmorphism** (frosted glass, backdrop-blur panels)
-- ❌ **NO Heavy Drop Shadows** (use `border border-[#141718]` or `border border-[#1a1d1e]`)
+- ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-cream/10` on ink, `border-hairline` on paper)
 - ❌ **NO Decorative Icons** (no random vectors, emoji, or ornamental graphics)
-- ❌ **NO Excessive Bronze** (`#C7A16A` is for tiny badges and text highlights ONLY)
+- ❌ **NO Excessive Bronze** (bronze `#8C7B5A` is for thin lines, icons and small labels only)
 - ❌ **NO Heavy Parallax / Spinning Animations** (subtle transitions only)
 - ❌ **NO Icon Logos** and **no redrawn logo**: use `public/brand/apex-conclave-logo-*.png` via `ApexWordmark`
 
@@ -90,7 +90,7 @@ src/
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
 - Content that changes per event lives in `lib/data/*` (events, chambers with country lists, leaders, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.
-- Font is Inter only (next/font, `--font-inter`). Do not add other font families.
+- Fonts: Newsreader for h1/h2 (`--font-newsreader`), Inter for everything else (`--font-inter`), both via next/font. Do not add other families.
 - Contact email comes from `organizationConfig.contactEmail`. Do not hard-code addresses.
 
 ## Commit & Code Review

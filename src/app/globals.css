@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design tokens (from docs/Apex_Conclave_Developer_Design_Sheet.pdf) ─── */
+/* ─── Brand palette (owner brief 2026-10-22; Tailwind names in tailwind.config.ts) ─── */
 :root {
-  --bg: #080909;
-  --surface: #141718;
-  --text: #f4f2ed;
-  --muted: #a5a6a2;
-  --accent: #c7a16a;
-  --teal: #21474d;
+  --ink: #0c0c0d;
+  --cream: #eae6df;
+  --bronze: #8c7b5a;
+  --paper: #f4f1ea;
+  --stone: #6e6a62;
+  --hairline: #cfc9bd;
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
@@ -19,11 +19,13 @@ html {
 
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
 h1, h2, h3 { text-wrap: balance; }
+/* Major headlines in the serif; h3 and below stay in Inter */
+h1, h2 { font-family: var(--font-newsreader), Georgia, serif; }
 p { text-wrap: pretty; }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--ink);
+  color: var(--cream);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,20 +34,30 @@ body {
 
 /* ─── Form + panel primitives (registration, contact, terms) ───────── */
 @layer components {
-  .field-label { @apply mb-2 block text-xs font-medium text-muted-grey; }
+  .field-label { @apply mb-2 block text-xs font-medium text-cream/70; }
   .field-input {
-    @apply w-full rounded-sm border border-line-strong bg-bg px-4 py-3 text-sm text-soft-white outline-none
-      transition-colors duration-200 placeholder:text-[#6f716e] focus:border-soft-white
+    @apply w-full rounded-sm border border-cream/20 bg-ink px-4 py-3 text-sm text-cream outline-none
+      transition-colors duration-200 placeholder:text-cream/55 focus:border-cream
       aria-[invalid=true]:border-[#E06C75];
   }
   .field-error { @apply mt-1.5 text-xs text-[#E06C75]; }
-  .panel { @apply rounded-[10px] border border-line bg-surface p-6; }
-  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-warm-bronze; }
+  .panel { @apply rounded border border-cream/10 bg-ink p-6; }
+  .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-bronze; }
+
+  /* Buttons (links styled as buttons). Primary: cream on ink. Secondary: cream outline. */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-cream bg-cream px-6 py-3 text-sm font-medium text-ink
+      transition-colors duration-200 hover:bg-transparent hover:text-cream;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded border border-cream/40 px-6 py-3 text-sm font-medium text-cream
+      transition-colors duration-200 hover:border-cream;
+  }
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */
   .ext-link {
     @apply inline-flex items-center gap-1.5 underline-offset-4 transition-colors duration-200
-      hover:text-soft-white hover:underline focus-visible:underline;
+      hover:text-cream hover:underline focus-visible:underline;
   }
   .ext-link::after {
     content: '↗';
@@ -59,7 +71,7 @@ body {
 
   /* Clickable cards: border brightens and the card lifts 2px */
   .card-link {
-    @apply transition duration-200 hover:-translate-y-0.5 hover:border-[#4a4d4e] focus-visible:border-[#4a4d4e];
+    @apply transition duration-200 hover:-translate-y-0.5 hover:border-cream/30 focus-visible:border-cream/30;
   }
 }
 
@@ -114,7 +126,7 @@ body {
 
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #c7a16a;
+  outline: 2px solid var(--bronze);
   outline-offset: 2px;
 }
 

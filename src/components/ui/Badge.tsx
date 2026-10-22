@@ -24,19 +24,19 @@ export function Badge({
       case 'AVAILABLE':
         badgeStyles = cn(
           badgeStyles,
-          'bg-surface text-soft-white border border-[#2a2f32]'
+          'bg-ink text-cream border border-cream/20'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'AVAILABLE'}</span>;
       case 'RESERVED':
         badgeStyles = cn(
           badgeStyles,
-          'bg-[#191C1E] text-muted-grey border border-[#262B2E]'
+          'bg-ink text-cream/70 border border-cream/15'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'RESERVED'}</span>;
       case 'ALLOCATED':
         badgeStyles = cn(
           badgeStyles,
-          'bg-[#1F1B15] text-warm-bronze border border-[#3A3022]'
+          'bg-ink text-bronze border border-bronze/40'
         );
         return <span className={cn(badgeStyles, className)}>{children || 'ALLOCATED'}</span>;
     }
@@ -47,7 +47,7 @@ export function Badge({
       <span
         className={cn(
           badgeStyles,
-          'bg-surface text-soft-white border border-[#222729]',
+          'bg-ink text-cream border border-cream/15',
           className
         )}
       >
@@ -57,10 +57,10 @@ export function Badge({
   }
 
   const variants = {
-    default: 'bg-surface text-soft-white border border-[#222729]',
-    outline: 'bg-transparent text-muted-grey border border-[#222729]',
-    accent: 'bg-[#1F1B15] text-warm-bronze border border-[#3A3022]',
-    muted: 'bg-[#141718] text-muted-grey',
+    default: 'bg-ink text-cream border border-cream/15',
+    outline: 'bg-transparent text-cream/70 border border-cream/15',
+    accent: 'bg-ink text-bronze border border-bronze/40',
+    muted: 'bg-cream/5 text-cream/70',
   };
 
   return (

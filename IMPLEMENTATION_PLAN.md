@@ -4,6 +4,46 @@ Goal: the **Apex Conclave umbrella website**, built to `docs/Apex_Conclave_Devel
 
 Sources of truth: the design sheet PDF, `docs/Diplovia_2026_Delegate_Booklet_home_print.pdf` (event copy), `.agents/DESIGN.md`, `.agents/AGENTS.md`. Status per phase is in `progress.md`.
 
+## Redesign v3 (from 2026-10-22)
+
+Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format student events and competitions brand; Diplovia becomes one featured event. Keep all working functionality (registration, Supabase, APIs, forms, SEO, analytics). The owner commits each phase; Claude stops after each phase and reports.
+
+### Owner decisions (2026-10-22)
+
+| Topic | Decision |
+|---|---|
+| Inputs | Work from the brief only (no strategy document or visual reference supplied) |
+| Photos | None: typography and composition carry the hero and verticals; no stock or AI photos |
+| Diplovia artwork | Extract from the PDFs in `docs/` |
+| Palette | Brief palette replaces the design sheet; teal removed; DESIGN.md rewritten |
+| Fonts | Newsreader (headlines) + Inter |
+| Effects | Keep ScrollStack (`/events`) and FuzzyText (404). Remove DarkVeil, StrokeText, SpecularButton, AccordionGallery, DepthCarousel |
+| Radius | 2px everywhere |
+| Light sections | Verticals and Partnership on paper; Hero, Diplovia, Team and Footer on ink |
+| Verticals | Own page `/verticals`; no page per vertical; planned verticals get a "Register interest" link to the contact form |
+| Verticals list | The six in the brief, in that order; only Diplomacy & MUNs is active |
+| Nav | Home, About, Event Verticals, Events, Team, Partners, Contact; links open existing pages |
+| Community | Merged into About; `/community` redirects to `/about` |
+| Hero headline | "A bigger stage for a bolder generation" |
+| Team | The 3 founders; bios stay as they are for now |
+| Footer | Terms & Privacy stays one page; Instagram and LinkedIn only |
+| Partners audience line | Reword as an intended audience, not a claim |
+| Scope | Whole site |
+| Git | Work on branch `redesign`; owner commits each phase |
+
+### Phases
+
+- [x] 1. Foundation: tokens, fonts, 2px radius, effect removal, button classes, DESIGN.md (2026-10-22)
+- [ ] 2. Navigation and footer
+- [ ] 3. Home hero and About section
+- [ ] 4. Event Verticals (`/verticals`, data with active/planned status)
+- [ ] 5. Featured Diplovia section (artwork from `docs/` PDFs)
+- [ ] 6. Partnerships (home section, `/partners`, contact form topics)
+- [ ] 7. Team
+- [ ] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404)
+- [ ] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`)
+- [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
+
 ## Owner decisions (2026-10-20)
 
 | Topic | Decision |

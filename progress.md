@@ -4,17 +4,23 @@ Last updated: 2026-10-20. Plan, decisions and acceptance checks: `IMPLEMENTATION
 
 ## START HERE (next session)
 
-Phases A to G and the launch audit are done. Skills review published (https://claude.ai/artifact/Q8bwoZfY9GMBJEsYvp9hsH) with a 7-step plan; all 7 steps done. SEO audit published (https://claude.ai/artifact/9MSL3fbNmAtAeGcsYbHVHw) and its 5 steps done. Next: Phase H (final docs pass) and owner steps: Vercel deploy, Analytics on, Resend key, Search Console, real UPI, dates.
+**Redesign v3 in progress (branch `redesign`).** Brief: `../one.md`. Plan, owner decisions and phase list: "Redesign v3" in `IMPLEMENTATION_PLAN.md`. Phase 1 done 2026-10-22; next is Phase 2 (navigation and footer). The owner commits each phase; stop after each phase and report.
 
-Site credit: "Website by Kapish Garg" is not shown on the page; it lives in the author/creator meta tags, WebSite JSON-LD (`websiteSchema` in `lib/seo.ts`) and `public/llms.txt`. The visible team bio no longer mentions the website.
+Site credit: "Website by Kapish Garg" is not shown on the page; it lives in the author/creator meta tags, WebSite JSON-LD (`websiteSchema` in `lib/seo.ts`) and `public/llms.txt`.
 
 After each phase: `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` (separate folder so it does not break a running `npm run dev`), then update this file and `IMPLEMENTATION_PLAN.md`.
+
+## Redesign v3 phase notes
+
+**Phase 1, foundation (2026-10-22).** New palette tokens in `tailwind.config.ts` and `globals.css`: `ink`, `cream`, `bronze`, `paper`, `stone`, `hairline`. Old tokens (`bg`, `surface`, `soft-white`, `muted-grey`, `warm-bronze`, `deep-teal`, `line`, `line-strong`) removed and every class moved across about 40 files: secondary text on ink is `cream/70`, borders `cream/10` to `/30`, panels are `bg-ink` with a border (no fill, so ScrollStack cards do not show through). Newsreader loaded with next/font (`--font-newsreader`, `font-serif`) and applied to `h1, h2` in `globals.css`; Inter stays for everything else. All radii are 2px. New `.btn-primary` and `.btn-secondary` classes replace SpecularButton and the copied inline button classes. Removed DarkVeil, StrokeText, SpecularButton, AccordionGallery, DepthCarousel and TeamCarousel; `ogl` and `gsap` uninstalled. The home Team section temporarily uses `TeamCard` (Phase 7 replaces it). The hero headline is real text now (still the old copy until Phase 3). ScrollStack cards: 2px, hairline border, no shadow. Terms sidebar (LineSidebar, SectionNavigator) and the Diplovia share image use the new colours. Contrast checked: cream/ink 15.7, cream/70 7.9, placeholder cream/55 5.2, bronze/ink 4.7; stone on ink (3.6) and bronze text on paper (3.65) are not allowed. Home JS 154 to 101 kB. DESIGN.md rewritten; AGENTS.md, frontend-design, improve-animations, improve-react, analytics and seo-audit skills and README updated. Screenshots reviewed at 1280px (home, event page, register) and 600px (home). Headless Chrome cannot render below about 500px wide, so phone widths are checked in Phase 10.
 
 ## What this is
 
 Website of **Apex Conclave**, an umbrella brand for youth events. **Diplovia 2026** (virtual Model UN, dates moving, to be announced) is the first event.
 
-Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, ogl/GSAP (effects only), Supabase, Zod, Vercel Analytics. Font: Inter only. Hosting: Vercel (planned).
+Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Supabase, Zod, Vercel Analytics. Fonts: Newsreader (headlines) and Inter. Hosting: Vercel (planned).
+
+**Deployed (2026-10-20).** Live at https://website-apc20.vercel.app (Vercel, public, Analytics script loading). `NEXT_PUBLIC_SITE_URL` set to that address after the fallback pointed canonicals and sitemap to a dead `website-theta-ten-15.vercel.app`. Checked live: all 9 sitemap URLs 200, Diplovia OG image, robots, `/register` noindex, security headers, contact API validation. Not yet: contact form into Supabase, test registration, previews, Search Console, PageSpeed.
 
 ## Status
 
@@ -77,11 +83,9 @@ See the table in `IMPLEMENTATION_PLAN.md`. Short version: preference-based allot
 
 ## Known gaps
 
-- Hero StrokeText: headless Chrome stalls its animation; check in a real browser.
 - Committee gallery hidden until real committee photos exist. No study guides yet.
 - No QR delegate pass exists (only a tracking code on the receipt).
 - Rate limiting is in memory per server instance (weak on Vercel); see the `ponytail:` note in `lib/security/rate-limit.ts`.
-- DarkVeil runs site-wide without pausing off-screen; each SpecularButton is its own WebGL context.
 
 ## Owner to-do
 

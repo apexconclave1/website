@@ -1,160 +1,105 @@
-# Apex Conclave — Developer Design System
+# Apex Conclave — Design System
 
-> This document is the definitive design reference for the Apex Conclave website. All design tokens, rules, and prohibitions are extracted directly from the **Official Apex Conclave Developer Design Sheet**.
-
----
-
-## Design Direction & Principles
-
-- **Brand Character**: Minimal · Youthful · Intelligent · Premium · Flexible · Typography-Led · Dark-First
-- **Primary Philosophy**: "The website should feel like a serious modern organization built for young people. Let typography, layout, photography and spacing create the personality."
-- **Logo Rule**: Use the supplied logo file, `public/brand/apex-conclave-logo-light.png` (dark backgrounds) or `-dark.png` (light backgrounds), via `components/layout/ApexWordmark.tsx`. **Never redraw it in type.** Do not add icons, globes, crowns, 3D effects, or cinematic glows. Keep clear space around it. When an event has its own identity, Apex Conclave is secondary.
+> Source: the owner's redesign brief (2026-10-22, `../one.md`). It replaces the palette and "Inter only" rule of `docs/Apex_Conclave_Developer_Design_Sheet.pdf`. The logo files from the design sheet stay as they are.
 
 ---
 
-## Color Palette & Design Tokens
+## Direction
 
-```css
-:root {
-  /* === PRIMARY PALETTE === */
-  --bg: #080909;        /* Ink Black — Primary background */
-  --surface: #141718;   /* Surface — Cards, panels, hover states */
-  --text: #F4F2ED;      /* Soft White — Primary text & headings */
-  --muted: #A5A6A2;     /* Muted Grey — Subtitles, captions, metadata */
-  --accent: #C7A16A;    /* Warm Bronze — Small accents ONLY (badges, tiny text) */
-  --teal: #21474D;      /* Deep Teal — Optional supporting accent */
+Dark, warm, restrained, editorial. Apex Conclave is an umbrella brand for student competitions and events across several disciplines; Diplovia is one event inside it, not the identity of the whole site.
 
-  /* === SPACING & LAYOUT === */
-  --radius: 10px;       /* Border radius (acceptable range: 8px–12px) */
-  --container: 1240px;  /* Max container width (range: 1200px–1280px) */
-  --space-base: 8px;    /* 8px spatial grid system */
-}
-```
+The site should look designed by a person, not generated from a template: typography, composition, real content and fine dividers carry the personality. No fake numbers, sponsors, testimonials or events.
 
-### Tailwind Token Mapping
+**Logo**: use the supplied files only, via `components/layout/ApexWordmark.tsx`: `public/brand/apex-conclave-logo-light.png` on ink, `-dark.png` on paper or cream. Never redraw, recolour, stretch or add effects. When an event has its own identity (Diplovia), Apex Conclave is the parent brand next to it.
 
-| Token | Tailwind Class | Hex |
+---
+
+## Palette (the only colours)
+
+| Name | Hex | Tailwind | Use |
+|---|---|---|---|
+| Ink | `#0C0C0D` | `ink` | Dark backgrounds: hero, nav, footer, dark sections |
+| Cream | `#EAE6DF` | `cream` | Text on ink, logo, primary button fill |
+| Bronze | `#8C7B5A` | `bronze` | Accents only: thin lines, icons, labels, focus ring |
+| Paper | `#F4F1EA` | `paper` | Light sections and content surfaces |
+| Stone | `#6E6A62` | `stone` | Secondary text and captions **on paper only** |
+| Hairline | `#CFC9BD` | `hairline` | Borders and dividers **on paper** |
+
+On ink, tints of cream replace stone and hairline:
+
+| Need on ink | Class | Contrast |
 |---|---|---|
-| Background | `bg-bg` / `bg-[#080909]` | `#080909` |
-| Surface | `bg-surface` / `bg-[#141718]` | `#141718` |
-| Primary Text | `text-soft-white` / `text-[#F4F2ED]` | `#F4F2ED` |
-| Muted Text | `text-muted-grey` / `text-[#A5A6A2]` | `#A5A6A2` |
-| Accent | `text-warm-bronze` / `bg-[#C7A16A]` | `#C7A16A` |
-| Supporting | `text-deep-teal` / `bg-[#21474D]` | `#21474D` |
+| Primary text | `text-cream` | 15.7:1 |
+| Secondary text | `text-cream/70` | 7.9:1 |
+| Placeholder | `placeholder:text-cream/55` | 5.2:1 |
+| Border / divider | `border-cream/10`, stronger `/20`, hover `/30` | — |
+| Hover fill | `bg-cream/5` | — |
+
+Contrast limits (checked 2026-10-22):
+
+- Stone on ink 3.6:1: do not use.
+- Bronze on paper 3.65:1: lines and icons only, never text.
+- Bronze on ink 4.7:1: small labels are fine.
+
+Error colour `#E06C75` stays for form errors only.
+
+Panels on ink have no fill (`bg-ink`) and a `cream/10` border. Do not use semi-transparent fills on things that overlap (ScrollStack cards).
 
 ---
 
 ## Typography
 
-- **Font**: Inter only (loaded with `next/font`). The sheet allows Manrope, Geist or Satoshi, but the site uses one family.
-- **Headlines**: Large, bold, restrained. Let size and weight carry the hierarchy.
-- **Body**: 16–18px, regular weight.
-- **Micro Text**: 12–14px, medium weight, tracked (letter-spacing).
-- **Logo**: image file only (see Logo Rule).
+- **Headlines (h1, h2)**: Newsreader (`font-serif`, `--font-newsreader`, variable with optical sizing). Applied to `h1, h2` in `globals.css`. Weight 400–500; no bold serif.
+- **Everything else**: Inter (`font-sans`, `--font-inter`): body, nav, buttons, labels, h3 and below.
+- **Labels**: `.eyebrow`: 12px uppercase, `tracking-[0.14em]`, bronze. No wider tracking anywhere.
+- **Scale**: keep to a few sizes. Body 16–18px, meta 12–14px, section title `text-3xl md:text-[2.75rem]`, hero up to `md:text-7xl`. No oversized type in every section.
 
 ---
 
-## Spacing System
+## Shape, spacing, depth
 
-Based on an **8px grid**:
-
-| Scale | Value | Usage |
-|---|---|---|
-| `space-1` | 8px | Tight gaps, inline spacing |
-| `space-2` | 16px | Component padding, small gaps |
-| `space-3` | 24px | Card padding, section inner spacing |
-| `space-4` | 32px | Section gaps |
-| `space-6` | 48px | Major section separators |
-| `space-8` | 64px | Hero and feature section padding |
-| `space-12` | 96px | Page-level vertical rhythm |
+- **Radius**: 2px everywhere (`rounded`, `rounded-sm`, `rounded-lg` are all 2px). `rounded-full` only for tiny functional dots and bars.
+- **Depth**: hairline borders, never shadows, glow, blur or glass.
+- **Container**: `max-w-container` (1240px), 24px side padding.
+- **Spacing**: 8px grid; sections 64–96px vertical.
+- **Variety**: each section gets its own layout (split, editorial grid, open list, image-led). Do not repeat icon + heading + paragraph cards.
 
 ---
 
-## Border & Surface Treatment
+## Buttons
 
-- **Card borders**: `border border-[#141718]` or `border border-[#1a1d1e]` (subtle contrast)
-- **Border radius**: `10px` (range: 8px–12px)
-- **Hover states**: Subtle border color shift or slight background lighten — never a shadow
-- **Surfaces**: Use `#141718` for cards and panels against `#080909` background
+Shared classes in `globals.css`, used on links:
 
----
+- `.btn-primary`: cream fill, ink text; hover turns to a cream outline.
+- `.btn-secondary`: cream/40 outline, cream text; hover brightens the border.
 
-## Animation Guidelines
-
-- **Duration range**: 150ms–350ms
-- **Easing**: Ease-out (`cubic-bezier(0.25, 0.46, 0.45, 0.94)`)
-- **Allowed properties**: `opacity`, `transform` (scale, translateY, translateX)
-- **Hover effects**: Subtle `scale(1.01)` or `translateY(-2px)` with border color shift
-- **Page transitions**: Fade in with `opacity` + slight `translateY(8px → 0)`
-- **Tool**: CSS transitions (Tailwind utilities); no animation library. `transition` classes use the brand curve by default
-- **Height**: only through a `grid-template-rows` 0fr→1fr transition (FAQ), never by animating `height`
+`components/ui/Button.tsx` covers `<button>` elements (forms, wizard).
 
 ---
 
-## Approved effects (owner decision, 2026-10-20)
+## Motion
 
-These seven components are part of the design system and are used as supplied, including their gradients, glow, shadows and blur. The prohibitions below apply to everything else.
+- 150–350ms, Tailwind default easing (brand curve), `opacity` and `transform` only.
+- Subtle hover on nav, buttons and links. No scroll animation on every heading or card. Nothing starts hidden.
+- Global reduced-motion rule in `globals.css`.
 
-| Component | Where it is allowed |
+### Kept effects (owner decision, 2026-10-22)
+
+| Component | Where |
 |---|---|
-| `DarkVeil` | One fixed background for the whole site (`app/layout.tsx`) |
-| `StrokeText` | Home hero headline only. Never use it to draw the logo |
-| `AccordionGallery` | Event committee galleries |
-| `SpecularButton` | Primary CTAs only, at most 2 or 3 per page (each is a WebGL context) |
-| `ScrollStack` | Events directory list (`components/ui/ScrollStack.jsx`, React Bits JS version as supplied, replaced 2026-10-20; types in `ScrollStack.d.ts`) |
-| `FuzzyText` | The "404" on the not-found page only (`components/ui/FuzzyText.jsx`, React Bits source as supplied, added 2026-10-20) |
-| `DepthCarousel` | Home Team section only, via `components/team/TeamCarousel.tsx` (`components/ui/DepthCarousel.jsx`, React Bits source as supplied, added 2026-10-20). Network stays as cards: it has no images |
+| `ScrollStack` | `/events` list only. Cards restyled to the palette (2px, hairline border, no shadow) |
+| `FuzzyText` | The "404" on the not-found page only |
 
-## STRICT PROHIBITIONS
-
-> [!CAUTION]
-> **These rules are ABSOLUTE. Violating any of them breaks the Apex Conclave brand.**
-
-| Rule | Description |
-|---|---|
-| ❌ NO Gradients | Never use `linear-gradient()` or `radial-gradient()` anywhere |
-| ❌ NO Glassmorphism | No `backdrop-blur`, frosted glass panels, or translucent overlays |
-| ❌ NO Heavy Shadows | No `box-shadow` for visual effect. Use borders for depth |
-| ❌ NO Decorative Icons | No random vector icons, emoji, or ornamental graphics |
-| ❌ NO Excessive Bronze | `#C7A16A` is for tiny badges and text highlights ONLY — not backgrounds, borders, or large elements |
-| ❌ NO Heavy Parallax | No spinning, rotating, or heavy scroll-triggered animations |
-| ❌ NO Icon Logos | Use the supplied logo file only. No icons, shields, or emblems |
+Removed on 2026-10-22: DarkVeil, StrokeText, SpecularButton, AccordionGallery, DepthCarousel (and the `ogl` and `gsap` packages).
 
 ---
 
-## Component Design Patterns
+## Prohibitions
 
-### Cards
-```
-Background: #141718
-Border: border border-[#1a1d1e]
-Radius: 10px
-Padding: 24px (space-3)
-Hover: border color shifts to #2a2d2e, subtle scale(1.01) over 200ms
-```
-
-### Buttons
-```
-Primary: bg-[#F4F2ED] text-[#080909] font-medium px-6 py-3 rounded-[10px]
-Secondary: border border-[#F4F2ED] text-[#F4F2ED] px-6 py-3 rounded-[10px]
-Hover: opacity-90 or slight scale
-```
-
-### Status Badges
-```
-AVAILABLE: border border-[#F4F2ED] text-[#F4F2ED] text-xs px-2 py-0.5
-RESERVED: bg-[#A5A6A2]/10 text-[#A5A6A2] text-xs px-2 py-0.5
-ALLOCATED: bg-[#C7A16A]/10 text-[#C7A16A] text-xs px-2 py-0.5
-```
-
-### Forms
-```
-Use the classes in app/globals.css: .field-label, .field-input (set aria-invalid for errors), .field-error, .panel, .eyebrow
-Error colour: #E06C75 (errors only)
-```
-
-### Section Headings
-```
-Title: text-3xl md:text-4xl font-bold text-[#F4F2ED]
-Subtitle: text-base text-[#A5A6A2] mt-2
-```
+- No gradients, neon, glassmorphism, glow or heavy shadows.
+- No colours outside the palette; no separate palette per event vertical.
+- No pure white (`#fff`) backgrounds.
+- No AI-looking or generic stock photos; every image needs a purpose. Generated images must never pass as real Apex Conclave events.
+- No random or mixed icon styles. Lucide outline icons only, small, bronze or cream, and only where they help.
+- No fake statistics, testimonials, sponsor logos, partnerships or event listings. Planned verticals are labelled as planned.
+- No parallax, spinning or heavy scroll animation.

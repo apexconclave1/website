@@ -43,8 +43,8 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-soft-white">About you</h3>
-        <p className="text-sm text-muted-grey">Use your details as they should appear on your certificate.</p>
+        <h3 className="mb-1 text-xl font-semibold text-cream">About you</h3>
+        <p className="text-sm text-cream/70">Use your details as they should appear on your certificate.</p>
       </div>
 
       <fieldset>
@@ -58,12 +58,12 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
                 type="button"
                 aria-pressed={active}
                 onClick={() => onChange({ track: t.value })}
-                className={`rounded-[10px] border p-4 text-left transition-colors duration-200 ${
-                  active ? 'border-soft-white bg-bg' : 'border-line-strong hover:border-[#4a4d4e]'
+                className={`rounded border p-4 text-left transition-colors duration-200 ${
+                  active ? 'border-cream bg-ink' : 'border-cream/20 hover:border-cream/30'
                 }`}
               >
-                <span className="block text-sm font-semibold text-soft-white">{t.title}</span>
-                <span className="mt-1 block text-xs text-muted-grey">{t.note}</span>
+                <span className="block text-sm font-semibold text-cream">{t.title}</span>
+                <span className="mt-1 block text-xs text-cream/70">{t.note}</span>
               </button>
             );
           })}

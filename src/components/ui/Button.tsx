@@ -9,14 +9,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const baseStyles =
-  'inline-flex items-center justify-center font-medium transition duration-150 focus:outline-none focus:ring-1 focus:ring-warm-bronze max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none enabled:active:scale-[0.98]';
+  'inline-flex items-center justify-center font-medium transition duration-150 focus:outline-none focus:ring-1 focus:ring-bronze max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none enabled:active:scale-[0.98]';
 
 const variants = {
-  primary: 'bg-soft-white text-bg hover:bg-[#E2DFD7] border border-transparent font-semibold',
-  secondary: 'bg-surface text-soft-white hover:bg-[#1C2022] border border-[#222729]',
-  outline: 'bg-transparent text-soft-white border border-[#2a2f32] hover:border-soft-white hover:bg-surface',
-  accent: 'bg-warm-bronze text-bg hover:bg-[#B5905B] font-semibold border border-transparent',
-  ghost: 'bg-transparent text-muted-grey hover:text-soft-white hover:bg-surface',
+  primary: 'bg-cream text-ink hover:bg-paper border border-transparent font-semibold',
+  secondary: 'bg-ink text-cream hover:bg-cream/5 border border-cream/15',
+  outline: 'bg-transparent text-cream border border-cream/20 hover:border-cream hover:bg-cream/5',
+  accent: 'bg-bronze text-ink hover:bg-cream font-semibold border border-transparent',
+  ghost: 'bg-transparent text-cream/70 hover:text-cream hover:bg-cream/5',
 };
 
 const sizes = {

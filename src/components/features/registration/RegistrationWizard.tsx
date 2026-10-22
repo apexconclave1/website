@@ -216,16 +216,16 @@ export default function RegistrationWizard() {
   }
 
   return (
-    <div className="mx-auto max-w-[820px] rounded-[12px] border border-line bg-surface p-6 md:p-10">
+    <div className="mx-auto max-w-[820px] rounded border border-cream/10 bg-ink p-6 md:p-10">
       {/* Stepper: on phones only the current step shows its label */}
-      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-line-strong pb-8">
+      <ol className="mb-8 grid grid-cols-5 gap-2 border-b border-cream/20 pb-8">
         {STEPS.map((step) => {
           const isComplete = currentStep > step.id;
           const isCurrent = currentStep === step.id;
           return (
             <li key={step.id} aria-current={isCurrent ? 'step' : undefined} className="flex flex-col gap-2">
-              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-soft-white' : 'bg-line-strong'}`} />
-              <span className={`text-xs font-medium ${isCurrent ? 'text-soft-white' : 'text-muted-grey'}`}>
+              <span className={`h-[3px] w-full rounded-full ${isComplete || isCurrent ? 'bg-cream' : 'bg-cream/20'}`} />
+              <span className={`text-xs font-medium ${isCurrent ? 'text-cream' : 'text-cream/70'}`}>
                 <span className="tabular-nums">{isComplete ? '✓' : `0${step.id}`}</span>
                 <span className={isCurrent ? 'ml-1.5' : 'ml-1.5 hidden sm:inline'}>{step.label}</span>
               </span>
@@ -268,7 +268,7 @@ export default function RegistrationWizard() {
       </div>
 
       {currentStep < 4 && (
-        <div className="mt-10 flex items-center justify-between border-t border-line-strong pt-6">
+        <div className="mt-10 flex items-center justify-between border-t border-cream/20 pt-6">
           {currentStep > 1 ? (
             <Button type="button" variant="outline" onClick={handleBack}>
               Back

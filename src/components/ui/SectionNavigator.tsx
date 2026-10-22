@@ -93,10 +93,10 @@ export default function SectionNavigator({
     >
       <div
         style={{
-          backgroundColor: isHovered ? '#141718' : 'transparent',
+          backgroundColor: isHovered ? 'rgba(234, 230, 223, 0.05)' : 'transparent',
           padding: isHovered ? '0.75rem 1.15rem 0.75rem 0.5rem' : '0.25rem 0',
           borderRadius: '8px',
-          border: isHovered ? '1px solid #1a1d1e' : '1px solid transparent',
+          border: isHovered ? '1px solid rgba(234, 230, 223, 0.1)' : '1px solid transparent',
           transition: 'all 240ms cubic-bezier(0.16, 1, 0.3, 1)',
           cursor: 'pointer',
           width: 'fit-content',
@@ -106,9 +106,9 @@ export default function SectionNavigator({
           items={sections.map((s) => s.label)}
           activeControlled={activeIdx}
           isCollapsed={!isHovered}
-          accentColor="#C7A16A"
-          textColor="#A5A6A2"
-          markerColor="rgba(199, 161, 106, 0.35)"
+          accentColor="#8C7B5A"
+          textColor="rgba(234, 230, 223, 0.7)"
+          markerColor="rgba(140, 123, 90, 0.35)"
           showIndex={true}
           showMarker={true}
           proximityRadius={isHovered ? 100 : 40}

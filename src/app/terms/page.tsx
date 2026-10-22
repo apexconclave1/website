@@ -73,8 +73,8 @@ export default function TermsPage() {
 
       <main id="main-content" className="mx-auto max-w-[780px] px-6 pb-24 pt-32">
         <p className="eyebrow mb-3">Legal</p>
-        <h1 className="mb-4 text-3xl font-bold text-soft-white md:text-4xl">Terms & conditions</h1>
-        <p className="mb-12 text-sm leading-relaxed text-muted-grey">
+        <h1 className="mb-4 text-3xl font-bold text-cream md:text-4xl">Terms & conditions</h1>
+        <p className="mb-12 text-sm leading-relaxed text-cream/70">
           Last updated: October 2026. By registering as a delegate or using Apex Conclave services, you agree to these
           terms.
         </p>
@@ -82,12 +82,12 @@ export default function TermsPage() {
         <div className="flex flex-col gap-6">
           {sections.map((section) => (
             <article key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="panel scroll-mt-24 md:p-8">
-              <h2 id={`${section.id}-title`} className="mb-5 text-xl font-semibold text-soft-white">
+              <h2 id={`${section.id}-title`} className="mb-5 text-xl font-semibold text-cream">
                 {section.title}
               </h2>
               <div className="flex flex-col gap-3.5">
                 {section.content.map((para, pi) => (
-                  <p key={pi} className="border-l-2 border-line-strong pl-4 text-[15px] leading-relaxed text-muted-grey">
+                  <p key={pi} className="border-l-2 border-cream/20 pl-4 text-[15px] leading-relaxed text-cream/70">
                     {para}
                   </p>
                 ))}

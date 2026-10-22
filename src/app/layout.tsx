@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Newsreader } from 'next/font/google';
 import './globals.css';
 import ScrollProgress from '@/components/ui/scroll-progress';
-import DarkVeilWrapper from '@/components/ui/DarkVeilWrapper';
 import BackToTop from '@/components/ui/BackToTop';
 import UtmCapture from '@/components/UtmCapture';
 import ClickTracker from '@/components/ClickTracker';
@@ -18,6 +17,14 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
+});
+
+// Headlines (h1, h2): variable font with optical sizing
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  variable: '--font-newsreader',
+  display: 'swap',
+  axes: ['opsz'],
 });
 
 export const metadata: Metadata = {
@@ -50,26 +57,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={inter.variable}
+      className={`${inter.variable} ${newsreader.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
-      <body suppressHydrationWarning className="font-sans antialiased bg-[#080909] text-[#F4F2ED] min-h-screen relative selection:bg-[#C7A16A]/30 selection:text-[#F4F2ED]">
+      <body suppressHydrationWarning className="font-sans antialiased bg-ink text-cream min-h-screen relative selection:bg-bronze/40 selection:text-cream">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         {/* Global Scroll Progress Bar */}
         <ScrollProgress />
 
-        {/* Shared background for the whole site */}
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 opacity-50 print:hidden">
-          <DarkVeilWrapper speed={0.3} warpAmount={0.02} noiseIntensity={0.02} scanlineIntensity={0.03} />
-        </div>
-
         {/* Foreground Page Content */}
         <div className="relative z-10">
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-soft-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-cream focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
           >
             Skip to content
           </a>

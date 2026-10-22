@@ -60,6 +60,6 @@ Do not publish an `Event` schema with guessed dates. When dates change after pub
 ## After deploy (owner)
 
 1. Search Console: verify with `GOOGLE_SITE_VERIFICATION`, submit `/sitemap.xml`.
-2. PageSpeed Insights on `/` and the event page (mobile). DarkVeil is WebGL; watch LCP and INP.
+2. PageSpeed Insights on `/` and the event page (mobile). Watch LCP and INP.
 3. Rich Results Test on the event page once dates are set.
 4. After the domain: set `NEXT_PUBLIC_SITE_URL`, redeploy, redirect the `vercel.app` address to the domain in Vercel → Domains.

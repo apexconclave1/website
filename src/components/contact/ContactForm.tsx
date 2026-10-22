@@ -63,8 +63,8 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
   if (submitState === 'success') {
     return (
       <div role="status" aria-live="polite" className="panel p-10 text-center">
-        <h3 className="mb-2 text-xl font-semibold text-soft-white">Message received</h3>
-        <p className="text-sm text-muted-grey">Thanks for writing. We reply within 48 hours.</p>
+        <h3 className="mb-2 text-xl font-semibold text-cream">Message received</h3>
+        <p className="text-sm text-cream/70">Thanks for writing. We reply within 48 hours.</p>
       </div>
     );
   }
@@ -143,7 +143,7 @@ export default function ContactForm({ defaultCategory }: { defaultCategory?: str
         />
         <div id="message-help" className="mt-1.5 flex justify-between gap-4 text-xs">
           <span className="text-[#E06C75]">{errors.message}</span>
-          <span className="shrink-0 text-muted-grey">{form.message.length} / 1000</span>
+          <span className="shrink-0 text-cream/70">{form.message.length} / 1000</span>
         </div>
       </div>
 

@@ -39,9 +39,6 @@ Does the component need...
 
 | Piece | How |
 |---|---|
-| `DarkVeil` (WebGL) | `next/dynamic` with `ssr: false` in `DarkVeilWrapper` |
-| `SpecularButton` (ogl) | `import('ogl')` inside `useEffect`; the link itself is server HTML |
-| GSAP | Imported only inside the effects that use it (`AccordionGallery`, `DepthCarousel`) |
 | Analytics | `<Analytics />` loads after hydration |
 
 ## Images

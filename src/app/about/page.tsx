@@ -11,29 +11,29 @@ export const metadata: Metadata = pageMetadata('About', 'Apex Conclave is a yout
 export default function AboutPage() {
   return (
     <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
-      <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-warm-bronze">About</p>
-      <h1 className="max-w-3xl text-4xl font-bold leading-tight text-soft-white md:text-5xl">
+      <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-bronze">About</p>
+      <h1 className="max-w-3xl text-4xl font-bold leading-tight text-cream md:text-5xl">
         {organizationConfig.tagline}
       </h1>
-      <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-muted-grey">{organizationConfig.manifesto}</p>
+      <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-cream/70">{organizationConfig.manifesto}</p>
 
-      <section className="mt-20 border-t border-surface pt-16">
+      <section className="mt-20 border-t border-cream/10 pt-16">
         <SectionHeading eyebrow="Events" title="What we run." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
           {eventsData.map((event) => (
             <Link
               key={event.id}
               href={`/events/${event.slug}`}
-              className="space-y-2 rounded-[10px] border border-line bg-surface p-6 transition-colors duration-200 hover:border-line-strong"
+              className="space-y-2 rounded border border-cream/10 bg-ink p-6 transition-colors duration-200 hover:border-cream/20"
             >
-              <div className="text-lg font-bold text-soft-white">{event.title}</div>
-              <p className="text-sm leading-relaxed text-muted-grey">{event.shortDescription}</p>
+              <div className="text-lg font-bold text-cream">{event.title}</div>
+              <p className="text-sm leading-relaxed text-cream/70">{event.shortDescription}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-20 border-t border-surface pt-16">
+      <section className="mt-20 border-t border-cream/10 pt-16">
         <SectionHeading eyebrow="Leadership" title="The team." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (
@@ -42,16 +42,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-surface pt-16">
+      <section className="mt-20 flex flex-wrap items-center justify-between gap-6 border-t border-cream/10 pt-16">
         <div>
-          <p className="text-xl font-bold text-soft-white">Partner with us or host an event.</p>
-          <p className="mt-2 text-sm text-muted-grey">
+          <p className="text-xl font-bold text-cream">Partner with us or host an event.</p>
+          <p className="mt-2 text-sm text-cream/70">
             See our{' '}
-            <Link href="/partners" className="text-soft-white underline underline-offset-4">
+            <Link href="/partners" className="text-cream underline underline-offset-4">
               partnership options
             </Link>{' '}
             or meet the{' '}
-            <Link href="/community" className="text-soft-white underline underline-offset-4">
+            <Link href="/community" className="text-cream underline underline-offset-4">
               community
             </Link>
             .
@@ -59,7 +59,7 @@ export default function AboutPage() {
         </div>
         <Link
           href="/contact"
-          className="inline-flex items-center rounded-[10px] bg-soft-white px-6 py-3 text-sm font-medium text-bg transition-opacity duration-200 hover:opacity-90"
+          className="btn-primary"
         >
           Contact us
         </Link>

@@ -21,14 +21,14 @@ export default function ContactCards() {
           className="panel card-link block"
         >
           <p className="eyebrow mb-2">{c.label}</p>
-          <p className="ext-link text-base text-soft-white">
+          <p className="ext-link text-base text-cream">
             {c.value}
           </p>
         </a>
       ))}
       <div className="panel">
         <p className="eyebrow mb-2">Response time</p>
-        <p className="text-base text-soft-white">Within 48 hours</p>
+        <p className="text-base text-cream">Within 48 hours</p>
       </div>
     </div>
   );

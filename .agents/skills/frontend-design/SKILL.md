@@ -16,32 +16,30 @@
 
 | Tailwind token | Hex | Use |
 |---|---|---|
-| `bg` | `#080909` | Page background (layer 0) |
-| `surface` | `#141718` | Cards, panels, dialogs (layer 1) |
-| `line` | `#1a1d1e` | Default borders, dividers (layer 2) |
-| `line-strong` | `#2a2d2e` | Hover and highlighted borders (layer 3) |
-| `soft-white` | `#F4F2ED` | Headings, body text, primary button fill |
-| `muted-grey` | `#A5A6A2` | Secondary text and meta |
-| `warm-bronze` | `#C7A16A` | Eyebrows, small badges, focus ring only |
-| `deep-teal` | `#21474D` | Rare accent |
+| `ink` | `#0C0C0D` | Dark backgrounds (hero, nav, footer, dark sections) |
+| `cream` | `#EAE6DF` | Text on ink, primary button fill; `cream/70` secondary text, `cream/10`–`/30` borders on ink |
+| `bronze` | `#8C7B5A` | Thin lines, icons, labels, focus ring. Never text on paper |
+| `paper` | `#F4F1EA` | Light sections |
+| `stone` | `#6E6A62` | Secondary text on paper only |
+| `hairline` | `#CFC9BD` | Borders on paper |
 | `max-w-container` | 1240px | Every page's content width |
 
-Font: Inter only (`font-sans`). Radius: `rounded` (10px) for cards and buttons, `rounded-sm` (8px) inside cards.
+Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Radius: 2px everywhere.
 
 ## Shared classes (`app/globals.css`)
 
-`.panel` (surface card), `.field-label`, `.field-input`, `.field-error` (all forms), `.eyebrow` (section label, plain bronze text), `.ext-link` and `.card-link` (social links with hover arrow and lift).
+`.panel` (bordered panel), `.btn-primary` and `.btn-secondary` (link buttons), `.field-label`, `.field-input`, `.field-error` (all forms), `.eyebrow` (section label, plain bronze text), `.ext-link` and `.card-link` (social links with hover arrow and lift).
 
 ## Shared components — reuse before writing markup
 
-`SectionHeading` (eyebrow, title, description, `as="h1"` for page titles), `EventCard` (every event listing, home included), `Button`, `Badge`, `TeamCard`, `Breadcrumbs`, `ApexWordmark` (the logo image; never redraw the logo in type), `SpecularButton` (primary CTAs only).
+`SectionHeading` (eyebrow, title, description, `as="h1"` for page titles), `EventCard` (every event listing, home included), `Button`, `Badge`, `TeamCard`, `Breadcrumbs`, `ApexWordmark` (the logo image; never redraw the logo in type).
 
 ---
 
 ## Principles
 
-1. **Depth from surfaces, not shadows.** `bg` → `surface` → `line` → `line-strong`.
-2. **Typography carries hierarchy.** Headings large and bold; body 16–18px `soft-white`; meta 12–14px `muted-grey`. Headings use `text-wrap: balance`.
+1. **Depth from hairlines, not shadows.** Borders and dark/light section changes.
+2. **Typography carries hierarchy.** Serif headings at 400–500 weight; body 16–18px `cream`; meta 12–14px `cream/70` (on paper: `ink` and `stone`). Headings use `text-wrap: balance`.
 3. **Breathing room.** Sections 64–96px vertical padding (`py-16 md:py-24`); cards at least 24px inside (`p-6`).
 4. **Bronze is small.** One eyebrow per section at most; never bronze fills or large bronze text.
 5. **Content lives in `src/lib/data/`**, not in components (events, chambers, FAQs, organisation, booklet story).
@@ -62,12 +60,12 @@ Font: Inter only (`font-sans`). Radius: `rounded` (10px) for cards and buttons, 
 
 ## Approved effects
 
-`DarkVeil`, `StrokeText`, `AccordionGallery`, `SpecularButton`, `ScrollStack`, `FuzzyText` (404 only) and `DepthCarousel` (home Team only) keep their own gradients, glow, blur and timing (owner decision, 2026-10-20). Where each is allowed: `.agents/DESIGN.md`. Do not "fix" them, and do not copy their styling into other components.
+Only `ScrollStack` (`/events`) and `FuzzyText` (404) remain (owner decision, 2026-10-22). See `.agents/DESIGN.md`.
 
 ## Checklist before shipping
 
 - [ ] Tokens only; no raw hex, no new colours
-- [ ] No gradients, glass or shadows outside the seven approved effects
+- [ ] No gradients, glass or shadows anywhere
 - [ ] Bronze only for eyebrows, small badges, focus ring
 - [ ] Width `max-w-container`; existing shared component reused where one fits
 - [ ] Hover 150–350ms (`transition` uses the brand curve by default)

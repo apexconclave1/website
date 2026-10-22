@@ -5,7 +5,7 @@ Website of **Apex Conclave**, an umbrella brand that runs multiple youth events.
 ## Stack
 
 - Next.js 14 (App Router), React 18, TypeScript
-- Tailwind CSS 3, ogl/GSAP (effects only), Vercel Analytics
+- Tailwind CSS 3, Vercel Analytics
 - Supabase (Postgres + Storage) for registrations, coupons and contact messages
 - Zod for validation
 - Hosting: Vercel (planned)
@@ -26,7 +26,7 @@ npm run dev                  # http://localhost:3000
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server only (API routes). Never expose it to the browser. |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL for metadata, sitemap and robots (optional on Vercel until the domain exists) |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL for canonicals, sharing tags, sitemap and robots. Set it on Vercel |
 
 ### Database
 
@@ -39,7 +39,7 @@ SQL migrations are in `supabase/migrations/`. Run them in order in the Supabase 
 3. Under **Environment Variables**, add (Production and Preview):
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `SUPABASE_SERVICE_ROLE_KEY` (keep it server-only; never prefix it with `NEXT_PUBLIC_`)
-   - `NEXT_PUBLIC_SITE_URL`: leave empty until the domain is bought. The site falls back to the Vercel production URL for metadata, sitemap and robots.
+   - `NEXT_PUBLIC_SITE_URL`: always set it, to the main address (now `https://website-apc20.vercel.app`, later the bought domain). Without it the site falls back to Vercel's `VERCEL_PROJECT_PRODUCTION_URL`, which pointed to a dead `vercel.app` address on 2026-10-20.
    - `RESEND_API_KEY` (optional): emails the team about contact messages. Sign up at resend.com with the team inbox.
    - `GOOGLE_SITE_VERIFICATION` (optional): the `content` value of Google Search Console's HTML tag.
 4. In the project, open **Analytics** and enable Web Analytics (free on Hobby; custom conversion events need Pro).
@@ -91,7 +91,7 @@ The home page, events directory, footer and event page all read from these files
 
 ## Design
 
-Rules are in `.agents/DESIGN.md`, taken from `docs/Apex_Conclave_Developer_Design_Sheet.pdf`. Palette: `#080909` background, `#141718` surface, `#F4F2ED` text, `#A5A6A2` muted, `#C7A16A` small accents only. Font: Inter only.
+Rules are in `.agents/DESIGN.md` (owner redesign brief, 2026-10-22). Palette: ink `#0C0C0D`, cream `#EAE6DF`, bronze `#8C7B5A` (accents only), paper `#F4F1EA`, stone `#6E6A62`, hairline `#CFC9BD`. Fonts: Newsreader (headlines) and Inter.
 
 ## Project notes
 

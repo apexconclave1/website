@@ -29,10 +29,10 @@ export default function EventsDirectory() {
     <>
       {/* Filter Bar: only useful once there is more than one event */}
       {eventsData.length > 1 && (
-      <div className="space-y-4 border-b border-[#1a1e20] pb-6">
+      <div className="space-y-4 border-b border-cream/10 pb-6">
         {/* Category Filter */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs uppercase tracking-widest text-muted-grey font-medium w-16 shrink-0">
+          <span className="text-xs uppercase tracking-widest text-cream/70 font-medium w-16 shrink-0">
             Type
           </span>
           {CATEGORIES.map((cat) => (
@@ -41,8 +41,8 @@ export default function EventsDirectory() {
               onClick={() => setActiveCategory(cat.value)}
               className={`px-4 py-1.5 rounded text-xs font-semibold uppercase tracking-wider transition-colors ${
                 activeCategory === cat.value
-                  ? 'bg-soft-white text-bg'
-                  : 'bg-surface border border-[#212527] text-muted-grey hover:text-soft-white hover:border-[#353c40]'
+                  ? 'bg-cream text-ink'
+                  : 'bg-ink border border-cream/10 text-cream/70 hover:text-cream hover:border-cream/30'
               }`}
             >
               {cat.label}
@@ -66,7 +66,7 @@ export default function EventsDirectory() {
           {filtered.map((event) => (
             <ScrollStackItem
               key={event.id}
-              itemClassName="!h-auto !rounded-[12px] !p-6 md:!p-10 !bg-surface !text-soft-white"
+              itemClassName="!h-auto !rounded !border !border-cream/10 !p-6 md:!p-10 !bg-ink !text-cream !shadow-none"
             >
               <EventCard event={event} />
             </ScrollStackItem>
@@ -74,12 +74,12 @@ export default function EventsDirectory() {
         </ScrollStack>
       ) : (
         <div className="text-center py-20 space-y-3">
-          <p className="text-muted-grey text-sm">
+          <p className="text-cream/70 text-sm">
             No upcoming events{activeCategory === 'ALL' ? ' right now.' : ' in this category.'}
           </p>
           <button
             onClick={() => setActiveCategory('ALL')}
-            className="text-xs text-warm-bronze underline underline-offset-4"
+            className="text-xs text-bronze underline underline-offset-4"
           >
             Clear filters
           </button>
@@ -87,11 +87,11 @@ export default function EventsDirectory() {
       )}
 
       {past.length > 0 && (
-        <section className="space-y-6 border-t border-[#141718] pt-12">
+        <section className="space-y-6 border-t border-cream/10 pt-12">
           <SectionHeading eyebrow="Archive" title="Past events" />
           <div className="space-y-5">
             {past.map((event) => (
-              <div key={event.id} className="rounded-[12px] border border-line bg-surface p-6 md:p-10">
+              <div key={event.id} className="rounded border border-cream/10 bg-ink p-6 md:p-10">
                 <EventCard event={event} />
               </div>
             ))}

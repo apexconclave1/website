@@ -1,6 +1,6 @@
 # Skill: Improve Animations
 
-> 150–350ms motion with CSS only for the Apex Conclave website. No animation library (framer-motion was removed); GSAP and ogl live inside the approved effects only.
+> 150–350ms motion with CSS only for the Apex Conclave website. No animation library (framer-motion was removed).
 
 ---
 
@@ -22,7 +22,7 @@
 | At rest | Nothing starts hidden. Content must be readable if CSS animations or JS never run |
 | Tool | CSS transitions, `@keyframes`, scroll-driven animations. No JS animation libraries |
 
-Exceptions: the seven approved effects (`DarkVeil`, `StrokeText` 1.6s draw, `AccordionGallery` width and filter, `SpecularButton`, `ScrollStack`, `FuzzyText` canvas static on the 404, `DepthCarousel` 700ms GSAP turn with blur on the home Team section) keep their own timing and properties. The FAQ answer uses a `grid-template-rows` 0fr→1fr transition, the accepted way to animate height without JS.
+Exceptions: the two kept effects (`ScrollStack` on `/events`, `FuzzyText` canvas on the 404) keep their own timing. The FAQ answer uses a `grid-template-rows` 0fr→1fr transition, the accepted way to animate height without JS.
 
 ---
 
@@ -62,10 +62,9 @@ Re-key the wrapper so the keyframe replays on each step:
 
 ## Reduced motion
 
-`globals.css` has a catch-all `@media (prefers-reduced-motion: reduce)` that collapses every CSS transition and animation, and disables `.rise`. The effects handle it themselves: DarkVeil draws one still frame, ScrollStack skips its smooth wheel scrolling, FuzzyText draws clean text with no fuzz or intro, DepthCarousel jumps between cards without animating. Any new JS-driven motion must check `matchMedia('(prefers-reduced-motion: reduce)')`.
+`globals.css` has a catch-all `@media (prefers-reduced-motion: reduce)` that collapses every CSS transition and animation, and disables `.rise`. The effects handle it themselves: ScrollStack skips its smooth wheel scrolling, FuzzyText draws clean text with no fuzz or intro. Any new JS-driven motion must check `matchMedia('(prefers-reduced-motion: reduce)')`.
 
 ## Performance
 
 - Animate only `transform` and `opacity` (compositor-only).
 - No `will-change` unless a measured jank problem needs it.
-- Each `SpecularButton` is a WebGL context: at most 2–3 per page.
