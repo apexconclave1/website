@@ -37,6 +37,8 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Home About | On paper |
 | Verticals on home | Yes: compact paper section after the hero, plus the full `/verticals` page |
 | Register interest | New contact topic 'Register Interest' with the subject prefilled ('Interest: <vertical>') |
+| Diplovia artwork | Delegate booklet cover, cropped above its old printed dates (`public/events/diplovia-2026-poster.jpg`) |
+| Featured details | Format, dates, venue, committees, registration status; no fees; 'All events' link kept, 'more events' note dropped |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
 
@@ -46,7 +48,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 2. Navigation and footer (2026-10-22)
 - [x] 3. Home hero and About section (2026-10-22)
 - [x] 4. Event Verticals (`/verticals`, data with active/planned status) (2026-10-22)
-- [ ] 5. Featured Diplovia section (artwork from `docs/` PDFs)
+- [x] 5. Featured Diplovia section (artwork from `docs/` PDFs) (2026-10-22)
 - [ ] 6. Partnerships (home section, `/partners`, contact form topics)
 - [ ] 7. Team
 - [ ] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404)

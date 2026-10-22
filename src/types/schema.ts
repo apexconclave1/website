@@ -41,6 +41,8 @@ export interface EventEntity {
   coverImage: string;
   heroBanner?: string;
   logo?: string; // Event's own logo; shown on its page with Apex Conclave secondary
+  posterImage?: string; // Event artwork for the home featured section (no printed dates)
+  format?: string; // One line, e.g. 'Virtual Model United Nations · 2 days'
   pricing?: {
     regular: number;    // INR
     earlyBird?: number; // INR, charged for the first earlyBirdDays after registrationOpensAt

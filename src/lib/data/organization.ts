@@ -27,7 +27,6 @@ export const homeContent = {
   headline: 'A bigger stage for a bolder generation.',
   summary:
     'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.',
-  moreEventsNote: 'More events will be announced here.',
   network: [
     {
       title: 'Community',

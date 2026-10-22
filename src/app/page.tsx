@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Compass, DoorOpen, Target, Users } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
-import { EventCard } from '@/components/EventCard';
+import { FeaturedEvent } from '@/components/home/FeaturedEvent';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { eventsData } from '@/lib/data/events';
 import { homeContent, leadershipTeam, organizationConfig } from '@/lib/data/organization';
@@ -47,19 +47,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Events under Apex Conclave (the hero index rule sits above it) */}
-      <section className="mx-auto max-w-container px-6 py-20">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading eyebrow="Events" title="Events under Apex Conclave." />
-          <Link href="/events" className="text-sm text-cream/70 underline underline-offset-4 hover:text-cream">
-            All events
-          </Link>
-        </div>
-        <div className="rounded border border-cream/10 bg-ink p-6 md:p-10">
-          <EventCard event={featured} trackAs="cta_home_featured_event" priority />
-        </div>
-        <p className="mt-6 text-sm text-cream/70">{homeContent.moreEventsNote}</p>
-      </section>
+      <FeaturedEvent event={featured} />
 
       {/* About: first light section */}
       <section aria-labelledby="about-heading" className="bg-paper text-ink">
