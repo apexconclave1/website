@@ -24,10 +24,9 @@ export const paymentConfig = {
 };
 
 export const homeContent = {
-  eyebrow: 'Youth events, built by young people',
-  headline: 'An umbrella for youth events.',
+  headline: 'A bigger stage for a bolder generation.',
   summary:
-    'Apex Conclave runs multiple events under one brand. Diplovia, a virtual Model United Nations, is the first.',
+    'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.',
   moreEventsNote: 'More events will be announced here.',
   network: [
     {
@@ -46,20 +45,16 @@ export const homeContent = {
       body: 'The students who build and run Apex Conclave.',
     },
   ],
-  pillars: [
-    {
-      title: 'What we build',
-      body: 'Conferences, simulations and competitions where students practise diplomacy, enterprise and policy instead of reading about them.',
-    },
-    {
-      title: 'Who it is for',
-      body: 'High school and college students across India who want a position to research, defend and negotiate.',
-    },
-    {
-      title: 'How to take part',
-      body: 'Pick an event, register online and join from anywhere. New events are listed on the Events page.',
-    },
-  ],
+  about: {
+    headline: 'More than events. A platform for what’s next.',
+    body: 'Apex Conclave creates platforms for students to challenge themselves, develop practical skills and connect with ambitious peers. Through competitions, conferences and collaborative experiences across multiple disciplines, we aim to make participation meaningful, competition fair and opportunities more accessible.',
+    ideas: [
+      { title: 'Experience', body: 'Learn by participating in practical challenges.' },
+      { title: 'Competition', body: 'Test ideas, analytical thinking and execution.' },
+      { title: 'Community', body: 'Connect with students, colleges, judges and industry.' },
+      { title: 'Opportunity', body: 'Create meaningful exposure through events and partnerships.' },
+    ],
+  },
 };
 
 // Quotes from the Diplovia 2026 delegate booklet. Bios written from each person's role; edit freely.

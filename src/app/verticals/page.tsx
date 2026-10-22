@@ -29,7 +29,8 @@ export default function VerticalsPage() {
           return (
             <li
               key={v.id}
-              className="grid gap-3 border-b border-cream/10 py-8 md:grid-cols-[4rem_1fr_12rem] md:items-baseline md:gap-8"
+              id={v.id}
+              className="scroll-mt-24 grid gap-3 border-b border-cream/10 py-8 md:grid-cols-[4rem_1fr_12rem] md:items-baseline md:gap-8"
             >
               <span className="text-sm tabular-nums text-cream/70">{String(i + 1).padStart(2, '0')}</span>
               <div>

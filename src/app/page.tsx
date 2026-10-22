@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Compass, DoorOpen, Target, Users } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
 import { EventCard } from '@/components/EventCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -15,6 +15,9 @@ export const metadata: Metadata = pageMetadata(
   '/',
 );
 
+// Experience, Competition, Community, Opportunity (same order as homeContent.about.ideas)
+const aboutIcons = [Compass, Target, Users, DoorOpen];
+
 export default function HomePage() {
   const featured = eventsData[0];
 
@@ -22,8 +25,8 @@ export default function HomePage() {
     <main id="main-content">
       <HeroSection />
 
-      {/* Events under Apex Conclave */}
-      <section className="mx-auto max-w-container border-t border-cream/10 px-6 py-20">
+      {/* Events under Apex Conclave (the hero index rule sits above it) */}
+      <section className="mx-auto max-w-container px-6 py-20">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <SectionHeading eyebrow="Events" title="Events under Apex Conclave." />
           <Link href="/events" className="text-sm text-cream/70 underline underline-offset-4 hover:text-cream">
@@ -36,23 +39,36 @@ export default function HomePage() {
         <p className="mt-6 text-sm text-cream/70">{homeContent.moreEventsNote}</p>
       </section>
 
-      {/* What Apex Conclave is */}
-      <section className="mx-auto max-w-container border-t border-cream/10 px-6 py-20">
-        <SectionHeading eyebrow="About" title="What Apex Conclave is." description={organizationConfig.manifesto} />
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {homeContent.pillars.map((p) => (
-            <div key={p.title} className="space-y-2 rounded border border-cream/10 bg-ink p-6">
-              <h3 className="text-base font-semibold text-cream">{p.title}</h3>
-              <p className="text-sm leading-relaxed text-cream/70">{p.body}</p>
-            </div>
-          ))}
+      {/* About: first light section */}
+      <section aria-labelledby="about-heading" className="bg-paper text-ink">
+        <div className="mx-auto grid max-w-container gap-14 px-6 py-24 md:py-32 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-6">
+            <p className="eyebrow mb-5 text-stone">About Apex Conclave</p>
+            <h2 id="about-heading" className="max-w-[16ch] text-4xl font-normal leading-[1.08] md:text-[3.25rem]">
+              {homeContent.about.headline}
+            </h2>
+            <p className="mt-8 max-w-[54ch] text-lg leading-relaxed text-stone">{homeContent.about.body}</p>
+            <Link
+              href="/about"
+              className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-ink underline decoration-hairline underline-offset-[6px] transition-colors duration-200 hover:decoration-ink"
+            >
+              Read more about Apex Conclave <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <ul className="grid self-end sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
+            {homeContent.about.ideas.map((idea, i) => {
+              const Icon = aboutIcons[i];
+              return (
+                <li key={idea.title} className="border-t border-hairline py-7 sm:pr-8">
+                  <Icon size={20} strokeWidth={1.5} className="text-bronze" aria-hidden="true" />
+                  <h3 className="mt-5 text-base font-medium">{idea.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone">{idea.body}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <Link
-          href="/about"
-          className="mt-8 inline-flex items-center gap-2 text-sm text-cream underline underline-offset-4"
-        >
-          Read more about Apex Conclave <ArrowRight size={14} />
-        </Link>
       </section>
 
       {/* Team */}

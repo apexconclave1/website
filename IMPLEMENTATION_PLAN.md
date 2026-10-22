@@ -33,13 +33,15 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Team link | `/about#team` (no separate Team page) |
 | Verticals before Phase 4 | Simple real `/verticals` page in Phase 2, so no commit has a broken link |
 | Nav button | "Partner With Us" (contact form, Sponsorship & Partnership topic); switches to "Register" while an event's registration is open |
+| Hero | Logo in the nav only; no label above the headline; composition is headline + disciplines index (no photo) |
+| Home About | On paper |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
 
 ### Phases
 
 - [x] 1. Foundation: tokens, fonts, 2px radius, effect removal, button classes, DESIGN.md (2026-10-22)
 - [x] 2. Navigation and footer (2026-10-22)
-- [ ] 3. Home hero and About section
+- [x] 3. Home hero and About section (2026-10-22)
 - [ ] 4. Event Verticals (`/verticals`, data with active/planned status)
 - [ ] 5. Featured Diplovia section (artwork from `docs/` PDFs)
 - [ ] 6. Partnerships (home section, `/partners`, contact form topics)
