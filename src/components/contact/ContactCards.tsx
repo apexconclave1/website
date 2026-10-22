@@ -1,35 +1,37 @@
 import { organizationConfig } from '@/lib/data/organization';
 
+/** Contact channels as a ruled list beside the form. */
 export default function ContactCards() {
   const { contactEmail, socials } = organizationConfig;
-  const cards = [
+  const rows = [
     { label: 'Email', value: contactEmail, href: `mailto:${contactEmail}` },
     ...(socials.instagram ? [{ label: 'Instagram', value: '@apex_conclave', href: socials.instagram }] : []),
     ...(socials.linkedin ? [{ label: 'LinkedIn', value: 'Apex Conclave', href: socials.linkedin }] : []),
   ];
 
   return (
-    <div className="flex flex-col gap-4">
-      {cards.map((c) => (
-        <a
-          key={c.label}
-          href={c.href}
-          {...(c.href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
-          data-track={c.label === 'Email' ? 'email_click' : 'social_click'}
-          data-track-platform={c.label.toLowerCase()}
-          data-track-place="contact"
-          className="panel card-link block"
-        >
-          <p className="eyebrow mb-2">{c.label}</p>
-          <p className="ext-link text-base text-cream">
-            {c.value}
-          </p>
-        </a>
+    <dl className="border-t border-cream/10">
+      {rows.map((r) => (
+        <div key={r.label} className="border-b border-cream/10 py-5">
+          <dt className="eyebrow mb-2">{r.label}</dt>
+          <dd>
+            <a
+              href={r.href}
+              {...(r.href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+              data-track={r.label === 'Email' ? 'email_click' : 'social_click'}
+              data-track-platform={r.label.toLowerCase()}
+              data-track-place="contact"
+              className="ext-link text-base text-cream"
+            >
+              {r.value}
+            </a>
+          </dd>
+        </div>
       ))}
-      <div className="panel">
-        <p className="eyebrow mb-2">Response time</p>
-        <p className="text-base text-cream">Within 48 hours</p>
+      <div className="border-b border-cream/10 py-5">
+        <dt className="eyebrow mb-2">Response time</dt>
+        <dd className="text-base text-cream">Within 48 hours</dd>
       </div>
-    </div>
+    </dl>
   );
 }

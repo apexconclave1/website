@@ -43,7 +43,7 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-cream">About you</h3>
+        <h3 className="mb-1 text-xl font-medium text-cream">About you</h3>
         <p className="text-sm text-cream/70">Use your details as they should appear on your certificate.</p>
       </div>
 

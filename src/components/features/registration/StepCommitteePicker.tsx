@@ -33,7 +33,7 @@ export default function StepCommitteePicker({ chambers, formData, onChange, erro
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-cream">Committee and country</h3>
+        <h3 className="mb-1 text-xl font-medium text-cream">Committee and country</h3>
         <p className="text-sm text-cream/70">
           List two preferences. The team assigns every delegate a seat and confirms it after payment is verified.
         </p>

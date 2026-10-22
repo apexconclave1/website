@@ -2,11 +2,8 @@ import { OrganizationConfig, PartnerEntity } from '@/types/schema';
 
 export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
-  tagline: 'Youth-led events where students think, compete, build and lead.',
   description:
     'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more.',
-  manifesto:
-    'Apex Conclave is a youth-led events ecosystem. Conferences, simulations and competitions are how we work, but the point is what happens inside them: students stop reading about diplomacy, enterprise and policy and start practising them.',
   contactEmail: 'apexconclave1@gmail.com',
   socials: {
     instagram: 'https://instagram.com/apex_conclave',
@@ -137,18 +134,19 @@ export const partnersContent = {
   ],
 };
 
+// About page "Who it brings together" (merged from the old Community page)
 export const communityContent = {
   headline: 'The people who show up.',
   intro:
-    'Apex Conclave is more than its events. It is the students who take part, the chairs who run the rooms, and the team that builds the platform between events.',
+    'Apex Conclave is more than its events. It is the students who take part, the judges and chairs who run the rounds, and the team that builds the platform between events.',
   groups: [
     {
-      title: 'Delegates',
-      body: 'High school and college students who research a position, defend it under time pressure and negotiate with people who disagree.',
+      title: 'Participants',
+      body: 'High school and college students who sign up to research, compete, build and present, whatever the format.',
     },
     {
-      title: 'Speakers and dais',
-      body: 'Chairs, crisis directors and guest speakers who run committees and push delegates. Names for each event are announced on its page.',
+      title: 'Judges, mentors and dais',
+      body: 'Judges, mentors, chairs and guest speakers who run the rounds and push participants. Names for each event are announced on its page.',
     },
     {
       title: 'Volunteers and campus ambassadors',

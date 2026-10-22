@@ -21,7 +21,7 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
   return (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-cream">Experience</h3>
+        <h3 className="mb-1 text-xl font-medium text-cream">Experience</h3>
         <p className="text-sm text-cream/70">This helps the team balance experience across committees.</p>
       </div>
 

@@ -76,7 +76,7 @@ export default function RegistrationReceipt({
     <div className="flex flex-col items-center gap-8 text-center">
       <div>
         <p className="eyebrow mb-2">{paid ? 'Payment submitted' : 'Application saved'}</p>
-        <h2 className="text-2xl font-bold text-cream md:text-3xl">
+        <h2 className="text-3xl font-normal text-cream md:text-4xl">
           {paid ? 'You’re registered. We’re checking your payment.' : 'Application saved.'}
         </h2>
         <p className="mx-auto mt-3 max-w-[52ch] text-sm leading-relaxed text-cream/70">

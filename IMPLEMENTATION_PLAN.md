@@ -30,7 +30,6 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Partners audience line | Reword as an intended audience, not a claim |
 | Scope | Whole site |
 | Git | Work on branch `redesign`; owner commits each phase |
-| Team link | `/about#team` (no separate Team page) |
 | Verticals before Phase 4 | Simple real `/verticals` page in Phase 2, so no commit has a broken link |
 | Nav button | "Partner With Us" (contact form, Sponsorship & Partnership topic); switches to "Register" while an event's registration is open |
 | Hero | Logo in the nav only; no label above the headline; composition is headline + disciplines index (no photo) |
@@ -43,6 +42,10 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | /partners blocks | Keep 'what a sponsorship can include' (generic wording); reword 'why partner' as intentions; hide 'Who we work with' until real partners exist |
 | Team | Three portraits, black and white (CSS grayscale), heading kept, 'How we run events' list with the owner-approved copy; new photos for Ayush and Kapish (Kapish's file is a real photo, retouched, per owner) |
 | Home partnership layout | Flipped: list left, text right on large screens (text first on phones) |
+| About page | Paper mission header, What we run, Who it brings together (from Community), Team with quotes and standards, Get involved / Follow along |
+| Terms | Restyle only; wording untouched (owner to review MUN-specific legal terms) |
+| Event page hero | Logo only, no artwork |
+| Team link | Removed from navbar and footer (owner, 2026-10-22); `/about#team` still works |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
 
@@ -55,7 +58,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 5. Featured Diplovia section (artwork from `docs/` PDFs) (2026-10-22)
 - [x] 6. Partnerships (home section, `/partners`, contact form topics) (2026-10-22)
 - [x] 7. Team (2026-10-22)
-- [ ] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404)
+- [x] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404) (2026-10-22)
 - [ ] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`)
 - [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
 

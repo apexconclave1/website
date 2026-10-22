@@ -23,7 +23,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           {event.edition && <Badge variant="accent">{event.edition}</Badge>}
         </div>
 
-        <h2 className="text-3xl font-bold text-cream md:text-5xl">{event.title}</h2>
+        <h2 className="text-4xl font-normal leading-tight text-cream md:text-5xl">{event.title}</h2>
 
         <div className="flex flex-wrap items-center gap-5 text-sm text-cream/70">
           <span className="flex items-center gap-1.5">

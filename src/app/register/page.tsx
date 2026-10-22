@@ -23,8 +23,8 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
   if (!event.registrationOpen) {
     return (
       <main id="main-content" className="mx-auto max-w-[720px] px-6 pb-24 pt-36 text-center">
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-bronze">{event.title}</p>
-        <h1 className="text-3xl font-bold text-cream md:text-4xl">Registration opens soon.</h1>
+        <p className="eyebrow mb-5">{event.title}</p>
+        <h1 className="text-4xl font-normal text-cream md:text-5xl">Registration opens soon.</h1>
         <p className="mt-4 text-base text-cream/70">
           Dates and the registration window will be announced on the event page and on our Instagram.
         </p>
@@ -42,7 +42,7 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
     <main id="main-content" className="mx-auto max-w-container px-6 pb-20 pt-28">
       <div className="mb-14 text-center">
         <p className="eyebrow mb-4">{event.title} · Delegate registration</p>
-        <h1 className="mb-4 text-4xl font-bold text-cream md:text-5xl">Register</h1>
+        <h1 className="mb-4 text-5xl font-normal text-cream md:text-6xl">Register</h1>
         <p className="mx-auto max-w-[620px] text-base leading-relaxed text-cream/70">
           List your committee and country preferences across the {committeeCount} committees. The team reviews applications
           and assigns seats after payment is verified.

@@ -6,6 +6,8 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/committees', destination: '/events/diplovia-2026#committees', permanent: true },
+      // Community was merged into About (redesign, 2026-10-22)
+      { source: '/community', destination: '/about#community', permanent: true },
     ];
   },
   // All images are local (public/). Add remotePatterns here if a remote image is ever needed.

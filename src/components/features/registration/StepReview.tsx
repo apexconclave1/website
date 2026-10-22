@@ -88,7 +88,7 @@ export default function StepReview({ formData, onChange, onJumpToStep, errors, i
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-cream">Review</h3>
+        <h3 className="mb-1 text-xl font-medium text-cream">Review</h3>
         <p className="text-sm text-cream/70">Check your details before you submit.</p>
       </div>
 

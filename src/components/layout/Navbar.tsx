@@ -13,7 +13,6 @@ const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/verticals', label: 'Event Verticals' },
   { href: '/events', label: 'Events' },
-  { href: '/about#team', label: 'Team' },
   { href: '/partners', label: 'Partners' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -44,9 +43,8 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
-  // Hash links (Team) never count as the current page; About stays current on /about
   const isActive = (href: string) =>
-    href.includes('#') ? false : href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-ink print:hidden">
@@ -92,7 +90,6 @@ export default function Navbar() {
           <ul>
             {navLinks.map((link) => (
               <li key={link.href} className="border-b border-cream/10">
-                {/* Close on tap too: a hash link on the same page does not change the pathname */}
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}

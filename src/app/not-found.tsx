@@ -10,7 +10,7 @@ export default function NotFound() {
             404
           </FuzzyText>
         </div>
-        <h1 className="mb-4 text-3xl font-bold text-cream md:text-5xl">Page not found</h1>
+        <h1 className="mb-4 text-4xl font-normal text-cream md:text-5xl">Page not found</h1>
         <p className="mx-auto mb-8 max-w-[400px] text-base leading-relaxed text-cream/70">
           This page does not exist or has moved.
         </p>

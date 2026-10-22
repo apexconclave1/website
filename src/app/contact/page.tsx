@@ -7,9 +7,9 @@ export const metadata: Metadata = pageMetadata('Contact', 'Contact Apex Conclave
 
 export default function ContactPage({ searchParams }: { searchParams: { category?: string; subject?: string } }) {
   return (
-    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-32">
-      <p className="eyebrow mb-3">Contact</p>
-      <h1 className="max-w-3xl text-4xl font-bold leading-tight text-cream md:text-5xl">Talk to us.</h1>
+    <main id="main-content" className="mx-auto max-w-container px-6 pb-24 pt-36">
+      <p className="eyebrow mb-5">Contact</p>
+      <h1 className="max-w-3xl text-5xl font-normal leading-[1.04] text-cream md:text-6xl">Talk to us.</h1>
       <p className="mt-6 max-w-[65ch] text-lg leading-relaxed text-cream/70">
         Questions about an event, registration, partnerships or hosting an event with us. Send a message and we reply
         within 48 hours.

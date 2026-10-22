@@ -145,7 +145,7 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <h3 className="mb-1 text-xl font-semibold text-cream">Payment</h3>
+        <h3 className="mb-1 text-xl font-medium text-cream">Payment</h3>
         <p className="text-sm leading-relaxed text-cream/70">
           Your application is saved with tracking code{' '}
           <span className="font-semibold text-cream">{trackingCode}</span>. Note it down, then pay below.

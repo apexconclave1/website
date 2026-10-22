@@ -7,10 +7,8 @@ export type PortfolioStatus = 'AVAILABLE' | 'RESERVED' | 'ALLOCATED';
  */
 export interface OrganizationConfig {
   name: string;
-  tagline: string;
   /** One-sentence brand description (footer) */
   description: string;
-  manifesto: string;
   contactEmail: string;
   socials: {
     instagram?: string;

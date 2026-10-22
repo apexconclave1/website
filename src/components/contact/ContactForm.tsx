@@ -65,7 +65,7 @@ export default function ContactForm({ defaultCategory, defaultSubject }: { defau
   if (submitState === 'success') {
     return (
       <div role="status" aria-live="polite" className="panel p-10 text-center">
-        <h3 className="mb-2 text-xl font-semibold text-cream">Message received</h3>
+        <h3 className="mb-2 text-xl font-medium text-cream">Message received</h3>
         <p className="text-sm text-cream/70">Thanks for writing. We reply within 48 hours.</p>
       </div>
     );

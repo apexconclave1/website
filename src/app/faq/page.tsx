@@ -9,9 +9,9 @@ export const metadata: Metadata = pageMetadata('FAQ', 'Answers to common questio
 
 export default function FAQPage() {
   return (
-    <main id="main-content" className="mx-auto max-w-[860px] px-6 pb-24 pt-32">
-      <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-bronze">FAQ</p>
-      <h1 className="mb-4 text-3xl font-bold text-cream md:text-4xl">Frequently asked questions</h1>
+    <main id="main-content" className="mx-auto max-w-[860px] px-6 pb-24 pt-36">
+      <p className="eyebrow mb-5">FAQ</p>
+      <h1 className="mb-6 text-5xl font-normal leading-[1.04] text-cream md:text-6xl">Frequently asked questions</h1>
       <p className="mb-10 text-base text-cream/70">
         Questions about a specific event are answered on its page, for example{' '}
         <Link href="/events/diplovia-2026#faq" className="text-cream underline underline-offset-4">

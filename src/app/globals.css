@@ -69,20 +69,11 @@ body {
     @apply -translate-x-1 text-xs opacity-0 transition duration-200;
   }
   .ext-link:hover::after,
-  .ext-link:focus-visible::after,
-  .card-link:hover .ext-link::after,
-  .card-link:focus-visible .ext-link::after { @apply translate-x-0 opacity-100; }
-  .card-link:hover .ext-link { @apply underline; }
-
-  /* Clickable cards: border brightens and the card lifts 2px */
-  .card-link {
-    @apply transition duration-200 hover:-translate-y-0.5 hover:border-cream/30 focus-visible:border-cream/30;
-  }
+  .ext-link:focus-visible::after { @apply translate-x-0 opacity-100; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ext-link::after,
-  .card-link { transition: none; transform: none; }
+  .ext-link::after { transition: none; transform: none; }
 }
 
 /* ─── Reading progress bar: driven by page scroll, no JS where supported ── */

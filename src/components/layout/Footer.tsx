@@ -10,7 +10,6 @@ const siteLinks = [
   { href: '/about', label: 'About' },
   { href: '/verticals', label: 'Event Verticals' },
   { href: '/events', label: 'Events' },
-  { href: '/about#team', label: 'Team' },
   { href: '/partners', label: 'Partners' },
   { href: '/contact', label: 'Contact' },
   { href: '/faq', label: 'FAQ' },

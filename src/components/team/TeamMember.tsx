@@ -6,10 +6,12 @@ interface TeamMemberProps {
   photo: string;
   bio: string;
   linkedin?: string;
+  /** Optional quote (About page) */
+  quote?: string;
 }
 
 /** Open portrait for dark sections: square black-and-white photo, name, role, bio, LinkedIn. */
-export function TeamMember({ name, role, photo, bio, linkedin }: TeamMemberProps) {
+export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemberProps) {
   return (
     <figure>
       {/* Grayscale evens out the different photo backgrounds; the files stay in colour */}
@@ -25,6 +27,11 @@ export function TeamMember({ name, role, photo, bio, linkedin }: TeamMemberProps
         <h3 className="text-lg font-medium text-cream">{name}</h3>
         <p className="eyebrow mt-1">{role}</p>
         <p className="mt-3 text-sm leading-relaxed text-cream/70">{bio}</p>
+        {quote && (
+          <blockquote className="mt-5 border-l border-bronze pl-4 font-serif text-base leading-relaxed text-cream">
+            “{quote}”
+          </blockquote>
+        )}
         {linkedin && (
           <a
             href={linkedin}
