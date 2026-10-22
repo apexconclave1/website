@@ -4,7 +4,17 @@ import { eventsData } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 
 const linkClass = 'inline-block py-1 text-sm text-cream/70 transition-colors duration-200 hover:text-cream';
-const headingClass = 'mb-4 text-xs font-medium uppercase tracking-[0.18em] text-bronze';
+const headingClass = 'eyebrow mb-4';
+
+const siteLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/verticals', label: 'Event Verticals' },
+  { href: '/events', label: 'Events' },
+  { href: '/about#team', label: 'Team' },
+  { href: '/partners', label: 'Partners' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
+];
 
 const socials = [
   { label: 'Instagram', href: organizationConfig.socials.instagram },
@@ -13,17 +23,30 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-cream/10 bg-ink px-6 pb-8 pt-16 print:hidden">
-      <div className="mx-auto max-w-container">
-        <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="max-w-xs">
+    <footer className="border-t border-cream/10 bg-ink pb-8 pt-16 print:hidden">
+      <div className="mx-auto max-w-container px-6">
+        <div className="grid gap-12 pb-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
+          <div className="max-w-sm">
             <ApexWordmark size="md" />
-            <p className="mt-4 text-sm leading-relaxed text-cream/70">{organizationConfig.tagline}</p>
+            <p className="mt-6 text-sm leading-relaxed text-cream/70">{organizationConfig.description}</p>
           </div>
+
+          <nav aria-label="Footer">
+            <p className={headingClass}>Apex Conclave</p>
+            <ul className="flex flex-col gap-2">
+              {siteLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={linkClass}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
           <div>
             <p className={headingClass}>Events</p>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
               {eventsData.map((event) => (
                 <li key={event.id}>
                   <Link href={`/events/${event.slug}`} className={linkClass}>
@@ -40,19 +63,8 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className={headingClass}>Apex Conclave</p>
-            <ul className="flex flex-col gap-3">
-              <li><Link href="/about" className={linkClass}>About</Link></li>
-              <li><Link href="/community" className={linkClass}>Community</Link></li>
-              <li><Link href="/partners" className={linkClass}>Partners</Link></li>
-              <li><Link href="/contact" className={linkClass}>Contact</Link></li>
-              <li><Link href="/faq" className={linkClass}>FAQ</Link></li>
-            </ul>
-          </div>
-
-          <div>
             <p className={headingClass}>Connect</p>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
               <li>
                 <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>
                   {organizationConfig.contactEmail}

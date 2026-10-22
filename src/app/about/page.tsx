@@ -33,7 +33,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mt-20 border-t border-cream/10 pt-16">
+      <section id="team" className="mt-20 scroll-mt-24 border-t border-cream/10 pt-16">
         <SectionHeading eyebrow="Leadership" title="The team." />
         <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {leadershipTeam.map((m) => (

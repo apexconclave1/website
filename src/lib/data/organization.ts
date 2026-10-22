@@ -3,6 +3,8 @@ import { OrganizationConfig, PartnerEntity } from '@/types/schema';
 export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
   tagline: 'Youth-led events where students think, compete, build and lead.',
+  description:
+    'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more.',
   manifesto:
     'Apex Conclave is a youth-led events ecosystem. Conferences, simulations and competitions are how we work, but the point is what happens inside them: students stop reading about diplomacy, enterprise and policy and start practising them.',
   contactEmail: 'apexconclave1@gmail.com',
@@ -11,6 +13,9 @@ export const organizationConfig: OrganizationConfig = {
     linkedin: 'https://linkedin.com/company/apex-conclave',
   },
 };
+
+// Partnership enquiries: contact form with the topic preselected
+export const partnerEnquiryHref = `/contact?category=${encodeURIComponent('Sponsorship & Partnership')}`;
 
 // ponytail: placeholder UPI id and QR. Replace both before registration opens.
 export const paymentConfig = {

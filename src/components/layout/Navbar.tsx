@@ -6,19 +6,23 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
+import { partnerEnquiryHref } from '@/lib/data/organization';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/events', label: 'Events' },
   { href: '/about', label: 'About' },
-  { href: '/community', label: 'Community' },
+  { href: '/verticals', label: 'Event Verticals' },
+  { href: '/events', label: 'Events' },
+  { href: '/about#team', label: 'Team' },
   { href: '/partners', label: 'Partners' },
   { href: '/contact', label: 'Contact' },
 ];
 
-// ponytail: Register goes to the first event with open registration. Point at /events once several are open at once.
+// ponytail: the button switches to Register for the first event with open registration. Point at /events once several are open at once.
 const openEvent = eventsData.find((e) => e.registrationOpen);
-const registerHref = openEvent ? `/register?event=${openEvent.slug}` : null;
+const cta = openEvent
+  ? { href: `/register?event=${openEvent.slug}`, label: 'Register', track: 'cta_nav_register' }
+  : { href: partnerEnquiryHref, label: 'Partner With Us', track: 'cta_nav_partner' };
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -40,22 +44,25 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // Hash links (Team) never count as the current page; About stays current on /about
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+    href.includes('#') ? false : href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-ink border-b border-cream/10 print:hidden">
-      <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between px-6">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-cream/10 bg-ink print:hidden">
+      <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-6 px-6">
         <ApexWordmark />
 
-        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-7">
+        <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               aria-current={isActive(link.href) ? 'page' : undefined}
-              className={`text-sm font-medium transition-colors duration-200 ${
-                isActive(link.href) ? 'text-cream' : 'text-cream/70 hover:text-cream'
+              className={`whitespace-nowrap text-sm transition-colors duration-200 ${
+                isActive(link.href)
+                  ? 'text-cream underline decoration-bronze decoration-1 underline-offset-[10px]'
+                  : 'text-cream/70 hover:text-cream'
               }`}
             >
               {link.label}
@@ -63,13 +70,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {registerHref && (
-          <div className="hidden lg:block">
-            <Link href={registerHref} className="btn-primary px-4 py-2" data-track="cta_nav_register">
-              Register
-            </Link>
-          </div>
-        )}
+        <Link href={cta.href} className="btn-primary hidden px-4 py-2 lg:inline-flex" data-track={cta.track}>
+          {cta.label}
+        </Link>
 
         <button
           type="button"
@@ -78,40 +81,41 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="lg:hidden flex h-11 w-11 items-center justify-center rounded border border-cream/10 text-cream"
+          className="flex h-11 w-11 items-center justify-center rounded border border-cream/20 text-cream lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {open && (
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile navigation"
-          className="lg:hidden flex flex-col gap-1 border-t border-cream/10 bg-ink px-6 py-4"
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={isActive(link.href) ? 'page' : undefined}
-              className={`rounded px-3 py-3 text-base font-medium ${
-                isActive(link.href) ? 'bg-ink text-cream' : 'text-cream/70'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          {registerHref && (
-            <Link
-              href={registerHref}
-              data-track="cta_nav_register"
-              data-track-place="mobile"
-              className="mt-2 rounded bg-cream px-3 py-3 text-center text-base font-medium text-ink"
-            >
-              Register
-            </Link>
-          )}
+        <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-cream/10 bg-ink px-6 pb-6 lg:hidden">
+          <ul>
+            {navLinks.map((link) => (
+              <li key={link.href} className="border-b border-cream/10">
+                {/* Close on tap too: a hash link on the same page does not change the pathname */}
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  className={`flex items-center justify-between py-4 text-base ${
+                    isActive(link.href) ? 'text-cream' : 'text-cream/70'
+                  }`}
+                >
+                  {link.label}
+                  {isActive(link.href) && <span aria-hidden="true" className="h-px w-6 bg-bronze" />}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link
+            href={cta.href}
+            onClick={() => setOpen(false)}
+            data-track={cta.track}
+            data-track-place="mobile"
+            className="btn-primary mt-6 w-full"
+          >
+            {cta.label}
+          </Link>
         </nav>
       )}
     </header>

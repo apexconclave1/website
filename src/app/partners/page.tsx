@@ -3,11 +3,9 @@ import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { organizationConfig, partners, partnersContent } from '@/lib/data/organization';
+import { organizationConfig, partnerEnquiryHref, partners, partnersContent } from '@/lib/data/organization';
 
 export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Conclave to reach high school and college students across India through Diplovia and future youth events. Talk to the team.', '/partners');
-
-const contactHref = `/contact?category=${encodeURIComponent('Sponsorship & Partnership')}`;
 
 export default function PartnersPage() {
   return (
@@ -72,7 +70,7 @@ export default function PartnersPage() {
           </p>
         </div>
         <Link
-          href={contactHref}
+          href={partnerEnquiryHref}
           className="btn-primary"
         >
           Become a partner
