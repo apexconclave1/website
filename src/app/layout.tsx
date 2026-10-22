@@ -9,7 +9,7 @@ import { Analytics } from '@vercel/analytics/next';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { siteUrl } from '@/lib/site';
-import { homeContent, siteCredit } from '@/lib/data/organization';
+import { organizationConfig, siteCredit } from '@/lib/data/organization';
 import { JsonLd } from '@/components/JsonLd';
 import { organizationSchema, websiteSchema } from '@/lib/seo';
 
@@ -30,16 +30,16 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'Apex Conclave', template: '%s | Apex Conclave' },
-  description: homeContent.summary,
+  description: organizationConfig.description,
   applicationName: 'Apex Conclave',
-  keywords: ['Apex Conclave', 'Diplovia', 'Model UN', 'MUN', 'youth events', 'India', 'diplomacy', 'debate'],
+  keywords: ['Apex Conclave', 'student competitions', 'student events', 'India', 'Diplovia', 'Model UN', 'MUN', 'debate', 'case competitions', 'hackathons'],
   // Site credit lives only in metadata (not on the page)
   authors: [{ name: siteCredit.name, url: siteCredit.url }],
   publisher: 'Apex Conclave',
   creator: siteCredit.name,
   openGraph: {
     title: 'Apex Conclave',
-    description: homeContent.summary,
+    description: organizationConfig.description,
     type: 'website',
     locale: 'en_IN',
     siteName: 'Apex Conclave',

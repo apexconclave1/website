@@ -3,7 +3,7 @@ import { pageMetadata } from '@/lib/seo';
 import ContactForm from '@/components/contact/ContactForm';
 import ContactCards from '@/components/contact/ContactCards';
 
-export const metadata: Metadata = pageMetadata('Contact', 'Contact Apex Conclave about Diplovia registration, partnerships, sponsorship, joining the community or hosting an event. The team replies by email.', '/contact');
+export const metadata: Metadata = pageMetadata('Contact', 'Contact Apex Conclave about events, registration, partnerships, sponsorship, judging or hosting an event on your campus. The team replies within 48 hours.', '/contact');
 
 export default function ContactPage({ searchParams }: { searchParams: { category?: string; subject?: string } }) {
   return (

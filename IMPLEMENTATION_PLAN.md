@@ -43,7 +43,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Team | Three portraits, black and white (CSS grayscale), heading kept, 'How we run events' list with the owner-approved copy; new photos for Ayush and Kapish (Kapish's file is a real photo, retouched, per owner) |
 | Home partnership layout | Flipped: list left, text right on large screens (text first on phones) |
 | About page | Paper mission header, What we run, Who it brings together (from Community), Team with quotes and standards, Get involved / Follow along |
-| Terms | Restyle only; wording untouched (owner to review MUN-specific legal terms) |
+| Terms | Rewritten for all events (owner request in Phase 9): same refund numbers for every event plus a per-event override line; general conduct rules plus one line per format; guardian consent for under-18s; 'organising team' decides in-event matters, Apex Conclave handles disputes |
 | Event page hero | Logo only, no artwork |
 | Team link | Removed from navbar and footer (owner, 2026-10-22); `/about#team` still works |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
@@ -59,7 +59,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 6. Partnerships (home section, `/partners`, contact form topics) (2026-10-22)
 - [x] 7. Team (2026-10-22)
 - [x] 8. Other pages (About + Community merge, events, event page, register, contact, terms, FAQ, 404) (2026-10-22)
-- [ ] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`)
+- [x] 9. Copy and SEO (metadata, keywords, JSON-LD, `llms.txt`) (2026-10-22)
 - [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
 
 ## Owner decisions (2026-10-20)

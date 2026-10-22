@@ -10,7 +10,7 @@ export const apexFaqs: FaqItem[] = [
     id: 'apex-1',
     category: 'About',
     q: 'What is Apex Conclave?',
-    a: 'Apex Conclave is a student-led organisation that builds events for young people across India. Diplovia, a virtual Model United Nations, is our first event. More will follow.',
+    a: 'Apex Conclave is a student-led organisation that creates competitions and events for students across India, in disciplines from diplomacy and debate to business, technology, startups and esports. Diplovia, a virtual Model United Nations, is our first event; the other verticals are planned.',
   },
   {
     id: 'apex-2',
@@ -22,7 +22,7 @@ export const apexFaqs: FaqItem[] = [
     id: 'apex-4',
     category: 'Partnerships',
     q: 'Can my school, college or company partner with us?',
-    a: 'Yes. Use the Contact page and choose Sponsorship & Partnership. We will reply with the options.',
+    a: 'Yes. The Partners page lists the ways to work with us: sponsorships, college partnerships, competition challenges, judging and mentoring, and campus communities. Use the Contact page and choose Sponsorship & Partnership, and we will reply with the options.',
   },
 ];
 

@@ -31,6 +31,7 @@ export const organizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: organizationConfig.name,
+  description: organizationConfig.description,
   url: siteUrl,
   logo: `${siteUrl}/brand/apex-conclave-logo-dark.png`,
   email: organizationConfig.contactEmail,

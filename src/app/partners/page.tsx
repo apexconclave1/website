@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { CollaborationList } from '@/components/partners/CollaborationList';
 import { organizationConfig, partnerEnquiryHref, partners, partnersContent } from '@/lib/data/organization';
 
-export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Conclave to reach high school and college students across India through Diplovia and future youth events. Talk to the team.', '/partners');
+export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Conclave: sponsor an event, co-host with your college, set a competition challenge, judge or mentor, or bring events to your campus.', '/partners');
 
 export default function PartnersPage() {
   return (

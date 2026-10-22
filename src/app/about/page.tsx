@@ -14,7 +14,7 @@ import {
   partnerEnquiryHref,
 } from '@/lib/data/organization';
 
-export const metadata: Metadata = pageMetadata('About', 'Apex Conclave is a youth-led events ecosystem: conferences, simulations and competitions where students practise diplomacy, enterprise and leadership.', '/about');
+export const metadata: Metadata = pageMetadata('About', 'Apex Conclave creates platforms for students to compete, collaborate and grow. Meet the team, the people it brings together and how it runs its events.', '/about');
 
 const joinHref = `/contact?category=${encodeURIComponent('Join the Community')}`;
 const linkClass =
