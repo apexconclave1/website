@@ -114,9 +114,9 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
       </div>
 
       <div className="mx-auto max-w-container px-6">
-        <nav aria-label="Event sections" className="flex gap-6 overflow-x-auto border-b border-soft/15 py-4 text-sm text-soft">
+        <nav aria-label="Event sections" className="flex gap-6 overflow-x-auto border-b border-soft/15 py-1 text-sm text-soft">
           {nav.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="whitespace-nowrap transition-colors duration-200 hover:text-bright">
+            <a key={id} href={`#${id}`} className="min-w-11 whitespace-nowrap py-3 text-center transition-colors duration-200 hover:text-bright">
               {label}
             </a>
           ))}

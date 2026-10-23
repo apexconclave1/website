@@ -55,6 +55,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Opposite-colour panels | A few panels in the other mode's colours, inside the page width: active vertical tile and the partner call-to-action (home + `/partners` email strip) (2026-10-22) |
 | ₹ sign | Drawn from the device font (Segoe UI, Roboto, Noto Sans, Helvetica Neue) so the event page skips ~170KB of extended font files (2026-10-23) |
 | Site share image | Redone on #031211, same logo size and position (2026-10-23) |
+| Apple HIG fixes | 44px tap areas (`.hit`), 16px fields on phones, visible focus ring on teal buttons, large-text fit, pressed state and hover only with a pointer, follow the device appearance until a choice is saved, poster recoloured to #031211, Increase Contrast borders, short landscape top bar (2026-10-23) |
 | Light mode | Navbar sun/moon toggle, dark default, remembered per browser; cream background, #00AEBB buttons, derived #006A73 for accent text; teal palette only (2026-10-22) |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |

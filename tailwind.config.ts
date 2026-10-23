@@ -49,6 +49,8 @@ const config: Config = {
       },
     },
   },
+  // hover: styles only on devices with a pointer, so a tap on a phone never leaves a hover look stuck (Apple HIG review)
+  future: { hoverOnlyWhenSupported: true },
   plugins: [],
 };
 

@@ -33,7 +33,7 @@ export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemb
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${name} on LinkedIn`}
-            className="ext-link mt-3 text-sm text-soft"
+            className="ext-link hit mt-3 text-sm text-soft"
             data-track="social_click"
             data-track-platform="linkedin"
             data-track-place="team"

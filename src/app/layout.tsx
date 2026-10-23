@@ -65,11 +65,11 @@ export default function RootLayout({
       <head>
         {/* Scroll reveal only hides content once scripts run, so without JavaScript everything stays visible */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        {/* Light mode chosen with the navbar toggle, remembered per browser; dark by default. */}
+        {/* Light or dark: the choice saved by the navbar toggle, else the device's appearance setting (Apple HIG). */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.getItem('apc-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}",
+              "try{var t=localStorage.getItem('apc-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches)){document.documentElement.dataset.theme='light'}}catch(e){}",
           }}
         />
       </head>

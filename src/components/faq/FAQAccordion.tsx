@@ -25,7 +25,7 @@ export default function FAQAccordion({ items }: { items: FaqItem[] }) {
                 setActiveCategory(cat);
                 setOpenId(null);
               }}
-              className={`rounded border px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
+              className={`min-h-11 rounded border px-4 py-2 text-xs font-medium uppercase tracking-wider transition-colors duration-200 ${
                 activeCategory === cat
                   ? 'border-bright bg-bright text-deep'
                   : 'border-soft/15 bg-ground text-soft hover:text-bright'

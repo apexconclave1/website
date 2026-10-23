@@ -36,7 +36,7 @@ export default function VerticalsPage() {
           </p>
           <Link
             href={`/contact?category=${encodeURIComponent('Host an Event')}`}
-            className="inline-flex items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
+            className="hit inline-flex items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
           >
             Talk to the team <ArrowRight size={14} />
           </Link>

@@ -21,7 +21,7 @@ export default function ContactCards() {
               data-track={r.label === 'Email' ? 'email_click' : 'social_click'}
               data-track-platform={r.label.toLowerCase()}
               data-track-place="contact"
-              className="ext-link text-base text-bright"
+              className="ext-link hit text-base text-bright [overflow-wrap:anywhere]"
             >
               {r.value}
             </a>

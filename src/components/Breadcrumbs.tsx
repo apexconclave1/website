@@ -16,7 +16,7 @@ export function Breadcrumbs({ items }: { items: { name: string; href: string }[]
                 {c.name}
               </span>
             ) : (
-              <Link href={c.href} className="underline-offset-4 transition-colors duration-200 hover:text-bright hover:underline">
+              <Link href={c.href} className="hit underline-offset-4 transition-colors duration-200 hover:text-bright hover:underline">
                 {c.name}
               </Link>
             )}

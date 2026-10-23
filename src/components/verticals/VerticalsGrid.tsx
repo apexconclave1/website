@@ -98,7 +98,7 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
               {!compact && (
                 <Link
                   href={interestHref(v)}
-                  className="inline-flex items-center gap-1.5 text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
+                  className="hit inline-flex items-center gap-1.5 text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
                   data-track="cta_verticals_interest"
                   data-track-vertical={v.id}
                 >

@@ -38,7 +38,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/verticals"
-              className="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
+              className="hit inline-flex shrink-0 items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
             >
               See all verticals <ArrowRight size={14} />
             </Link>
@@ -60,7 +60,7 @@ export default function HomePage() {
             <p className="mt-8 max-w-[54ch] text-base leading-relaxed text-soft md:text-lg">{homeContent.about.body}</p>
             <Link
               href="/about"
-              className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
+              className="hit mt-10 inline-flex items-center gap-2 text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
             >
               Read more about Apex Conclave <ArrowRight size={14} />
             </Link>
@@ -130,7 +130,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/partners"
-                className="text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
+                className="hit text-sm font-medium text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
               >
                 How partnerships work
               </Link>

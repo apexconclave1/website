@@ -1,6 +1,6 @@
 # Apex Conclave — Skills Master Guide
 
-> Quick index of all installed project skills in `.agents/skills/`. Each skill provides specialized guidance for AI agents working on specific aspects of the Apex Conclave website.
+> Quick index of the project skills in `.agents/skills/` (read by Cursor, Codex, Gemini CLI, Copilot, OpenCode and others; linked from `.claude/skills/` for Claude Code). Installed with the `skills` CLI; `skills-lock.json` records each source and hash.
 
 ---
 
@@ -8,24 +8,20 @@
 
 | # | Skill | Directory | Purpose |
 |---|---|---|---|
-| 1 | **Frontend Design** | `skills/frontend-design/` | Dark-first, typography-led UI engineering patterns |
-| 2 | **Improve Animations** | `skills/improve-animations/` | 150–350ms CSS-only motion, brand easing, reduced motion, approved effect exceptions |
-| 3 | **Improve React** | `skills/improve-react/` | Server-first components, on-demand heavy pieces, bundle budget |
-| 4 | **Modern Web Guidance** | `skills/modern-web-guidance/` | Native platform features, semantic HTML, accessibility, metadata |
-| 5 | **SEO Audit** | `skills/seo-audit/` | Event JSON-LD schema, OpenGraph, Twitter Cards, technical SEO |
-| 6 | **Programmatic SEO** | `skills/programmatic-seo/` | Scalable multi-event landing page architecture & dynamic routes |
-| 7 | **Analytics Tracking** | `skills/analytics-tracking/` | Cookie-free Vercel Analytics, `data-track` clicks, Supabase registration funnel |
+| 1 | **Find Skills** | `skills/find-skills/` | Search skills.sh for a skill that fits a task. Present it and wait for the owner's OK before installing (never `-g -y`) |
+| 2 | **iOS Design Guidelines** | `skills/ios-design-guidelines/` | Apple Human Interface Guidelines for iPhone; use the web-relevant rules (touch targets, text size, contrast, motion) for phone reviews |
+| 3 | **macOS Design Guidelines** | `skills/macos-design-guidelines/` | Apple Human Interface Guidelines for Mac; use the keyboard, pointer, visual design and accessibility rules for laptop reviews |
+
+The earlier hand-written skills (frontend design, animations, React, web guidance, SEO, analytics) were removed by the owner on 2026-10-23. Their rules that still apply live in `DESIGN.md` and `AGENTS.md`.
 
 ---
 
 ## How to Use Skills
 
-Each skill directory contains a `SKILL.md` file with detailed instructions. AI agents should:
-
 1. **Read the relevant `SKILL.md`** before working on that aspect of the project.
-2. **Follow the patterns and rules** defined in each skill.
-3. **Cross-reference with `DESIGN.md`** to ensure all work respects the core design system.
-4. **Check `progress.md`** to understand what has been done and what's next.
+2. **`DESIGN.md` wins** where a skill disagrees with the project's design system (the Apple skills are written for native apps).
+3. **Check `progress.md`** to understand what has been done and what's next.
+4. **New skills:** find with `find-skills`, read the files, ask the owner, then install project-level: `DISABLE_TELEMETRY=1 npx skills@<pinned> add <source> --skill <name> -a universal -a claude-code -y`.
 
 ---
 
@@ -33,10 +29,6 @@ Each skill directory contains a `SKILL.md` file with detailed instructions. AI a
 
 | When you're working on... | Activate skill... |
 |---|---|
-| Building new UI components or pages | `frontend-design` |
-| Adding hover effects, transitions, page animations | `improve-animations` |
-| Optimizing render performance, reducing bundle size | `improve-react` |
-| Using modern CSS features, semantic HTML | `modern-web-guidance` |
-| Adding meta tags, structured data, OG images | `seo-audit` |
-| Creating dynamic event pages, URL structures | `programmatic-seo` |
-| Adding analytics, tracking events, conversions | `analytics-tracking` |
+| Looking for a capability the project doesn't have | `find-skills` |
+| Reviewing phone layouts, tap areas, text size | `ios-design-guidelines` |
+| Reviewing laptop layouts, keyboard and pointer use | `macos-design-guidelines` |

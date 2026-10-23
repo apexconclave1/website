@@ -3,7 +3,8 @@ import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 
-const linkClass = 'inline-block py-1 text-sm text-soft transition-colors duration-200 hover:text-bright';
+// min-h-11: 44px rows, Apple's minimum touch target
+const linkClass = 'inline-flex min-h-11 min-w-11 items-center text-sm text-soft transition-colors duration-200 hover:text-bright';
 // Column headings and the description are hidden on phones to keep the footer short
 const headingClass = 'eyebrow mb-4 hidden sm:block';
 
@@ -33,7 +34,8 @@ export default function Footer() {
 
           <nav aria-label="Footer">
             <p className={headingClass}>Apex Conclave</p>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-1 sm:flex sm:flex-col sm:gap-2">
+            {/* Two columns, one when large text needs the room */}
+            <ul className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-x-6 sm:flex sm:flex-col">
               {siteLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className={linkClass}>
@@ -47,7 +49,7 @@ export default function Footer() {
           {/* Events column only from sm up; on phones the Events link above covers it */}
           <div className="hidden sm:block">
             <p className={headingClass}>Events</p>
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col">
               {eventsData.map((event) => (
                 <li key={event.id}>
                   <Link href={`/events/${event.slug}`} className={linkClass}>
@@ -65,9 +67,9 @@ export default function Footer() {
 
           <div>
             <p className={headingClass}>Connect</p>
-            <ul className="flex flex-wrap gap-x-6 gap-y-1 border-t border-soft/15 pt-6 sm:flex-col sm:gap-2 sm:border-0 sm:pt-0">
+            <ul className="flex flex-wrap gap-x-6 border-t border-soft/15 pt-4 sm:flex-col sm:border-0 sm:pt-0">
               <li>
-                <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 hover:underline`}>
+                <a href={`mailto:${organizationConfig.contactEmail}`} className={`${linkClass} underline-offset-4 [overflow-wrap:anywhere] hover:underline`}>
                   {organizationConfig.contactEmail}
                 </a>
               </li>
@@ -93,10 +95,10 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-soft/15 pt-6">
           <p className="text-xs text-soft">© {new Date().getFullYear()} Apex Conclave. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/terms" className="text-xs text-soft transition-colors duration-200 hover:text-bright">
+            <Link href="/terms" className="inline-flex min-h-11 items-center text-xs text-soft transition-colors duration-200 hover:text-bright">
               Terms &amp; Privacy
             </Link>
-            <Link href="/terms#code-of-conduct" className="text-xs text-soft transition-colors duration-200 hover:text-bright">
+            <Link href="/terms#code-of-conduct" className="inline-flex min-h-11 items-center text-xs text-soft transition-colors duration-200 hover:text-bright">
               Code of Conduct
             </Link>
           </div>

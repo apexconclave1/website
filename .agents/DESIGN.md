@@ -31,9 +31,11 @@ Colours are set by role as CSS variables (`globals.css`) and used through Tailwi
 
 `text-accent` has its own variable (`textColor` in `tailwind.config.ts`), so accent text can be darker than accent fills in light mode.
 
-**Light mode** (owner, 2026-10-22): sun/moon toggle in the navbar, dark by default, remembered per browser (`apc-theme` in localStorage, applied before paint by a script in `app/layout.tsx`, sets `html[data-theme='light']`). The cream Diplovia logo is darkened in light mode (`.event-logo`).
+**Light mode** (owner, 2026-10-22): sun/moon toggle in the navbar, remembered per browser (`apc-theme` in localStorage, applied before paint by a script in `app/layout.tsx`, sets `html[data-theme='light']`). Without a saved choice the site follows the device's appearance setting (Apple HIG review, 2026-10-23); dark when the device is dark. The cream Diplovia logo is darkened in light mode (`.event-logo`).
 
 Contrast (checked 2026-10-22, axe 0 issues on 9 pages in dark and light): soft on ground 15:1 (dark); dark on teal 7.1; teal text on dark 7.1.
+
+**Increase Contrast** (`prefers-contrast: more`): hairlines and borders go to 60% strength.
 
 Errors: `.field-error` and `.alert-error` show the message in `bright` with an accent ⚠ (and accent borders on invalid fields); accent text alone would fail contrast.
 
@@ -64,6 +66,14 @@ Errors: `.field-error` and `.alert-error` show the message in `bright` with an a
 
 ---
 
+## Touch and keyboard (Apple HIG review, 2026-10-23)
+
+- **Tap areas at least 44×44px** on phones. Footer links, the hero vertical index and the event section menu are 44px tall; small stand-alone text links get `.hit` (an invisible 44px `::before` area, no layout change). Links inside sentences are exempt.
+- **Form fields 16px on phones** (`.field-input` is `text-base sm:text-sm`): Safari on iPhone zooms in on smaller fields.
+- **Focus rings** follow the text colour; `.btn-primary` uses the headline colour so the ring shows on the dark page.
+- **Large text**: the hero headline is capped by screen width and the top bar's controls are in px, so 200% text still fits a 390px screen. Long unbroken strings (the email address) may wrap anywhere.
+- **Landscape phones**: the top bar is 56px when the screen is under 500px tall.
+
 ## Buttons
 
 Shared classes in `globals.css`, used on links:
@@ -77,7 +87,7 @@ Shared classes in `globals.css`, used on links:
 
 ## Motion
 
-- Hover and UI: 150–350ms, Tailwind default easing (brand curve), `opacity` and `transform` only.
+- Hover and UI: 150–350ms, Tailwind default easing (brand curve), `opacity` and `transform` only. `hover:` styles apply only on devices with a pointer (`future.hoverOnlyWhenSupported`); on touch screens every link and button dims to 60% while pressed (`globals.css`).
 - **Scroll reveal** (owner, 2026-10-22): content slides in from the side and fades in as it reaches the screen. Once started it plays to the end (0.8s) even if scrolling stops; scrolling back up past it resets it so it arrives again. Travel: 4rem on phones, 8rem from md (`--reveal-dist`).
   - Classes: `.reveal` (from the left), `.reveal-right` (from the right), `.reveal-stagger` on a list (each item on its own, later columns 0.12s / 0.24s behind), `.reveal-cells` on a grid whose cells draw the hairlines (cells stay, contents move, cells clip).
   - `components/ui/ScrollReveal.tsx` adds `.is-in` (IntersectionObserver). Content is only hidden when scripts run (`.js` on `<html>`) and motion is allowed; no-JS and reduced-motion visitors see everything still. `main` clips horizontal overflow so right-hand slides never widen the page.

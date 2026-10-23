@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata('About', 'Apex Conclave creates p
 
 const joinHref = `/contact?category=${encodeURIComponent('Join the Community')}`;
 const linkClass =
-  'inline-flex items-center gap-2 text-sm font-medium underline underline-offset-[6px] transition-colors duration-200';
+  'hit inline-flex items-center gap-2 text-sm font-medium underline underline-offset-[6px] transition-colors duration-200';
 
 export default function AboutPage() {
   const { instagram, linkedin } = organizationConfig.socials;
@@ -169,7 +169,7 @@ export default function AboutPage() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ext-link text-sm font-medium text-bright underline decoration-soft/40 hover:text-bright hover:decoration-bright"
+                    className="ext-link hit text-sm font-medium text-bright underline decoration-soft/40 hover:text-bright hover:decoration-bright"
                     data-track="social_click"
                     data-track-platform={s.label.toLowerCase()}
                     data-track-place="about"

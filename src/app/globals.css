@@ -39,6 +39,11 @@ html[data-theme='light'] {
 /* ─── Base Styles ──────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent; /* our own pressed state below replaces the grey tap box */
+}
+/* Pressed state on touch screens (Apple HIG: every tap gets visible feedback) */
+@media (hover: none) {
+  a:active, button:active, summary:active { opacity: 0.6; }
 }
 
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
@@ -60,9 +65,9 @@ body {
 @layer components {
   .field-label { @apply mb-2 block text-xs font-medium text-soft; }
   .field-input {
-    @apply w-full rounded-sm border border-soft/25 bg-ground px-4 py-3 text-sm text-bright outline-none
+    @apply w-full rounded-sm border border-soft/25 bg-ground px-4 py-3 text-base text-bright outline-none
       transition-colors duration-200 placeholder:text-soft/70 focus:border-bright
-      aria-[invalid=true]:border-accent;
+      aria-[invalid=true]:border-accent sm:text-sm; /* 16px on phones: Safari on iPhone zooms in on fields under 16px */
   }
   /* Errors: readable light text, marked with an accent warning sign (accent text alone would fail contrast) */
   .field-error { @apply mt-1.5 text-xs text-bright; }
@@ -77,6 +82,8 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded border border-accent bg-accent px-6 py-3 text-sm font-medium text-on-accent
       transition-colors duration-200 hover:border-deep hover:bg-deep hover:text-bright;
   }
+  /* The default ring is the text colour, which is the page colour here; use the headline colour instead */
+  .btn-primary:focus-visible { outline-color: rgb(var(--c-bright)); }
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded border border-soft/50 px-6 py-3 text-sm font-medium text-bright
       transition-colors duration-200 hover:border-accent;
@@ -115,6 +122,19 @@ body {
     --c-soft: 232 228 211;
     --c-bright: 247 244 232;
     --c-accent-text: 0 174 187;
+  }
+
+  /* 44px tap area around a small stand-alone link without changing the layout (Apple HIG minimum touch target).
+     Uses ::before because .ext-link already uses ::after. Not for links inside sentences. */
+  .hit { position: relative; }
+  .hit::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 2.75rem);
+    height: max(100%, 2.75rem);
+    transform: translate(-50%, -50%);
   }
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */
@@ -239,6 +259,12 @@ body::after {
 }
 /* Content sliding in from the right must not widen the page (clip, unlike hidden, keeps sticky working) */
 main { overflow-x: clip; }
+
+/* Increase Contrast: stronger hairlines and borders (Apple HIG; text contrast is already ~15:1) */
+@media (prefers-contrast: more) {
+  [class*='border-soft/'], .panel, .field-input, .btn-secondary { border-color: rgb(var(--c-soft) / 0.6) !important; }
+  [class*='divide-soft/'] > * + * { border-color: rgb(var(--c-soft) / 0.6) !important; }
+}
 
 /* Events directory: the page container already sets the side padding */
 .events-stack .scroll-stack__inner { padding-inline: 0; }

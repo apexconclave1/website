@@ -32,7 +32,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
       <div className="mx-auto max-w-container px-6 py-16 md:py-32">
         <div className="reveal mb-10 flex md:mb-14 items-end justify-between gap-6">
           <p className="eyebrow">Featured event</p>
-          <Link href="/events" className="text-sm text-soft underline underline-offset-4 transition-colors duration-200 hover:text-bright">
+          <Link href="/events" className="hit text-sm text-soft underline underline-offset-4 transition-colors duration-200 hover:text-bright">
             All events
           </Link>
         </div>

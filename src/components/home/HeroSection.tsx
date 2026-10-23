@@ -12,7 +12,8 @@ export default function HeroSection() {
   return (
     <section id="hero" aria-label="Apex Conclave" className="flex min-h-[min(100svh,60rem)] flex-col pt-[4.5rem]">
       <div className="mx-auto flex w-full max-w-container flex-1 flex-col justify-center px-6 py-20">
-        <h1 className="max-w-[14ch] text-[3.25rem] font-normal leading-[0.98] tracking-[-0.02em] text-bright sm:text-7xl lg:text-[6.5rem]">
+        {/* min(…, vw) keeps "generation." on the screen when visitors use large text */}
+        <h1 className="max-w-[14ch] text-[min(3.25rem,14vw)] font-normal leading-[0.98] tracking-[-0.02em] text-bright sm:text-[min(4.5rem,11vw)] lg:text-[min(6.5rem,10vw)]">
           {homeContent.headline.replace(homeContent.headlineHighlight, '')}
           <TypedText text={homeContent.headlineHighlight} className="text-accent" />
         </h1>
@@ -29,14 +30,14 @@ export default function HeroSection() {
 
       {/* Disciplines index: every vertical, planned ones included, links to its row on /verticals */}
       <div className="border-t border-soft/15">
-        <div className="mx-auto flex max-w-container flex-col gap-6 px-6 py-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mx-auto flex max-w-container flex-col gap-4 px-6 py-3 lg:flex-row lg:items-center lg:justify-between">
           <nav aria-label="Event verticals">
-            <ul className="grid grid-cols-3 gap-x-6 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-8">
+            <ul className="grid grid-cols-3 gap-x-6 sm:flex sm:flex-wrap sm:gap-x-8">
               {verticals.map((v) => (
                 <li key={v.id}>
                   <Link
                     href={`/verticals#${v.id}`}
-                    className="text-sm text-soft transition-colors duration-200 hover:text-bright"
+                    className="inline-flex min-h-11 items-center text-sm text-soft transition-colors duration-200 hover:text-bright"
                   >
                     {v.short}
                   </Link>
@@ -47,7 +48,7 @@ export default function HeroSection() {
           {current && (
             <Link
               href={`/events/${current.slug}`}
-              className="group inline-flex items-center gap-3 text-sm text-soft transition-colors duration-200 hover:text-bright"
+              className="hit group inline-flex items-center gap-3 text-sm text-soft transition-colors duration-200 hover:text-bright"
               data-track="cta_hero_current_event"
             >
               <span className="eyebrow">Now</span>

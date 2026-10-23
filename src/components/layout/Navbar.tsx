@@ -61,7 +61,8 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-soft/15 bg-ground print:hidden">
-      <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-6 px-6">
+      {/* Shorter on short screens (phone held sideways); controls in px so they keep their size with large text */}
+      <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-[24px] px-[24px] [@media(max-height:500px)]:h-14">
         <ApexWordmark />
 
         <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">
@@ -81,13 +82,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-[12px]">
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Light mode"
             aria-pressed={light}
-            className="theme-toggle flex h-11 w-11 items-center justify-center rounded border border-soft/25 text-bright transition-colors duration-200 hover:border-bright lg:h-9 lg:w-9"
+            className="theme-toggle flex h-[44px] w-[44px] items-center justify-center rounded border border-soft/25 text-bright transition-colors duration-200 hover:border-bright lg:h-[36px] lg:w-[36px]"
           >
             <Sun size={18} className="theme-icon-sun" aria-hidden="true" />
             <Moon size={18} className="theme-icon-moon" aria-hidden="true" />
@@ -104,7 +105,7 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="flex h-11 w-11 items-center justify-center rounded border border-soft/25 text-bright lg:hidden"
+          className="flex h-[44px] w-[44px] items-center justify-center rounded border border-soft/25 text-bright lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
           </button>
