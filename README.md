@@ -69,17 +69,21 @@ src/
     api/register/      Registration, payment and coupon endpoints
     api/contact/       Contact form endpoint
     events/[slug]/     One page per event
+    verticals/ partners/ about/ contact/ faq/ terms/ register/  Other pages
   components/
     layout/            Navbar and Footer (rendered once in app/layout.tsx)
+    home/ verticals/ partners/ team/  Section components
     features/registration/  Registration wizard steps
-    ui/                Shared UI and WebGL effects
+    ui/                Shared UI (buttons, scroll reveal, ScrollStack, FuzzyText)
   lib/
-    data/              Site content: events, committees, FAQs, organisation
+    data/              Site content: events, verticals, committees, FAQs, organisation
     supabase/          Browser and server Supabase clients
     validators/        Zod schemas
   types/               Shared TypeScript types
 supabase/migrations/   Database SQL
 docs/                  Design sheet and Diplovia brochures (PDF)
+scripts/               check-events.mjs (date and fee logic check)
+.agents/               Project docs (progress, design, product, conventions) and skills
 ```
 
 ## Adding an event
@@ -95,6 +99,6 @@ Rules are in `.agents/DESIGN.md`. Colours are role tokens (`deep`, `ground`, `so
 
 ## Project notes
 
-- Current status and next steps: `progress.md`
-- Plan: `IMPLEMENTATION_PLAN.md`
-- Conventions for contributors and AI agents: `.agents/AGENTS.md`
+- Status, decisions and next steps: `.agents/PROGRESS.md`
+- Design system: `.agents/DESIGN.md`; product vision: `.agents/PRODUCT.md`
+- Conventions for contributors and AI agents: `.agents/AGENTS.md`; skills: `.agents/SKILLS_MASTER_GUIDE.md`

@@ -1,6 +1,6 @@
 # Apex Conclave — Design System
 
-> Source: the owner's redesign brief (2026-10-22, `../one.md`). It replaces the palette and "Inter only" rule of `docs/Apex_Conclave_Developer_Design_Sheet.pdf`. The logo files from the design sheet stay as they are.
+> Source: the owner's redesign brief (2026-10-22; the file is no longer in the folder, its rules are recorded here and in `PROGRESS.md`). It replaces the palette and "Inter only" rule of `docs/Apex_Conclave_Developer_Design_Sheet.pdf`. The logo files from the design sheet stay as they are.
 
 ---
 

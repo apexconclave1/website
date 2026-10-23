@@ -6,10 +6,22 @@
 
 ## Project Overview
 
-**Apex Conclave** is an elite umbrella organization hosting multiple premier events, conferences, and youth initiatives. The flagship event is **Diplovia**, a diplomatic Model United Nations conference.
+**Apex Conclave** is a multi-format student events and competitions brand with six event verticals. **Diplovia 2026**, a virtual Model United Nations conference, is the first event.
 
 - **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, Lucide React, Supabase (Postgres), Vercel Analytics
-- **Design Philosophy**: Minimal · Youthful · Intelligent · Premium · Typography-Led · Dark-First
+- **Design Philosophy**: Editorial · Credible · Typography-Led · Dark and light modes (see `DESIGN.md`)
+
+### Project docs (all in `.agents/`)
+
+| File | What it holds |
+|---|---|
+| `PROGRESS.md` | Status, decisions, phase notes, known gaps, owner to-do. Start here |
+| `DESIGN.md` | Design system: palette, type, motion, touch and keyboard rules |
+| `PRODUCT.md` | Product vision, verticals, audience, roadmap |
+| `SKILLS_MASTER_GUIDE.md` | Installed skills in `skills/` |
+| `AGENTS.md` | This file: coding conventions |
+
+The root `CLAUDE.md` and `AGENTS.md` only point here. `README.md` (root) covers setup and deploy.
 
 ---
 
@@ -26,28 +38,28 @@
 ```
 src/
 ├── app/              # Next.js App Router pages & layouts
-├── components/       # Shared UI components
+├── components/       # UI components, one folder per area
 │   ├── layout/       # Navbar, Footer, ApexWordmark (rendered once in app/layout.tsx)
+│   ├── home/ verticals/ partners/ team/ events/ contact/ faq/  # Section components
 │   ├── features/registration/  # Registration wizard
-│   └── ui/           # Primitive UI components (Button, Badge, WebGL effects)
+│   └── ui/           # Shared pieces (Button, Badge, SectionHeading, ScrollReveal, ScrollStack, FuzzyText)
 ├── lib/              # Utilities, data, Supabase services
 │   ├── data/         # Static content data files
 │   ├── supabase/     # Supabase server client (service role)
 │   ├── validators/   # Zod schemas shared by forms and API routes
 │   └── security/     # Rate limiting, same-origin check
-├── types/            # TypeScript type definitions
-└── styles/           # Global styles (if separate from app/)
+└── types/            # TypeScript type definitions
+(global styles: src/app/globals.css)
 ```
 
 ### Naming
-- Components: `PascalCase.tsx` (e.g., `EventCard.tsx`, `SeatMatrix.tsx`)
+- Components: `PascalCase.tsx` (e.g., `EventCard.tsx`, `VerticalsGrid.tsx`)
 - Utilities/data: `camelCase.ts` (e.g., `events.ts`, `config.ts`)
 - Types: `PascalCase` interfaces, `UPPER_SNAKE_CASE` for union literals
 
 ### Styling
 - Use **Tailwind CSS** utility classes with the custom design tokens defined in `tailwind.config.ts`.
-- For custom hex values, use Tailwind's arbitrary value syntax: prefer the role tokens (`deep`, `ground`, `soft`, `bright`, `accent`, `on-accent`); see `DESIGN.md`.
-- Prefer design token classes (`bg-bg`, `text-soft-white`, `bg-surface`) over raw hex when tokens are configured.
+- Use the role tokens (`deep`, `ground`, `soft`, `bright`, `accent`, `on-accent`), never raw hex; they switch between dark and light mode. See `DESIGN.md`.
 
 ### Performance
 - Minimize `"use client"` boundaries. Push interactivity to leaf components.
@@ -59,7 +71,9 @@ src/
 - Use **CSS transitions** (Tailwind) for UI motion. There is no animation library.
 - Keep durations between **150ms–350ms**.
 - Preferred easing: `[0.25, 0.46, 0.45, 0.94]` (ease-out).
-- Only animate `opacity`, `transform` (scale, translateY). Never animate layout-triggering properties.
+- Only animate `opacity`, `transform` (scale, translate). Never animate layout-triggering properties.
+- Scroll motion only through the reveal classes (`.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells`); see `DESIGN.md`.
+- Phones: tap targets at least 44px (`.hit` for small links), form fields at least 16px.
 
 ---
 
@@ -88,7 +102,7 @@ src/
 - Prices come from `pricing` in `lib/data/events.ts` and are computed on the server (`feeAt`). Never trust an amount sent by the browser.
 - Coupons are redeemed with the `redeem_coupon()` SQL function (atomic).
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
-- Content that changes per event lives in `lib/data/*` (events, chambers with country lists, leaders, faqs). There is no CMS.
+- Content that changes per event lives in `lib/data/*` (events, chambers with country lists, event story, verticals, organisation and team, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.
 - Fonts: Newsreader for h1/h2 (`--font-newsreader`), Inter for everything else (`--font-inter`), both via next/font. Do not add other families.
 - Contact email comes from `organizationConfig.contactEmail`. Do not hard-code addresses.

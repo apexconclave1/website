@@ -1,82 +1,72 @@
 # Apex Conclave — Product Vision & Strategy
 
-> This document defines the product vision, multi-event strategy, and growth roadmap for the Apex Conclave umbrella platform.
+> This document defines the product vision, event verticals and growth roadmap for Apex Conclave. Rewritten on 2026-10-23 to match the owner's redesign brief; the roadmap and metrics are for the owner to confirm.
 
 ---
 
 ## What is Apex Conclave?
 
-**Apex Conclave** is the parent umbrella organization for multiple events, communities, and experiences. It is designed to be a serious, modern organization built for young people — where visionary minds converge to shape what's next.
+**Apex Conclave** creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.
 
-The platform is not a single event website. It is an **event ecosystem** that can host, manage, and showcase multiple events across different formats and categories.
+It is a multi-format student events and competitions brand, not a single-event website. Each event belongs to one of six verticals; **Diplovia** is the first event, not the identity of the whole brand.
 
 ---
 
 ## Core Value Proposition
 
-1. **Multi-Event Architecture**: One brand, many events. Diplovia (MUN), Tech Summits, Leadership Forums, Business Conclaves, Cultural Festivals — all under one roof.
-2. **Agent-Free Registration**: Delegates apply directly for their preferred committee seats without intermediary agents. Transparent, fast, friction-free.
-3. **Preference-Based Allotment**: Delegates list their committee and country preferences; the team assigns seats and confirms them after payment is verified.
-4. **Premium Brand Identity**: Dark-first, typography-led design that communicates intelligence, youth, and authority.
+1. **One brand, many kinds of competition**: diplomacy, business cases, hackathons, debate, startup pitching and esports under one name and one standard.
+2. **Experience, competition, community, opportunity**: learn by doing, test ideas under pressure, meet students, colleges, judges and industry, and gain exposure through events and partnerships.
+3. **Direct registration**: participants apply on the site themselves, without agents. For Diplovia, delegates list committee and country preferences and the team assigns seats after payment is verified.
+4. **Credible by design**: no invented numbers, sponsors, testimonials or events. Planned verticals are labelled as planned.
 
 ---
 
-## Flagship Event: Diplovia
+## Event Verticals
 
-**Diplovia** is Apex Conclave's premier diplomatic conference — a Model United Nations simulation featuring:
+Source: `src/lib/data/verticals.ts`.
 
-- Multiple chambers/committees (UNSC, WHO, UNHRC, and more)
-- Country/character seat portfolio allocation
-- Executive Board (Dais) leadership
-- Study guide documents and agenda briefings
-- Direct online registration with committee and country preferences
+| Vertical | Status | Example formats |
+|---|---|---|
+| Diplomacy & MUNs | Active | Diplovia 2026 (virtual Model UN), policy simulations |
+| Business & Case Competitions | Planned | Strategy and consulting cases, analytics challenges |
+| Technology & Hackathons | Planned | Coding competitions, hackathons, buildathons |
+| Debates & Discourse | Planned | Debating, public speaking |
+| Startup Pitching & Entrepreneurship | Planned | Pitches, entrepreneurial challenges |
+| Gaming & Esports | Planned | Tournaments, inter-college leagues |
 
 ---
 
-## Event Categories Supported
+## First Event: Diplovia 2026
 
-| Category | Examples |
-|---|---|
-| `MUN` | Diplovia, Model G20, Crisis Committees |
-| `LEADERSHIP` | Leadership Forums, Youth Summits |
-| `TECH` | Tech Summits, Hackathons, Innovation Labs |
-| `BUSINESS` | Business Conclaves, Startup Pitch Events |
-| `CULTURAL` | Cultural Festivals, Creative Showcases |
+A virtual Model United Nations conference over two days on Zoom or Google Meet, dates to be announced. Five committees (UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee), preference-based country allotment, manual UPI payment, a certificate for every delegate. Copy comes from the delegate booklet (`docs/`).
 
 ---
 
 ## Target Audience
 
-- **Primary**: University and high-school students (ages 16–25) interested in diplomacy, leadership, technology, and business
-- **Secondary**: Institutional partners, sponsors, guest speakers, advisory board members
-- **Tertiary**: Alumni and past delegates looking to stay connected
+- **Participants**: high school and college students, roughly ages 15 to 23.
+- **Judges, mentors and dais**: people who judge rounds, mentor teams or chair committees.
+- **Volunteers and campus ambassadors**: students who help run events or bring them to their campus.
+- **Partners**: sponsors, colleges that co-host, organisations that set a challenge, and student communities.
 
 ---
 
 ## Growth Roadmap
 
-### Phase 1 (Current): Foundation
-- Launch umbrella website with Diplovia as the flagship event
-- Static content with a Supabase-powered registration engine
-- Establish brand identity and design system
+### Now: Foundation
+- Umbrella website with six verticals and Diplovia as the first event.
+- Static content in `src/lib/data/`, Supabase for registrations and contact messages.
+- Brand identity and design system (`DESIGN.md`).
 
-### Phase 2: Scale
-- Add Sanity CMS for dynamic content management
-- Support multiple concurrent events
-- Admin dashboard for event management and seat allocation
-- Supabase Auth for admin access
+### Next: First events
+- Open Diplovia registration once dates are set; run the event.
+- Launch the next vertical when its first event is confirmed, with its own event page.
+- Partner logos once real partners are confirmed.
 
-### Phase 3: Community
-- Delegate profiles and networking
-- Alumni directory
-- Event archives with photos, resolutions, awards
-- Community forum or discussion boards
-
-### Phase 4: Platform
-- Self-service event creation tools
-- Multi-organization support (other MUN societies can use the platform)
-- Analytics dashboard for event organizers
-- Mobile app (optional)
+### Later: Operations and community
+- Admin view for registrations, payments and seat allotment (today done by hand in Supabase).
+- Event archives with photos, results and awards.
+- Alumni and past-participant updates.
 
 ---
 
@@ -84,8 +74,8 @@ The platform is not a single event website. It is an **event ecosystem** that ca
 
 | Metric | Description |
 |---|---|
-| Events Hosted | Total events organized under Apex Conclave |
-| Delegates Reached | Cumulative delegate count across all events |
-| Partner Institutions | Schools, colleges, and organizations partnered |
-| Seat Fill Rate | % of available seats reserved/allocated per event |
-| Registration Conversion | Visitors → completed applications |
+| Events hosted | Events run under Apex Conclave, per vertical |
+| Participants reached | Participants across all events |
+| Partner institutions | Schools, colleges and organisations partnered |
+| Registration conversion | Visitors to completed registrations (`registration_funnel` view, Vercel Analytics events) |
+| Interest per vertical | 'Register Interest' messages for planned verticals |

@@ -20,7 +20,7 @@ The earlier hand-written skills (frontend design, animations, React, web guidanc
 
 1. **Read the relevant `SKILL.md`** before working on that aspect of the project.
 2. **`DESIGN.md` wins** where a skill disagrees with the project's design system (the Apple skills are written for native apps).
-3. **Check `progress.md`** to understand what has been done and what's next.
+3. **Check `PROGRESS.md`** to understand what has been done and what's next.
 4. **New skills:** find with `find-skills`, read the files, ask the owner, then install project-level: `DISABLE_TELEMETRY=1 npx skills@<pinned> add <source> --skill <name> -a universal -a claude-code -y`.
 
 ---
