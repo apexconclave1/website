@@ -65,20 +65,11 @@ export default function RootLayout({
       <head>
         {/* Scroll reveal only hides content once scripts run, so without JavaScript everything stays visible */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        {/* ponytail: palette preview while the owner compares palettes. ?palette=teal or ?palette=red is
-            remembered in this browser; everyone else gets the default (teal). Delete this and the
-            html[data-palette='red'] block in globals.css once one palette is chosen. Runs before paint, so no flash. */}
+        {/* Light mode chosen with the navbar toggle, remembered per browser; dark by default. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{var p=new URLSearchParams(location.search).get('palette');if(p==='teal'||p==='red'){localStorage.setItem('apc-palette',p)}else{p=localStorage.getItem('apc-palette')}if(p==='red'){document.documentElement.dataset.palette='red'}}catch(e){}",
-          }}
-        />
-        {/* Light mode chosen with the navbar toggle, remembered per browser; dark by default. Teal palette only. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(localStorage.getItem('apc-theme')==='light'&&document.documentElement.dataset.palette!=='red'){document.documentElement.dataset.theme='light'}}catch(e){}",
+              "try{if(localStorage.getItem('apc-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}",
           }}
         />
       </head>

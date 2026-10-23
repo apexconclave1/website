@@ -16,26 +16,24 @@ The site should look designed by a person, not generated from a template: typogr
 
 ## Palette (owner, 2026-10-22; replaces the brief's ink/cream/bronze palette)
 
-Colours are set by role as CSS variables (`globals.css`) and used through Tailwind names. Visitors get **teal, dark**. The red palette is kept for comparison: `?palette=red` (or `?palette=teal`) on any URL switches and is remembered in that browser (script in `app/layout.tsx`, marked `ponytail:`; delete it and the red block once the owner settles).
+Colours are set by role as CSS variables (`globals.css`) and used through Tailwind names. Teal, dark by default, with a light mode. A charcoal/silver/red palette was tried and dropped (owner, 2026-10-23).
 
-| Role (Tailwind) | Use | Teal dark (default) | Teal light (toggle) | Red (preview, dark only) |
-|---|---|---|---|---|
-| `deep` | Hover fills; darkest step | `#010A09` (derived) | `#DDD8C4` (derived) | `#161616` (derived) |
-| `ground` | The one page background; nav; panels | `#031211` | `#E8E4D3` | `#2A2A2A` |
-| `soft` | Body text; hairlines (`border-soft/15`) | `#E8E4D3` | `#2A3A38` (derived) | `#C0C0C0` |
-| `bright` | Headlines, strong text | `#F7F4E8` (derived) | `#031211` | `#EDEDED` (derived) |
-| `accent` | Button fills, lines, markers (`bg-`, `border-`) | `#00AEBB` | `#00AEBB` | `#E10600` |
-| `text-accent` (`--c-accent-text`) | Labels, icons, hero highlight | `#00AEBB` | `#006A73` (derived; `#00AEBB` is 2.1:1 on cream) | `#E10600` |
-| `on-accent` | Text on accent buttons | `#031211` | `#031211` | `#FFFFFF` |
-| logo (`--c-logo`) | `.logo-mark` | `#EAE6DF` original cream | `#031211` | `#EDEDED` |
+| Role (Tailwind) | Use | Dark (default) | Light (toggle) |
+|---|---|---|---|
+| `deep` | Hover fills; darkest step | `#010A09` (derived) | `#DDD8C4` (derived) |
+| `ground` | The one page background; nav; panels | `#031211` | `#E8E4D3` |
+| `soft` | Body text; hairlines (`border-soft/15`) | `#E8E4D3` | `#2A3A38` (derived) |
+| `bright` | Headlines, strong text | `#F7F4E8` (derived) | `#031211` |
+| `accent` | Button fills, lines, markers (`bg-`, `border-`) | `#00AEBB` | `#00AEBB` |
+| `text-accent` (`--c-accent-text`) | Labels, icons, hero highlight | `#00AEBB` | `#006A73` (derived; `#00AEBB` is 2.1:1 on cream) |
+| `on-accent` | Text on accent buttons | `#031211` | `#031211` |
+| logo (`--c-logo`) | `.logo-mark` | `#EAE6DF` original cream | `#031211` |
 
 `text-accent` has its own variable (`textColor` in `tailwind.config.ts`), so accent text can be darker than accent fills in light mode.
 
-**Light mode** (owner, 2026-10-22): sun/moon toggle in the navbar, dark by default, remembered per browser (`apc-theme` in localStorage, applied before paint by a script in `app/layout.tsx`, sets `html[data-theme='light']`). Teal palette only; the toggle is hidden with `?palette=red`. The cream Diplovia logo is darkened in light mode (`.event-logo`).
+**Light mode** (owner, 2026-10-22): sun/moon toggle in the navbar, dark by default, remembered per browser (`apc-theme` in localStorage, applied before paint by a script in `app/layout.tsx`, sets `html[data-theme='light']`). The cream Diplovia logo is darkened in light mode (`.event-logo`).
 
-Contrast (checked 2026-10-22, axe 0 issues on 9 pages in teal dark and light): soft on ground 15:1 (dark); dark on teal 7.1; teal text on dark 7.1.
-
-**Known exception (owner accepted):** in the red palette, small red labels fail contrast (2.9:1 on charcoal, 3.6:1 on near-black).
+Contrast (checked 2026-10-22, axe 0 issues on 9 pages in dark and light): soft on ground 15:1 (dark); dark on teal 7.1; teal text on dark 7.1.
 
 Errors: `.field-error` and `.alert-error` show the message in `bright` with an accent ⚠ (and accent borders on invalid fields); accent text alone would fail contrast.
 
@@ -43,13 +41,14 @@ Errors: `.field-error` and `.alert-error` show the message in `bright` with an a
 
 - Every page and section sits on `ground`. No alternating dark/light sections, no section gradients; sections are separated by a hairline (`border-t border-soft/15`) and spacing.
 - Texture is fixed to the screen, so the background never changes while scrolling: `body::before` (soft light at the top, a faint accent glow low right) and `body::after` (film grain, 9% overlay). Both hidden in print.
-- **Opposite-colour panels** (owner, 2026-10-22): a few contained panels flip to the other mode's colours (`.tone-flip`: cream in dark mode, dark teal in light mode, silver with red). Only the active vertical tile (VerticalsGrid) and the partner call-to-action (home Partnerships text, `/partners` "Prefer email?" strip). Panels stay inside the page width, never full-width bands. Keep it to these few.
+- **Opposite-colour panels** (owner, 2026-10-22): a few contained panels flip to the other mode's colours (`.tone-flip`: cream in dark mode, dark teal in light mode). Only the active vertical tile (VerticalsGrid) and the partner call-to-action (home Partnerships text, `/partners` "Prefer email?" strip). Panels stay inside the page width, never full-width bands. Keep it to these few.
 - No other gradients. Still no purple-blue gradients, neon, glassmorphism or heavy shadows.
 
 ## Typography
 
 - **Headlines (h1, h2)**: Newsreader (`font-serif`, `--font-newsreader`, variable with optical sizing). Applied to `h1, h2` in `globals.css`. Weight 400–500; no bold serif.
 - **Everything else**: Inter (`font-sans`, `--font-inter`): body, nav, buttons, labels, h3 and below.
+- **₹**: drawn from the device font (`Rupee` @font-face, U+20B9 only, first in every stack). Inter and Newsreader only carry it in their extended files (~170KB). Keep `Rupee` first in any new font stack.
 - **Labels**: `.eyebrow`: 12px uppercase, `tracking-[0.14em]`, `text-accent`. No wider tracking anywhere.
 - **Scale**: keep to a few sizes. Body 16–18px, meta 12–14px, section title `text-3xl md:text-[2.75rem]`, hero up to `md:text-7xl`. No oversized type in every section.
 

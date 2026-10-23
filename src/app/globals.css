@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Palettes (owner, 2026-10-22). Values are RGB triplets so Tailwind opacity modifiers work.
-   Default: teal. Red is previewed with ?palette=red (see the script in app/layout.tsx). ─── */
+/* ─── Palette (owner, 2026-10-22): teal. Values are RGB triplets so Tailwind opacity modifiers work. ─── */
 :root {
   --c-deep: 1 10 9; /* #010A09, derived */
   --c-ground: 3 18 17; /* #031211, the one page background */
@@ -16,7 +15,7 @@
   --c-glow: 232 228 211; /* light at the top of the fixed background */
   color-scheme: dark;
 }
-/* Light mode (navbar toggle, teal palette only; the script in app/layout.tsx never sets it with the red palette) */
+/* Light mode (navbar toggle; the script in app/layout.tsx applies the saved choice) */
 html[data-theme='light'] {
   --c-deep: 221 216 196; /* #DDD8C4, derived: hover fill a step darker than the page */
   --c-ground: 232 228 211; /* #E8E4D3 page background */
@@ -27,16 +26,14 @@ html[data-theme='light'] {
   --c-glow: 255 255 255;
   color-scheme: light;
 }
-html[data-palette='red'] {
-  --c-deep: 22 22 22; /* #161616, derived */
-  --c-ground: 42 42 42; /* #2A2A2A */
-  --c-soft: 192 192 192; /* #C0C0C0 */
-  --c-bright: 237 237 237; /* #EDEDED, derived */
-  --c-accent: 225 6 0; /* #E10600 */
-  --c-accent-text: 225 6 0;
-  --c-on-accent: 255 255 255; /* white text on red, 5:1 (off-white is only 4.2:1) */
-  --c-logo: 237 237 237; /* off-white logo */
-  --c-glow: 192 192 192;
+
+/* ─── ₹ from the device's own font: Inter and Newsreader only have it in their extended files (~170KB more).
+   Covers U+20B9 only, listed first in every font stack, so all other letters stay Inter/Newsreader.
+   Fonts with ₹: Segoe UI (Windows), Roboto (Android), Noto Sans (Linux), Helvetica Neue (Apple). ── */
+@font-face {
+  font-family: 'Rupee';
+  src: local('Segoe UI'), local('Roboto'), local('Noto Sans'), local('Helvetica Neue');
+  unicode-range: U+20B9;
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
@@ -47,13 +44,13 @@ html {
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
 h1, h2, h3 { text-wrap: balance; }
 /* Major headlines in the serif; h3 and below stay in Inter */
-h1, h2 { font-family: var(--font-newsreader), Georgia, serif; }
+h1, h2 { font-family: 'Rupee', var(--font-newsreader), Georgia, serif; }
 p { text-wrap: pretty; }
 
 body {
   background-color: rgb(var(--c-ground));
   color: rgb(var(--c-soft));
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: 'Rupee', var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -85,18 +82,17 @@ body {
       transition-colors duration-200 hover:border-accent;
   }
 
-  /* Logo drawn from the logo file's shape in the palette's logo colour (one asset, colour per palette) */
+  /* Logo drawn from the logo file's shape in the logo colour (one asset, colour per mode) */
   .logo-mark {
     background-color: rgb(var(--c-logo));
     -webkit-mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
     mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
   }
 
-  /* Light/dark toggle (Navbar): the icon shows the mode it switches to; hidden with the red palette (dark only) */
+  /* Light/dark toggle (Navbar): the icon shows the mode it switches to */
   .theme-icon-moon { display: none; }
   [data-theme='light'] .theme-icon-sun { display: none; }
   [data-theme='light'] .theme-icon-moon { display: block; }
-  [data-palette='red'] .theme-toggle { display: none; }
   /* The Diplovia logo file is cream; darkened wherever it sits on a light colour */
   [data-theme='light'] .event-logo,
   .tone-flip .event-logo { filter: brightness(0.1); }
@@ -119,13 +115,6 @@ body {
     --c-soft: 232 228 211;
     --c-bright: 247 244 232;
     --c-accent-text: 0 174 187;
-  }
-  [data-palette='red'] .tone-flip { /* red preview: silver panels */
-    --c-deep: 176 176 176;
-    --c-ground: 192 192 192;
-    --c-soft: 42 42 42;
-    --c-bright: 22 22 22;
-    --c-accent-text: 225 6 0;
   }
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */

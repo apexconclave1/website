@@ -30,8 +30,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
           flexDirection: 'column',
           justifyContent: 'center',
           padding: '0 96px',
-          background: '#161616',
-          color: '#EDEDED',
+          background: '#031211',
+          color: '#F7F4E8',
         }}
       >
         {logo ? (
@@ -41,7 +41,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           <div style={{ fontSize: 96, fontWeight: 700 }}>{event.title}</div>
         )}
         <div style={{ marginTop: 40, fontSize: 40, fontWeight: 600 }}>{subtitle}</div>
-        <div style={{ marginTop: 12, fontSize: 30, color: '#C0C0C0' }}>
+        <div style={{ marginTop: 12, fontSize: 30, color: '#E8E4D3' }}>
           {`${formatEventDates(event)} · ${event.location.isVirtual ? 'Online' : event.location.city}`}
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}

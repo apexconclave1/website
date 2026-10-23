@@ -48,11 +48,13 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 | Team link | Removed from navbar and footer (owner, 2026-10-22); `/about#team` still works |
 | Palette (supersedes the brief's) | Charcoal #2A2A2A / silver #C0C0C0 / red #E10600, with derived #161616 and #EDEDED; silver light sections; red on buttons, lines, labels (contrast exception accepted) and the hero 'bolder generation.'; off-white logo; errors in brand colour with an icon. Second palette to compare: #031211 / #E8E4D3 / #00AEBB, same roles, original cream logo. Both live, `?palette=` switch, red default |
 | Blending | Soft (eased) fades between sections, depth in dark sections, film grain, noticeable strength. Superseded by 'One background' |
-| Teal default | Teal palette is what visitors see; red kept behind `?palette=red` until the owner settles (2026-10-22) |
+| Teal default | Teal palette is what visitors see; red kept behind `?palette=red` until the owner settles (2026-10-22). Red dropped, switch removed (2026-10-23) |
 | One background | Dark teal on every section and page; no light sections; hairlines between sections; glow and grain fixed to the screen (2026-10-22) |
 | Scroll motion | Content slides in from the side and fades in, long travel (8rem, 4rem on phones); plays to the end once started; resets when scrolled back up (2026-10-22) |
 | Hero typewriter | Only 'bolder generation.' types itself in (Newsreader, ~2.4s, slowed at owner request), cursor blinks three times and goes; the owner's monospace snippet not used (one-line only, cuts proportional letters, hides the LCP text) (2026-10-22) |
 | Opposite-colour panels | A few panels in the other mode's colours, inside the page width: active vertical tile and the partner call-to-action (home + `/partners` email strip) (2026-10-22) |
+| ₹ sign | Drawn from the device font (Segoe UI, Roboto, Noto Sans, Helvetica Neue) so the event page skips ~170KB of extended font files (2026-10-23) |
+| Site share image | Redone on #031211, same logo size and position (2026-10-23) |
 | Light mode | Navbar sun/moon toggle, dark default, remembered per browser; cream background, #00AEBB buttons, derived #006A73 for accent text; teal palette only (2026-10-22) |
 | Vertical icons | Landmark, BriefcaseBusiness, Code, Mic, Sprout, Gamepad2 (Lucide, bronze) |
 | Footer text | The brief's line: "Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more." |
@@ -71,7 +73,7 @@ Source: owner brief `../one.md`. Goal: present Apex Conclave as a multi-format s
 - [x] 9b. Phone layout pass on every page + shorter phone footer (owner request, 2026-10-22)
 - [x] 9c. Colour rework: new palettes, depth, fades, grain (owner request, 2026-10-22)
 - [x] 9d. One background, scroll reveal, teal default, light mode toggle (owner request, 2026-10-22)
-- [ ] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary)
+- [x] 10. Final QA (a11y, responsive at real phone widths, forms, links, performance, summary) (2026-10-23)
 - [ ] 11. Declutter: merge `IMPLEMENTATION_PLAN.md` into `progress.md`, move the project md files into one folder, tidy the folder structure (owner request, 2026-10-22)
 
 ## Owner decisions (2026-10-20)

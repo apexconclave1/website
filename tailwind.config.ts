@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Colours by role, set per palette as CSS variables in globals.css (html[data-palette]).
+        // Colours by role, set as CSS variables in globals.css (dark by default, html[data-theme='light'] for light mode).
         // <alpha-value> keeps opacity modifiers like border-soft/20 working.
         deep: 'rgb(var(--c-deep) / <alpha-value>)', // darkest: nav, footer, hero, bottom of dark sections
         ground: 'rgb(var(--c-ground) / <alpha-value>)', // dark base; text on light sections
@@ -24,8 +24,8 @@ const config: Config = {
         accent: 'rgb(var(--c-accent-text) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
-        serif: ['var(--font-newsreader)', 'Newsreader', 'Georgia', 'serif'],
+        sans: ['Rupee', 'var(--font-inter)', 'Inter', 'sans-serif'], // Rupee: ₹ only, from the device font (globals.css)
+        serif: ['Rupee', 'var(--font-newsreader)', 'Newsreader', 'Georgia', 'serif'],
       },
       borderRadius: {
         // 2px everywhere (owner decision)

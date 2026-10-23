@@ -23,7 +23,7 @@
 | `accent` | Buttons, lines, markers, labels, hero highlight |
 | `on-accent` | Text on accent fills |
 
-Values per palette and mode (teal default, light mode toggle, red preview via `?palette=red`) are in `.agents/DESIGN.md` and `globals.css`. Use roles, never hex.
+Values per mode (dark default, light mode toggle) are in `.agents/DESIGN.md` and `globals.css`. Use roles, never hex.
 | `max-w-container` | 1240px | Every page's content width |
 
 Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Radius: 2px everywhere.
