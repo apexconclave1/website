@@ -3,17 +3,18 @@ import { ArrowRight } from 'lucide-react';
 import { homeContent, partnerEnquiryHref } from '@/lib/data/organization';
 import { verticals } from '@/lib/data/verticals';
 import { eventsData, formatEventDates } from '@/lib/data/events';
+import { TypedText } from '@/components/home/TypedText';
 
 // The event currently promoted: the first upcoming or live one
 const current = eventsData.find((e) => e.status === 'UPCOMING' || e.status === 'LIVE');
 
 export default function HeroSection() {
   return (
-    <section id="hero" aria-label="Apex Conclave" className="tone-hero flex min-h-[min(100svh,60rem)] flex-col pt-[4.5rem]">
+    <section id="hero" aria-label="Apex Conclave" className="flex min-h-[min(100svh,60rem)] flex-col pt-[4.5rem]">
       <div className="mx-auto flex w-full max-w-container flex-1 flex-col justify-center px-6 py-20">
         <h1 className="max-w-[14ch] text-[3.25rem] font-normal leading-[0.98] tracking-[-0.02em] text-bright sm:text-7xl lg:text-[6.5rem]">
           {homeContent.headline.replace(homeContent.headlineHighlight, '')}
-          <span className="text-accent">{homeContent.headlineHighlight}</span>
+          <TypedText text={homeContent.headlineHighlight} className="text-accent" />
         </h1>
         <p className="mt-10 max-w-[52ch] text-lg leading-relaxed text-soft">{homeContent.summary}</p>
         <div className="mt-10 flex flex-wrap gap-3">

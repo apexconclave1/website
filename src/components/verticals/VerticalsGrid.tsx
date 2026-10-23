@@ -14,15 +14,15 @@ const icons: Record<string, LucideIcon> = {
 };
 
 /**
- * Editorial grid of the six verticals, for paper sections. The active vertical is an ink tile spanning
- * two columns and rows; planned ones are open cells divided by hairlines. `compact` is the home version.
+ * Editorial grid of the six verticals. The active vertical is a tile in the opposite colour (.tone-flip) spanning two columns and rows;
+ * planned ones are open cells divided by hairlines. `compact` is the home version.
  */
 export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
   return (
-    // gap-px over a hairline background draws the dividers; every cell has its own paper or ink fill
+    // Hairlines: the list draws the top and left edges, every cell its own right and bottom edge
     // Home (compact): planned verticals two per row on phones, descriptions from sm up. Page: one column on phones.
     <ol
-      className={`grid gap-px border border-deep/20 bg-deep/20 lg:grid-cols-3 ${compact ? 'grid-cols-2' : 'md:grid-cols-2'}`}
+      className={`reveal-cells grid border-l border-t border-soft/15 lg:grid-cols-3 ${compact ? 'grid-cols-2' : 'md:grid-cols-2'}`}
     >
       {verticals.map((v, i) => {
         const Icon = icons[v.id];
@@ -34,7 +34,7 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
             <li
               key={v.id}
               id={v.id}
-              className={`tone-dark flex scroll-mt-24 flex-col p-6 text-bright md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
+              className={`flex scroll-mt-24 flex-col tone-flip border-b border-r border-soft/15 p-6 md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm tabular-nums text-soft">{number}</span>
@@ -54,7 +54,7 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
                   >
                     <div>
                       {event.logo && !compact && (
-                        <Image src={event.logo} alt="" width={180} height={52} className="mb-5 h-auto w-[180px]" />
+                        <Image src={event.logo} alt="" width={180} height={52} className="event-logo mb-5 h-auto w-[180px]" />
                       )}
                       <span className="block text-lg text-bright">{event.title}</span>
                       <span className="mt-1 block text-sm text-soft">
@@ -77,12 +77,12 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
             key={v.id}
             id={v.id}
             // Wherever there are two columns, the sixth cell would sit alone, so it spans the row
-            className={`flex scroll-mt-24 flex-col bg-soft text-deep lg:last:col-span-1 ${
+            className={`flex scroll-mt-24 flex-col border-b border-r border-soft/15 lg:last:col-span-1 ${
               compact ? 'p-5 last:col-span-2 md:p-7' : 'p-6 md:p-8 md:last:col-span-2'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-sm tabular-nums text-ground">{number}</span>
+              <span className="text-sm tabular-nums text-soft">{number}</span>
               <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
             </div>
             <h3
@@ -92,13 +92,13 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
             >
               {v.title}
             </h3>
-            <p className={`mt-3 text-sm leading-relaxed text-ground ${compact ? 'hidden sm:block' : ''}`}>{v.description}</p>
+            <p className={`mt-3 text-sm leading-relaxed text-soft ${compact ? 'hidden sm:block' : ''}`}>{v.description}</p>
             <div className="mt-auto flex items-center justify-between gap-4 pt-5 text-sm md:pt-8">
-              <span className="text-xs font-medium uppercase tracking-[0.14em] text-ground">Planned</span>
+              <span className="text-xs font-medium uppercase tracking-[0.14em] text-soft">Planned</span>
               {!compact && (
                 <Link
                   href={interestHref(v)}
-                  className="inline-flex items-center gap-1.5 text-deep underline decoration-deep/30 underline-offset-[6px] transition-colors duration-200 hover:decoration-deep"
+                  className="inline-flex items-center gap-1.5 text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
                   data-track="cta_verticals_interest"
                   data-track-vertical={v.id}
                 >

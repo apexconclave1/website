@@ -23,7 +23,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-soft/15 bg-deep pb-8 pt-12 sm:pt-16 print:hidden">
+    <footer className="border-t border-soft/15 pb-8 pt-12 sm:pt-16 print:hidden">
       <div className="mx-auto max-w-container px-6">
         <div className="grid gap-8 pb-10 sm:grid-cols-2 sm:gap-12 sm:pb-14 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-10">
           <div className="max-w-sm">

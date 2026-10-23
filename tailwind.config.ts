@@ -19,6 +19,10 @@ const config: Config = {
         accent: 'rgb(var(--c-accent) / <alpha-value>)', // highlight: buttons, lines, labels
         'on-accent': 'rgb(var(--c-on-accent) / <alpha-value>)', // text on accent fills
       },
+      // text-accent has its own variable: in light mode, accent text is darker than accent fills
+      textColor: {
+        accent: 'rgb(var(--c-accent-text) / <alpha-value>)',
+      },
       fontFamily: {
         sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
         serif: ['var(--font-newsreader)', 'Newsreader', 'Georgia', 'serif'],

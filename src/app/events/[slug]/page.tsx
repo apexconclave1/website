@@ -84,7 +84,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                   width={1200}
                   height={345}
                   priority
-                  className="h-auto w-full max-w-[520px]"
+                  className="event-logo h-auto w-full max-w-[520px]"
                 />
               ) : (
                 <span className="font-serif text-[2.625rem] font-normal leading-tight md:text-6xl">{event.title}</span>
@@ -148,7 +148,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           {story && (
             <div className="mt-12">
               <h3 className="eyebrow mb-6">The delegate’s work</h3>
-              <ol className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+              <ol className="reveal-stagger grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
                 {story.work.map((w, i) => (
                   <li key={w.title} className="space-y-2 border-t border-soft/25 pt-5">
                     <span className="text-xs font-medium text-accent">{pad2(i + 1)}</span>
@@ -165,7 +165,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         {story && (
           <section id="how-it-works" className={sectionClass}>
             <SectionHeading eyebrow="How it works" title="Your screen becomes the conference room." />
-            <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-3">
+            <div className="reveal-stagger mt-10 grid grid-cols-1 gap-10 lg:grid-cols-3">
               {story.phases.map((phase) => (
                 <div key={phase.name}>
                   <h3 className="font-serif text-3xl font-normal">{phase.name}</h3>
@@ -195,7 +195,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               title={`${chambers.length} rooms. ${chambers.length} ways to test yourself.`}
               description="Not sure? Choose the agenda you can’t stop thinking about."
             />
-            <div className="mt-10 grid grid-cols-1 gap-px border border-soft/15 bg-soft/10 md:grid-cols-2">
+            <div className="reveal mt-10 grid grid-cols-1 gap-px border border-soft/15 bg-soft/10 md:grid-cols-2">
               {chambers.map((c) => (
                 <article key={c.id} className="space-y-4 bg-ground p-6 md:p-8 md:last:odd:col-span-2">
                   <div className="flex items-start justify-between gap-4">
@@ -248,7 +248,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               eyebrow="Why MUN"
               title="It doesn’t teach you what to think. It teaches you how to think under pressure."
             />
-            <ol className="mt-10 grid grid-cols-1 gap-x-10 md:grid-cols-2">
+            <ol className="reveal-stagger mt-10 grid grid-cols-1 gap-x-10 md:grid-cols-2">
               {story.skills.map((s, i) => (
                 <li key={s.title} className="flex gap-5 border-b border-soft/15 py-5">
                   <span className="pt-0.5 text-xs font-medium text-accent">{pad2(i + 1)}</span>
@@ -266,7 +266,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         {story && (
           <section id="outcome" className={sectionClass}>
             <SectionHeading eyebrow="The outcome" title="You leave with more than a certificate." />
-            <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
+            <div className="reveal-stagger mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
               {[
                 ['What you build', story.outcomes.build],
                 ['What you take home', story.outcomes.takeHome],
@@ -291,7 +291,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         {event.pricing && (
           <section id="fees" className={sectionClass}>
             <SectionHeading eyebrow="Fees" title="Delegate fee" />
-            <div className="mt-10 grid max-w-xl grid-cols-1 gap-px border border-soft/15 bg-soft/10 sm:grid-cols-2">
+            <div className="reveal mt-10 grid max-w-xl grid-cols-1 gap-px border border-soft/15 bg-soft/10 sm:grid-cols-2">
               {eventFees(event).map((fee) => (
                 <div key={fee.label} className="bg-ground p-6">
                   <div className="text-xs font-medium uppercase tracking-widest text-soft">{fee.label}</div>

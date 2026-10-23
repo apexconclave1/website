@@ -70,9 +70,9 @@ src/
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.
 
-- ❌ **NO Gradients** (linear or radial)
+- ❌ **NO Gradients** (linear or radial), except the fixed page glow in `globals.css`
 - ❌ **NO Glassmorphism** (frosted glass, backdrop-blur panels)
-- ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-soft/15` on dark, `border-deep/20` on light sections)
+- ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-soft/15`)
 - ❌ **NO Decorative Icons** (no random vectors, emoji, or ornamental graphics)
 - ❌ **NO Large Accent Areas** (accent is for buttons, lines, labels and the hero highlight)
 - ❌ **NO Heavy Parallax / Spinning Animations** (subtle transitions only)

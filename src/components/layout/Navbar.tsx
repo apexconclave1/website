@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
 import { partnerEnquiryHref } from '@/lib/data/organization';
@@ -31,6 +31,19 @@ export default function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Light mode: the head script in app/layout.tsx applies the saved choice before paint; this reads and flips it
+  const [light, setLight] = useState(false);
+  useEffect(() => setLight(document.documentElement.dataset.theme === 'light'), []);
+  const toggleTheme = () => {
+    const next = !light;
+    if (next) document.documentElement.dataset.theme = 'light';
+    else delete document.documentElement.dataset.theme;
+    try {
+      localStorage.setItem('apc-theme', next ? 'light' : 'dark');
+    } catch {}
+    setLight(next);
+  };
+
   // Escape closes the mobile menu and returns focus to its button
   useEffect(() => {
     if (!open) return;
@@ -47,7 +60,7 @@ export default function Navbar() {
     href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-soft/15 bg-deep print:hidden">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-soft/15 bg-ground print:hidden">
       <div className="mx-auto flex h-[4.5rem] max-w-container items-center justify-between gap-6 px-6">
         <ApexWordmark />
 
@@ -68,11 +81,23 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <Link href={cta.href} className="btn-primary hidden px-4 py-2 lg:inline-flex" data-track={cta.track}>
-          {cta.label}
-        </Link>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Light mode"
+            aria-pressed={light}
+            className="theme-toggle flex h-11 w-11 items-center justify-center rounded border border-soft/25 text-bright transition-colors duration-200 hover:border-bright lg:h-9 lg:w-9"
+          >
+            <Sun size={18} className="theme-icon-sun" aria-hidden="true" />
+            <Moon size={18} className="theme-icon-moon" aria-hidden="true" />
+          </button>
 
-        <button
+          <Link href={cta.href} className="btn-primary hidden px-4 py-2 lg:inline-flex" data-track={cta.track}>
+            {cta.label}
+          </Link>
+
+          <button
           type="button"
           ref={menuButtonRef}
           onClick={() => setOpen(!open)}
@@ -82,11 +107,12 @@ export default function Navbar() {
           className="flex h-11 w-11 items-center justify-center rounded border border-soft/25 text-bright lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          </button>
+        </div>
       </div>
 
       {open && (
-        <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-soft/15 bg-deep px-6 pb-6 lg:hidden">
+        <nav id="mobile-menu" aria-label="Mobile navigation" className="border-t border-soft/15 bg-ground px-6 pb-6 lg:hidden">
           <ul>
             {navLinks.map((link) => (
               <li key={link.href} className="border-b border-soft/15">

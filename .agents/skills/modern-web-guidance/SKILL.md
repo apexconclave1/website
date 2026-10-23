@@ -17,7 +17,7 @@
 | Need | Use | In this repo |
 |---|---|---|
 | Modal / confirm | `<dialog>` with `showModal()` | Payment confirmation in `StepPayment` |
-| Scroll-linked motion | `animation-timeline: scroll()` / `view()` in `@supports` | `.scroll-progress`, `.rise` |
+| Scroll-linked motion | `animation-timeline: scroll()` / `view()` in `@supports` | `.scroll-progress` |
 | Animate height | `grid-template-rows: 0fr → 1fr` | `FAQAccordion` |
 | Balanced headings | `text-wrap: balance` | `h1, h2, h3` in `globals.css` |
 | Autofill | `autocomplete` on every identity field; `off` on coupon and UTR | `StepIdentity`, `ContactForm` |

@@ -16,40 +16,41 @@ The site should look designed by a person, not generated from a template: typogr
 
 ## Palette (owner, 2026-10-22; replaces the brief's ink/cream/bronze palette)
 
-Colours are set by role as CSS variables (`globals.css`) and used through Tailwind names. Two palettes are built in while the owner decides; visitors get **red**. `?palette=teal` or `?palette=red` on any URL switches and is remembered in that browser (script in `app/layout.tsx`, marked `ponytail:`; delete it and the teal block once one is chosen).
+Colours are set by role as CSS variables (`globals.css`) and used through Tailwind names. Visitors get **teal, dark**. The red palette is kept for comparison: `?palette=red` (or `?palette=teal`) on any URL switches and is remembered in that browser (script in `app/layout.tsx`, marked `ponytail:`; delete it and the red block once the owner settles).
 
-| Role (Tailwind) | Use | Red (default) | Teal |
-|---|---|---|---|
-| `deep` | Nav, footer, hero, bottom of dark sections | `#161616` (derived) | `#010A09` (derived) |
-| `ground` | Dark base; text on light sections | `#2A2A2A` | `#031211` |
-| `soft` | Body text on dark; light section background | `#C0C0C0` | `#E8E4D3` |
-| `bright` | Headlines on dark | `#EDEDED` (derived) | `#F7F4E8` (derived) |
-| `accent` | Buttons, lines, markers, labels, hero highlight | `#E10600` | `#00AEBB` |
-| `on-accent` | Text on accent buttons | `#FFFFFF` | `#031211` |
-| labels on light sections (`--c-accent-on-soft`) | `.eyebrow` inside `.tone-soft` | `#E10600` | `#031211` |
-| logo (`--c-logo`) | `.logo-mark` | `#EDEDED` off-white | `#EAE6DF` original cream |
+| Role (Tailwind) | Use | Teal dark (default) | Teal light (toggle) | Red (preview, dark only) |
+|---|---|---|---|---|
+| `deep` | Hover fills; darkest step | `#010A09` (derived) | `#DDD8C4` (derived) | `#161616` (derived) |
+| `ground` | The one page background; nav; panels | `#031211` | `#E8E4D3` | `#2A2A2A` |
+| `soft` | Body text; hairlines (`border-soft/15`) | `#E8E4D3` | `#2A3A38` (derived) | `#C0C0C0` |
+| `bright` | Headlines, strong text | `#F7F4E8` (derived) | `#031211` | `#EDEDED` (derived) |
+| `accent` | Button fills, lines, markers (`bg-`, `border-`) | `#00AEBB` | `#00AEBB` | `#E10600` |
+| `text-accent` (`--c-accent-text`) | Labels, icons, hero highlight | `#00AEBB` | `#006A73` (derived; `#00AEBB` is 2.1:1 on cream) | `#E10600` |
+| `on-accent` | Text on accent buttons | `#031211` | `#031211` | `#FFFFFF` |
+| logo (`--c-logo`) | `.logo-mark` | `#EAE6DF` original cream | `#031211` | `#EDEDED` |
 
-Contrast (checked 2026-10-22): soft on ground 7.9 (red) / 15 (teal); white on red 5.0; dark on teal 7.1; teal text on dark 7.1.
+`text-accent` has its own variable (`textColor` in `tailwind.config.ts`), so accent text can be darker than accent fills in light mode.
 
-**Known exception (owner accepted):** in the red palette, small red labels fail contrast (2.9:1 on charcoal, 3.6:1 on near-black, 2.7:1 on silver). The teal palette has none.
+**Light mode** (owner, 2026-10-22): sun/moon toggle in the navbar, dark by default, remembered per browser (`apc-theme` in localStorage, applied before paint by a script in `app/layout.tsx`, sets `html[data-theme='light']`). Teal palette only; the toggle is hidden with `?palette=red`. The cream Diplovia logo is darkened in light mode (`.event-logo`).
+
+Contrast (checked 2026-10-22, axe 0 issues on 9 pages in teal dark and light): soft on ground 15:1 (dark); dark on teal 7.1; teal text on dark 7.1.
+
+**Known exception (owner accepted):** in the red palette, small red labels fail contrast (2.9:1 on charcoal, 3.6:1 on near-black).
 
 Errors: `.field-error` and `.alert-error` show the message in `bright` with an accent ⚠ (and accent borders on invalid fields); accent text alone would fail contrast.
 
-## Tone, depth and texture
+## One background (owner, 2026-10-22)
 
-- `.tone-dark`: ground with a faint top light, shading to `deep` at the bottom.
-- `.tone-soft`: soft with a light bloom top left.
-- `.tone-hero`: deep with a low accent glow rising from the bottom edge (stage light).
-- Fades: add `fade-top-deep|ground|soft` (colour of the section above) and `fade-bottom-deep` (below); eased with `color-mix` stops over 3.5rem (6rem from md).
-- The page background (`body`) shades deep → ground → deep for all-dark pages.
-- Film grain: `body::after`, fixed SVG noise, 9% overlay; hidden in print.
-- Gradients are allowed for these tones only. Still no purple-blue gradients, neon, glassmorphism or heavy shadows.
+- Every page and section sits on `ground`. No alternating dark/light sections, no section gradients; sections are separated by a hairline (`border-t border-soft/15`) and spacing.
+- Texture is fixed to the screen, so the background never changes while scrolling: `body::before` (soft light at the top, a faint accent glow low right) and `body::after` (film grain, 9% overlay). Both hidden in print.
+- **Opposite-colour panels** (owner, 2026-10-22): a few contained panels flip to the other mode's colours (`.tone-flip`: cream in dark mode, dark teal in light mode, silver with red). Only the active vertical tile (VerticalsGrid) and the partner call-to-action (home Partnerships text, `/partners` "Prefer email?" strip). Panels stay inside the page width, never full-width bands. Keep it to these few.
+- No other gradients. Still no purple-blue gradients, neon, glassmorphism or heavy shadows.
 
 ## Typography
 
 - **Headlines (h1, h2)**: Newsreader (`font-serif`, `--font-newsreader`, variable with optical sizing). Applied to `h1, h2` in `globals.css`. Weight 400–500; no bold serif.
 - **Everything else**: Inter (`font-sans`, `--font-inter`): body, nav, buttons, labels, h3 and below.
-- **Labels**: `.eyebrow`: 12px uppercase, `tracking-[0.14em]`, accent (labels inside light sections use the palette label colour). No wider tracking anywhere.
+- **Labels**: `.eyebrow`: 12px uppercase, `tracking-[0.14em]`, `text-accent`. No wider tracking anywhere.
 - **Scale**: keep to a few sizes. Body 16–18px, meta 12–14px, section title `text-3xl md:text-[2.75rem]`, hero up to `md:text-7xl`. No oversized type in every section.
 
 ---
@@ -68,7 +69,7 @@ Errors: `.field-error` and `.alert-error` show the message in `bright` with an a
 
 Shared classes in `globals.css`, used on links:
 
-- `.btn-primary`: accent fill, `on-accent` text; hover turns `deep`. Used on dark and light sections.
+- `.btn-primary`: accent fill, `on-accent` text; hover turns `deep`.
 - `.btn-secondary`: soft outline on dark; hover shows the accent border.
 
 `components/ui/Button.tsx` covers `<button>` elements (forms, wizard).
@@ -77,8 +78,12 @@ Shared classes in `globals.css`, used on links:
 
 ## Motion
 
-- 150–350ms, Tailwind default easing (brand curve), `opacity` and `transform` only.
-- Subtle hover on nav, buttons and links. No scroll animation on every heading or card. Nothing starts hidden.
+- Hover and UI: 150–350ms, Tailwind default easing (brand curve), `opacity` and `transform` only.
+- **Scroll reveal** (owner, 2026-10-22): content slides in from the side and fades in as it reaches the screen. Once started it plays to the end (0.8s) even if scrolling stops; scrolling back up past it resets it so it arrives again. Travel: 4rem on phones, 8rem from md (`--reveal-dist`).
+  - Classes: `.reveal` (from the left), `.reveal-right` (from the right), `.reveal-stagger` on a list (each item on its own, later columns 0.12s / 0.24s behind), `.reveal-cells` on a grid whose cells draw the hairlines (cells stay, contents move, cells clip).
+  - `components/ui/ScrollReveal.tsx` adds `.is-in` (IntersectionObserver). Content is only hidden when scripts run (`.js` on `<html>`) and motion is allowed; no-JS and reduced-motion visitors see everything still. `main` clips horizontal overflow so right-hand slides never widen the page.
+  - Use on content blocks below the hero. Not on the hero, nav or footer. Do not nest a reveal inside another reveal.
+- **Hero typewriter** (owner, 2026-10-22): "bolder generation." types itself in after load (`components/home/TypedText.tsx`, 110ms a letter, about 2.4s), with a 2px cursor in the text colour that blinks three times and goes. Letters keep their space while hidden, so nothing shifts; Newsreader, no monospace. Full text for screen readers (`sr-only`) and search; no-JS and reduced-motion visitors see it whole. Hero headline only.
 - Global reduced-motion rule in `globals.css`.
 
 ### Kept effects (owner decision, 2026-10-22)
@@ -100,4 +105,4 @@ Removed on 2026-10-22: DarkVeil, StrokeText, SpecularButton, AccordionGallery, D
 - No AI-looking or generic stock photos; every image needs a purpose. Generated images must never pass as real Apex Conclave events.
 - No random or mixed icon styles. Lucide outline icons only, small, accent or soft, and only where they help.
 - No fake statistics, testimonials, sponsor logos, partnerships or event listings. Planned verticals are labelled as planned.
-- No parallax, spinning or heavy scroll animation.
+- No parallax or spinning. Scroll motion only through the reveal classes above.

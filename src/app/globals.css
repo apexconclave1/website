@@ -3,30 +3,40 @@
 @tailwind utilities;
 
 /* ─── Palettes (owner, 2026-10-22). Values are RGB triplets so Tailwind opacity modifiers work.
-   Default: charcoal / silver / red. Teal is previewed with ?palette=teal (see the script in app/layout.tsx). ─── */
+   Default: teal. Red is previewed with ?palette=red (see the script in app/layout.tsx). ─── */
 :root {
+  --c-deep: 1 10 9; /* #010A09, derived */
+  --c-ground: 3 18 17; /* #031211, the one page background */
+  --c-soft: 232 228 211; /* #E8E4D3 */
+  --c-bright: 247 244 232; /* #F7F4E8, derived */
+  --c-accent: 0 174 187; /* #00AEBB */
+  --c-accent-text: 0 174 187; /* text-accent (labels, icons, highlight); differs from the fill in light mode */
+  --c-on-accent: 3 18 17; /* dark text on teal, 7:1 (cream fails at 2.1:1) */
+  --c-logo: 234 230 223; /* the original cream logo colour */
+  --c-glow: 232 228 211; /* light at the top of the fixed background */
+  color-scheme: dark;
+}
+/* Light mode (navbar toggle, teal palette only; the script in app/layout.tsx never sets it with the red palette) */
+html[data-theme='light'] {
+  --c-deep: 221 216 196; /* #DDD8C4, derived: hover fill a step darker than the page */
+  --c-ground: 232 228 211; /* #E8E4D3 page background */
+  --c-soft: 42 58 56; /* #2A3A38, derived: body text */
+  --c-bright: 3 18 17; /* #031211 headlines */
+  --c-accent-text: 0 106 115; /* #006A73, derived: #00AEBB fails as text on cream (2.1:1) */
+  --c-logo: 3 18 17;
+  --c-glow: 255 255 255;
+  color-scheme: light;
+}
+html[data-palette='red'] {
   --c-deep: 22 22 22; /* #161616, derived */
   --c-ground: 42 42 42; /* #2A2A2A */
   --c-soft: 192 192 192; /* #C0C0C0 */
   --c-bright: 237 237 237; /* #EDEDED, derived */
   --c-accent: 225 6 0; /* #E10600 */
+  --c-accent-text: 225 6 0;
   --c-on-accent: 255 255 255; /* white text on red, 5:1 (off-white is only 4.2:1) */
-  --c-accent-on-soft: 225 6 0; /* labels on light sections (owner accepted 2.7:1) */
   --c-logo: 237 237 237; /* off-white logo */
-  --fade: 3.5rem;
-}
-html[data-palette='teal'] {
-  --c-deep: 1 10 9; /* #010A09, derived */
-  --c-ground: 3 18 17; /* #031211 */
-  --c-soft: 232 228 211; /* #E8E4D3 */
-  --c-bright: 247 244 232; /* #F7F4E8, derived */
-  --c-accent: 0 174 187; /* #00AEBB */
-  --c-on-accent: 3 18 17; /* dark text on teal, 7:1 (cream fails at 2.1:1) */
-  --c-accent-on-soft: 3 18 17; /* teal fails on cream (2.1:1), so labels there are dark */
-  --c-logo: 234 230 223; /* the original cream logo colour */
-}
-@media (min-width: 768px) {
-  :root { --fade: 6rem; }
+  --c-glow: 192 192 192;
 }
 
 /* ─── Base Styles ──────────────────────────────────────────────────── */
@@ -42,10 +52,6 @@ p { text-wrap: pretty; }
 
 body {
   background-color: rgb(var(--c-ground));
-  /* Depth for the all-dark pages: deep under the nav, ground in the middle, deep again at the foot */
-  background-image:
-    radial-gradient(ellipse 90% 40rem at 50% 0%, rgb(var(--c-soft) / 0.06), transparent 70%),
-    linear-gradient(to bottom, rgb(var(--c-deep)) 0, rgb(var(--c-ground)) 32rem, rgb(var(--c-ground)) 70%, rgb(var(--c-deep)) 100%);
   color: rgb(var(--c-soft));
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,50 +92,41 @@ body {
     mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
   }
 
-  /* ─── Section tones: depth inside dark sections, eased fades where dark meets light (color-mix stops) ───
-     Add a fade-top-* class naming the colour of the section above (and fade-bottom-* for the one below). */
-  .tone-dark {
-    --fade-top: var(--c-ground);
+  /* Light/dark toggle (Navbar): the icon shows the mode it switches to; hidden with the red palette (dark only) */
+  .theme-icon-moon { display: none; }
+  [data-theme='light'] .theme-icon-sun { display: none; }
+  [data-theme='light'] .theme-icon-moon { display: block; }
+  [data-palette='red'] .theme-toggle { display: none; }
+  /* The Diplovia logo file is cream; darkened wherever it sits on a light colour */
+  [data-theme='light'] .event-logo,
+  .tone-flip .event-logo { filter: brightness(0.1); }
+  [data-theme='light'] .tone-flip .event-logo { filter: none; }
+
+  /* A few panels in the opposite colour (owner, 2026-10-22): light panels in dark mode, dark panels in light mode.
+     Redefines the role variables, so text, labels, lines and buttons inside follow. Values mirror the two modes. */
+  .tone-flip {
+    --c-deep: 221 216 196;
+    --c-ground: 232 228 211;
+    --c-soft: 42 58 56;
+    --c-bright: 3 18 17;
+    --c-accent-text: 0 106 115;
     background-color: rgb(var(--c-ground));
-    background-image:
-      radial-gradient(ellipse 90% 55% at 50% 0%, rgb(var(--c-soft) / 0.07), transparent 70%),
-      linear-gradient(to bottom,
-        rgb(var(--fade-top)) 0,
-        color-mix(in srgb, rgb(var(--fade-top)) 72%, rgb(var(--c-ground))) calc(var(--fade) * 0.3),
-        color-mix(in srgb, rgb(var(--fade-top)) 28%, rgb(var(--c-ground))) calc(var(--fade) * 0.6),
-        rgb(var(--c-ground)) var(--fade),
-        rgb(var(--c-deep)) 100%);
+    color: rgb(var(--c-bright));
   }
-  .tone-soft {
-    --fade-top: var(--c-soft);
-    --fade-bottom: var(--c-soft);
-    background-color: rgb(var(--c-soft));
-    background-image:
-      radial-gradient(ellipse 70% 60% at 15% 10%, rgb(var(--c-bright) / 0.55), transparent 70%),
-      linear-gradient(to bottom,
-        rgb(var(--fade-top)) 0,
-        color-mix(in srgb, rgb(var(--fade-top)) 72%, rgb(var(--c-soft))) calc(var(--fade) * 0.3),
-        color-mix(in srgb, rgb(var(--fade-top)) 28%, rgb(var(--c-soft))) calc(var(--fade) * 0.6),
-        rgb(var(--c-soft)) var(--fade),
-        rgb(var(--c-soft)) calc(100% - var(--fade)),
-        color-mix(in srgb, rgb(var(--fade-bottom)) 28%, rgb(var(--c-soft))) calc(100% - var(--fade) * 0.6),
-        color-mix(in srgb, rgb(var(--fade-bottom)) 72%, rgb(var(--c-soft))) calc(100% - var(--fade) * 0.3),
-        rgb(var(--fade-bottom)) 100%);
+  [data-theme='light'] .tone-flip {
+    --c-deep: 1 10 9;
+    --c-ground: 3 18 17;
+    --c-soft: 232 228 211;
+    --c-bright: 247 244 232;
+    --c-accent-text: 0 174 187;
   }
-  /* Hero: deepest tone with a low accent glow rising from the bottom edge, like light on a stage */
-  .tone-hero {
-    background-color: rgb(var(--c-deep));
-    background-image:
-      radial-gradient(ellipse 75% 55% at 50% 118%, rgb(var(--c-accent) / 0.32), transparent 72%),
-      radial-gradient(ellipse 50% 45% at 90% -5%, rgb(var(--c-soft) / 0.08), transparent 70%);
+  [data-palette='red'] .tone-flip { /* red preview: silver panels */
+    --c-deep: 176 176 176;
+    --c-ground: 192 192 192;
+    --c-soft: 42 42 42;
+    --c-bright: 22 22 22;
+    --c-accent-text: 225 6 0;
   }
-  .fade-top-deep { --fade-top: var(--c-deep); }
-  .fade-top-ground { --fade-top: var(--c-ground); }
-  .fade-top-soft { --fade-top: var(--c-soft); }
-  .fade-bottom-deep { --fade-bottom: var(--c-deep); }
-  /* Labels inside light sections use the palette's light-safe label colour */
-  .tone-soft .eyebrow { color: rgb(var(--c-accent-on-soft)); }
-  .tone-soft .tone-dark .eyebrow { color: rgb(var(--c-accent)); } /* dark tiles inside light sections */
 
   /* External links (Instagram, LinkedIn, ...): underline + an arrow that slides in on hover */
   .ext-link {
@@ -148,7 +145,18 @@ body {
   .ext-link::after { transition: none; transform: none; }
 }
 
-/* ─── Film grain over the whole page (static texture, no animation) ── */
+/* ─── One background: a glow fixed to the screen (soft light at the top, accent low down) and film grain.
+   Both stay put while the content scrolls over them. ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(var(--c-glow) / 0.07), transparent 70%),
+    radial-gradient(ellipse 70% 45% at 85% 115%, rgb(var(--c-accent) / 0.14), transparent 70%);
+}
 body::after {
   content: '';
   position: fixed;
@@ -188,20 +196,60 @@ body::after {
   a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
   img[src*='brand'] { filter: invert(1); } /* light logos print dark; photos and QR stay as they are */
   .logo-mark { background-color: #000 !important; }
-  body::after { display: none; }
+  body::before, body::after { display: none; }
 }
 
-/* Section-enter rise: 8px, tied to scroll, so content is never hidden (no support = no motion) */
-@supports (animation-timeline: view()) {
-  .rise {
-    animation: rise linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 60%;
+/* ─── Scroll reveal: content slides in from the side and fades in. ScrollReveal (components/ui) adds .is-in when a
+   block reaches the screen and the slide plays to the end, even if scrolling stops; scrolling back up past it
+   resets it. Hidden only when scripts run (.js on <html>) and motion is allowed.
+   .reveal from the left, .reveal-right from the right, .reveal-stagger on a list: each item on its own, later
+   columns a little behind. .reveal-cells on a grid whose cells draw the hairlines: the cells stay put and their
+   contents move, so the lines never break. ── */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal,
+  .js .reveal-right,
+  .js .reveal-stagger > *,
+  .js .reveal-cells > * > * {
+    opacity: 0;
+    transform: translateX(calc(var(--reveal-dist) * -1));
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  .js .reveal-right { transform: translateX(var(--reveal-dist)); }
+  .js .reveal-stagger > :nth-child(3n + 2),
+  .js .reveal-cells > :nth-child(3n + 2) > * { transition-delay: 0.12s; }
+  .js .reveal-stagger > :nth-child(3n),
+  .js .reveal-cells > :nth-child(3n) > * { transition-delay: 0.24s; }
+  .js .is-in { opacity: 1; transform: none; }
 }
-@keyframes rise {
-  from { transform: translateY(8px); }
+.reveal-cells > * { overflow: hidden; } /* contents slide in inside their own cell, not across its neighbours */
+/* ─── Hero typewriter (components/home/TypedText.tsx): letters not yet typed keep their space but are hidden;
+   the cursor is a 2px bar drawn just after the last typed letter, so it never moves the text.
+   Only with scripts and motion. ── */
+@media (prefers-reduced-motion: no-preference) {
+  .js .typed-char { visibility: hidden; }
+  .js .typed-cursor { position: relative; }
+  .js .typed-cursor::after {
+    content: '';
+    position: absolute;
+    left: calc(100% + 0.04em);
+    top: 0.2em;
+    height: 0.8em;
+    width: 2px;
+    background-color: currentColor;
+  }
+  .js .typed-cursor.is-done::after { animation: typed-blink 1s steps(1) 3 forwards; }
 }
+@keyframes typed-blink {
+  50%, to { opacity: 0; }
+}
+
+/* How far content travels sideways (owner asked for a long entry) */
+:root { --reveal-dist: 4rem; }
+@media (min-width: 768px) {
+  :root { --reveal-dist: 8rem; }
+}
+/* Content sliding in from the right must not widen the page (clip, unlike hidden, keeps sticky working) */
+main { overflow-x: clip; }
 
 /* Events directory: the page container already sets the side padding */
 .events-stack .scroll-stack__inner { padding-inline: 0; }
@@ -222,7 +270,6 @@ body::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .rise { animation: none !important; }
   /* The progress bar follows scroll position, not time, so it keeps working */
   .scroll-progress { animation-duration: auto !important; }
 }

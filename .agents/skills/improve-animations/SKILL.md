@@ -19,7 +19,7 @@
 | Easing | Brand ease-out `cubic-bezier(0.25, 0.46, 0.45, 0.94)`. Tailwind's `transition` classes use it by default (`tailwind.config.ts`), so do not add `ease-*` classes |
 | Allowed | `opacity`, `transform` (translate up to 12px, scale 0.98–1.02), border and text colour |
 | Forbidden | Rotate, skew, blur/filter, background morphing, animating `width`/`height`/`top`/`left` |
-| At rest | Nothing starts hidden. Content must be readable if CSS animations or JS never run |
+| At rest | Content must be readable if JS never runs or motion is reduced (scroll reveal hides only under `.js` and no-preference) |
 | Tool | CSS transitions, `@keyframes`, scroll-driven animations. No JS animation libraries |
 
 Exceptions: the two kept effects (`ScrollStack` on `/events`, `FuzzyText` canvas on the 404) keep their own timing. The FAQ answer uses a `grid-template-rows` 0fr→1fr transition, the accepted way to animate height without JS.
@@ -44,8 +44,8 @@ Re-key the wrapper so the keyframe replays on each step:
 <div key={currentStep} className="animate-step-in">…</div>  // 200ms fade + 8px rise
 ```
 
-### Section-enter rise (`SectionHeading`)
-`.rise` in `globals.css`: an 8px `translateY`, tied to scroll with `animation-timeline: view()` inside `@supports`. Transform only, so headings are visible at rest; browsers without support simply show no motion.
+### Scroll reveal (owner request, 2026-10-22; overrides the 12px translate limit)
+`.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells` in `globals.css`, driven by `components/ui/ScrollReveal.tsx`: content slides in from the side (8rem, 4rem on phones) over 0.8s once it reaches the screen and finishes even if scrolling stops. Rules and usage in `.agents/DESIGN.md` (Motion). `SectionHeading` uses `.reveal`.
 
 ### Expand and collapse (`FAQAccordion`)
 ```tsx
@@ -62,7 +62,7 @@ Re-key the wrapper so the keyframe replays on each step:
 
 ## Reduced motion
 
-`globals.css` has a catch-all `@media (prefers-reduced-motion: reduce)` that collapses every CSS transition and animation, and disables `.rise`. The effects handle it themselves: ScrollStack skips its smooth wheel scrolling, FuzzyText draws clean text with no fuzz or intro. Any new JS-driven motion must check `matchMedia('(prefers-reduced-motion: reduce)')`.
+`globals.css` has a catch-all `@media (prefers-reduced-motion: reduce)` that collapses every CSS transition and animation; the scroll reveal only hides content under `prefers-reduced-motion: no-preference`. The effects handle it themselves: ScrollStack skips its smooth wheel scrolling, FuzzyText draws clean text with no fuzz or intro. Any new JS-driven motion must check `matchMedia('(prefers-reduced-motion: reduce)')`.
 
 ## Performance
 

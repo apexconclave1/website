@@ -91,7 +91,7 @@ The home page, events directory, footer and event page all read from these files
 
 ## Design
 
-Rules are in `.agents/DESIGN.md`. Colours are role tokens (`deep`, `ground`, `soft`, `bright`, `accent`) with two palettes: charcoal/silver/red (default) and teal (`?palette=teal`). Fonts: Newsreader (headlines) and Inter.
+Rules are in `.agents/DESIGN.md`. Colours are role tokens (`deep`, `ground`, `soft`, `bright`, `accent`) teal by default with a light mode toggle in the navbar; a charcoal/silver/red palette is kept for comparison (`?palette=red`). One background on every page; content slides in on scroll (`components/ui/ScrollReveal.tsx`). Fonts: Newsreader (headlines) and Inter.
 
 ## Project notes
 

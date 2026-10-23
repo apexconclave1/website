@@ -16,14 +16,14 @@
 
 | Tailwind token | Use |
 |---|---|
-| `deep` | Darkest: nav, footer, hero, bottom of dark sections |
-| `ground` | Dark base; text on light sections |
-| `soft` | Body text on dark (`text-soft`); light sections (`tone-soft`); lines `border-soft/15`–`/25` |
-| `bright` | Headlines on dark |
+| `deep` | Hover fills; darkest step |
+| `ground` | The one page background, nav, panels |
+| `soft` | Body text (`text-soft`); lines `border-soft/15`–`/25` |
+| `bright` | Headlines, strong text |
 | `accent` | Buttons, lines, markers, labels, hero highlight |
 | `on-accent` | Text on accent fills |
 
-Values per palette (red default, teal preview via `?palette=teal`) are in `.agents/DESIGN.md` and `globals.css`. Use roles, never hex.
+Values per palette and mode (teal default, light mode toggle, red preview via `?palette=red`) are in `.agents/DESIGN.md` and `globals.css`. Use roles, never hex.
 | `max-w-container` | 1240px | Every page's content width |
 
 Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Radius: 2px everywhere.
@@ -40,7 +40,7 @@ Fonts: Newsreader (`font-serif`, automatic on h1/h2) and Inter (`font-sans`). Ra
 
 ## Principles
 
-1. **Depth from hairlines, not shadows.** Borders and dark/light section changes.
+1. **Depth from hairlines, not shadows.** One background; sections divided by hairlines and spacing.
 2. **Typography carries hierarchy.** Serif headings at 400–500 weight; body 16–18px `soft`; meta 12–14px `cream/70` (on paper: `ink` and `stone`). Headings use `text-wrap: balance`.
 3. **Breathing room.** Sections 64–96px vertical padding (`py-16 md:py-24`); cards at least 24px inside (`p-6`).
 4. **Accent with intent.** Buttons, lines, labels and one hero highlight; no large accent backgrounds.

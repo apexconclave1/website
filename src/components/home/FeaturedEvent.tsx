@@ -30,7 +30,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
   return (
     <section aria-labelledby="featured-heading" className="tone-dark fade-top-soft">
       <div className="mx-auto max-w-container px-6 py-16 md:py-32">
-        <div className="mb-10 flex md:mb-14 items-end justify-between gap-6">
+        <div className="reveal mb-10 flex md:mb-14 items-end justify-between gap-6">
           <p className="eyebrow">Featured event</p>
           <Link href="/events" className="text-sm text-soft underline underline-offset-4 transition-colors duration-200 hover:text-bright">
             All events
@@ -38,7 +38,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
         </div>
 
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5">
+          <div className="reveal lg:col-span-5">
             <h2 id="featured-heading" className="text-[2.75rem] font-normal leading-none md:text-6xl">
               {event.title}
             </h2>
@@ -81,7 +81,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
           </div>
 
           {event.posterImage && (
-            <div className="lg:col-span-7">
+            <div className="reveal-right lg:col-span-7">
               <Image
                 src={event.posterImage}
                 alt={`${event.title} artwork`}
