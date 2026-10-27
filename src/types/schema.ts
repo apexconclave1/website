@@ -1,6 +1,5 @@
 export type EventStatus = 'UPCOMING' | 'LIVE' | 'COMPLETED' | 'ARCHIVED';
 export type EventCategory = 'MUN' | 'LEADERSHIP' | 'TECH' | 'BUSINESS' | 'CULTURAL';
-export type PortfolioStatus = 'AVAILABLE' | 'RESERVED' | 'ALLOCATED';
 
 /**
  * Apex Conclave Organization Global Settings

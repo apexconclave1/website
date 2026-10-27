@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Compass, DoorOpen, Target, Users } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
 import { FeaturedEvent } from '@/components/home/FeaturedEvent';
 import { eventsData } from '@/lib/data/events';
@@ -8,6 +8,7 @@ import { homeContent, leadershipTeam, operatingStandards, partnerEnquiryHref, pa
 import { CollaborationList } from '@/components/partners/CollaborationList';
 import { TeamMember } from '@/components/team/TeamMember';
 import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
+import { Ideas } from '@/components/home/Ideas';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata(
@@ -15,9 +16,6 @@ export const metadata: Metadata = pageMetadata(
   'Apex Conclave runs student competitions and experiences in India, starting with Diplovia 2026, a two-day virtual Model United Nations. New formats coming soon.',
   '/',
 );
-
-// Experience, Competition, Community, Opportunity (same order as homeContent.about.ideas)
-const aboutIcons = [Compass, Target, Users, DoorOpen];
 
 export default function HomePage() {
   const featured = eventsData[0];
@@ -66,18 +64,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ul className="reveal-stagger grid grid-cols-2 gap-x-6 self-end lg:col-span-5 lg:col-start-8">
-            {homeContent.about.ideas.map((idea, i) => {
-              const Icon = aboutIcons[i];
-              return (
-                <li key={idea.title} className="border-t border-soft/15 py-6 sm:pr-8 md:py-7">
-                  <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
-                  <h3 className="mt-4 text-base font-medium md:mt-5">{idea.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-soft">{idea.body}</p>
-                </li>
-              );
-            })}
-          </ul>
+          <Ideas className="grid-cols-2 gap-x-6 self-end lg:col-span-5 lg:col-start-8" />
         </div>
       </section>
 

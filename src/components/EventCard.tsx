@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { EventEntity } from '@/types/schema';
 import { eventFees, formatEventDates } from '@/lib/data/events';
-import { Badge } from '@/components/ui/Badge';
 
 export interface EventCardProps {
   event: EventEntity;
@@ -18,12 +17,11 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
   return (
     <div className="grid items-center gap-8 lg:grid-cols-2">
       <div className="space-y-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge category={event.category} />
-          {event.edition && <Badge variant="accent">{event.edition}</Badge>}
-        </div>
+        <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
+          {[event.format?.split(' · ')[0], event.edition].filter(Boolean).join(' · ')}
+        </p>
 
-        <h2 className="text-4xl font-normal leading-tight text-bright md:text-5xl">{event.title}</h2>
+        <h2 className="text-5xl font-medium leading-tight text-bright md:text-6xl">{event.title}</h2>
 
         <div className="flex flex-wrap items-center gap-5 text-sm text-soft">
           <span className="flex items-center gap-1.5">
@@ -41,7 +39,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
         {event.pricing && (
           <ul className="flex flex-wrap gap-3 text-sm text-bright">
             {eventFees(event).map((f) => (
-              <li key={f.label} className="rounded border border-soft/15 bg-ground px-4 py-2">
+              <li key={f.label} className="rounded border border-soft/20 px-4 py-2">
                 <span className="text-soft">{f.label}:</span> {f.amount}
               </li>
             ))}
@@ -66,17 +64,22 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
         </div>
       </div>
 
-      {/* The event logo repeats the title, so it only shows beside the text on large screens */}
-      <div className="relative hidden h-[280px] lg:block">
+      {/* The event's own artwork (booklet cover with its logo); otherwise its cover image, large screens only */}
+      {event.posterImage ? (
         <Image
-          src={event.coverImage}
+          src={event.posterImage}
           priority={priority}
-          alt={event.title}
-          fill
-          className="object-contain p-8"
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          alt={`${event.title} artwork`}
+          width={1654}
+          height={1500}
+          sizes="(min-width: 1024px) 520px, 100vw"
+          className="h-auto w-full border border-accent/30"
         />
-      </div>
+      ) : (
+        <div className="relative hidden h-[280px] lg:block">
+          <Image src={event.coverImage} priority={priority} alt={event.title} fill className="object-contain p-8" sizes="50vw" />
+        </div>
+      )}
     </div>
   );
 }

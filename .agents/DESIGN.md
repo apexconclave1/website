@@ -80,6 +80,8 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `VesselMark` | `components/verticals/` | Coming soon card art: the hero jar in shadow, lime rim light; pass a unique `uid` per instance |
 | `vesselShapes` | `components/home/vesselShapes.ts` | The two vessel outlines, shared by `VesselDrift` and `VesselMark` |
 | `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.bg-hero`, title, overview, facts, buttons, the booklet cover artwork, committee strip |
+| `PageHeader` | `components/ui/` | Inner-page header: `.bg-hero` + grid, label, title, optional right column. Use on every inner page |
+| `Ideas` | `components/home/` | The four ideas, numbered in the accent; home About and the About page |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
 **Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer**: on `deep`; logo, description, email, Explore / Events / Follow, Terms, Privacy, Code of Conduct.

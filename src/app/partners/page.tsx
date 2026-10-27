@@ -3,6 +3,7 @@ import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CollaborationList } from '@/components/partners/CollaborationList';
+import { PageHeader } from '@/components/ui/PageHeader';
 import { organizationConfig, partnerEnquiryHref, partners, partnersContent } from '@/lib/data/organization';
 
 export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Conclave: sponsor an event, co-host with your college, set a competition challenge, judge or mentor, or bring events to your campus.', '/partners');
@@ -10,21 +11,27 @@ export const metadata: Metadata = pageMetadata('Partners', 'Partner with Apex Co
 export default function PartnersPage() {
   return (
     <main id="main-content">
-      {/* Intro and the five ways to work together */}
-      <section>
-        <div className="mx-auto grid max-w-container gap-10 px-6 md:gap-14 pb-16 pt-28 md:pb-32 md:pt-36 lg:grid-cols-12 lg:gap-10">
-          <div className="reveal lg:col-span-5">
-            <p className="eyebrow mb-5">Partners</p>
-            <h1 className="max-w-[14ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">{partnersContent.headline}</h1>
-            <p className="mt-8 max-w-[46ch] text-base leading-relaxed text-soft md:text-lg">{partnersContent.intro}</p>
-            <Link href={partnerEnquiryHref} className="btn-primary mt-10" data-track="cta_partners_enquire">
+      <PageHeader
+        eyebrow="Partners"
+        title={partnersContent.headline}
+        aside={
+          <>
+            <p>{partnersContent.intro}</p>
+            <Link href={partnerEnquiryHref} className="btn-primary mt-8" data-track="cta_partners_enquire">
               Partner With Us
             </Link>
-          </div>
-          <div className="lg:col-span-7 lg:pt-2">
-            <h2 className="sr-only">Ways to work with us</h2>
-            <CollaborationList />
-          </div>
+          </>
+        }
+      />
+
+      {/* The five ways to work together */}
+      <section className="mx-auto grid max-w-container gap-10 px-6 py-16 md:py-24 lg:grid-cols-12 lg:gap-10">
+        <div className="reveal lg:col-span-4">
+          <p className="eyebrow mb-5">Ways to work with us</p>
+          <h2 className="max-w-[14ch] text-4xl font-normal leading-[1.08] md:text-5xl">Five ways in.</h2>
+        </div>
+        <div className="lg:col-span-8">
+          <CollaborationList />
         </div>
       </section>
 

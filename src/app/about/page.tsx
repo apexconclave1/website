@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { TeamMember } from '@/components/team/TeamMember';
+import { PageHeader } from '@/components/ui/PageHeader';
+import { Ideas } from '@/components/home/Ideas';
 import { eventsData, formatEventDates } from '@/lib/data/events';
 import {
   communityContent,
@@ -29,25 +31,12 @@ export default function AboutPage() {
 
   return (
     <main id="main-content">
-      {/* Mission */}
-      <section>
-        <div className="mx-auto grid max-w-container gap-10 px-6 pb-16 pt-28 md:pb-32 md:pt-36 lg:grid-cols-12">
-          <div className="reveal lg:col-span-7">
-            <p className="eyebrow mb-5">About Apex Conclave</p>
-            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">{homeContent.about.headline}</h1>
-          </div>
-          <div className="reveal-right lg:col-span-5 lg:pt-12">
-            <p className="text-base leading-relaxed text-soft md:text-lg">{homeContent.about.body}</p>
-            <ul className="mt-10 border-t border-soft/15">
-              {homeContent.about.ideas.map((idea) => (
-                <li key={idea.title} className="grid grid-cols-[8rem_1fr] gap-4 border-b border-soft/15 py-4 text-sm">
-                  <span className="font-medium text-bright">{idea.title}</span>
-                  <span className="text-soft">{idea.body}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+      <PageHeader eyebrow="About Apex Conclave" title={homeContent.about.headline} aside={<p>{homeContent.about.body}</p>} />
+
+      {/* What it stands for */}
+      <section aria-labelledby="ideas-heading" className="mx-auto max-w-container px-6 py-16 md:py-24">
+        <h2 id="ideas-heading" className="sr-only">What Apex Conclave stands for</h2>
+        <Ideas className="grid-cols-2 lg:grid-cols-4" />
       </section>
 
       {/* What we run, who it brings together, team */}

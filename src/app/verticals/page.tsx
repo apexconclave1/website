@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { pageMetadata } from '@/lib/seo';
 import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
+import { PageHeader } from '@/components/ui/PageHeader';
 
 export const metadata: Metadata = pageMetadata(
   'Event Verticals',
@@ -13,19 +14,17 @@ export const metadata: Metadata = pageMetadata(
 export default function VerticalsPage() {
   return (
     <main id="main-content">
-      <div className="mx-auto max-w-container px-6 pb-16 pt-28 md:pb-32 md:pt-36">
-        <header className="grid gap-8 pb-16 lg:grid-cols-12 lg:items-end">
-          <div className="reveal lg:col-span-7">
-            <p className="eyebrow mb-5">Event Verticals</p>
-            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">
-              One stage live. More on the way.
-            </h1>
-          </div>
-          <p className="reveal-right max-w-[48ch] text-base leading-relaxed text-soft md:text-lg lg:col-span-5">
+      <PageHeader
+        eyebrow="Event Verticals"
+        title="One stage live. More on the way."
+        aside={
+          <p>
             Apex Conclave runs student competitions and experiences under one name. Diplomacy is live with Diplovia 2026.
             New formats are being built and will be announced here first.
           </p>
-        </header>
+        }
+      />
+      <div className="mx-auto max-w-container px-6 py-16 md:pb-32 md:pt-24">
 
         <h2 className="sr-only">All verticals</h2>
         <VerticalsGrid />

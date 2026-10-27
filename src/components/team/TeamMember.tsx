@@ -14,14 +14,15 @@ interface TeamMemberProps {
 export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemberProps) {
   return (
     <figure className="grid grid-cols-[6rem_1fr] items-start gap-5 sm:block">
-      {/* Grayscale evens out the different photo backgrounds; the files stay in colour */}
+      {/* One treatment for every portrait: black and white, slightly darker and firmer, so the different photo
+          backgrounds sit closer together. The files stay in colour. */}
       <Image
         src={photo}
         alt={`${name}, ${role}`}
         width={512}
         height={512}
         sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 96px"
-        className="aspect-square w-full border border-soft/15 object-cover grayscale"
+        className="aspect-square w-full border border-soft/15 object-cover brightness-[0.88] contrast-[1.08] grayscale"
       />
       <figcaption className="sm:mt-5">
         <h3 className="text-lg font-medium text-bright">{name}</h3>
