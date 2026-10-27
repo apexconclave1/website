@@ -22,7 +22,8 @@ export const eventsData: EventEntity[] = [
     coverImage: '/brand/diplovia-logo-light.png',
     logo: '/brand/diplovia-logo-light.png',
     brand: 'diplovia',
-    tagline: 'The Virtual Frontier of Global Leadership', // delegate booklet cover
+    // Delegate booklet cover (docs/), rendered at 200 dpi and cropped above its old printed dates; colours untouched
+    posterImage: '/events/diplovia-2026-cover.jpg',
     format: 'Virtual Model United Nations · 2 days',
     // Dates confirmed by the owner on 2026-10-27. Set registrationOpensAt and registrationOpen: true when registration opens.
     startDate: '2026-11-21',

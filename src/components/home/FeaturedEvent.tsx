@@ -5,11 +5,11 @@ import type { EventEntity } from '@/types/schema';
 import { formatEventDates } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
-import { DiploviaArt } from '@/components/events/DiploviaArt';
 
 /**
  * Home featured event, in the event's own identity (.theme-diplovia: navy, ivory, gold, burgundy, Cormorant):
- * logo, tagline, confirmed facts, registration state, the way in, the artwork, then the committees with their agendas.
+ * title, overview, confirmed facts, registration state, the way in, the event's own artwork (booklet cover with the
+ * official logo and tagline), then the committees with their agendas.
  */
 export function FeaturedEvent({ event }: { event: EventEntity }) {
   const committees = chambersData.filter((c) => c.eventId === event.id).sort((a, b) => a.displayOrder - b.displayOrder);
@@ -36,26 +36,27 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
 
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-12">
           <div className="reveal lg:col-span-6">
-            <h2 id="featured-heading">
-              <span className="sr-only">{event.title}</span>
-              {event.logo && (
-                <Image src={event.logo} alt="" width={1200} height={345} sizes="(min-width: 768px) 420px, 80vw" className="h-auto w-[min(420px,80%)]" />
-              )}
-            </h2>
-            <p aria-hidden="true" className="mt-4 text-xs font-medium uppercase tracking-[0.3em] text-accent">
-              {[event.startDate?.slice(0, 4), event.edition].filter(Boolean).join(' · ')}
+            <p className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
+              {event.format?.split(' · ')[0] ?? event.edition}
             </p>
-            {event.tagline && (
-              <p className="mt-8 max-w-[18ch] font-display text-[2rem] font-medium italic leading-[1.1] text-bright md:text-5xl">
-                {event.tagline}
-              </p>
-            )}
+            <h2 id="featured-heading" className="mt-5 text-[3.25rem] font-medium leading-[0.95] text-bright md:text-7xl">
+              {event.title}
+            </h2>
             <p className="mt-6 max-w-[46ch] text-base leading-relaxed text-soft md:text-lg">{event.fullOverview}</p>
           </div>
 
-          <div className="reveal-right lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:self-center">
-            <DiploviaArt className="mx-auto w-full max-w-[36rem] lg:max-w-none" />
-          </div>
+          {event.posterImage && (
+            <div className="reveal-right lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:self-center">
+              <Image
+                src={event.posterImage}
+                alt={`${event.title} artwork`}
+                width={1654}
+                height={1500}
+                sizes="(min-width: 1280px) 600px, (min-width: 1024px) 48vw, 100vw"
+                className="h-auto w-full border border-accent/30"
+              />
+            </div>
+          )}
 
           <div className="reveal lg:col-span-6 lg:row-start-2">
             <dl className="grid grid-cols-2 border-t border-accent/25">
