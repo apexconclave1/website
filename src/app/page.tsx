@@ -27,7 +27,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Event verticals (compact; full version on /verticals) */}
-      <section aria-labelledby="verticals-heading" className="border-t border-soft/15">
+      <section id="verticals" aria-labelledby="verticals-heading" className="scroll-mt-16 border-t border-soft/15">
         <div className="mx-auto max-w-container px-6 py-16 md:py-32">
           <div className="reveal mb-10 flex md:mb-14 flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>

@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { homeContent, partnerEnquiryHref } from '@/lib/data/organization';
-import { verticals } from '@/lib/data/verticals';
 import { eventsData, formatEventDates } from '@/lib/data/events';
-import { HeroArt } from '@/components/home/HeroArt';
+import { VesselDrift } from '@/components/home/VesselDrift';
 
 // The event currently promoted: the first upcoming or live one
 const current = eventsData.find((e) => e.status === 'UPCOMING' || e.status === 'LIVE');
@@ -14,19 +13,29 @@ const lines = [
   <>
     for a <span className="text-accent">bolder</span>
   </>,
-  <span key="g" className="text-accent">generation.</span>,
+  <>generation.</>,
 ];
 
+/**
+ * Home hero: full-screen, cinematic. Drifting sculptural vessels on the Apex hero gradient behind an oversized
+ * headline. Lime tints, kept few: "bolder", the vessels' rim light, the glow behind them, the next-event dot and the
+ * main button's hover.
+ */
 export default function HeroSection() {
   return (
-    <section id="hero" aria-label="Apex Conclave" className="relative isolate overflow-hidden bg-hero pt-[4.5rem]">
-      <div aria-hidden="true" className="texture-grid absolute inset-0 -z-10" />
+    <section id="hero" aria-label="Apex Conclave" className="relative isolate flex min-h-[max(100svh,40rem)] flex-col overflow-hidden bg-ground bg-hero">
+      <VesselDrift />
+      {/* Scrims keep the text readable over the vessels: darker at the top (navbar) and towards the bottom (text) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgb(var(--c-ground)/0.85)_0%,transparent_22%,transparent_38%,rgb(var(--c-ground)/0.6)_60%,rgb(var(--c-ground)/0.95)_90%)]" />
+      {/* Darker pools behind the text blocks only, so the vessels stay vivid elsewhere (contrast measured against the drift) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,transparent_34%,rgb(var(--c-ground)/0.85)_46%,rgb(var(--c-ground)/0.85)_100%)] lg:bg-[radial-gradient(ellipse_58%_46%_at_26%_66%,rgb(var(--c-ground)/0.88),rgb(var(--c-ground)/0.7)_45%,transparent_78%),radial-gradient(ellipse_30%_32%_at_84%_74%,rgb(var(--c-ground)/0.8),transparent_72%)]" />
+      <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0 -z-10" />
 
-      <div className="mx-auto grid min-h-[min(calc(100svh-4.5rem-3.75rem),52rem)] max-w-container items-center gap-12 px-6 py-16 md:py-24 lg:grid-cols-12 lg:gap-6">
-        <div className="lg:col-span-7">
-          <p className="eyebrow rise-in mb-8">Student competitions and experiences</p>
+      <div className="mx-auto flex w-full max-w-container flex-1 flex-col justify-end px-6 pb-10 pt-[calc(4.5rem+min(52vw,17rem))] md:pb-14 lg:pt-28">
+        <p className="rise-in mb-6 text-xs font-medium uppercase tracking-[0.2em] text-soft [text-shadow:0_1px_10px_rgb(0_0_0/0.9)]">Student competitions and experiences</p>
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-6">
           {/* sr-only full sentence; visual lines rise in one after another. min(…, vw) keeps it on screen with large text */}
-          <h1 className="text-[min(3.5rem,11.4vw)] font-medium leading-[0.95] text-bright sm:text-[min(5rem,11vw)] lg:text-[min(6rem,7.4vw)]">
+          <h1 className="text-[min(3.5rem,11.4vw)] font-medium leading-[0.95] text-bright sm:text-[min(5rem,11vw)] lg:col-span-8 lg:text-[min(6.5rem,7.6vw)]">
             <span className="sr-only">{homeContent.headline}</span>
             {lines.map((line, i) => (
               <span key={i} aria-hidden="true" className="rise-in block" style={{ animationDelay: `${80 + i * 90}ms` }}>
@@ -34,57 +43,46 @@ export default function HeroSection() {
               </span>
             ))}
           </h1>
-          <p className="rise-in mt-10 max-w-[48ch] text-base leading-relaxed text-soft md:text-lg" style={{ animationDelay: '360ms' }}>
-            {homeContent.summary}
-          </p>
-          <div className="rise-in mt-10 flex flex-wrap gap-3" style={{ animationDelay: '440ms' }}>
-            <Link href="/verticals" className="btn-primary" data-track="cta_hero_explore">
-              Explore Experiences <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-            <Link href={partnerEnquiryHref} className="btn-secondary" data-track="cta_hero_partner">
-              Partner With Us
-            </Link>
+          <div className="rise-in lg:col-span-4" style={{ animationDelay: '380ms' }}>
+            <p className="max-w-[42ch] text-base leading-relaxed text-soft [text-shadow:0_1px_12px_rgb(0_0_0/0.95)]">{homeContent.summary}</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/verticals"
+                className="inline-flex items-center justify-center gap-2 rounded border border-bright bg-bright px-6 py-3 text-sm font-medium text-ground transition duration-200 hover:border-accent hover:bg-accent active:translate-y-px"
+                data-track="cta_hero_explore"
+              >
+                Explore Experiences <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+              <Link href={partnerEnquiryHref} className="btn-secondary hover:border-bright hover:text-bright" data-track="cta_hero_partner">
+                Partner With Us
+              </Link>
+            </div>
           </div>
         </div>
 
-        <HeroArt className="mx-auto w-full max-w-[22rem] sm:max-w-[28rem] lg:col-span-5 lg:max-w-none" />
-      </div>
-
-      {/* Disciplines index: every vertical with its status, links to its row on /verticals; then the next event */}
-      <div className="border-t border-soft/15">
-        <div className="mx-auto flex max-w-container flex-col gap-2 px-6 py-2 lg:flex-row lg:items-center lg:justify-between">
-          <nav aria-label="Event verticals">
-            <ul className="grid grid-cols-2 gap-x-6 min-[420px]:grid-cols-3 sm:flex sm:flex-wrap sm:gap-x-8">
-              {verticals.map((v) => (
-                <li key={v.id}>
-                  <Link
-                    href={`/verticals#${v.id}`}
-                    className="inline-flex min-h-11 items-center gap-2 text-sm text-soft transition-colors duration-200 hover:text-bright"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`h-1.5 w-1.5 rounded-full ${v.status === 'active' ? 'bg-accent' : 'border border-soft/50'}`}
-                    />
-                    {v.short}
-                    <span className="sr-only">({v.status})</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          {current && (
+        <div className="mt-12 flex items-center justify-between gap-6 border-t border-soft/15 pt-2 md:mt-16">
+          {current ? (
             <Link
               href={`/events/${current.slug}`}
-              className="group inline-flex min-h-11 items-center gap-3 text-sm text-soft transition-colors duration-200 hover:text-bright"
+              className="group inline-flex min-h-11 items-center gap-3 text-xs uppercase tracking-[0.14em] text-soft transition-colors duration-200 hover:text-bright"
               data-track="cta_hero_current_event"
             >
-              <span className="eyebrow">Next</span>
+              {/* The hero's one lime detail */}
+              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />
               <span>
-                <span className="text-bright">{current.title}</span> · {formatEventDates(current)}
+                Next: <span className="text-bright">{current.title}</span>
+                <span className="hidden sm:inline"> · {formatEventDates(current)}</span>
               </span>
-              <ArrowRight size={14} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
+          ) : (
+            <span />
           )}
+          <a
+            href="#verticals"
+            className="hidden min-h-11 items-center gap-2 text-xs uppercase tracking-[0.14em] text-soft transition-colors duration-200 hover:text-bright sm:inline-flex"
+          >
+            Scroll <ArrowDown size={14} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

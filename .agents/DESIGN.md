@@ -35,7 +35,7 @@ Colours are roles, defined as RGB-triplet CSS variables in `globals.css` and use
 - `.theme-diplovia` on a section (e.g. the home featured event): redefines the roles inside it and sets its background and text colour.
 - `<main data-brand="diplovia">` on a page (event pages with `brand: 'diplovia'` in `lib/data/events.ts`): `body:has(main[data-brand='diplovia'])` switches the whole page, navbar and footer included, with no script. Browsers without `:has()` keep Apex colours around the page.
 
-Change one brand's block without touching the other. Accent is restrained: buttons, small labels, thin lines, one highlight per view. No large accent areas.
+Change one brand's block without touching the other. Accent is restrained: buttons, small labels, thin lines, one highlight per view. No large accent areas. Home hero (owner, 2026-10-27): a few lime tints only ("bolder", the vessels' rim light, a faint glow, the next-event dot, the main button's hover).
 
 **Gradients** only where they add depth (selected heroes, featured artwork), via `.bg-hero`, which reads `--hero-gradient` from the active brand:
 - Apex: `linear-gradient(115deg, #0B0B0C 0%, #17171F 55%, #292A20 100%)`
@@ -75,7 +75,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `.card-lift` | `globals.css` | Linked cards: 4px lift and stronger border on hover. Never on the same element as a reveal class (both use transform); put it on an inner wrapper |
 | `.panel`, `.field-*`, `.alert-error` | `globals.css` | Panels on `surface`, form fields, errors |
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
-| `HeroArt` | `components/home/` | Home hero focal piece, SVG in role colours; the only hero artwork for Apex |
+| `VesselDrift` | `components/home/` | Home hero background: drawn sculptural vessels in two rows drifting in opposite directions (owner request, 2026-10-27). Fixed artwork colours (warm key light, cool fill, lime rim light). Rows must repeat exactly every 2400 units |
 | `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Six equal cards; original line art per vertical, accent only when active; whole card links (event or Register interest) |
 | `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.bg-hero`, title, overview, facts, buttons, the booklet cover artwork, committee strip |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
@@ -98,7 +98,8 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 - **Scroll reveal**: `.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells` with `components/ui/ScrollReveal.tsx` (IntersectionObserver adds `.is-in`). Content hidden only with JS and motion allowed. Not on the hero, nav or footer; no nesting.
 - **Entrance** (`.rise-in`, `globals.css`): 16px rise and fade, 0.7s, once on load; stagger with inline `animation-delay` (hero lines 90ms apart, hero art pieces, mobile menu rows). Never holds content back for more than about half a second.
 - Allowed: subtle staggered headline entrance, gentle reveals, subtle DIPLOVIA artwork parallax if cheap.
-- Not allowed: continuous spinning, particles, flashing, scroll hijacking, animation libraries, decorative motion.
+- **Exception (owner, 2026-10-27):** the home hero vessels drift continuously (`.drift-ltr` / `.drift-rtl`, 110s and 150s loops, transform only), paused off screen, still under reduced motion.
+- Not allowed: continuous spinning, particles, flashing, scroll hijacking, animation libraries, other decorative motion.
 - Global reduced-motion rule in `globals.css`; everything must work without motion.
 - Removed 2026-10-27 (owner): hero typewriter, ScrollStack on `/events`, FuzzyText 404.
 
@@ -107,7 +108,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 - No colours outside the two brand blocks; no lime in DIPLOVIA, no gold or navy in Apex.
 - No recoloured, redrawn or distorted logos.
 - No stock or AI photos, random illustrations, or images posing as real Apex Conclave events.
-- **Use the owner's supplied artwork first** (owner, 2026-10-27): DIPLOVIA artwork comes from the delegate booklet in `docs/` (rendered with `pdftoppm`, cropped, colours untouched), not newly drawn. New graphics only where no supplied asset exists and the brief asks for them (the Apex hero piece and the vertical line drawings).
+- **Use the owner's supplied artwork first** (owner, 2026-10-27): DIPLOVIA artwork comes from the delegate booklet in `docs/` (rendered with `pdftoppm`, cropped, colours untouched), not newly drawn. New graphics only where no supplied asset exists and the brief asks for them (the Apex hero vessels and the vertical line drawings).
 - No mixed icon styles: Lucide outline only, small, where they help.
 - No fake statistics, testimonials, partner logos, awards or endorsements. Planned verticals labelled as planned.
 - No pure white (`#fff`) backgrounds.

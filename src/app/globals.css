@@ -232,6 +232,31 @@ body::after {
   from { opacity: 0; transform: translateY(16px); }
 }
 
+/* ─── Hero vessels (components/home/VesselDrift.tsx): two layers drift in opposite directions, forever, slowly.
+   Each track holds its set twice, so moving by half its width loops without a seam. Transform only (GPU).
+   Paused off screen (.drift-paused), still under reduced motion. ── */
+.drift-ltr { animation: drift-ltr 110s linear infinite; }
+.drift-rtl { animation: drift-rtl 150s linear infinite; }
+.drift-paused .drift-ltr,
+.drift-paused .drift-rtl { animation-play-state: paused; }
+@keyframes drift-ltr {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes drift-rtl {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drift-ltr, .drift-rtl { animation: none; transform: translate3d(-25%, 0, 0); }
+}
+/* Stronger grain over the hero image only (same noise as body::after) */
+.hero-grain {
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* How far content travels sideways (owner asked for a long entry) */
 :root { --reveal-dist: 4rem; }
 @media (min-width: 768px) {

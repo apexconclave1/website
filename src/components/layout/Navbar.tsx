@@ -90,7 +90,8 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-[12px]">
-          <Link href={cta.href} className="btn-primary hidden px-5 py-2.5 lg:inline-flex" data-track={cta.track}>
+          {/* Quiet outline while the bar is transparent over a page top (the home hero stays monochrome); lime once scrolled */}
+          <Link href={cta.href} className={`${solid ? 'btn-primary' : 'btn-secondary'} hidden px-5 py-2.5 lg:inline-flex`} data-track={cta.track}>
             {cta.label}
           </Link>
 
