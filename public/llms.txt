@@ -1,11 +1,11 @@
 # Apex Conclave
 
-> Apex Conclave is a student-led events and competitions brand in India. It creates platforms for high school and college students to compete, collaborate and showcase their abilities across several disciplines. Diplovia 2026, a virtual Model United Nations, is its first and currently only running event; the other verticals are planned.
+> Apex Conclave is a student-led events and competitions brand in India. It creates platforms for high school and college students to compete, collaborate and showcase their abilities through competitions, conferences and experiences. Diplovia 2026, a virtual Model United Nations, is its first and currently only event; new formats are coming soon.
 
 ## Pages
 
 - [Home](/): what Apex Conclave is, its event verticals, the featured event, team and partnerships
-- [Event Verticals](/verticals): Diplomacy & MUNs (active); Business & Case Competitions, Technology & Hackathons, Debates & Discourse, Startup Pitching & Entrepreneurship, Gaming & Esports (planned)
+- [Event Verticals](/verticals): Diplomacy & MUNs (active, Diplovia 2026); new formats coming soon
 - [Events](/events): every event, upcoming and past
 - [Diplovia 2026](/events/diplovia-2026): virtual MUN on 21 and 22 November 2026 with five committees (UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee); fees, allotment and FAQ
 - [About](/about): mission, the people it brings together, team and how events are run

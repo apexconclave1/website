@@ -3,7 +3,7 @@ import { OrganizationConfig, PartnerEntity } from '@/types/schema';
 export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
   description:
-    'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities across business, technology, diplomacy, debate and more.',
+    'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through competitions, conferences and experiences.',
   contactEmail: 'apexconclave1@gmail.com',
   socials: {
     instagram: 'https://instagram.com/apex_conclave',
@@ -26,7 +26,7 @@ export const homeContent = {
   // The hero shows this in three lines (components/home/HeroSection.tsx); keep both in sync
   headline: 'A bigger stage for a bolder generation.',
   summary:
-    'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through experiences spanning business, technology, diplomacy, debate and more.',
+    'Apex Conclave creates competitions, conferences and experiences where students compete, collaborate and show what they can do. Diplomacy comes first, with more formats on the way.',
   about: {
     headline: 'More than events. A platform for what’s next.',
     body: 'Apex Conclave creates platforms for students to challenge themselves, develop practical skills and connect with ambitious peers. Through competitions, conferences and collaborative experiences across multiple disciplines, we aim to make participation meaningful, competition fair and opportunities more accessible.',
@@ -100,7 +100,7 @@ export const partnersContent = {
     },
     {
       title: 'Sponsored competition challenges',
-      body: 'Set a real problem from your organisation as a case, hackathon brief or pitch challenge, and see how students solve it.',
+      body: 'Set a real problem from your organisation as a challenge for students, and see how they solve it.',
     },
     {
       title: 'Judges and mentors',

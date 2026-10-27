@@ -10,7 +10,7 @@ export const apexFaqs: FaqItem[] = [
     id: 'apex-1',
     category: 'About',
     q: 'What is Apex Conclave?',
-    a: 'Apex Conclave is a student-led organisation that creates competitions and events for students across India, in disciplines from diplomacy and debate to business, technology, startups and esports. Diplovia, a virtual Model United Nations, is our first event; the other verticals are planned.',
+    a: 'Apex Conclave is a student-led organisation that creates competitions and events for students across India. Diplovia, a virtual Model United Nations, is our first event; new formats are coming soon.',
   },
   {
     id: 'apex-2',

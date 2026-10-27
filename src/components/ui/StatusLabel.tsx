@@ -1,12 +1,11 @@
 import { cn } from '@/lib/utils';
 
-export type Status = 'active' | 'upcoming' | 'planned';
+export type Status = 'active' | 'upcoming';
 
-// One look for every status on the site, in either brand. Planned never looks like it is running.
+// One look for every status on the site, in either brand.
 const styles: Record<Status, { label: string; className: string; dot: string }> = {
   active: { label: 'Active', className: 'border-accent/60 text-bright', dot: 'bg-accent' },
   upcoming: { label: 'Upcoming', className: 'border-soft/40 text-bright', dot: 'border border-bright' },
-  planned: { label: 'Planned', className: 'border-dashed border-soft/30 text-soft', dot: 'border border-soft/60' },
 };
 
 export function StatusLabel({ status, className }: { status: Status; className?: string }) {

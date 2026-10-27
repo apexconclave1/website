@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata(
   'Apex Conclave',
-  'Apex Conclave runs student competitions and events across diplomacy, business, technology, debate, startups and esports. Diplovia 2026 is its first event.',
+  'Apex Conclave runs student competitions and experiences in India, starting with Diplovia 2026, a two-day virtual Model United Nations. New formats coming soon.',
   '/',
 );
 

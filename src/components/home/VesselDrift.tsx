@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { vesselShapes, type VesselKind } from '@/components/home/vesselShapes';
 
 /**
  * Hero background: plain sculptural vessels, drawn in SVG. Warm key light from the top left, a lime rim light on the
@@ -10,20 +11,20 @@ import { useEffect, useRef } from 'react';
  * Vessels may cross the set's edge (overflow visible), so the row continues straight into the next copy.
  * Greys and light tints are fixed artwork colours, like a photograph, not brand roles. Each layer is one set of vessels drawn twice side by side; the track moves by
  * half its width, so the loop never shows a seam. Paused while the hero is off screen; still under reduced motion
- * (globals.css .drift-*). Decorative: hidden from screen readers.
+ * (globals.css .drift-*). Includes the scrims and grain that keep text over it readable (contrast measured for the
+ * home hero layout: text bottom-left, a short column bottom-right). Decorative: hidden from screen readers.
  */
 
 // Set size (viewBox). Rendered at the layer's height, a set is wider than the screen for aspect ratios up to ~2.6:1.
 const SET_W = 2400;
 const SET_H = 900;
 
-type Kind = 'bowl' | 'jar';
-type Vessel = { kind: Kind; x: number; y: number; w: number };
-// Symbol sizes (viewBox) so heights follow widths
-const ratio = { bowl: 520 / 600, jar: 620 / 400 };
+type Vessel = { kind: VesselKind; x: number; y: number; w: number };
+// Height per unit of width, so heights follow widths
+const ratio = { bowl: vesselShapes.bowl.h / vesselShapes.bowl.w, jar: vesselShapes.jar.h / vesselShapes.jar.w };
 
 /** An even row: vessels share one baseline and overlap their neighbour by `overlap` of their width. */
-function row(items: { kind: Kind; w: number }[], baseline: number, overlap: number, start = 0): Vessel[] {
+function row(items: { kind: VesselKind; w: number }[], baseline: number, overlap: number, start = 0): Vessel[] {
   let x = start;
   return items.map(({ kind, w }) => {
     const v = { kind, w, x, y: baseline - w * ratio[kind] };
@@ -46,7 +47,7 @@ const front = row(
 );
 // Back: six smaller vessels a third of a width apart (1800 × 4/3 = 2400)
 const back = row(
-  Array.from({ length: 6 }, (_, i) => ({ kind: (i % 2 ? 'jar' : 'bowl') as Kind, w: i % 2 ? 260 : 340 })),
+  Array.from({ length: 6 }, (_, i) => ({ kind: (i % 2 ? 'jar' : 'bowl') as VesselKind, w: i % 2 ? 260 : 340 })),
   760,
   -0.33,
   20,
@@ -122,29 +123,21 @@ export function VesselDrift() {
             <rect width="1" height="1" fill="url(#vd-fade)" />
           </mask>
 
-          {/* Wide bowl: narrow opening, full shoulders */}
-          <symbol id="vd-bowl" viewBox="0 0 600 520" overflow="visible">
-            <g mask="url(#vd-fade-mask)">
-              <path d="M150,60 C60,110 10,220 20,330 C30,430 140,500 300,505 C460,500 570,430 580,330 C590,220 540,110 450,60 A150,22 0 0 1 150,60 Z" fill="url(#vd-body)" />
-              <path d="M150,60 C60,110 10,220 20,330 C30,430 140,500 300,505 C460,500 570,430 580,330 C590,220 540,110 450,60 A150,22 0 0 1 150,60 Z" fill="url(#vd-fill)" />
-              <path d="M150,60 C60,110 10,220 20,330" fill="none" stroke="url(#vd-edge)" strokeWidth="2" />
-              <path d="M450,60 C540,110 590,220 580,330" fill="none" stroke="url(#vd-lime)" strokeWidth="2.5" />
-            </g>
-            <ellipse cx="300" cy="60" rx="150" ry="22" fill="#030304" />
-            <ellipse cx="300" cy="60" rx="150" ry="22" fill="none" stroke="url(#vd-rim)" strokeWidth="5" />
-          </symbol>
-
-          {/* Tall jar: small mouth, high shoulder */}
-          <symbol id="vd-jar" viewBox="0 0 400 620" overflow="visible">
-            <g mask="url(#vd-fade-mask)">
-              <path d="M130,50 C60,110 10,260 30,400 C50,520 120,600 200,605 C280,600 350,520 370,400 C390,260 340,110 270,50 A70,12 0 0 1 130,50 Z" fill="url(#vd-body)" />
-              <path d="M130,50 C60,110 10,260 30,400 C50,520 120,600 200,605 C280,600 350,520 370,400 C390,260 340,110 270,50 A70,12 0 0 1 130,50 Z" fill="url(#vd-fill)" />
-              <path d="M130,50 C60,110 10,260 30,400" fill="none" stroke="url(#vd-edge)" strokeWidth="2" />
-              <path d="M270,50 C340,110 390,260 370,400" fill="none" stroke="url(#vd-lime)" strokeWidth="2.5" />
-            </g>
-            <ellipse cx="200" cy="50" rx="70" ry="12" fill="#030304" />
-            <ellipse cx="200" cy="50" rx="70" ry="12" fill="none" stroke="url(#vd-rim)" strokeWidth="4" />
-          </symbol>
+          {(Object.keys(vesselShapes) as VesselKind[]).map((kind) => {
+            const s = vesselShapes[kind];
+            return (
+              <symbol key={kind} id={`vd-${kind}`} viewBox={`0 0 ${s.w} ${s.h}`} overflow="visible">
+                <g mask="url(#vd-fade-mask)">
+                  <path d={s.body} fill="url(#vd-body)" />
+                  <path d={s.body} fill="url(#vd-fill)" />
+                  <path d={s.light} fill="none" stroke="url(#vd-edge)" strokeWidth="2" />
+                  <path d={s.rim} fill="none" stroke="url(#vd-lime)" strokeWidth="2.5" />
+                </g>
+                <ellipse {...s.mouth} fill="#030304" />
+                <ellipse {...s.mouth} fill="none" stroke="url(#vd-rim)" strokeWidth={kind === 'bowl' ? 5 : 4} />
+              </symbol>
+            );
+          })}
         </defs>
       </svg>
 
@@ -157,6 +150,11 @@ export function VesselDrift() {
       <div className="absolute inset-x-0 top-[12%] h-[30%] lg:top-[16%] lg:h-[80%]">
         <Track vessels={front} id="front" className="drift-ltr" />
       </div>
+      {/* Scrims keep the text readable over the vessels: darker at the top (navbar) and towards the bottom (text) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgb(var(--c-ground)/0.85)_0%,transparent_22%,transparent_38%,rgb(var(--c-ground)/0.6)_60%,rgb(var(--c-ground)/0.95)_90%)]" />
+      {/* Darker pools behind the text blocks only, so the vessels stay vivid elsewhere (contrast measured against the drift) */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,transparent_34%,rgb(var(--c-ground)/0.85)_46%,rgb(var(--c-ground)/0.85)_100%)] lg:bg-[radial-gradient(ellipse_58%_46%_at_26%_66%,rgb(var(--c-ground)/0.88),rgb(var(--c-ground)/0.7)_45%,transparent_78%),radial-gradient(ellipse_30%_32%_at_84%_74%,rgb(var(--c-ground)/0.8),transparent_72%)]" />
+      <div aria-hidden="true" className="hero-grain pointer-events-none absolute inset-0" />
     </div>
   );
 }

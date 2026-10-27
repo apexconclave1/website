@@ -23,7 +23,7 @@ const sections = [
       'Everyone taking part in an Apex Conclave event, whether as a participant, judge, mentor, chair, volunteer or guest, is expected to act with honesty, respect and fairness towards other participants, organisers and partners.',
       'Personal attacks, harassment, discriminatory language and disruptive behaviour are not allowed, online or in person.',
       'All submitted work must be your own or your team’s. Plagiarism, undeclared use of other people’s work and any attempt to gain an unfair advantage will lead to disqualification.',
-      'Format-specific rules also apply. Model UN: position papers, speeches and resolutions must be original. Hackathons and technology challenges: code must be written during the event unless the rules say otherwise, and outside tools and libraries must be declared. Case and pitch competitions: analysis must be your own and sources must be credited. Debates: no prepared material beyond what the rules allow. Esports: no cheats, exploits, unauthorised software or account sharing.',
+      'Format-specific rules also apply. Model UN: position papers, speeches and resolutions must be original. Other formats publish their own rules on their event page.',
       'Each event page may add its own rules. The organising team of the event may remove a participant who seriously breaks this code or the event rules, without refund of fees. Decisions on results are made by the event’s organising team and judging panel.',
     ],
   },

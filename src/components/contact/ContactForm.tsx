@@ -23,7 +23,7 @@ export default function ContactForm({ defaultCategory, defaultSubject }: { defau
   const initialCategory: Category = (categories as readonly string[]).includes(defaultCategory ?? '')
     ? (defaultCategory as Category)
     : 'General Inquiry';
-  // Links can preset the subject (e.g. 'Interest: Technology & Hackathons'); capped at the schema's 150 characters
+  // Links can preset the subject (e.g. 'Partnership: Judges and mentors'); capped at the schema's 150 characters
   const initialSubject = (defaultSubject ?? '').slice(0, 150);
   const [form, setForm] = useState<ContactFields>(emptyForm(initialCategory, initialSubject));
   const [errors, setErrors] = useState<FieldErrors>({});

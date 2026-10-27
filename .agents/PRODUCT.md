@@ -25,6 +25,8 @@ It is a multi-format student events and competitions brand, not a single-event w
 
 Source: `src/lib/data/verticals.ts`.
 
+> **Website (owner, 2026-10-27):** only verticals with a real event are shown (Diplomacy & MUNs). The planned ones below are not named anywhere on the site; two "Coming soon" cards open `/coming-soon` instead. The list stays here as the internal roadmap.
+
 | Vertical | Status | Example formats |
 |---|---|---|
 | Diplomacy & MUNs | Active | Diplovia 2026 (virtual Model UN), policy simulations |

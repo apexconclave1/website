@@ -70,13 +70,15 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 |---|---|---|
 | `.btn-primary` / `.btn-secondary` | `globals.css`, on links | Primary: accent fill, hover to `bright`. Secondary: outline, hover accent border and text. Both press down 1px |
 | `Button` | `components/ui/Button.tsx` | Same looks for `<button>` (forms, wizard) |
-| `StatusLabel` | `components/ui/StatusLabel.tsx` | `active` (accent dot), `upcoming` (outline), `planned` (dashed, muted). Planned must never look running |
+| `StatusLabel` | `components/ui/StatusLabel.tsx` | `active` (accent dot), `upcoming` (outline). Planned verticals are not shown (owner, 2026-10-27) |
 | `SectionHeading` | `components/ui/SectionHeading.tsx` | Eyebrow, h2, description |
 | `.card-lift` | `globals.css` | Linked cards: 4px lift and stronger border on hover. Never on the same element as a reveal class (both use transform); put it on an inner wrapper |
 | `.panel`, `.field-*`, `.alert-error` | `globals.css` | Panels on `surface`, form fields, errors |
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
 | `VesselDrift` | `components/home/` | Home hero background: drawn sculptural vessels in two rows drifting in opposite directions (owner request, 2026-10-27). Fixed artwork colours (warm key light, cool fill, lime rim light). Rows must repeat exactly every 2400 units |
-| `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Six equal cards; original line art per vertical, accent only when active; whole card links (event or Register interest) |
+| `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Real verticals (only Diplomacy) then `comingSoonSlots` identical Coming soon cards; whole card links (event, or `/coming-soon`) |
+| `VesselMark` | `components/verticals/` | Coming soon card art: the hero jar in shadow, lime rim light; pass a unique `uid` per instance |
+| `vesselShapes` | `components/home/vesselShapes.ts` | The two vessel outlines, shared by `VesselDrift` and `VesselMark` |
 | `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.bg-hero`, title, overview, facts, buttons, the booklet cover artwork, committee strip |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
@@ -110,5 +112,5 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 - No stock or AI photos, random illustrations, or images posing as real Apex Conclave events.
 - **Use the owner's supplied artwork first** (owner, 2026-10-27): DIPLOVIA artwork comes from the delegate booklet in `docs/` (rendered with `pdftoppm`, cropped, colours untouched), not newly drawn. New graphics only where no supplied asset exists and the brief asks for them (the Apex hero vessels and the vertical line drawings).
 - No mixed icon styles: Lucide outline only, small, where they help.
-- No fake statistics, testimonials, partner logos, awards or endorsements. Planned verticals labelled as planned.
+- No fake statistics, testimonials, partner logos, awards or endorsements. Planned verticals are not named on the site; "Coming soon" cards stand in for them.
 - No pure white (`#fff`) backgrounds.

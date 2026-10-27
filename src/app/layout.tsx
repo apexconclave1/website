@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   title: { default: 'Apex Conclave', template: '%s | Apex Conclave' },
   description: organizationConfig.description,
   applicationName: 'Apex Conclave',
-  keywords: ['Apex Conclave', 'student competitions', 'student events', 'India', 'Diplovia', 'Model UN', 'MUN', 'debate', 'case competitions', 'hackathons'],
+  keywords: ['Apex Conclave', 'student competitions', 'student events', 'India', 'Diplovia', 'Model UN', 'MUN', 'virtual MUN'],
   // Site credit lives only in metadata (not on the page)
   authors: [{ name: siteCredit.name, url: siteCredit.url }],
   publisher: 'Apex Conclave',

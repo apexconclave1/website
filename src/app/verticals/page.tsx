@@ -3,18 +3,10 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { pageMetadata } from '@/lib/seo';
 import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
-import { StatusLabel, type Status } from '@/components/ui/StatusLabel';
-
-// What each status means, shown above the grid so planned verticals are never mistaken for running ones
-const statusKey: { status: Status; meaning: string }[] = [
-  { status: 'active', meaning: 'Running, with a confirmed event.' },
-  { status: 'upcoming', meaning: 'An event with confirmed dates that has not happened yet.' },
-  { status: 'planned', meaning: 'In development. No event yet; register interest to hear first.' },
-];
 
 export const metadata: Metadata = pageMetadata(
   'Event Verticals',
-  'The kinds of student competitions Apex Conclave runs and plans: diplomacy and MUNs, business cases, hackathons, debate, startup pitching and esports.',
+  'The student competitions Apex Conclave runs: diplomacy and Model UN with Diplovia 2026, a virtual MUN in November 2026. New formats are coming soon.',
   '/verticals',
 );
 
@@ -25,33 +17,22 @@ export default function VerticalsPage() {
         <header className="grid gap-8 pb-16 lg:grid-cols-12 lg:items-end">
           <div className="reveal lg:col-span-7">
             <p className="eyebrow mb-5">Event Verticals</p>
-            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] tracking-[-0.01em] md:text-6xl">
-              Six kinds of stage, one standard.
+            <h1 className="max-w-[16ch] text-[2.625rem] font-normal leading-[1.04] md:text-6xl">
+              One stage live. More on the way.
             </h1>
           </div>
           <p className="reveal-right max-w-[48ch] text-base leading-relaxed text-soft md:text-lg lg:col-span-5">
-            Apex Conclave is built to run events across disciplines under one name. Diplomacy is running now. The others
-            are planned: they are listed so you know where we are going, not because they have happened yet.
+            Apex Conclave runs student competitions and experiences under one name. Diplomacy is live with Diplovia 2026.
+            New formats are being built and will be announced here first.
           </p>
         </header>
-
-        <dl className="reveal mb-10 grid gap-4 border-y border-soft/15 py-6 sm:grid-cols-3 sm:gap-8">
-          {statusKey.map(({ status, meaning }) => (
-            <div key={status} className="flex flex-col items-start gap-2">
-              <dt>
-                <StatusLabel status={status} />
-              </dt>
-              <dd className="text-sm leading-relaxed text-soft">{meaning}</dd>
-            </div>
-          ))}
-        </dl>
 
         <h2 className="sr-only">All verticals</h2>
         <VerticalsGrid />
 
         <div className="reveal mt-16 flex flex-col gap-6 border-t border-soft/15 pt-10 md:flex-row md:items-center md:justify-between">
           <p className="max-w-[52ch] text-soft">
-            Want to judge, mentor, sponsor a challenge or bring one of these to your campus?
+            Want to judge, mentor, sponsor a challenge or bring an Apex Conclave event to your campus?
           </p>
           <Link
             href={`/contact?category=${encodeURIComponent('Host an Event')}`}
