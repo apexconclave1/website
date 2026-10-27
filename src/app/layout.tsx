@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Newsreader } from 'next/font/google';
+import { Cormorant_Garamond, Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import BackToTop from '@/components/ui/BackToTop';
@@ -20,12 +20,21 @@ const inter = Inter({
   display: 'swap',
 });
 
-// Headlines (h1, h2): variable font with optical sizing
-const newsreader = Newsreader({
+// Apex Conclave headlines (h1, h2, font-display): variable weight
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-newsreader',
+  variable: '--font-space-grotesk',
   display: 'swap',
-  axes: ['opsz'],
+});
+
+// DIPLOVIA editorial headlines. Not preloaded: the browser only downloads it on pages that use it.
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant',
+  display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -58,22 +67,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${newsreader.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${cormorant.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
         {/* Scroll reveal only hides content once scripts run, so without JavaScript everything stays visible */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        {/* Light or dark: the choice saved by the navbar toggle, else the device's appearance setting (Apple HIG). */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{var t=localStorage.getItem('apc-theme');if(t==='light'||(!t&&matchMedia('(prefers-color-scheme: light)').matches)){document.documentElement.dataset.theme='light'}}catch(e){}",
-          }}
-        />
       </head>
-      <body suppressHydrationWarning className="font-sans antialiased bg-ground text-bright min-h-screen relative selection:bg-accent/40 selection:text-bright">
+      <body suppressHydrationWarning className="font-sans antialiased bg-ground text-bright min-h-screen relative selection:bg-accent selection:text-on-accent">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         {/* Global Scroll Progress Bar */}

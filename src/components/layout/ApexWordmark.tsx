@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface ApexWordmarkProps {
@@ -5,17 +6,18 @@ interface ApexWordmarkProps {
   href?: string;
 }
 
-// Approved logo from the design sheet (docs/), drawn from public/brand/apex-conclave-logo-light.png as a mask
-// so its colour follows the palette (.logo-mark in globals.css). Same shape and proportions; never redraw it in type.
+// Approved logo from the design sheet (docs/), used as supplied: original colour and proportions, transparent
+// background. There is no dark version, so it only sits on dark backgrounds. Never redraw, recolour or stretch it.
 export default function ApexWordmark({ size = 'sm', href = '/' }: ApexWordmarkProps) {
-  const height = size === 'sm' ? 48 : 60;
+  const height = size === 'sm' ? 44 : 60;
   return (
     <Link href={href} aria-label="Apex Conclave home" className="inline-flex shrink-0 select-none">
-      <span
-        role="img"
-        aria-label="Apex Conclave"
-        className="logo-mark block"
-        style={{ width: Math.round((height * 692) / 234), height }}
+      <Image
+        src="/brand/apex-conclave-logo-light.png"
+        alt="Apex Conclave"
+        width={Math.round((height * 692) / 234)}
+        height={height}
+        priority
       />
     </Link>
   );

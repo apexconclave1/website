@@ -12,10 +12,10 @@ const baseStyles =
   'inline-flex items-center justify-center font-medium transition duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-bright focus-visible:ring-offset-2 focus-visible:ring-offset-ground max-md:min-h-11 rounded disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer select-none enabled:active:scale-[0.98]';
 
 const variants = {
-  primary: 'bg-accent text-on-accent hover:bg-deep hover:text-bright border border-transparent font-semibold',
-  secondary: 'bg-ground text-bright hover:bg-soft/5 border border-soft/20',
+  primary: 'bg-accent text-on-accent hover:bg-bright border border-transparent font-semibold',
+  secondary: 'bg-ground text-bright hover:border-accent hover:text-accent border border-soft/35',
   outline: 'bg-transparent text-bright border border-soft/25 hover:border-bright hover:bg-soft/5',
-  accent: 'bg-accent text-on-accent hover:bg-deep hover:text-bright font-semibold border border-transparent',
+  accent: 'bg-accent text-on-accent hover:bg-bright font-semibold border border-transparent',
   ghost: 'bg-transparent text-soft hover:text-bright hover:bg-soft/5',
 };
 

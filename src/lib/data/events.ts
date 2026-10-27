@@ -21,6 +21,7 @@ export const eventsData: EventEntity[] = [
       'Two days, five committees, all online. Delegates represent countries, negotiate, draft resolutions and respond when a crisis breaks.',
     coverImage: '/brand/diplovia-logo-light.png',
     logo: '/brand/diplovia-logo-light.png',
+    brand: 'diplovia',
     // Cropped from the delegate booklet cover, above its (old) printed dates
     posterImage: '/events/diplovia-2026-poster.jpg',
     format: 'Virtual Model United Nations · 2 days',

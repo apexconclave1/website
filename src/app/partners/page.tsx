@@ -82,7 +82,7 @@ export default function PartnersPage() {
         <section className="border-t border-soft/15">
           <div className="mx-auto max-w-container px-6 py-16">
             {/* Panel in the opposite colour */}
-            <div className="reveal tone-flip flex flex-col gap-6 rounded p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+            <div className="reveal bg-surface flex flex-col gap-6 rounded p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
               <p className="max-w-[44ch] text-soft">
                 Prefer email? Write to{' '}
                 <a href={`mailto:${organizationConfig.contactEmail}`} className="text-bright underline underline-offset-4">

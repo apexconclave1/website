@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Moon, Sun, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData } from '@/lib/data/events';
 import { partnerEnquiryHref } from '@/lib/data/organization';
@@ -30,19 +30,6 @@ export default function Navbar() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => setOpen(false), [pathname]);
-
-  // Light mode: the head script in app/layout.tsx applies the saved choice before paint; this reads and flips it
-  const [light, setLight] = useState(false);
-  useEffect(() => setLight(document.documentElement.dataset.theme === 'light'), []);
-  const toggleTheme = () => {
-    const next = !light;
-    if (next) document.documentElement.dataset.theme = 'light';
-    else delete document.documentElement.dataset.theme;
-    try {
-      localStorage.setItem('apc-theme', next ? 'light' : 'dark');
-    } catch {}
-    setLight(next);
-  };
 
   // Escape closes the mobile menu and returns focus to its button
   useEffect(() => {
@@ -83,17 +70,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-[12px]">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Light mode"
-            aria-pressed={light}
-            className="theme-toggle flex h-[44px] w-[44px] items-center justify-center rounded border border-soft/25 text-bright transition-colors duration-200 hover:border-bright lg:h-[36px] lg:w-[36px]"
-          >
-            <Sun size={18} className="theme-icon-sun" aria-hidden="true" />
-            <Moon size={18} className="theme-icon-moon" aria-hidden="true" />
-          </button>
-
           <Link href={cta.href} className="btn-primary hidden px-4 py-2 lg:inline-flex" data-track={cta.track}>
             {cta.label}
           </Link>

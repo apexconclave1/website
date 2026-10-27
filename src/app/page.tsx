@@ -118,7 +118,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-container gap-10 px-6 md:gap-14 py-16 md:py-32 lg:grid-cols-12 lg:gap-10">
           {/* Text after the list on large screens (About above puts text first); text still comes first on phones.
               A panel in the opposite colour. */}
-          <div className="reveal-right tone-flip self-start rounded p-6 sm:p-10 lg:col-span-5 lg:col-start-8 lg:row-start-1">
+          <div className="reveal-right bg-surface self-start rounded p-6 sm:p-10 lg:col-span-5 lg:col-start-8 lg:row-start-1">
             <p className="eyebrow mb-5">Partner with us</p>
             <h2 id="partner-heading" className="max-w-[14ch] text-4xl font-normal leading-[1.08] md:text-[3.25rem]">
               {partnersContent.headline}

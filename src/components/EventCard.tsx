@@ -13,7 +13,7 @@ export interface EventCardProps {
   priority?: boolean;
 }
 
-/** Full-width card body. The events page wraps it in a ScrollStackItem so one event shows at a time. */
+/** Full-width card body. The events page wraps it in a bordered block. */
 export function EventCard({ event, trackAs = 'cta_events_view_event', priority = false }: EventCardProps) {
   return (
     <div className="grid items-center gap-8 lg:grid-cols-2">

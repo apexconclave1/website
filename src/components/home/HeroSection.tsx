@@ -3,7 +3,6 @@ import { ArrowRight } from 'lucide-react';
 import { homeContent, partnerEnquiryHref } from '@/lib/data/organization';
 import { verticals } from '@/lib/data/verticals';
 import { eventsData, formatEventDates } from '@/lib/data/events';
-import { TypedText } from '@/components/home/TypedText';
 
 // The event currently promoted: the first upcoming or live one
 const current = eventsData.find((e) => e.status === 'UPCOMING' || e.status === 'LIVE');
@@ -15,7 +14,7 @@ export default function HeroSection() {
         {/* min(…, vw) keeps "generation." on the screen when visitors use large text */}
         <h1 className="max-w-[14ch] text-[min(3.25rem,14vw)] font-normal leading-[0.98] tracking-[-0.02em] text-bright sm:text-[min(4.5rem,11vw)] lg:text-[min(6.5rem,10vw)]">
           {homeContent.headline.replace(homeContent.headlineHighlight, '')}
-          <TypedText text={homeContent.headlineHighlight} className="text-accent" />
+          <span className="text-accent">{homeContent.headlineHighlight}</span>
         </h1>
         <p className="mt-10 max-w-[52ch] text-lg leading-relaxed text-soft">{homeContent.summary}</p>
         <div className="mt-10 flex flex-wrap gap-3">

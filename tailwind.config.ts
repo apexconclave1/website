@@ -10,22 +10,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Colours by role, set as CSS variables in globals.css (dark by default, html[data-theme='light'] for light mode).
+        // Colours by role, set as CSS variables in globals.css: Apex Conclave by default, DIPLOVIA inside .theme-diplovia.
         // <alpha-value> keeps opacity modifiers like border-soft/20 working.
-        deep: 'rgb(var(--c-deep) / <alpha-value>)', // darkest: nav, footer, hero, bottom of dark sections
-        ground: 'rgb(var(--c-ground) / <alpha-value>)', // dark base; text on light sections
-        soft: 'rgb(var(--c-soft) / <alpha-value>)', // body text on dark; light section background
-        bright: 'rgb(var(--c-bright) / <alpha-value>)', // headlines on dark
-        accent: 'rgb(var(--c-accent) / <alpha-value>)', // highlight: buttons, lines, labels
+        deep: 'rgb(var(--c-deep) / <alpha-value>)', // darkest step, hover fills
+        ground: 'rgb(var(--c-ground) / <alpha-value>)', // page background
+        surface: 'rgb(var(--c-surface) / <alpha-value>)', // secondary surfaces, panels
+        soft: 'rgb(var(--c-soft) / <alpha-value>)', // body text, hairlines
+        bright: 'rgb(var(--c-bright) / <alpha-value>)', // headlines
+        accent: 'rgb(var(--c-accent) / <alpha-value>)', // Apex lime, DIPLOVIA gold: buttons, lines, labels
         'on-accent': 'rgb(var(--c-on-accent) / <alpha-value>)', // text on accent fills
-      },
-      // text-accent has its own variable: in light mode, accent text is darker than accent fills
-      textColor: {
-        accent: 'rgb(var(--c-accent-text) / <alpha-value>)',
+        wine: 'rgb(var(--c-wine) / <alpha-value>)', // DIPLOVIA burgundy: fills and artwork only
       },
       fontFamily: {
         sans: ['Rupee', 'var(--font-inter)', 'Inter', 'sans-serif'], // Rupee: ₹ only, from the device font (globals.css)
-        serif: ['Rupee', 'var(--font-newsreader)', 'Newsreader', 'Georgia', 'serif'],
+        display: ['Rupee', 'var(--font-display)', 'system-ui', 'sans-serif'], // Space Grotesk (Apex) or Cormorant Garamond (DIPLOVIA)
       },
       borderRadius: {
         // 2px everywhere (owner decision)

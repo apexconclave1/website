@@ -1,11 +1,10 @@
 'use client';
 
-// Interactive part of /events: category filter (shown once there is more than one event), upcoming stack, past events.
+// Interactive part of /events: category filter (shown once there is more than one event), upcoming list, past events.
 import { useState } from 'react';
 import { eventsData } from '@/lib/data/events';
 import { EventCard } from '@/components/EventCard';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
 import { EventCategory } from '@/types/schema';
 
 const CATEGORIES: { label: string; value: EventCategory | 'ALL' }[] = [
@@ -54,24 +53,13 @@ export default function EventsDirectory() {
 
       {/* Events Grid */}
       {filtered.length > 0 ? (
-        <ScrollStack
-          key={filtered.map((e) => e.id).join()}
-          useWindowScroll
-          itemDistance={80}
-          baseScale={0.92}
-          itemScale={0.02}
-          holdDistance={96}
-          className="events-stack"
-        >
+        <div className="space-y-5">
           {filtered.map((event) => (
-            <ScrollStackItem
-              key={event.id}
-              itemClassName="!h-auto !rounded !border !border-soft/15 !p-6 md:!p-10 !bg-ground !text-bright !shadow-none"
-            >
+            <div key={event.id} className="rounded border border-soft/15 p-6 md:p-10">
               <EventCard event={event} />
-            </ScrollStackItem>
+            </div>
           ))}
-        </ScrollStack>
+        </div>
       ) : (
         <div className="text-center py-20 space-y-3">
           <p className="text-soft text-sm">

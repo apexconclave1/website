@@ -14,7 +14,7 @@ const icons: Record<string, LucideIcon> = {
 };
 
 /**
- * Editorial grid of the six verticals. The active vertical is a tile in the opposite colour (.tone-flip) spanning two columns and rows;
+ * Editorial grid of the six verticals. The active vertical is a graphite tile (bg-surface) spanning two columns and rows;
  * planned ones are open cells divided by hairlines. `compact` is the home version.
  */
 export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
@@ -34,14 +34,14 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
             <li
               key={v.id}
               id={v.id}
-              className={`flex scroll-mt-24 flex-col tone-flip border-b border-r border-soft/15 p-6 md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
+              className={`flex scroll-mt-24 flex-col bg-surface border-b border-r border-soft/15 p-6 md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm tabular-nums text-soft">{number}</span>
                 <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
               </div>
               <p className="eyebrow mt-8 md:mt-10">Active</p>
-              <h3 className="mt-3 font-serif text-4xl font-normal leading-tight md:text-5xl">{v.title}</h3>
+              <h3 className="mt-3 font-display text-4xl font-normal leading-tight md:text-5xl">{v.title}</h3>
               <p className="mt-4 max-w-[46ch] text-soft">{v.description}</p>
 
               {event && (
@@ -54,7 +54,7 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
                   >
                     <div>
                       {event.logo && !compact && (
-                        <Image src={event.logo} alt="" width={180} height={52} className="event-logo mb-5 h-auto w-[180px]" />
+                        <Image src={event.logo} alt="" width={180} height={52} className="mb-5 h-auto w-[180px]" />
                       )}
                       <span className="block text-lg text-bright">{event.title}</span>
                       <span className="mt-1 block text-sm text-soft">
@@ -86,7 +86,7 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
               <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
             </div>
             <h3
-              className={`font-serif font-normal leading-snug ${
+              className={`font-display font-normal leading-snug ${
                 compact ? 'mt-5 text-lg md:mt-8 md:text-2xl' : 'mt-6 text-2xl md:mt-10 md:text-[1.75rem]'
               }`}
             >

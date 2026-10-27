@@ -2,33 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Palette (owner, 2026-10-22): teal. Values are RGB triplets so Tailwind opacity modifiers work. ─── */
+/* ─── Two brands, one set of roles (redesign v4, owner brief 2026-10-27).
+   Apex Conclave is the default. DIPLOVIA redefines the same roles inside .theme-diplovia (a section, e.g. the home
+   feature) or for the whole page, navbar and footer included, when <main data-brand="diplovia">.
+   Values are RGB triplets so Tailwind opacity modifiers work (border-soft/15). Change one brand here without touching
+   the other. ── */
 :root {
-  --c-deep: 1 10 9; /* #010A09, derived */
-  --c-ground: 3 18 17; /* #031211, the one page background */
-  --c-soft: 232 228 211; /* #E8E4D3 */
-  --c-bright: 247 244 232; /* #F7F4E8, derived */
-  --c-accent: 0 174 187; /* #00AEBB */
-  --c-accent-text: 0 174 187; /* text-accent (labels, icons, highlight); differs from the fill in light mode */
-  --c-on-accent: 3 18 17; /* dark text on teal, 7:1 (cream fails at 2.1:1) */
-  --c-logo: 234 230 223; /* the original cream logo colour */
-  --c-glow: 232 228 211; /* light at the top of the fixed background */
+  --c-deep: 7 7 8; /* #070708, derived: hover fills, darkest step */
+  --c-ground: 11 11 12; /* #0B0B0C Deep Obsidian Black: page background */
+  --c-surface: 34 34 38; /* #222226 Graphite: secondary surfaces, panels */
+  --c-soft: 228 228 228; /* #E4E4E4 Muted Off-White: body text, hairlines */
+  --c-bright: 244 244 241; /* #F4F4F1, derived: headlines */
+  --c-accent: 199 243 107; /* #C7F36B Acid Lime: buttons, markers, labels (restrained) */
+  --c-on-accent: 11 11 12; /* text on accent fills */
+  --c-wine: 34 34 38; /* Apex has no burgundy; falls back to graphite */
+  --c-glow: 228 228 228; /* faint light at the top of the fixed background */
+  --font-display: var(--font-space-grotesk); /* h1, h2, font-display */
+  --display-tracking: -0.025em;
+  --hero-gradient: linear-gradient(115deg, #0b0b0c 0%, #17171f 55%, #292a20 100%);
   color-scheme: dark;
 }
-/* Light mode (navbar toggle; the script in app/layout.tsx applies the saved choice) */
-html[data-theme='light'] {
-  --c-deep: 221 216 196; /* #DDD8C4, derived: hover fill a step darker than the page */
-  --c-ground: 232 228 211; /* #E8E4D3 page background */
-  --c-soft: 42 58 56; /* #2A3A38, derived: body text */
-  --c-bright: 3 18 17; /* #031211 headlines */
-  --c-accent-text: 0 106 115; /* #006A73, derived: #00AEBB fails as text on cream (2.1:1) */
-  --c-logo: 3 18 17;
-  --c-glow: 255 255 255;
-  color-scheme: light;
+.theme-diplovia,
+body:has(main[data-brand='diplovia']) {
+  --c-deep: 10 17 29; /* #0A111D */
+  --c-ground: 16 27 45; /* #101B2D Midnight Navy */
+  --c-surface: 20 37 61; /* #14253D */
+  --c-soft: 241 235 221; /* #F1EBDD Muted Ivory */
+  --c-bright: 249 246 238; /* #F9F6EE, derived */
+  --c-accent: 185 154 95; /* #B99A5F Antique Gold (6.4:1 on navy) */
+  --c-on-accent: 16 27 45;
+  --c-wine: 100 44 58; /* #642C3A Burgundy: fills and artwork only, never text on navy */
+  --c-glow: 185 154 95;
+  --font-display: var(--font-cormorant);
+  --display-tracking: -0.005em;
+  --hero-gradient: linear-gradient(115deg, #0a111d 0%, #14253d 58%, #35202a 100%);
 }
+.theme-diplovia { background-color: rgb(var(--c-ground)); color: rgb(var(--c-soft)); }
 
-/* ─── ₹ from the device's own font: Inter and Newsreader only have it in their extended files (~170KB more).
-   Covers U+20B9 only, listed first in every font stack, so all other letters stay Inter/Newsreader.
+/* ─── ₹ from the device's own font: Inter only has it in its extended file (~170KB more).
+   Covers U+20B9 only, listed first in every font stack, so all other letters stay in the brand fonts.
    Fonts with ₹: Segoe UI (Windows), Roboto (Android), Noto Sans (Linux), Helvetica Neue (Apple). ── */
 @font-face {
   font-family: 'Rupee';
@@ -39,6 +51,7 @@ html[data-theme='light'] {
 /* ─── Base Styles ──────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
+  background-color: rgb(var(--c-ground));
   -webkit-tap-highlight-color: transparent; /* our own pressed state below replaces the grey tap box */
 }
 /* Pressed state on touch screens (Apple HIG: every tap gets visible feedback) */
@@ -48,8 +61,8 @@ html {
 
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
 h1, h2, h3 { text-wrap: balance; }
-/* Major headlines in the serif; h3 and below stay in Inter */
-h1, h2 { font-family: 'Rupee', var(--font-newsreader), Georgia, serif; }
+/* Major headlines in the brand's display face (Space Grotesk for Apex, Cormorant Garamond for DIPLOVIA) */
+h1, h2 { font-family: 'Rupee', var(--font-display), system-ui, sans-serif; letter-spacing: var(--display-tracking); }
 p { text-wrap: pretty; }
 
 body {
@@ -66,63 +79,34 @@ body {
   .field-label { @apply mb-2 block text-xs font-medium text-soft; }
   .field-input {
     @apply w-full rounded-sm border border-soft/25 bg-ground px-4 py-3 text-base text-bright outline-none
-      transition-colors duration-200 placeholder:text-soft/70 focus:border-bright
+      transition-colors duration-200 placeholder:text-soft/70 focus:border-accent
       aria-[invalid=true]:border-accent sm:text-sm; /* 16px on phones: Safari on iPhone zooms in on fields under 16px */
   }
-  /* Errors: readable light text, marked with an accent warning sign (accent text alone would fail contrast) */
+  /* Errors: readable light text, marked with an accent warning sign */
   .field-error { @apply mt-1.5 text-xs text-bright; }
   .field-error::before,
   .alert-error::before { content: '⚠\00a0'; @apply text-accent; }
   .alert-error { @apply rounded-sm border border-accent px-4 py-3 text-sm text-bright; }
-  .panel { @apply rounded border border-soft/15 bg-ground p-6; }
+  .panel { @apply rounded border border-soft/15 bg-surface/40 p-6; }
   .eyebrow { @apply text-xs font-medium uppercase tracking-[0.14em] text-accent; }
 
-  /* Buttons (links styled as buttons). Primary: accent fill, works on dark and light sections. Secondary: outline on dark. */
+  /* Buttons (links styled as buttons). Primary: accent fill; hover turns to the headline colour. Secondary: outline. */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded border border-accent bg-accent px-6 py-3 text-sm font-medium text-on-accent
-      transition-colors duration-200 hover:border-deep hover:bg-deep hover:text-bright;
+      transition duration-200 hover:border-bright hover:bg-bright active:translate-y-px;
   }
   /* The default ring is the text colour, which is the page colour here; use the headline colour instead */
   .btn-primary:focus-visible { outline-color: rgb(var(--c-bright)); }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded border border-soft/50 px-6 py-3 text-sm font-medium text-bright
-      transition-colors duration-200 hover:border-accent;
+    @apply inline-flex items-center justify-center gap-2 rounded border border-soft/35 px-6 py-3 text-sm font-medium text-bright
+      transition duration-200 hover:border-accent hover:text-accent active:translate-y-px;
   }
 
-  /* Logo drawn from the logo file's shape in the logo colour (one asset, colour per mode) */
-  .logo-mark {
-    background-color: rgb(var(--c-logo));
-    -webkit-mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
-    mask: url('/brand/apex-conclave-logo-light.png') center / contain no-repeat;
-  }
+  /* Cards that link somewhere: a small lift and a stronger border on hover (pointer devices only) */
+  .card-lift { @apply transition duration-300 hover:-translate-y-1 hover:border-soft/40; }
 
-  /* Light/dark toggle (Navbar): the icon shows the mode it switches to */
-  .theme-icon-moon { display: none; }
-  [data-theme='light'] .theme-icon-sun { display: none; }
-  [data-theme='light'] .theme-icon-moon { display: block; }
-  /* The Diplovia logo file is cream; darkened wherever it sits on a light colour */
-  [data-theme='light'] .event-logo,
-  .tone-flip .event-logo { filter: brightness(0.1); }
-  [data-theme='light'] .tone-flip .event-logo { filter: none; }
-
-  /* A few panels in the opposite colour (owner, 2026-10-22): light panels in dark mode, dark panels in light mode.
-     Redefines the role variables, so text, labels, lines and buttons inside follow. Values mirror the two modes. */
-  .tone-flip {
-    --c-deep: 221 216 196;
-    --c-ground: 232 228 211;
-    --c-soft: 42 58 56;
-    --c-bright: 3 18 17;
-    --c-accent-text: 0 106 115;
-    background-color: rgb(var(--c-ground));
-    color: rgb(var(--c-bright));
-  }
-  [data-theme='light'] .tone-flip {
-    --c-deep: 1 10 9;
-    --c-ground: 3 18 17;
-    --c-soft: 232 228 211;
-    --c-bright: 247 244 232;
-    --c-accent-text: 0 174 187;
-  }
+  /* Hero background: the brand's gradient (Apex or DIPLOVIA, from the variables above). Selected heroes only. */
+  .bg-hero { background-image: var(--hero-gradient); }
 
   /* 44px tap area around a small stand-alone link without changing the layout (Apple HIG minimum touch target).
      Uses ::before because .ext-link already uses ::after. Not for links inside sentences. */
@@ -154,17 +138,14 @@ body {
   .ext-link::after { transition: none; transform: none; }
 }
 
-/* ─── One background: a glow fixed to the screen (soft light at the top, accent low down) and film grain.
-   Both stay put while the content scrolls over them. ── */
+/* ─── Background: a faint light fixed to the top of the screen and fine grain. Both stay put while content scrolls. ── */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(var(--c-glow) / 0.07), transparent 70%),
-    radial-gradient(ellipse 70% 45% at 85% 115%, rgb(var(--c-accent) / 0.14), transparent 70%);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgb(var(--c-glow) / 0.05), transparent 70%);
 }
 body::after {
   content: '';
@@ -172,7 +153,7 @@ body::after {
   inset: 0;
   z-index: 45; /* above sections, below the navbar */
   pointer-events: none;
-  opacity: 0.09;
+  opacity: 0.06;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -204,7 +185,6 @@ body::after {
   .panel { break-inside: avoid; }
   a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 0.8em; }
   img[src*='brand'] { filter: invert(1); } /* light logos print dark; photos and QR stay as they are */
-  .logo-mark { background-color: #000 !important; }
   body::before, body::after { display: none; }
 }
 
@@ -231,26 +211,6 @@ body::after {
   .js .is-in { opacity: 1; transform: none; }
 }
 .reveal-cells > * { overflow: hidden; } /* contents slide in inside their own cell, not across its neighbours */
-/* ─── Hero typewriter (components/home/TypedText.tsx): letters not yet typed keep their space but are hidden;
-   the cursor is a 2px bar drawn just after the last typed letter, so it never moves the text.
-   Only with scripts and motion. ── */
-@media (prefers-reduced-motion: no-preference) {
-  .js .typed-char { visibility: hidden; }
-  .js .typed-cursor { position: relative; }
-  .js .typed-cursor::after {
-    content: '';
-    position: absolute;
-    left: calc(100% + 0.04em);
-    top: 0.2em;
-    height: 0.8em;
-    width: 2px;
-    background-color: currentColor;
-  }
-  .js .typed-cursor.is-done::after { animation: typed-blink 1s steps(1) 3 forwards; }
-}
-@keyframes typed-blink {
-  50%, to { opacity: 0; }
-}
 
 /* How far content travels sideways (owner asked for a long entry) */
 :root { --reveal-dist: 4rem; }
@@ -260,22 +220,19 @@ body::after {
 /* Content sliding in from the right must not widen the page (clip, unlike hidden, keeps sticky working) */
 main { overflow-x: clip; }
 
-/* Increase Contrast: stronger hairlines and borders (Apple HIG; text contrast is already ~15:1) */
+/* Increase Contrast: stronger hairlines and borders (Apple HIG; text contrast is already high) */
 @media (prefers-contrast: more) {
   [class*='border-soft/'], .panel, .field-input, .btn-secondary { border-color: rgb(var(--c-soft) / 0.6) !important; }
   [class*='divide-soft/'] > * + * { border-color: rgb(var(--c-soft) / 0.6) !important; }
 }
 
-/* Events directory: the page container already sets the side padding */
-.events-stack .scroll-stack__inner { padding-inline: 0; }
-
 /* ─── Accessibility ────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid currentColor; /* matches the text, so it shows on dark and light sections */
+  outline: 2px solid currentColor; /* matches the text, so it shows on every surface */
   outline-offset: 2px;
 }
 
-/* Reduced motion: a catch-all for every CSS transition and animation (WebGL effects handle themselves) */
+/* Reduced motion: a catch-all for every CSS transition and animation */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

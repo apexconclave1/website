@@ -71,9 +71,9 @@ export default function AboutPage() {
                   className="group grid items-center gap-6 py-8 md:grid-cols-[12rem_1fr_auto] md:gap-10"
                 >
                   {event.logo ? (
-                    <Image src={event.logo} alt="" width={180} height={52} className="event-logo h-auto w-[160px]" />
+                    <Image src={event.logo} alt="" width={180} height={52} className="h-auto w-[160px]" />
                   ) : (
-                    <span className="font-serif text-2xl">{event.title}</span>
+                    <span className="font-display text-2xl">{event.title}</span>
                   )}
                   <span>
                     <span className="block text-lg text-bright">{event.title}</span>

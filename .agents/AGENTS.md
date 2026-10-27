@@ -9,7 +9,7 @@
 **Apex Conclave** is a multi-format student events and competitions brand with six event verticals. **Diplovia 2026**, a virtual Model United Nations conference, is the first event.
 
 - **Stack**: Next.js 14+ (App Router), React Server Components, Tailwind CSS, TypeScript, Lucide React, Supabase (Postgres), Vercel Analytics
-- **Design Philosophy**: Editorial · Credible · Typography-Led · Dark and light modes (see `DESIGN.md`)
+- **Design Philosophy**: Two brands: Apex Conclave (dark, cinematic, editorial) and DIPLOVIA (diplomatic, editorial). Dark only (see `DESIGN.md`)
 
 ### Project docs (all in `.agents/`)
 
@@ -42,7 +42,7 @@ src/
 │   ├── layout/       # Navbar, Footer, ApexWordmark (rendered once in app/layout.tsx)
 │   ├── home/ verticals/ partners/ team/ events/ contact/ faq/  # Section components
 │   ├── features/registration/  # Registration wizard
-│   └── ui/           # Shared pieces (Button, Badge, SectionHeading, ScrollReveal, ScrollStack, FuzzyText)
+│   └── ui/           # Shared pieces (Button, Badge, StatusLabel, SectionHeading, ScrollReveal)
 ├── lib/              # Utilities, data, Supabase services
 │   ├── data/         # Static content data files
 │   ├── supabase/     # Supabase server client (service role)
@@ -59,7 +59,7 @@ src/
 
 ### Styling
 - Use **Tailwind CSS** utility classes with the custom design tokens defined in `tailwind.config.ts`.
-- Use the role tokens (`deep`, `ground`, `soft`, `bright`, `accent`, `on-accent`), never raw hex; they switch between dark and light mode. See `DESIGN.md`.
+- Use the role tokens (`deep`, `ground`, `surface`, `soft`, `bright`, `accent`, `on-accent`, `wine`), never raw hex; they switch between Apex and DIPLOVIA (`.theme-diplovia`, `<main data-brand="diplovia">`). See `DESIGN.md`.
 
 ### Performance
 - Minimize `"use client"` boundaries. Push interactivity to leaf components.
@@ -79,18 +79,18 @@ src/
 
 ## Strict Design Prohibitions
 
-> Kept effects (2026-10-22): ScrollStack (`/events`) and FuzzyText (404 only). See `DESIGN.md`.
+> Redesign v4 (2026-10-27): ScrollStack, FuzzyText and the hero typewriter removed; light mode removed. See `DESIGN.md`.
 
 > [!CAUTION]
 > These rules are **non-negotiable**. Violating them breaks the brand identity.
 
-- ❌ **NO Gradients** (linear or radial), except the fixed page glow in `globals.css`
+- ❌ **NO Gradients** except `.bg-hero` (each brand's hero gradient) on selected heroes and artwork, and the fixed page light in `globals.css`
 - ❌ **NO Glassmorphism** (frosted glass, backdrop-blur panels)
 - ❌ **NO Heavy Drop Shadows** (use hairline borders: `border-soft/15`)
 - ❌ **NO Decorative Icons** (no random vectors, emoji, or ornamental graphics)
 - ❌ **NO Large Accent Areas** (accent is for buttons, lines, labels and the hero highlight)
 - ❌ **NO Heavy Parallax / Spinning Animations** (subtle transitions only)
-- ❌ **NO Icon Logos** and **no redrawn logo**: use `public/brand/apex-conclave-logo-*.png` via `ApexWordmark`
+- ❌ **NO Icon Logos**, **no redrawn or recoloured logo**: use `public/brand/apex-conclave-logo-light.png` via `ApexWordmark` and `diplovia-logo-light.png` as supplied, on dark backgrounds only
 
 ---
 
@@ -104,7 +104,7 @@ src/
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
 - Content that changes per event lives in `lib/data/*` (events, chambers with country lists, event story, verticals, organisation and team, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.
-- Fonts: Newsreader for h1/h2 (`--font-newsreader`), Inter for everything else (`--font-inter`), both via next/font. Do not add other families.
+- Fonts: Space Grotesk (Apex) or Cormorant Garamond (DIPLOVIA) for h1/h2 and `font-display` through `--font-display`; Inter for everything else. All via next/font. Do not add other families.
 - Contact email comes from `organizationConfig.contactEmail`. Do not hard-code addresses.
 
 ## Commit & Code Review

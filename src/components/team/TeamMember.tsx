@@ -44,7 +44,7 @@ export function TeamMember({ name, role, photo, bio, linkedin, quote }: TeamMemb
       </figcaption>
       {/* Full width under photo and text on phones */}
       {quote && (
-        <blockquote className="col-span-2 border-l border-accent pl-4 font-serif text-base leading-relaxed text-bright sm:mt-5">
+        <blockquote className="col-span-2 border-l border-accent pl-4 font-display text-base leading-relaxed text-bright sm:mt-5">
           “{quote}”
         </blockquote>
       )}

@@ -55,7 +55,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen pt-[4.5rem] text-bright">
+    <main id="main-content" data-brand={event.brand} className="min-h-screen pt-[4.5rem] text-bright">
       {eventSchema(event) && <JsonLd data={eventSchema(event)!} />}
       {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
       {/* Hero: the event's own identity first, Apex Conclave secondary */}
@@ -84,10 +84,10 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                   width={1200}
                   height={345}
                   priority
-                  className="event-logo h-auto w-full max-w-[520px]"
+                  className="h-auto w-full max-w-[520px]"
                 />
               ) : (
-                <span className="font-serif text-[2.625rem] font-normal leading-tight md:text-6xl">{event.title}</span>
+                <span className="font-display text-[2.625rem] font-normal leading-tight md:text-6xl">{event.title}</span>
               )}
             </h1>
             <p className="text-sm text-soft">
@@ -168,7 +168,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             <div className="reveal-stagger mt-10 grid grid-cols-1 gap-10 lg:grid-cols-3">
               {story.phases.map((phase) => (
                 <div key={phase.name}>
-                  <h3 className="font-serif text-3xl font-normal">{phase.name}</h3>
+                  <h3 className="font-display text-3xl font-normal">{phase.name}</h3>
                   <p className="mt-1 text-sm text-soft">{phase.lead}</p>
                   <ol className="mt-6 space-y-4 border-l border-soft/25 pl-5">
                     {phase.steps.map((step, i) => (
@@ -203,7 +203,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                       <div className="mb-1 text-xs font-medium uppercase tracking-widest text-accent">
                         {c.code} · {c.theme}
                       </div>
-                      <h3 className="font-serif text-2xl font-normal leading-tight">{c.name}</h3>
+                      <h3 className="font-display text-2xl font-normal leading-tight">{c.name}</h3>
                     </div>
                     <Badge variant="muted" className="shrink-0 whitespace-nowrap">{c.totalSeats} seats</Badge>
                   </div>
@@ -222,7 +222,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
             {story && (
               <div className="mt-14">
-                <h3 className="font-serif text-3xl font-normal">Who sits at the table?</h3>
+                <h3 className="font-display text-3xl font-normal">Who sits at the table?</h3>
                 <p className="mt-1 text-sm text-soft">Five kinds of delegate, and most people are a mix.</p>
                 <ol className="mt-8 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-5">
                   {story.delegateTypes.map((d, i) => (
@@ -295,7 +295,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               {eventFees(event).map((fee) => (
                 <div key={fee.label} className="bg-ground p-6">
                   <div className="text-xs font-medium uppercase tracking-widest text-soft">{fee.label}</div>
-                  <div className="mt-2 font-serif text-4xl font-normal">{fee.amount}</div>
+                  <div className="mt-2 font-display text-4xl font-normal">{fee.amount}</div>
                   {fee.note && <div className="mt-1 text-sm text-soft">{fee.note}</div>}
                 </div>
               ))}
