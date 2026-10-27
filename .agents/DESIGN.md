@@ -72,10 +72,11 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `Button` | `components/ui/Button.tsx` | Same looks for `<button>` (forms, wizard) |
 | `StatusLabel` | `components/ui/StatusLabel.tsx` | `active` (accent dot), `upcoming` (outline), `planned` (dashed, muted). Planned must never look running |
 | `SectionHeading` | `components/ui/SectionHeading.tsx` | Eyebrow, h2, description |
-| `.card-lift` | `globals.css` | Linked cards: 4px lift and stronger border on hover |
+| `.card-lift` | `globals.css` | Linked cards: 4px lift and stronger border on hover. Never on the same element as a reveal class (both use transform); put it on an inner wrapper |
 | `.panel`, `.field-*`, `.alert-error` | `globals.css` | Panels on `surface`, form fields, errors |
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
 | `HeroArt` | `components/home/` | Home hero focal piece, SVG in role colours; the only hero artwork for Apex |
+| `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Six equal cards; original line art per vertical, accent only when active; whole card links (event or Register interest) |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
 **Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer**: on `deep`; logo, description, email, Explore / Events / Follow, Terms, Privacy, Code of Conduct.

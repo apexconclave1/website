@@ -1,110 +1,75 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, BriefcaseBusiness, Code, Gamepad2, Landmark, Mic, Sprout, type LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { interestHref, verticals } from '@/lib/data/verticals';
 import { eventsData, formatEventDates } from '@/lib/data/events';
-
-const icons: Record<string, LucideIcon> = {
-  diplomacy: Landmark,
-  business: BriefcaseBusiness,
-  technology: Code,
-  debate: Mic,
-  startups: Sprout,
-  esports: Gamepad2,
-};
+import { StatusLabel } from '@/components/ui/StatusLabel';
+import { VerticalArt } from '@/components/verticals/VerticalArt';
 
 /**
- * Editorial grid of the six verticals. The active vertical is a graphite tile (bg-surface) spanning two columns and rows;
- * planned ones are open cells divided by hairlines. `compact` is the home version.
+ * The six event verticals as equal cards: artwork, number, status, title, description and one destination.
+ * Active: links to its event (and names it). Planned: links to the contact form with "Register interest" prefilled.
+ * The whole card is the link (the title's ::after covers it). `compact` is the home version: two per row on phones,
+ * descriptions from sm up.
  */
 export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
   return (
-    // Hairlines: the list draws the top and left edges, every cell its own right and bottom edge
-    // Home (compact): planned verticals two per row on phones, descriptions from sm up. Page: one column on phones.
-    <ol
-      className={`reveal-cells grid border-l border-t border-soft/15 lg:grid-cols-3 ${compact ? 'grid-cols-2' : 'md:grid-cols-2'}`}
-    >
+    <ol className={`reveal-stagger grid gap-3 sm:gap-4 lg:grid-cols-3 ${compact ? 'grid-cols-2' : 'md:grid-cols-2'}`}>
       {verticals.map((v, i) => {
-        const Icon = icons[v.id];
-        const number = String(i + 1).padStart(2, '0');
+        const active = v.status === 'active';
         const event = v.eventSlug ? eventsData.find((e) => e.slug === v.eventSlug) : undefined;
-
-        if (v.status === 'active') {
-          return (
-            <li
-              key={v.id}
-              id={v.id}
-              className={`flex scroll-mt-24 flex-col bg-surface border-b border-r border-soft/15 p-6 md:col-span-2 md:p-10 lg:row-span-2 ${compact ? 'col-span-2' : ''}`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm tabular-nums text-soft">{number}</span>
-                <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
-              </div>
-              <p className="eyebrow mt-8 md:mt-10">Active</p>
-              <h3 className="mt-3 font-display text-4xl font-normal leading-tight md:text-5xl">{v.title}</h3>
-              <p className="mt-4 max-w-[46ch] text-soft">{v.description}</p>
-
-              {event && (
-                // pt-12 keeps a gap above the rule when the tile is short (one-row layouts); mt-auto pins it to the bottom
-                <div className="mt-auto pt-10 md:pt-12">
-                  <Link
-                    href={`/events/${event.slug}`}
-                    className="group flex flex-col gap-6 border-t border-soft/15 pt-8 sm:flex-row sm:items-end sm:justify-between"
-                    data-track="cta_verticals_event"
-                  >
-                    <div>
-                      {event.logo && !compact && (
-                        <Image src={event.logo} alt="" width={180} height={52} className="mb-5 h-auto w-[180px]" />
-                      )}
-                      <span className="block text-lg text-bright">{event.title}</span>
-                      <span className="mt-1 block text-sm text-soft">
-                        {formatEventDates(event)} · {event.location.isVirtual ? 'Online' : event.location.city} ·{' '}
-                        {event.registrationOpen ? 'Registration open' : 'Registration opens soon'}
-                      </span>
-                    </div>
-                    <span className="inline-flex shrink-0 items-center gap-2 text-sm text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 group-hover:decoration-bright">
-                      View event <ArrowRight size={14} />
-                    </span>
-                  </Link>
-                </div>
-              )}
-            </li>
-          );
-        }
+        const href = active && event ? `/events/${event.slug}` : interestHref(v);
 
         return (
-          <li
-            key={v.id}
-            id={v.id}
-            // Wherever there are two columns, the sixth cell would sit alone, so it spans the row
-            className={`flex scroll-mt-24 flex-col border-b border-r border-soft/15 lg:last:col-span-1 ${
-              compact ? 'p-5 last:col-span-2 md:p-7' : 'p-6 md:p-8 md:last:col-span-2'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-sm tabular-nums text-soft">{number}</span>
-              <Icon size={20} strokeWidth={1.5} className="text-accent" aria-hidden="true" />
-            </div>
-            <h3
-              className={`font-display font-normal leading-snug ${
-                compact ? 'mt-5 text-lg md:mt-8 md:text-2xl' : 'mt-6 text-2xl md:mt-10 md:text-[1.75rem]'
+          // The li slides in (reveal); the inner card lifts on hover. Both use transform, so they sit on separate elements.
+          <li key={v.id} id={v.id} className="flex scroll-mt-24">
+            <div
+              className={`card-lift group relative flex w-full flex-col rounded border bg-ground [&:has(:focus-visible)]:outline [&:has(:focus-visible)]:outline-2 [&:has(:focus-visible)]:outline-offset-2 [&:has(:focus-visible)]:outline-bright ${
+                active ? 'border-accent/40' : 'border-soft/15'
               }`}
             >
-              {v.title}
-            </h3>
-            <p className={`mt-3 text-sm leading-relaxed text-soft ${compact ? 'hidden sm:block' : ''}`}>{v.description}</p>
-            <div className="mt-auto flex items-center justify-between gap-4 pt-5 text-sm md:pt-8">
-              <span className="text-xs font-medium uppercase tracking-[0.14em] text-soft">Planned</span>
-              {!compact && (
-                <Link
-                  href={interestHref(v)}
-                  className="hit inline-flex items-center gap-1.5 text-bright underline decoration-soft/40 underline-offset-[6px] transition-colors duration-200 hover:decoration-bright"
-                  data-track="cta_verticals_interest"
-                  data-track-vertical={v.id}
-                >
-                  Register interest <ArrowRight size={14} />
-                </Link>
-              )}
+              <div className={`overflow-hidden border-b border-soft/10 ${active ? 'bg-hero' : 'bg-surface/30'}`}>
+                <VerticalArt
+                  id={v.id}
+                  active={active}
+                  className="aspect-[16/9] w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+
+              <div className={`flex flex-1 flex-col ${compact ? 'p-4 md:p-6' : 'p-6'}`}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-xs tabular-nums text-soft/70">{String(i + 1).padStart(2, '0')}</span>
+                  <StatusLabel status={v.status} />
+                </div>
+                <h3 className={`mt-4 font-display font-medium leading-tight text-bright ${compact ? 'text-base sm:text-xl md:text-2xl' : 'text-2xl'}`}>
+                  <Link
+                    href={href}
+                    className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+                    data-track={active ? 'cta_verticals_event' : 'cta_verticals_interest'}
+                    data-track-vertical={v.id}
+                  >
+                    {v.title}
+                    <span className="sr-only">{active && event ? `: view ${event.title}` : ': register interest'}</span>
+                  </Link>
+                </h3>
+                <p className={`mt-2 text-sm leading-relaxed text-soft ${compact ? 'hidden sm:block' : ''}`}>{v.description}</p>
+
+                <div className={`mt-auto pt-6 text-sm ${compact ? 'hidden sm:block' : ''}`}>
+                  <span className="flex items-center justify-between gap-3 border-t border-soft/15 pt-4 text-bright">
+                    {active && event ? (
+                      <span>
+                        {event.title}
+                        <span className="block text-xs text-soft">
+                          {event.status === 'LIVE' ? 'Live now · ' : event.status === 'UPCOMING' ? 'Upcoming · ' : ''}
+                          {formatEventDates(event)} · {event.registrationOpen ? 'Registration open' : 'Registration opens soon'}
+                        </span>
+                      </span>
+                    ) : (
+                      <span>Register interest</span>
+                    )}
+                    <ArrowRight size={16} aria-hidden="true" className="shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </div>
             </div>
           </li>
         );

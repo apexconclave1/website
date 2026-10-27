@@ -3,6 +3,14 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { pageMetadata } from '@/lib/seo';
 import { VerticalsGrid } from '@/components/verticals/VerticalsGrid';
+import { StatusLabel, type Status } from '@/components/ui/StatusLabel';
+
+// What each status means, shown above the grid so planned verticals are never mistaken for running ones
+const statusKey: { status: Status; meaning: string }[] = [
+  { status: 'active', meaning: 'Running, with a confirmed event.' },
+  { status: 'upcoming', meaning: 'An event with confirmed dates that has not happened yet.' },
+  { status: 'planned', meaning: 'In development. No event yet; register interest to hear first.' },
+];
 
 export const metadata: Metadata = pageMetadata(
   'Event Verticals',
@@ -26,6 +34,17 @@ export default function VerticalsPage() {
             are planned: they are listed so you know where we are going, not because they have happened yet.
           </p>
         </header>
+
+        <dl className="reveal mb-10 grid gap-4 border-y border-soft/15 py-6 sm:grid-cols-3 sm:gap-8">
+          {statusKey.map(({ status, meaning }) => (
+            <div key={status} className="flex flex-col items-start gap-2">
+              <dt>
+                <StatusLabel status={status} />
+              </dt>
+              <dd className="text-sm leading-relaxed text-soft">{meaning}</dd>
+            </div>
+          ))}
+        </dl>
 
         <h2 className="sr-only">All verticals</h2>
         <VerticalsGrid />
