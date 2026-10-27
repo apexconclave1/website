@@ -16,7 +16,7 @@ export const apexFaqs: FaqItem[] = [
     id: 'apex-2',
     category: 'About',
     q: 'Which events can I join right now?',
-    a: 'Diplovia 2026 is our first event. Its dates and registration window will be announced soon. New events are listed on the Events page as soon as they are announced.',
+    a: 'Diplovia 2026 is our first event, on 21 and 22 November 2026. Its registration window will be announced soon. New events are listed on the Events page as soon as they are announced.',
   },
   {
     id: 'apex-4',
@@ -50,7 +50,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-4',
       category: 'Format',
       q: 'Where and when is Diplovia held?',
-      a: 'Diplovia 2026 runs over two days. The dates will be announced soon. It is 100% virtual, on Zoom or Google Meet, so you can join from anywhere.',
+      a: 'Diplovia 2026 runs over two days, 21 and 22 November 2026. It is 100% virtual, on Zoom or Google Meet, so you can join from anywhere.',
     },
     {
       id: 'dip-5',

@@ -26,7 +26,7 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
         <p className="eyebrow mb-5">{event.title}</p>
         <h1 className="text-4xl font-normal text-bright md:text-5xl">Registration opens soon.</h1>
         <p className="mt-4 text-base text-soft">
-          Dates and the registration window will be announced on the event page and on our Instagram.
+          The registration window will be announced on the event page and on our Instagram.
         </p>
         <Link
           href={`/events/${event.slug}`}

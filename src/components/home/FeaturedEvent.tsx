@@ -63,7 +63,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
                 </Link>
               ) : (
                 organizationConfig.socials.instagram && (
-                  // Dates and the registration window are announced on Instagram (see /register)
+                  // The registration window is announced on Instagram (see /register)
                   <a
                     href={organizationConfig.socials.instagram}
                     target="_blank"

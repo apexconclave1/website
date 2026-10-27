@@ -7,7 +7,7 @@
 - [Home](/): what Apex Conclave is, its event verticals, the featured event, team and partnerships
 - [Event Verticals](/verticals): Diplomacy & MUNs (active); Business & Case Competitions, Technology & Hackathons, Debates & Discourse, Startup Pitching & Entrepreneurship, Gaming & Esports (planned)
 - [Events](/events): every event, upcoming and past
-- [Diplovia 2026](/events/diplovia-2026): virtual MUN with five committees (UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee); fees, allotment and FAQ
+- [Diplovia 2026](/events/diplovia-2026): virtual MUN on 21 and 22 November 2026 with five committees (UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee); fees, allotment and FAQ
 - [About](/about): mission, the people it brings together, team and how events are run
 - [Partners](/partners): sponsorships, college partnerships, competition challenges, judges and mentors, campus communities
 - [FAQ](/faq) and [Contact](/contact)

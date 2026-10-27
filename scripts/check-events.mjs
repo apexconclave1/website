@@ -12,6 +12,7 @@ assert.equal(feeAt({}, new Date()), null);
 
 assert.equal(formatEventDates({}), 'Dates to be announced');
 assert.equal(formatEventDates({ startDate: '2026-10-31', endDate: '2026-11-01' }), '31 Oct to 1 Nov 2026');
+assert.equal(formatEventDates({ startDate: '2026-11-21', endDate: '2026-11-22' }), '21 Nov to 22 Nov 2026');
 assert.equal(formatEventDates({ startDate: '2026-12-31', endDate: '2027-01-01' }), '31 Dec 2026 to 1 Jan 2027');
 assert.deepEqual(eventFees(ev).map((f) => f.amount), ['₹299', '₹399']);
 

@@ -24,7 +24,9 @@ export const eventsData: EventEntity[] = [
     // Cropped from the delegate booklet cover, above its (old) printed dates
     posterImage: '/events/diplovia-2026-poster.jpg',
     format: 'Virtual Model United Nations · 2 days',
-    // Dates moved; set startDate/endDate, registrationOpensAt and registrationOpen: true once confirmed.
+    // Dates confirmed by the owner on 2026-10-27. Set registrationOpensAt and registrationOpen: true when registration opens.
+    startDate: '2026-11-21',
+    endDate: '2026-11-22',
     registrationOpen: false,
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
     features: [

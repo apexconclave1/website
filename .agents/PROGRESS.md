@@ -1,14 +1,14 @@
 # Apex Conclave Website: Progress
 
-Last updated: 2026-10-23. One file for status, decisions, history and to-dos (the old `IMPLEMENTATION_PLAN.md` was merged in here on 2026-10-23). Design rules: `DESIGN.md`. Conventions: `AGENTS.md`. Product: `PRODUCT.md`. Skills: `SKILLS_MASTER_GUIDE.md`.
+Last updated: 2026-10-27. One file for status, decisions, history and to-dos (the old `IMPLEMENTATION_PLAN.md` was merged in here on 2026-10-23). Design rules: `DESIGN.md`. Conventions: `AGENTS.md`. Product: `PRODUCT.md`. Skills: `SKILLS_MASTER_GUIDE.md`.
 
 ## Start here
 
-**What this is.** Website of **Apex Conclave**, a student events and competitions brand with six event verticals (diplomacy and MUNs active; business, technology, debate, startups and esports planned). **Diplovia 2026**, a virtual Model UN with dates to be announced, is the first event (`/events/diplovia-2026`). Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Supabase, Zod, Vercel Analytics. Fonts: Newsreader (headlines) and Inter.
+**What this is.** Website of **Apex Conclave**, a student events and competitions brand with six event verticals (diplomacy and MUNs active; business, technology, debate, startups and esports planned). **Diplovia 2026**, a virtual Model UN on 21 and 22 November 2026, is the first event (`/events/diplovia-2026`). Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Supabase, Zod, Vercel Analytics. Fonts: Newsreader (headlines) and Inter.
 
-**Where things stand.** Redesign v3 (phases 1–11) is done on branch `redesign`. `main` and the live site (https://website-apc20.vercel.app, deployed 2026-10-20) still show the pre-redesign version until the owner merges `redesign` into `main`.
+**Where things stand.** Redesign v3 is merged into `main` and live (https://website-apc20.vercel.app). Redesign v4 started 2026-10-27 from the owner's brief "Apex Conclave × DIPLOVIA" (two brand identities: Apex obsidian/lime, Diplovia navy/ivory/gold/burgundy). Phase 0 done; v4 rules replace the v3 palette, fonts and light mode as each phase lands.
 
-**Next.** Owner review and the to-do list below: merge and deploy the redesign, real Supabase project, real UPI details, Diplovia dates, a real-phone check.
+**Next.** Redesign v4 Phase 1 (design system). Blocker for forms: the Supabase project in `.env.local` (and on Vercel) does not resolve, see Known gaps.
 
 **How we work.**
 - The owner commits. Claude stops after each phase, reports, and gives a commit command (with `git add -u` plus new files).
@@ -17,6 +17,20 @@ Last updated: 2026-10-23. One file for status, decisions, history and to-dos (th
 - Site credit: "Website by Kapish Garg" is not shown on the page; it lives in the author/creator meta tags, WebSite JSON-LD (`websiteSchema` in `lib/seo.ts`) and `public/llms.txt`.
 
 ## Phase checklist
+
+Redesign v4 (from 2026-10-27), owner brief "Final website redesign brief: Apex Conclave × DIPLOVIA". Stop and report after each phase; owner does all git work.
+
+- [x] 0. Baseline: before screenshots (11 pages × 360/390/768/1024/1440), axe and Lighthouse on live, confirmed dates, demo contact message
+- [ ] 1. Design system: two token sets (Apex default, Diplovia scoped), Space Grotesk / Inter / Cormorant Garamond, gradients and textures, shared components; teal and light mode removed
+- [ ] 2. Navigation, footer, home hero (original SVG/CSS geometric focal piece, staggered entrance)
+- [ ] 3. Verticals and experience cards (custom geometric mark per vertical, active / upcoming / planned labels)
+- [ ] 4. Featured Diplovia section on home
+- [ ] 5. Diplovia event page, register wizard and receipt in the Diplovia identity; new Diplovia artwork; event page performance; demo registration
+- [ ] 6. Every other page: about and team, partners, contact, events, FAQ, terms, 404, error
+- [ ] 7. Motion and responsive pass (360, 390, 768, 1024, 1440)
+- [ ] 8. Final QA (axe, keyboard, Lighthouse, SEO and share images, links, console, build), after screenshots, report
+
+Redesign v3 (2026-10-22 to 2026-10-23):
 
 Redesign v3 (2026-10-22 to 2026-10-23), from the owner's brief (`one.md`, no longer in the folder; its rules live in `DESIGN.md`):
 
@@ -39,6 +53,26 @@ Redesign v3 (2026-10-22 to 2026-10-23), from the owner's brief (`one.md`, no lon
 Before the redesign (2026-10-20): A remove Firebase, Sanity and the seat matrix; B event data (dates TBA, pricing, closed registration, past events); C backend (fresh Supabase schema, server-side pricing, contact storage); D logo and restyle; E Community, Partners, home Network; F Diplovia booklet content; G SEO, assets, Vercel; launch audit; skills review steps 1–7; SEO audit. All done; summary under "Earlier work".
 
 ## Decisions
+
+### Current (owner, redesign v4, 2026-10-27; replaces conflicting v3 rows below as phases land)
+
+| Topic | Decision |
+|---|---|
+| Apex identity | #0B0B0C background, #E4E4E4 text, #222226 surfaces, #C7F36B accent (restrained); Space Grotesk headlines, Inter body |
+| Diplovia identity | #101B2D navy, #F1EBDD ivory, #B99A5F gold, #642C3A burgundy; Cormorant Garamond for editorial headlines, Inter body; no lime |
+| Gradients | Apex hero `linear-gradient(115deg, #0B0B0C 0%, #17171F 55%, #292A20 100%)`; Diplovia `linear-gradient(115deg, #0A111D 0%, #14253D 58%, #35202A 100%)`; only on selected heroes and artwork |
+| Light mode | Dropped |
+| Dropped effects | Hero typewriter, ScrollStack on /events, FuzzyText 404 |
+| Radius | 2px kept |
+| Diplovia pages | Navbar and footer switch to the Diplovia palette, Apex still shown as the parent brand |
+| Logos | No dark variants or SVGs exist; logos used unaltered on dark backgrounds only (no CSS recolouring) |
+| Diplovia artwork | New original artwork (not the recoloured booklet poster) |
+| Diplovia dates | 21 and 22 November 2026, confirmed by owner 2026-10-27. Registration still closed until owner says it opens |
+| Committees | UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee are final |
+| Team | Three founders only |
+| Testing | Demo contact message and demo registration allowed (mark as test, delete after) |
+| Git | Owner does all git work; Claude never commits or deploys |
+
 
 ### Current (owner, redesign v3)
 
@@ -97,6 +131,9 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 
 ## Phase notes (newest first)
 
+**v4 Phase 0, baseline (2026-10-27).** Before screenshots of the live site saved outside the repo in `../redesign-v4-screens/before/` (11 pages at 360/390/768/1024/1440, reduced motion so revealed content shows; full-page captures leave lazy images and the hero's second line blank, viewport checks confirm both render). No horizontal overflow on any page or width; no console errors or failed requests on home. axe (WCAG 2.2 AA) on 11 pages at 390 and 1440: 0. Lighthouse mobile on live: home 94 / 100 / 100 / 100 (LCP 3.0s, CLS 0); event page performance 59 then 75 on a re-run (LCP 8.0s then 3.7s), accessibility, best practices, SEO 100. Dates set (`startDate` 2026-11-21, `endDate` 2026-11-22 in `events.ts`); "Dates to be announced" gone from every page; two FAQ answers, the closed-registration line, `llms.txt` and `check-events.mjs` updated; Event JSON-LD now renders. Registration left closed (no answer yet on opening). Demo contact message through the real form on the local production build and straight to the live API: both 500, `getaddrinfo ENOTFOUND` for the Supabase project host (the host is not in public DNS: project deleted or URL wrong). Checked: tsc, lint, build, `node scripts/check-events.mjs`.
+
+
 **Phase 11, declutter (2026-10-23).** `progress.md` and `IMPLEMENTATION_PLAN.md` merged into this file and moved into `.agents/` next to the other md files; the redesign notes kept in full, the 2026-10-20 notes condensed (full text in git history). Root `CLAUDE.md` imports `.agents/AGENTS.md` (Claude Code loads it); root `AGENTS.md` points other tools to `.agents/`; the dead `.agents/CLAUDE.md` deleted. `PRODUCT.md` rewritten for the brief (six verticals, Diplovia as one event). README project tree and links updated. Test builds (`.next-build/`) and `.DS_Store` files deleted. Outdated items removed: `_cleanup_trash/` to-do (folder already gone), references to `../one.md`. Code scan: no unused components, styles or public files.
 
 **Apple HIG review (2026-10-23).** Owner asked for an Apple design analysis on phone and laptop via find-skills. Search found no web-specific Apple skill; installed (after owner OK, files read first) `ehmo/platform-design-skills` `ios-design-guidelines` + `macos-design-guidelines` (621★, MIT, instructions only) into `.agents/skills/` with `.claude/skills/` symlinks, CLI 1.7.4, telemetry off. Review published as a private artifact (https://claude.ai/artifact/YZPjmB13mFPgi6cjQZd98y). High: teal button focus ring invisible on dark (`.btn-primary` outline is currentColor = on-accent); form fields 14px (iOS zoom on focus); tap targets under 44px (footer 28/16px, event section menu 20px, breadcrumbs, hero vertical index, text links, FAQ chips 34px). Medium: 200% text overflows hero h1 and header; no pressed state on link buttons/cards, hover sticks on touch; appearance ignores the device setting (owner chose dark default); Diplovia poster's neutral black against teal. Low: no Increase Contrast variant; 72px header in landscape; thumb-zone Register bar for when registration opens. 14 guidelines met. Owner picked fixes for findings 1–9 (all but the later Register bar), done the same day: `.btn-primary:focus-visible` outline in `bright`; `.field-input` `text-base sm:text-sm`; tap areas via `min-h-11`/`min-w-11` (footer, hero vertical index, FAQ chips, event section menu `py-3`) and `.hit` (::before 44px) on breadcrumbs, the hero "Now" link, stand-alone text links, LinkedIn, contact cards; hero h1 `min(…, vw)` sizes, navbar controls and gutters in px, footer site links auto-fit grid, email `overflow-wrap:anywhere`; `future.hoverOnlyWhenSupported` plus `@media (hover:none)` `:active` opacity and no tap highlight; theme script follows `prefers-color-scheme` when nothing is saved; poster background shifted from #0B0B0B to #031211 (PIL composite, strokes untouched); `prefers-contrast: more` borders at 60%; navbar `h-14` under 500px height. Owner also deleted the seven old hand-written skills; `SKILLS_MASTER_GUIDE.md` now lists the three installed ones. Checked: HIG audit at 390px on 10 pages: 0 targets under 44px, no fields under 16px, 200% text fits; focus ring cream on teal buttons; appearance in all four device/saved combinations; axe 11 pages × 2 widths × 2 modes: 0; no overflow at 360–1024px; Lighthouse home 93, event 93, contact 92, CLS 0.
@@ -149,6 +186,8 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 
 ## Known gaps
 
+- **Contact form and registration cannot save (live and local).** The Supabase URL in `.env.local` and on Vercel points to a host that does not exist in DNS (checked 2026-10-27). Needs a new or restored Supabase project, migrations run, and the three keys updated locally and on Vercel.
+
 - Not tested for real: contact form and registration writing to Supabase; real phones; Safari and Firefox (headless Chrome only). The scroll slide, typewriter and FuzzyText 404 especially need a look on a real device.
 - Committee gallery hidden until real committee photos exist. No study guides yet. No QR delegate pass (only a tracking code on the receipt).
 - Rate limiting is in memory per server instance (weak on Vercel); see the `ponytail:` note in `lib/security/rate-limit.ts`.
@@ -157,10 +196,10 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 
 ## Owner to-do (not code)
 
-- Merge `redesign` into `main` and deploy (the live site is still the pre-redesign version).
+- Fix Supabase (see Known gaps): the live contact form returns an error for every message.
 - Create the Supabase project, run `supabase/migrations/` in order, fill `.env.local` and Vercel env vars; test one registration and one contact message end to end.
 - Real UPI id and QR (`paymentConfig` in `src/lib/data/organization.ts`, `public/payment/upi-qr.jpg`).
-- Diplovia dates: set `startDate`, `endDate`, `registrationOpensAt`, `registrationOpen: true` in `src/lib/data/events.ts`.
+- Diplovia registration: when it opens, set `registrationOpensAt` and `registrationOpen: true` in `src/lib/data/events.ts` (dates are set).
 - Final country/character lists per committee (`src/lib/data/chambers.ts`; HC has 4 of 18).
 - Real photos for the five committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
 - Decide on a QR delegate pass.
