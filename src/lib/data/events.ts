@@ -49,11 +49,12 @@ const formatDay = (iso: string, withYear: boolean) =>
     timeZone: 'UTC',
   });
 
-/** "31 Oct to 1 Nov 2026", or "Dates to be announced" when no dates are set. */
+/** "21 to 22 Nov 2026", "31 Oct to 1 Nov 2026", or "Dates to be announced" when no dates are set. */
 export function formatEventDates(event: EventEntity): string {
   const { startDate, endDate } = event;
   if (!startDate) return 'Dates to be announced';
   if (!endDate || endDate === startDate) return formatDay(startDate, true);
+  if (startDate.slice(0, 7) === endDate.slice(0, 7)) return `${Number(startDate.slice(8))} to ${formatDay(endDate, true)}`;
   return `${formatDay(startDate, startDate.slice(0, 4) !== endDate.slice(0, 4))} to ${formatDay(endDate, true)}`;
 }
 

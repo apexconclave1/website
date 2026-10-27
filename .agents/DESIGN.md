@@ -75,6 +75,10 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `.card-lift` | `globals.css` | Linked cards: 4px lift and stronger border on hover |
 | `.panel`, `.field-*`, `.alert-error` | `globals.css` | Panels on `surface`, form fields, errors |
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
+| `HeroArt` | `components/home/` | Home hero focal piece, SVG in role colours; the only hero artwork for Apex |
+| `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
+
+**Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer**: on `deep`; logo, description, email, Explore / Events / Follow, Terms, Privacy, Code of Conduct.
 
 ## Touch and keyboard (Apple HIG review, 2026-10-23)
 
@@ -90,6 +94,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 
 - UI: 150–350ms, brand ease-out, `opacity` and `transform` only. Card hover lift 4–6px; quick button feedback.
 - **Scroll reveal**: `.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells` with `components/ui/ScrollReveal.tsx` (IntersectionObserver adds `.is-in`). Content hidden only with JS and motion allowed. Not on the hero, nav or footer; no nesting.
+- **Entrance** (`.rise-in`, `globals.css`): 16px rise and fade, 0.7s, once on load; stagger with inline `animation-delay` (hero lines 90ms apart, hero art pieces, mobile menu rows). Never holds content back for more than about half a second.
 - Allowed: subtle staggered headline entrance, gentle reveals, subtle DIPLOVIA artwork parallax if cheap.
 - Not allowed: continuous spinning, particles, flashing, scroll hijacking, animation libraries, decorative motion.
 - Global reduced-motion rule in `globals.css`; everything must work without motion.

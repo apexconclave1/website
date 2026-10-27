@@ -107,6 +107,16 @@ body {
 
   /* Hero background: the brand's gradient (Apex or DIPLOVIA, from the variables above). Selected heroes only. */
   .bg-hero { background-image: var(--hero-gradient); }
+  /* Fine grid lines, fading out towards the edges. Put on an absolutely positioned layer behind the content. */
+  .texture-grid {
+    background-image:
+      linear-gradient(to right, rgb(var(--c-soft) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--c-soft) / 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center top;
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 70% 40%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 70% 70% at 70% 40%, #000 20%, transparent 75%);
+  }
 
   /* 44px tap area around a small stand-alone link without changing the layout (Apple HIG minimum touch target).
      Uses ::before because .ext-link already uses ::after. Not for links inside sentences. */
@@ -211,6 +221,16 @@ body::after {
   .js .is-in { opacity: 1; transform: none; }
 }
 .reveal-cells > * { overflow: hidden; } /* contents slide in inside their own cell, not across its neighbours */
+
+/* ─── Entrance on load (hero): rises 16px and fades in once; stagger with an inline animation-delay.
+   Short, so content is never held back; the reduced-motion rule below makes it instant. SVG groups move too. ── */
+.rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-box: fill-box;
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+}
 
 /* How far content travels sideways (owner asked for a long entry) */
 :root { --reveal-dist: 4rem; }
