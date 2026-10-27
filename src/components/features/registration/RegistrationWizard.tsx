@@ -66,7 +66,16 @@ export default function RegistrationWizard() {
   // After Step 5 (payment) → final receipt
   const [paymentResult, setPaymentResult] = useState<PaymentResult | null>(null);
 
+  // Text fields start as '' (not undefined) so an empty field gets its own message ("Full name must be...")
+  // instead of Zod's generic "expected string, received undefined"
   const [formData, setFormData] = useState<Partial<RegistrationFormData>>({
+    fullName: '',
+    email: '',
+    phone: '',
+    institutionName: '',
+    city: '',
+    country: '',
+    motivation: '',
     track: 'HIGH_SCHOOL',
     delegationType: 'INDIVIDUAL',
     firstChoiceCommittee: chambers[0]?.code,

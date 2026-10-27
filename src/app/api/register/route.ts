@@ -5,6 +5,7 @@ import { getServiceClient } from '@/lib/supabase/server';
 import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
 import { eventsData, feeAt } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
+import { organizationConfig } from '@/lib/data/organization';
 
 export async function POST(req: NextRequest) {
   try {
@@ -101,7 +102,7 @@ export async function POST(req: NextRequest) {
         );
       }
       console.error('Supabase insert error:', insertError);
-      return NextResponse.json({ success: false, error: 'Failed to process registration. Please try again.' }, { status: 500 });
+      return NextResponse.json({ success: false, error: `Could not save your registration. Please try again, or email ${organizationConfig.contactEmail}.` }, { status: 500 });
     }
 
     return NextResponse.json({

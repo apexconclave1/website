@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { eventsData } from '@/lib/data/events';
+import { eventsData, formatEventDates } from '@/lib/data/events';
+import { organizationConfig } from '@/lib/data/organization';
 import { chambersData } from '@/lib/data/chambers';
 import { pageMetadata } from '@/lib/seo';
 import { Suspense } from 'react';
@@ -22,27 +23,42 @@ export default function RegisterPage({ searchParams }: { searchParams: { event?:
 
   if (!event.registrationOpen) {
     return (
-      <main id="main-content" className="mx-auto max-w-[720px] px-6 pb-16 pt-28 md:pb-24 md:pt-36 text-center">
-        <p className="eyebrow mb-5">{event.title}</p>
-        <h1 className="text-4xl font-normal text-bright md:text-5xl">Registration opens soon.</h1>
-        <p className="mt-4 text-base text-soft">
-          The registration window will be announced on the event page and on our Instagram.
+      <main id="main-content" data-brand={event.brand} className="mx-auto max-w-[720px] px-6 pb-16 pt-28 text-center md:pb-24 md:pt-40">
+        <p className="eyebrow mb-5">
+          {event.title} · {formatEventDates(event)}
         </p>
-        <Link
-          href={`/events/${event.slug}`}
-          className="mt-8 btn-secondary"
-        >
-          View {event.title}
-        </Link>
+        <h1 className="text-5xl font-medium leading-tight text-bright md:text-6xl">Registration opens soon.</h1>
+        <p className="mx-auto mt-5 max-w-[48ch] text-base leading-relaxed text-soft">
+          The registration window will be announced on the event page and on our Instagram. Follow along to hear the
+          moment it opens.
+        </p>
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          {organizationConfig.socials.instagram && (
+            <a
+              href={organizationConfig.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary w-full sm:w-auto"
+              data-track="social_click"
+              data-track-platform="instagram"
+              data-track-place="register_closed"
+            >
+              Follow for registration updates
+            </a>
+          )}
+          <Link href={`/events/${event.slug}`} className="btn-secondary w-full sm:w-auto">
+            View {event.title}
+          </Link>
+        </div>
       </main>
     );
   }
 
   return (
-    <main id="main-content" className="mx-auto max-w-container px-6 pb-20 pt-28">
+    <main id="main-content" data-brand={event.brand} className="mx-auto max-w-container px-6 pb-20 pt-28 md:pt-36">
       <div className="mb-14 text-center">
         <p className="eyebrow mb-4">{event.title} · Delegate registration</p>
-        <h1 className="mb-4 text-[2.625rem] font-normal text-bright md:text-6xl">Register</h1>
+        <h1 className="mb-4 text-5xl font-medium text-bright md:text-7xl">Register</h1>
         <p className="mx-auto max-w-[620px] text-base leading-relaxed text-soft">
           List your committee and country preferences across the {committeeCount} committees. The team reviews applications
           and assigns seats after payment is verified.
