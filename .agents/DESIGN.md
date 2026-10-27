@@ -77,6 +77,8 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
 | `HeroArt` | `components/home/` | Home hero focal piece, SVG in role colours; the only hero artwork for Apex |
 | `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Six equal cards; original line art per vertical, accent only when active; whole card links (event or Register interest) |
+| `DiploviaArt` | `components/events/` | DIPLOVIA emblem (dot globe, gold globe lines, burgundy council table with 15 seats, five committee markers). Only inside DIPLOVIA scope |
+| `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.bg-hero`, logo, tagline, facts, buttons, art, committee strip |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
 **Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer**: on `deep`; logo, description, email, Explore / Events / Follow, Terms, Privacy, Code of Conduct.

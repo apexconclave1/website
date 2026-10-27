@@ -5,61 +5,80 @@ import type { EventEntity } from '@/types/schema';
 import { formatEventDates } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
+import { DiploviaArt } from '@/components/events/DiploviaArt';
 
-/** Home featured event: details and CTAs on one side, the event's own artwork on the other. */
+/**
+ * Home featured event, in the event's own identity (.theme-diplovia: navy, ivory, gold, burgundy, Cormorant):
+ * logo, tagline, confirmed facts, registration state, the way in, the artwork, then the committees with their agendas.
+ */
 export function FeaturedEvent({ event }: { event: EventEntity }) {
-  const committees = chambersData.filter((c) => c.eventId === event.id);
+  const committees = chambersData.filter((c) => c.eventId === event.id).sort((a, b) => a.displayOrder - b.displayOrder);
 
-  const details = [
-    event.format && { label: 'Format', value: event.format },
+  const facts = [
     { label: 'Dates', value: formatEventDates(event) },
+    { label: 'Format', value: event.format },
     { label: 'Venue', value: event.location.venue },
-    committees.length > 0 && {
-      label: 'Committees',
-      value: (
-        <ul>
-          {committees.map((c) => (
-            <li key={c.id}>{c.name}</li>
-          ))}
-        </ul>
-      ),
-    },
-    { label: 'Registration', value: event.registrationOpen ? 'Open' : 'Opens soon' },
-  ].filter(Boolean) as { label: string; value: React.ReactNode }[];
+    { label: 'Registration', value: event.registrationOpen ? 'Open now' : 'Opens soon' },
+  ].filter((f) => f.value);
 
   return (
-    <section aria-labelledby="featured-heading" className="tone-dark fade-top-soft">
-      <div className="mx-auto max-w-container px-6 py-16 md:py-32">
-        <div className="reveal mb-10 flex md:mb-14 items-end justify-between gap-6">
+    <section aria-labelledby="featured-heading" className="theme-diplovia relative isolate overflow-hidden bg-hero">
+      <div className="mx-auto max-w-container px-6 py-16 md:py-28">
+        <div className="reveal mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-accent/25 pb-5 md:mb-16">
           <p className="eyebrow">Featured event</p>
-          <Link href="/events" className="hit text-sm text-soft underline underline-offset-4 transition-colors duration-200 hover:text-bright">
-            All events
-          </Link>
+          <p className="flex items-center gap-6 text-sm text-soft">
+            <span className="hidden sm:inline">Presented by Apex Conclave</span>
+            <Link href="/events" className="hit underline decoration-soft/40 underline-offset-4 transition-colors duration-200 hover:text-bright hover:decoration-accent">
+              All events
+            </Link>
+          </p>
         </div>
 
-        <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
-          <div className="reveal lg:col-span-5">
-            <h2 id="featured-heading" className="text-[2.75rem] font-normal leading-none md:text-6xl">
-              {event.title}
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-12">
+          <div className="reveal lg:col-span-6">
+            <h2 id="featured-heading">
+              <span className="sr-only">{event.title}</span>
+              {event.logo && (
+                <Image src={event.logo} alt="" width={1200} height={345} sizes="(min-width: 768px) 420px, 80vw" className="h-auto w-[min(420px,80%)]" />
+              )}
             </h2>
-            <p className="mt-4 text-soft">Presented by Apex Conclave.</p>
+            <p aria-hidden="true" className="mt-4 text-xs font-medium uppercase tracking-[0.3em] text-accent">
+              {[event.startDate?.slice(0, 4), event.edition].filter(Boolean).join(' · ')}
+            </p>
+            {event.tagline && (
+              <p className="mt-8 max-w-[18ch] font-display text-[2rem] font-medium italic leading-[1.1] text-bright md:text-5xl">
+                {event.tagline}
+              </p>
+            )}
+            <p className="mt-6 max-w-[46ch] text-base leading-relaxed text-soft md:text-lg">{event.fullOverview}</p>
+          </div>
 
-            <dl className="mt-10 border-t border-soft/15">
-              {details.map((d) => (
-                <div key={d.label} className="grid gap-1 border-b border-soft/15 py-4 text-sm sm:grid-cols-[7.5rem_1fr] sm:gap-4">
-                  <dt className="text-soft">{d.label}</dt>
-                  <dd className="text-bright">{d.value}</dd>
+          <div className="reveal-right lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:self-center">
+            <DiploviaArt className="mx-auto w-full max-w-[36rem] lg:max-w-none" />
+          </div>
+
+          <div className="reveal lg:col-span-6 lg:row-start-2">
+            <dl className="grid grid-cols-2 border-t border-accent/25">
+              {facts.map((f, i) => (
+                <div key={f.label} className={`border-b border-accent/25 py-4 ${i % 2 === 0 ? 'pr-4' : 'border-l pl-4'}`}>
+                  <dt className="text-xs uppercase tracking-[0.14em] text-soft/80">{f.label}</dt>
+                  <dd className="mt-1.5 text-sm text-bright md:text-base">
+                    {f.label === 'Registration' && (
+                      <span aria-hidden="true" className={`mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle ${event.registrationOpen ? 'bg-accent' : 'border border-accent'}`} />
+                    )}
+                    {f.value}
+                  </dd>
                 </div>
               ))}
             </dl>
 
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link href={`/events/${event.slug}`} className="btn-primary w-full sm:w-auto" data-track="cta_home_featured_event">
-                View Event Details <ArrowRight size={16} />
+                Explore {event.title} <ArrowRight size={16} aria-hidden="true" />
               </Link>
               {event.registrationOpen ? (
                 <Link href={`/register?event=${event.slug}`} className="btn-secondary w-full sm:w-auto" data-track="cta_home_featured_register">
-                  Register
+                  Register now
                 </Link>
               ) : (
                 organizationConfig.socials.instagram && (
@@ -79,20 +98,24 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
               )}
             </div>
           </div>
-
-          {event.posterImage && (
-            <div className="reveal-right lg:col-span-7">
-              <Image
-                src={event.posterImage}
-                alt={`${event.title} artwork`}
-                width={1500}
-                height={1570}
-                sizes="(min-width: 1280px) 700px, (min-width: 1024px) 55vw, 100vw"
-                className="h-auto w-full border border-soft/15"
-              />
-            </div>
-          )}
         </div>
+
+        {committees.length > 0 && (
+          <div className="mt-16 md:mt-24">
+            <h3 className="reveal mb-6 text-xs font-medium uppercase tracking-[0.14em] text-soft/80">
+              {committees.length} committees
+            </h3>
+            <ol className="reveal-stagger grid border-t border-accent/25 sm:grid-cols-2 lg:grid-cols-5">
+              {committees.map((c) => (
+                <li key={c.id} className="border-b border-accent/25 py-5 sm:pr-6 lg:border-b-0 lg:border-r lg:px-5 lg:first:pl-0 lg:last:border-r-0">
+                  <p className="font-display text-3xl font-semibold text-accent">{c.code}</p>
+                  <p className="mt-1 text-sm text-bright">{c.name}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-soft/85">{c.topic}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
       </div>
     </section>
   );
