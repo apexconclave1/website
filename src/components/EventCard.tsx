@@ -21,7 +21,8 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           {[event.format?.split(' · ')[0], event.edition].filter(Boolean).join(' · ')}
         </p>
 
-        <h2 className="text-5xl font-medium leading-tight text-bright md:text-6xl">{event.title}</h2>
+        {/* An event with its own logo shows only the logo (beside); the name stays for screen readers */}
+        <h2 className={event.posterImage ? 'sr-only' : 'text-5xl font-medium leading-tight text-bright md:text-6xl'}>{event.title}</h2>
 
         <div className="flex flex-wrap items-center gap-5 text-sm text-soft">
           <span className="flex items-center gap-1.5">
@@ -69,7 +70,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
         <Image
           src={event.posterImage}
           priority={priority}
-          alt={`${event.title} artwork`}
+          alt=""
           width={1200}
           height={345}
           sizes="(min-width: 1024px) 520px, 100vw"

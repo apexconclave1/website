@@ -7,9 +7,9 @@ import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
 
 /**
- * Home featured event, in the event's own identity (.theme-diplovia: slate navy, ivory, gold, Playfair Display):
- * title, overview, confirmed facts, registration state, the way in, the event's own artwork (booklet cover with the
- * official logo and tagline), then the committees with their agendas.
+ * Home featured event, in the event's own identity (.theme-diplovia: espresso, cream, caramel, Playfair Display):
+ * overview, confirmed facts, registration state, the way in, the event's logo as its visible name, then the committees
+ * with their agendas.
  */
 export function FeaturedEvent({ event }: { event: EventEntity }) {
   const committees = chambersData.filter((c) => c.eventId === event.id).sort((a, b) => a.displayOrder - b.displayOrder);
@@ -39,7 +39,8 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
             <p className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
               {event.format?.split(' · ')[0] ?? event.edition}
             </p>
-            <h2 id="featured-heading" className="mt-5 text-[3.25rem] font-medium leading-[0.95] text-bright md:text-7xl">
+            {/* The logo beside is the visible name; the heading stays for screen readers */}
+            <h2 id="featured-heading" className={event.posterImage ? 'sr-only' : 'mt-5 text-[3.25rem] font-medium leading-[0.95] text-bright md:text-7xl'}>
               {event.title}
             </h2>
             <p className="mt-6 max-w-[46ch] text-base leading-relaxed text-soft md:text-lg">{event.fullOverview}</p>
@@ -49,7 +50,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
             <div className="reveal-right lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:self-center">
               <Image
                 src={event.posterImage}
-                alt={`${event.title} artwork`}
+                alt=""
                 width={1200}
                 height={345}
                 sizes="(min-width: 1280px) 600px, (min-width: 1024px) 48vw, 100vw"

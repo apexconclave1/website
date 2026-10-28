@@ -39,7 +39,6 @@ export interface EventEntity {
   heroBanner?: string;
   logo?: string; // Event's own logo; shown on its page with Apex Conclave secondary
   brand?: 'diplovia'; // Event with its own identity: its pages use that brand's colours and fonts (globals.css)
-  tagline?: string; // The event's own line, from its printed material
   posterImage?: string; // The event's own artwork (as supplied, no printed dates), for the home featured section
   format?: string; // One line, e.g. 'Virtual Model United Nations · 2 days'
   pricing?: {

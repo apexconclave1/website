@@ -7,7 +7,7 @@
 ## Two brands
 
 - **Apex Conclave**: dark, cinematic, editorial, confident. A premium competition and experiences company. Default on every page.
-- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own slate navy, ivory and soft gold identity (calmer since 2026-10-28; burgundy dropped); never Apex's lime.
+- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own espresso brown, cream and caramel identity (since 2026-10-28; burgundy dropped); headlines take the booklet's italic emphasis (`*word*` in titles renders as `<em>`); never Apex's lime.
 - Both share quality and discipline (grid, spacing, components), not colours or display fonts.
 
 The site should look art-directed, not templated: strong typography, deliberate alignment, generous space, original compositions. No fake numbers, sponsors, testimonials, photos or events.
@@ -22,13 +22,13 @@ Colours are roles, defined as RGB-triplet CSS variables in `globals.css` and use
 
 | Role (Tailwind) | Use | Apex (default, `:root`) | DIPLOVIA (`.theme-diplovia`) |
 |---|---|---|---|
-| `deep` | Darkest step, hover fills | `#070708` (derived) | `#090E16` |
-| `ground` | Page background | `#0B0B0C` Deep Obsidian Black | `#0E141E` Slate Navy |
-| `surface` | Secondary surfaces, panels | `#222226` Graphite | `#151D2A` |
-| `soft` | Body text, hairlines (`border-soft/15`) | `#E4E4E4` Muted Off-White | `#E6E1D6` Muted Ivory |
+| `deep` | Darkest step, hover fills | `#070708` (derived) | `#120D0A` |
+| `ground` | Page background | `#0B0B0C` Deep Obsidian Black | `#1A1310` Espresso |
+| `surface` | Secondary surfaces, panels | `#222226` Graphite | `#261C17` |
+| `soft` | Body text, hairlines (`border-soft/15`) | `#E4E4E4` Muted Off-White | `#E8DFD3` Cream (13.9:1 on espresso) |
 | `bright` | Headlines, strong text | `#F4F4F1` (derived) | `#F4F2ED` Ivory (the logo's own colour) |
-| `accent` | Buttons, markers, labels | `#C7F36B` Acid Lime | `#B09A6E` Soft Gold (6.8:1 on slate navy) |
-| `on-accent` | Text on accent fills | `#0B0B0C` | `#0E141E` |
+| `accent` | Buttons, markers, labels | `#C7F36B` Acid Lime | `#C49A6C` Caramel (7.2:1 on espresso) |
+| `on-accent` | Text on accent fills | `#0B0B0C` | `#1A1310` |
 | `wine` | Fills and artwork only, never text | graphite (Apex has none) | surface (no burgundy) |
 
 **Scoping.** Apex is the default. DIPLOVIA applies in two ways, both in `globals.css`:
@@ -39,7 +39,7 @@ Change one brand's block without touching the other. Accent is restrained: butto
 
 **Gradients** only where they add depth (selected heroes, featured artwork), via `.bg-hero`, which reads `--hero-gradient` from the active brand:
 - Apex: `linear-gradient(115deg, #0B0B0C 0%, #17171F 55%, #292A20 100%)`
-- DIPLOVIA: `radial-gradient(120% 90% at 0% 0%, #18223A 0%, transparent 70%)`: a light from the top left that fades out before the hero ends, so it runs into the page with no edge
+- DIPLOVIA: `radial-gradient(120% 90% at 0% 0%, #30241C 0%, transparent 70%)`: a light from the top left that fades out before the hero ends, so it runs into the page with no edge
 
 Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (`body::before`), fine grain (`body::after`, 6%), fine grid lines and subtle radial light used selectively. No neon glow, rainbow or purple-blue gradients, glassmorphism or heavy blur.
 
