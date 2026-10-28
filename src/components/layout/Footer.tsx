@@ -6,7 +6,7 @@ import { organizationConfig } from '@/lib/data/organization';
 // min-h-11: 44px rows, Apple's minimum touch target
 const linkClass = 'inline-flex min-h-11 items-center text-sm text-soft transition-colors duration-200 hover:text-bright';
 const headingClass = 'mb-3 text-xs font-medium uppercase tracking-[0.14em] text-soft/70';
-const legalClass = 'inline-flex min-h-11 items-center text-xs text-soft/80 transition-colors duration-200 hover:text-bright';
+const legalClass = 'inline-flex min-h-11 min-w-6 items-center text-xs text-soft/80 transition-colors duration-200 hover:text-bright';
 
 const socials = [
   { label: 'Instagram', href: organizationConfig.socials.instagram },

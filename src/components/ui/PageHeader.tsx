@@ -16,7 +16,7 @@ export function PageHeader({ eyebrow, title, aside }: { eyebrow: string; title: 
           </h1>
         </div>
         {aside && (
-          <div className="rise-in text-base leading-relaxed text-soft md:text-lg lg:col-span-5" style={{ animationDelay: '200ms' }}>
+          <div className="rise-in text-base leading-relaxed text-soft md:text-lg lg:col-span-5" style={{ animationDelay: '160ms' }}>
             {aside}
           </div>
         )}

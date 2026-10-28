@@ -98,9 +98,10 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 
 ## Motion
 
-- UI: 150–350ms, brand ease-out, `opacity` and `transform` only. Card hover lift 4–6px; quick button feedback.
-- **Scroll reveal**: `.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells` with `components/ui/ScrollReveal.tsx` (IntersectionObserver adds `.is-in`). Content hidden only with JS and motion allowed. Not on the hero, nav or footer; no nesting.
-- **Entrance** (`.rise-in`, `globals.css`): 16px rise and fade, 0.7s, once on load; stagger with inline `animation-delay` (hero lines 90ms apart, hero art pieces, mobile menu rows). Never holds content back for more than about half a second.
+- UI: 200ms for colour and button feedback, 300ms for card lift and the nav background; artwork hover zoom 500ms. Brand ease-out, `opacity` and `transform` only. Card hover lift 4px.
+- **Scroll reveal**: `.reveal`, `.reveal-right`, `.reveal-stagger`, `.reveal-cells` with `components/ui/ScrollReveal.tsx` (IntersectionObserver adds `.is-in`, then stops watching: each block plays once per page view, scrolling back does not replay it; owner 2026-10-28). Content hidden only with JS and motion allowed. Not on the hero, nav or footer; no nesting.
+- **Entrance** (`.rise-in`, `globals.css`): 16px rise and fade, 0.7s, once on load; stagger with inline `animation-delay` in 80ms steps on page headers (label 0, title 80, side column 160, then 240, 320); hero lines 90ms apart; mobile menu rows 40ms. Never holds content back for more than about half a second.
+- **Reading progress bar** (`components/ui/scroll-progress.tsx`): only on long pages, rendered inside their `<main>` (Terms, event pages). Not in the layout (owner 2026-10-28).
 - Allowed: subtle staggered headline entrance, gentle reveals, subtle DIPLOVIA artwork parallax if cheap.
 - **Exception (owner, 2026-10-27):** the home hero vessels drift continuously (`.drift-ltr` / `.drift-rtl`, 110s and 150s loops, transform only), paused off screen, still under reduced motion.
 - Not allowed: continuous spinning, particles, flashing, scroll hijacking, animation libraries, other decorative motion.

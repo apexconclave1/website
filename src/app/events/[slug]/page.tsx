@@ -11,6 +11,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import ScrollProgress from '@/components/ui/scroll-progress';
 import { JsonLd } from '@/components/JsonLd';
 import { eventSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
@@ -83,6 +84,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
   return (
     <main id="main-content" data-brand={event.brand} className="min-h-screen text-bright">
+      <ScrollProgress />
       {eventSchema(event) && <JsonLd data={eventSchema(event)!} />}
       {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
 

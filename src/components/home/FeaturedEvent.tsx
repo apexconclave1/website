@@ -47,7 +47,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
           </div>
 
           {event.posterImage && (
-            <div className="reveal-right lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:self-center">
+            <div className="reveal-right order-first max-w-md lg:order-none lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:max-w-none lg:self-center">
               <Image
                 src={event.posterImage}
                 alt=""

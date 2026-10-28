@@ -65,7 +65,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
         </div>
       </div>
 
-      {/* The event's own artwork (booklet cover with its logo); otherwise its cover image, large screens only */}
+      {/* The event's logo, its visible name (first when stacked); otherwise its cover image, large screens only */}
       {event.posterImage ? (
         <Image
           src={event.posterImage}
@@ -73,8 +73,8 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           alt=""
           width={1200}
           height={345}
-          sizes="(min-width: 1024px) 520px, 100vw"
-          className="h-auto w-full"
+          sizes="(min-width: 1024px) 520px, 448px"
+          className="order-first h-auto w-full max-w-md lg:order-none lg:max-w-none"
         />
       ) : (
         <div className="relative hidden h-[280px] lg:block">

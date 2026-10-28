@@ -7,7 +7,7 @@ const SELECTOR = '.reveal, .reveal-right, .reveal-stagger > *, .reveal-cells > *
 
 /**
  * Marks reveal blocks with `is-in` when they reach the screen; CSS then plays the slide to the end, even if
- * scrolling stops. Leaving below the screen (scrolling back up) resets them, so they arrive again next time.
+ * scrolling stops. Once only: each block is then left alone, so scrolling back does not replay it.
  */
 export default function ScrollReveal() {
   const pathname = usePathname();
@@ -16,8 +16,9 @@ export default function ScrollReveal() {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) e.target.classList.add('is-in');
-          else if (e.boundingClientRect.top > 0) e.target.classList.remove('is-in');
+          if (!e.isIntersecting) continue;
+          e.target.classList.add('is-in');
+          observer.unobserve(e.target);
         }
       },
       { rootMargin: '0px 0px -10% 0px' },

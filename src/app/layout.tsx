@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display, Space_Grotesk } from 'next/font/google';
 import './globals.css';
-import ScrollProgress from '@/components/ui/scroll-progress';
 import BackToTop from '@/components/ui/BackToTop';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import UtmCapture from '@/components/UtmCapture';
@@ -78,7 +77,6 @@ export default function RootLayout({
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
         {/* Global Scroll Progress Bar */}
-        <ScrollProgress />
 
         {/* Foreground Page Content */}
         <div className="relative z-10">

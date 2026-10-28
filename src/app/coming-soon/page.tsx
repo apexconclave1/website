@@ -31,7 +31,7 @@ export default function ComingSoonPage() {
               We know you’re <span className="text-accent">excited.</span>
               <span className="block">Hold that thought.</span>
             </h1>
-            <div className="rise-in lg:col-span-4" style={{ animationDelay: '240ms' }}>
+            <div className="rise-in lg:col-span-4" style={{ animationDelay: '160ms' }}>
               <p className="max-w-[42ch] text-base leading-relaxed text-soft [text-shadow:0_1px_12px_rgb(0_0_0/0.95)]">
                 New Apex Conclave experiences are being built right now. They will be announced here and on our Instagram
                 first.

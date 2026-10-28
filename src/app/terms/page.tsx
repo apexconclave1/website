@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import SectionNavigator, { SectionItem } from '@/components/ui/SectionNavigator';
 import { PageHeader } from '@/components/ui/PageHeader';
+import ScrollProgress from '@/components/ui/scroll-progress';
 import { organizationConfig } from '@/lib/data/organization';
 
 export const metadata: Metadata = pageMetadata('Terms & Conditions', 'Terms for every Apex Conclave event: participant code of conduct, registration and fees, refund and cancellation policy, privacy notice and disputes.', '/terms');
@@ -78,6 +79,7 @@ export default function TermsPage() {
       <SectionNavigator sections={termsSectionsNav} position="left" />
 
       <main id="main-content">
+        <ScrollProgress />
         <PageHeader
           eyebrow="Legal"
           title="Terms & conditions"

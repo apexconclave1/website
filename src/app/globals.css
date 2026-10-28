@@ -180,7 +180,7 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ─── Reading progress bar: driven by page scroll, no JS where supported ── */
+/* ─── Reading progress bar (long pages only: Terms, event pages): driven by page scroll, no JS where supported ── */
 .scroll-progress {
   transform: scaleX(0);
   transform-origin: left;
@@ -211,8 +211,7 @@ body::after {
 }
 
 /* ─── Scroll reveal: content slides in from the side and fades in. ScrollReveal (components/ui) adds .is-in when a
-   block reaches the screen and the slide plays to the end, even if scrolling stops; scrolling back up past it
-   resets it. Hidden only when scripts run (.js on <html>) and motion is allowed.
+   block reaches the screen and the slide plays to the end, even if scrolling stops; it plays once per page view. Hidden only when scripts run (.js on <html>) and motion is allowed.
    .reveal from the left, .reveal-right from the right, .reveal-stagger on a list: each item on its own, later
    columns a little behind. .reveal-cells on a grid whose cells draw the hairlines: the cells stay put and their
    contents move, so the lines never break. ── */
