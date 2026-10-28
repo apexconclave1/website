@@ -6,9 +6,9 @@ Last updated: 2026-10-28. One file for status, decisions, history and to-dos (th
 
 **What this is.** Website of **Apex Conclave**, a student events and competitions brand with event verticals (diplomacy and MUNs live; further verticals are shown only as "Coming soon" until announced). **Diplovia 2026**, a virtual Model UN on 21 and 22 November 2026, is the first event (`/events/diplovia-2026`). Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Supabase, Zod, Vercel Analytics. Fonts: Space Grotesk (Apex headlines), Playfair Display (DIPLOVIA headlines) and Inter.
 
-**Where things stand.** Redesign v3 is merged into `main` and live (https://website-apc20.vercel.app). Redesign v4 started 2026-10-27 from the owner's brief "Apex Conclave × DIPLOVIA" (two brand identities: Apex obsidian/lime, Diplovia espresso/cream/caramel since 2026-10-28). Phases 0–6 done; v4 rules replace the v3 palette, fonts and light mode as each phase lands.
+**Where things stand.** Redesign v3 is merged into `main` and live (https://website-apc20.vercel.app). Redesign v4 started 2026-10-27 from the owner's brief "Apex Conclave × DIPLOVIA" (two brand identities: Apex obsidian/lime, Diplovia espresso/cream/caramel since 2026-10-28). Phases 0–8 done (2026-10-28) and committed on local `main`, not yet pushed: the live site still shows v3 until the owner pushes and Vercel deploys.
 
-**Next.** Redesign v4 Phase 7 (motion and responsive pass at 360, 390, 768, 1024, 1440). Blocker for forms: the Supabase project in `.env.local` (and on Vercel) does not resolve, see Known gaps.
+**Next.** Owner: push `main` and check the Vercel deploy (see Practical notes), then the Owner to-do below. Blocker for forms: the Supabase project in `.env.local` (and on Vercel) does not resolve, see Known gaps.
 
 **How we work.**
 - The owner commits. Claude stops after each phase, reports, and gives a commit command (with `git add -u` plus new files).
@@ -28,7 +28,7 @@ Redesign v4 (from 2026-10-27), owner brief "Final website redesign brief: Apex C
 - [x] 5. Diplovia event page, register wizard and receipt in the Diplovia identity; new Diplovia artwork; event page performance; demo registration
 - [x] 6. Every other page: about and team, partners, contact, events, FAQ, terms, 404, error
 - [x] 7. Motion and responsive pass (360, 390, 768, 1024, 1440)
-- [ ] 8. Final QA (axe, keyboard, Lighthouse, SEO and share images, links, console, build), after screenshots, report
+- [x] 8. Final QA (axe, keyboard, Lighthouse, SEO and share images, links, console, build), after screenshots, report
 
 Redesign v3 (2026-10-22 to 2026-10-23):
 
@@ -131,6 +131,10 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 
 ## Phase notes (newest first)
 
+**Coming soon cards as stamps (2026-10-28).** Owner: make the Coming soon cards a diagonal stamped "Coming soon". Chose: stamp only (no jar art), lime worn ink, thump in once, keep "Stay tuned →" only. Done: each card is a plain `.bg-hero` panel (min height 9rem on home phones, 12rem otherwise) with `.stamp` (new in `globals.css`: Space Grotesk 700 uppercase, 3px border plus 1.5px outline 4px out, rotated -12°, `mask-image` of thresholded fractal noise for worn ink; hidden at 1.6× until `.is-in`, then a 0.4s overshoot settle; the second card 160ms later) and a "Stay tuned →" footer that is the stretched link (shown on phones too now). Heading "Coming soon" kept for screen readers (`sr-only` h3); link name "Coming soon: a new Apex Conclave experience. Stay tuned". `ScrollReveal` also watches `.stamp`. `VesselMark.tsx` deleted (no users). Checked: tsc, lint; screenshots home 1440/390, verticals 768/1440; stamp hidden before, settled after 1s, stays after scrolling away; axe 12 pages × 390/1440: 0; layout check clean.
+
+**v4 Phase 8, final QA and handoff (2026-10-28).** Share images: `app/opengraph-image.png` and `twitter-image.png` (static, 1200×630) redrawn from the site: Apex hero gradient, faint grid, the supplied logo unaltered, the hero headline in Space Grotesk with "bolder" in lime (rendered from an HTML page in headless Chrome; no new dependency). `events/[slug]/opengraph-image.tsx` recoloured from teal to DIPLOVIA espresso (#1A1310 with the #30241C top-left light, ivory text, caramel date line). Icons (`icon.png`, `apple-icon.png`, `favicon.ico`) kept: already near-black (#080909) with the logo's "a", no teal. Checked on the production build (`.next-build`, port 3100): tsc, lint, build, `check-events`; 25 internal links all 200 (only `/does-not-exist` 404, by design), every in-page anchor exists; external: Instagram and the company LinkedIn 200, the three personal LinkedIn profiles answer 999 (LinkedIn blocks automated requests; open them by hand once); console: only the Vercel insights script, which exists only on Vercel; keyboard: skip link first, logical order, visible focus on every stop (40 stops × 4 pages), mobile menu closes on Escape and returns focus; axe 12 pages × 390/1440: 0; Lighthouse mobile (perf / a11y / best practices / SEO): home 93/100/96/100, event page 91/100/96/100, about 98, events 96, verticals 96, partners 96, contact 97, faq 98, register 95, coming soon 98, all a11y 100, CLS 0, TBT 0; best practices 96 only for the local insights 404; register and coming soon SEO 69 because they are `noindex` on purpose. After screenshots: `../redesign-v4-screens/after/` (12 pages × 5 widths, plus the hero with and without reduced motion) and four side-by-side comparisons in `../redesign-v4-screens/compare-*.jpg`.
+
 **v4 Phase 7, motion and responsive pass (2026-10-28).** Owner: reveals play once, same amount of motion with consistent timing, progress bar only on long pages, nothing specific noticed on devices. Done: `ScrollReveal` unobserves a block after adding `.is-in` (no reset on scrolling back up); `ScrollProgress` moved out of `app/layout.tsx` into `<main>` on `terms/page.tsx` and `events/[slug]/page.tsx`; entrance delays in 80ms steps (`PageHeader` side column and `/coming-soon` right column 200/240ms to 160ms); `Button` transition 150ms to 200ms like `.btn-*`. Layout: automated check on 12 pages × 360/390/768/1024/1440 for horizontal overflow (none), text spilling out of its box (only `.hit` tap areas, false positives) and tap targets on phones (footer legal links were 23px wide: `min-w-6`; stretched-link cards are whole-card targets); contact sheets at 768 and 1024. Fix: on stacked layouts (below `lg`) the DIPLOVIA logo, now the visible name, came after the text and buttons on the home band and the `/events` card; it now comes first (`order-first`, `max-w-md`), unchanged from `lg` up. Checked: tsc, lint, build; axe 12 pages × 390/1440: 0; About: 21 reveal blocks all still shown after scrolling back up; progress bar present on `/terms` and `/events/diplovia-2026` only.
 
 **DIPLOVIA event page: one name, espresso palette, less text (2026-10-28).** Owner: the name showed twice (text heading plus logo), the hero then looked empty, the page was "too text heavy and boring", and DIPLOVIA should be coffee brown. Chose: logo as the event page headline; espresso palette; big numbers band, committee cards, booklet-style italic headlines; merge Why MUN with the outcome, shorter How it works and Who sits at the table; no "350+ delegates" (a forecast). Done: event page `<h1>` is the logo with the name in `sr-only` (text heading, tagline and right-hand artwork removed; `tagline` dropped from `events.ts` and the schema); `/events` card and home `FeaturedEvent` keep the logo and hide their text heading (`sr-only`), logo `alt=""` since the heading names it. Hero right column (lg up): the five committees, each linking to its card. Palette in `globals.css`: ground #1A1310, surface #261C17, deep #120D0A, soft #E8DFD3 (13.9:1), accent #C49A6C (7.2:1; ground on accent 7.2:1), hero light #30241C. `SectionHeading` takes a ReactNode title; the page's `emph()` turns `*words*` into `<em>` (Playfair italic). New full-width band "Not just *another MUN.*" with four confirmed figures (100% online, days from the dates, committee count, early-bird fee). How it works: three phases on a ruled timeline, steps as tags (step descriptions removed). Committees: five cards (code, theme and seats, name, agenda; challenge and "Suits" inside a native `<details>`), two per row until `xl`, the targeted card gets an accent border. Who sits at the table: five chips linking to the suggested committees (descriptions removed). Why MUN and The outcome merged into one section (skills as titles; take-home items keep their one line); the "What you take home" nav item removed. `eventStory.ts` reshaped to match (`difference` added; `steps`, `skills` plain strings; `delegateTypes` without body; `outcomes.build` removed as it repeated the skills). Page height at 1440: 7445px to 6134px. Checked: tsc, lint, build; no horizontal overflow at 360/390/768/1024; axe 12 pages × 390/1440: 0; committee links land on their card under the sticky bars.
@@ -216,12 +220,13 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 
 - **Contact form and registration cannot save (live and local).** Registration tested up to submit on 2026-10-27: everything before the save works; payment step and receipt untested until the database works. The Supabase URL in `.env.local` and on Vercel points to a host that does not exist in DNS (checked 2026-10-27). Needs a new or restored Supabase project, migrations run, and the three keys updated locally and on Vercel.
 
-- Not tested for real: contact form and registration writing to Supabase; real phones; Safari and Firefox (headless Chrome only). The scroll slide, typewriter and FuzzyText 404 especially need a look on a real device.
+- Not tested for real: contact form and registration writing to Supabase; real phones; Safari and Firefox (headless Chrome only). The scroll reveals, the hero vessel drift and the committee cards' open/close especially need a look on a real phone.
+- The three founders' LinkedIn profile links could not be checked automatically (LinkedIn answers 999 to scripts); open them once by hand.
 - Committee gallery hidden until real committee photos exist. No study guides yet. No QR delegate pass (only a tracking code on the receipt).
 - Rate limiting is in memory per server instance (weak on Vercel); see the `ponytail:` note in `lib/security/rate-limit.ts`.
 - Pages for planned verticals do not exist (by decision); partner logos hidden until real partners exist.
 - Team photo backgrounds differ (Kapish's is light grey, the others dark); a matching photo would make the row consistent.
-- Copy written by Claude that the owner should review (v4 additions: "One stage live. More on the way.", "Five ways in.", "We know you’re excited. Hold that thought."): terms wording; "Six kinds of stage, one standard.", "One event live, more on the way.", "Hear it first."
+- Copy written by Claude that the owner should review (v4 additions: "One stage live. More on the way.", "Five ways in.", "We know you’re excited. Hold that thought.", "Stay tuned", "Different agendas. Different challenges." under the committee figure; the booklet says "Different institutions."): terms wording; "Six kinds of stage, one standard.", "One event live, more on the way.", "Hear it first."
 
 ## Owner to-do (not code)
 
@@ -240,13 +245,14 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 1. `npx tsc --noEmit`, `npm run lint`, `NEXT_DIST_DIR=.next-build npm run build` pass.
 2. `node scripts/check-events.mjs` passes.
 3. A tampered request cannot change the amount paid (the server computes it); the anon key cannot read or write any table.
-4. axe (WCAG 2.1 AA) shows 0 issues on every page in dark and light at 390 and 1280px.
+4. axe (WCAG 2.2 AA) shows 0 issues on every page at 390 and 1440px (dark only since v4).
 5. No horizontal scroll at 360, 390, 768 and 1024px on any route, including while content slides in.
 6. Phones: tap targets at least 44px, form fields at least 16px, 200% text fits.
 
 ## Practical notes
 
 - Work in `website/`. `npm run dev` for development.
+- Deploy: the owner runs `git push origin main`; Vercel redeploys `main`. Then check on the live URL: home hero, `/events/diplovia-2026`, a shared link preview (paste the URL into WhatsApp or LinkedIn), the contact form (fails until Supabase is fixed), and that the Vercel insights script loads (no console error there).
 - Check builds next to a running dev server: `NEXT_DIST_DIR=.next-build npm run build`, then `NEXT_DIST_DIR=.next-build npx next start -p 3100`.
 - After replacing an image, delete `.next-build/cache/images` and `.next/cache/images`.
 - After changing `tailwind.config.ts`, restart `npm run dev`.

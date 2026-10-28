@@ -233,6 +233,34 @@ body::after {
 }
 .reveal-cells > * { overflow: hidden; } /* contents slide in inside their own cell, not across its neighbours */
 
+/* ─── Coming soon stamp: a lime rubber stamp (double border), tilted, with worn ink from a noise mask.
+   Thumps in once when it reaches the screen (ScrollReveal adds .is-in): drops from 1.6× and settles. ── */
+.stamp {
+  display: inline-block;
+  transform: rotate(-12deg);
+  padding: 0.35em 0.7em;
+  border: 3px solid rgb(var(--c-accent));
+  outline: 1.5px solid rgb(var(--c-accent));
+  outline-offset: 4px;
+  color: rgb(var(--c-accent));
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 0 0 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 7 0 0 0 -2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .stamp {
+    opacity: 0;
+    transform: rotate(-12deg) scale(1.6);
+    transition: opacity 0.15s ease-out, transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
+  .js .stamp.is-in { opacity: 1; transform: rotate(-12deg); }
+}
+
 /* ─── Entrance on load (hero): rises 16px and fades in once; stagger with an inline animation-delay.
    Short, so content is never held back; the reduced-motion rule below makes it instant. SVG groups move too. ── */
 .rise-in {

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-const SELECTOR = '.reveal, .reveal-right, .reveal-stagger > *, .reveal-cells > * > *';
+const SELECTOR = '.reveal, .reveal-right, .reveal-stagger > *, .reveal-cells > * > *, .stamp';
 
 /**
  * Marks reveal blocks with `is-in` when they reach the screen; CSS then plays the slide to the end, even if

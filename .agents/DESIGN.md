@@ -77,8 +77,8 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `ApexWordmark` | `components/layout/` | The logo, unaltered |
 | `VesselDrift` | `components/home/` | Home hero background: drawn sculptural vessels in two rows drifting in opposite directions (owner request, 2026-10-27). Fixed artwork colours (warm key light, cool fill, lime rim light). Rows must repeat exactly every 2400 units |
 | `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Real verticals (only Diplomacy) then `comingSoonSlots` identical Coming soon cards; whole card links (event, or `/coming-soon`) |
-| `VesselMark` | `components/verticals/` | Coming soon card art: the hero jar in shadow, lime rim light; pass a unique `uid` per instance |
-| `vesselShapes` | `components/home/vesselShapes.ts` | The two vessel outlines, shared by `VesselDrift` and `VesselMark` |
+| `.stamp` | `globals.css` | Coming soon cards: lime rubber stamp (double border, -12°, worn ink from a noise mask), "COMING / SOON"; thumps in once via `ScrollReveal`, still under reduced motion |
+| `vesselShapes` | `components/home/vesselShapes.ts` | The two vessel outlines, used by `VesselDrift` |
 | `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.band-fade` (navy fades in and out of the page), title, overview, facts, buttons, the DIPLOVIA wordmark, committee strip |
 | `PageHeader` | `components/ui/` | Inner-page header: `.bg-hero` + grid, label, title, optional right column. Use on every inner page |
 | `Ideas` | `components/home/` | The four ideas, numbered in the accent; home About and the About page |

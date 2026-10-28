@@ -1,5 +1,5 @@
 /**
- * The two drawn vessel shapes, shared by the hero drift (VesselDrift) and the Coming soon cards (VesselMark).
+ * The two drawn vessel shapes, used by the hero drift (VesselDrift).
  * Coordinates are in each shape's own box (w × h). `light`: the lit left shoulder; `rim`: the right edge that
  * catches the lime rim light; `mouth`: the opening.
  */

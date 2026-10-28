@@ -4,7 +4,6 @@ import { comingSoonSlots, verticals } from '@/lib/data/verticals';
 import { eventsData, formatEventDates } from '@/lib/data/events';
 import { StatusLabel } from '@/components/ui/StatusLabel';
 import { VerticalArt } from '@/components/verticals/VerticalArt';
-import { VesselMark } from '@/components/verticals/VesselMark';
 
 // Card frame shared by both kinds. The li slides in (reveal); the inner card lifts on hover. Both use transform,
 // so they sit on separate elements. The whole card is the link (the link's ::after covers it).
@@ -58,23 +57,26 @@ export function VerticalsGrid({ compact = false }: { compact?: boolean }) {
       {Array.from({ length: comingSoonSlots }, (_, i) => (
         <li key={`soon-${i}`} className="flex">
           <div className={`${cardClass} border-soft/20 bg-ground hover:border-soft/45`}>
-            <div className="overflow-hidden border-b border-soft/10 bg-hero">
-              {/* The same jar on every Coming soon card, so they read as a matching pair */}
-              <VesselMark kind="jar" uid={`soon-${i}`} className="aspect-[16/9] w-full transition-transform duration-500 group-hover:scale-[1.03]" />
-            </div>
-            <div className={`flex flex-1 flex-col ${compact ? 'p-4 md:p-6' : 'p-6'}`}>
-              <h3 className={`flex items-center gap-3 font-display font-medium leading-tight text-bright ${compact ? 'text-lg sm:text-2xl' : 'text-2xl'}`}>
-                <span aria-hidden="true" className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-accent" />
-                <Link href="/coming-soon" className={stretch} data-track="cta_verticals_coming_soon">
-                  Coming soon
-                  <span className="sr-only">: a new Apex Conclave experience</span>
-                </Link>
-              </h3>
-              <span className={`mt-auto items-center justify-between gap-3 border-t border-soft/15 pt-4 text-sm text-soft transition-colors duration-200 group-hover:text-bright ${compact ? 'hidden sm:flex' : 'flex'}`}>
-                Stay tuned
-                <ArrowRight size={16} aria-hidden="true" className="shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+            <h3 className="sr-only">Coming soon</h3>
+            {/* A plain panel with a worn lime stamp that thumps in once (.stamp in globals.css); the second card a beat later */}
+            <div className={`flex flex-1 items-center justify-center overflow-hidden border-b border-soft/10 bg-hero ${compact ? 'min-h-36 sm:min-h-48' : 'min-h-48'}`}>
+              <span aria-hidden="true" className={`stamp ${compact ? 'text-lg sm:text-3xl' : 'text-3xl'}`} style={{ transitionDelay: `${i * 160}ms` }}>
+                Coming
+                <br />
+                soon
               </span>
             </div>
+            <Link
+              href="/coming-soon"
+              className={`${stretch} flex items-center justify-between gap-3 text-sm text-soft transition-colors duration-200 group-hover:text-bright ${compact ? 'p-4 md:px-6' : 'px-6 py-4'}`}
+              data-track="cta_verticals_coming_soon"
+            >
+              <span>
+                <span className="sr-only">Coming soon: a new Apex Conclave experience. </span>
+                Stay tuned
+              </span>
+              <ArrowRight size={16} aria-hidden="true" className="shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
           </div>
         </li>
       ))}
