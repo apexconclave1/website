@@ -12,7 +12,7 @@ export const eventsData: EventEntity[] = [
     status: 'UPCOMING',
     location: {
       city: 'Online',
-      venue: '100% Virtual (Zoom / Google Meet)',
+      venue: '100% Virtual',
       isVirtual: true,
     },
     shortDescription:
@@ -24,7 +24,7 @@ export const eventsData: EventEntity[] = [
     brand: 'diplovia',
     tagline: 'The Virtual Frontier of Global Leadership', // delegate booklet cover
     // Delegate booklet cover (docs/), rendered at 200 dpi and cropped above its old printed dates; colours untouched
-    posterImage: '/events/diplovia-2026-cover.jpg',
+    posterImage: '/brand/diplovia-logo-light.png',
     format: 'Virtual Model United Nations · 2 days',
     // Dates confirmed by the owner on 2026-10-27. Set registrationOpensAt and registrationOpen: true when registration opens.
     startDate: '2026-11-21',
@@ -33,7 +33,7 @@ export const eventsData: EventEntity[] = [
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
-      '2 days, 100% virtual (Zoom / Google Meet)',
+      '2 days, 100% virtual',
       'Open to students aged 15 to 23, high school and college',
       'Certificate for every delegate, awards for the best',
     ],

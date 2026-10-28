@@ -50,7 +50,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-4',
       category: 'Format',
       q: 'Where and when is Diplovia held?',
-      a: 'Diplovia 2026 runs over two days, 21 and 22 November 2026. It is 100% virtual, on Zoom or Google Meet, so you can join from anywhere.',
+      a: 'Diplovia 2026 runs over two days, 21 and 22 November 2026. It is 100% virtual, so you can join from anywhere.',
     },
     {
       id: 'dip-5',

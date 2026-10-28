@@ -19,11 +19,11 @@ const config: Config = {
         bright: 'rgb(var(--c-bright) / <alpha-value>)', // headlines
         accent: 'rgb(var(--c-accent) / <alpha-value>)', // Apex lime, DIPLOVIA gold: buttons, lines, labels
         'on-accent': 'rgb(var(--c-on-accent) / <alpha-value>)', // text on accent fills
-        wine: 'rgb(var(--c-wine) / <alpha-value>)', // DIPLOVIA burgundy: fills and artwork only
+        wine: 'rgb(var(--c-wine) / <alpha-value>)', // unused; both brands fall back to a surface tone
       },
       fontFamily: {
         sans: ['Rupee', 'var(--font-inter)', 'Inter', 'sans-serif'], // Rupee: ₹ only, from the device font (globals.css)
-        display: ['Rupee', 'var(--font-display)', 'system-ui', 'sans-serif'], // Space Grotesk (Apex) or Cormorant Garamond (DIPLOVIA)
+        display: ['Rupee', 'var(--font-display)', 'system-ui', 'sans-serif'], // Space Grotesk (Apex) or Playfair Display (DIPLOVIA)
       },
       borderRadius: {
         // 2px everywhere (owner decision)

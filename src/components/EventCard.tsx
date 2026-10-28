@@ -70,10 +70,10 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           src={event.posterImage}
           priority={priority}
           alt={`${event.title} artwork`}
-          width={1654}
-          height={1500}
+          width={1200}
+          height={345}
           sizes="(min-width: 1024px) 520px, 100vw"
-          className="h-auto w-full border border-accent/30"
+          className="h-auto w-full"
         />
       ) : (
         <div className="relative hidden h-[280px] lg:block">

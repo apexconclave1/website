@@ -104,7 +104,7 @@ src/
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
 - Content that changes per event lives in `lib/data/*` (events, chambers with country lists, event story, verticals, organisation and team, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.
-- Fonts: Space Grotesk (Apex) or Cormorant Garamond (DIPLOVIA) for h1/h2 and `font-display` through `--font-display`; Inter for everything else. All via next/font. Do not add other families.
+- Fonts: Space Grotesk (Apex) or Playfair Display (DIPLOVIA) for h1/h2 and `font-display` through `--font-display`; Inter for everything else. All via next/font. Do not add other families.
 - Contact email comes from `organizationConfig.contactEmail`. Do not hard-code addresses.
 
 ## Commit & Code Review

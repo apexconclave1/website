@@ -55,7 +55,7 @@ export default function EventsDirectory() {
       {filtered.length > 0 ? (
         <div className="space-y-5">
           {filtered.map((event) => (
-            // Events with their own identity show in it (DIPLOVIA: navy, gold, Cormorant)
+            // Events with their own identity show in it (DIPLOVIA: navy, gold, Playfair Display)
             <div
               key={event.id}
               className={`rounded border p-6 md:p-10 ${event.brand === 'diplovia' ? 'theme-diplovia bg-hero border-accent/30' : 'border-soft/15'}`}

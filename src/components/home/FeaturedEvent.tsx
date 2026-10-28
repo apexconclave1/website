@@ -7,7 +7,7 @@ import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
 
 /**
- * Home featured event, in the event's own identity (.theme-diplovia: navy, ivory, gold, burgundy, Cormorant):
+ * Home featured event, in the event's own identity (.theme-diplovia: slate navy, ivory, gold, Playfair Display):
  * title, overview, confirmed facts, registration state, the way in, the event's own artwork (booklet cover with the
  * official logo and tagline), then the committees with their agendas.
  */
@@ -22,7 +22,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
   ].filter((f) => f.value);
 
   return (
-    <section aria-labelledby="featured-heading" className="theme-diplovia relative isolate overflow-hidden bg-hero">
+    <section aria-labelledby="featured-heading" className="theme-diplovia band-fade relative isolate overflow-hidden">
       <div className="mx-auto max-w-container px-6 py-16 md:py-28">
         <div className="reveal mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-accent/25 pb-5 md:mb-16">
           <p className="eyebrow">Featured event</p>
@@ -50,10 +50,10 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
               <Image
                 src={event.posterImage}
                 alt={`${event.title} artwork`}
-                width={1654}
-                height={1500}
+                width={1200}
+                height={345}
                 sizes="(min-width: 1280px) 600px, (min-width: 1024px) 48vw, 100vw"
-                className="h-auto w-full border border-accent/30"
+                className="h-auto w-full"
               />
             </div>
           )}

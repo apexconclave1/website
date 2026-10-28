@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, Playfair_Display, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import BackToTop from '@/components/ui/BackToTop';
@@ -28,11 +28,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 // DIPLOVIA editorial headlines. Not preloaded: the browser only downloads it on pages that use it.
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  weight: ['500', '600'],
   style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  variable: '--font-playfair',
   display: 'swap',
   preload: false,
 });
@@ -67,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${cormorant.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >

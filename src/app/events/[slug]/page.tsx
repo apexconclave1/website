@@ -38,7 +38,7 @@ const pad2 = (n: number) => String(n).padStart(2, '0');
 
 /**
  * Event page. Events with their own identity (`brand`) switch the whole page to it via <main data-brand>
- * (DIPLOVIA: navy, ivory, gold, burgundy, Cormorant). Content comes from lib/data (events, chambers, eventStory, faqs).
+ * (DIPLOVIA: slate navy, ivory, gold, Playfair Display). Content comes from lib/data (events, chambers, eventStory, faqs).
  */
 export default function EventDetailPage({ params }: EventDetailPageProps) {
   const event = eventsData.find((e) => e.slug === params.slug);
@@ -132,11 +132,11 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <Image
                 src={event.posterImage}
                 alt={`${event.title} artwork`}
-                width={1654}
-                height={1500}
+                width={1200}
+                height={345}
                 priority
                 sizes="(min-width: 1280px) 490px, (min-width: 1024px) 40vw, 100vw"
-                className="h-auto w-full border border-accent/30"
+                className="h-auto w-full"
               />
             </div>
           )}
@@ -147,7 +147,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
       <nav aria-label="Event sections" className="sticky top-[4.5rem] z-30 border-b border-soft/15 bg-ground [@media(max-height:500px)]:top-14">
         <div className="mx-auto flex max-w-container gap-6 overflow-x-auto px-6 text-sm text-soft">
           {nav.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="min-w-11 whitespace-nowrap py-3.5 text-center transition-colors duration-200 hover:text-bright">
+            <a key={id} href={`#${id}`} className="min-w-11 shrink-0 whitespace-nowrap py-3.5 text-center transition-colors duration-200 hover:text-bright">
               {label}
             </a>
           ))}

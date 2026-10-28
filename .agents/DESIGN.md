@@ -7,7 +7,7 @@
 ## Two brands
 
 - **Apex Conclave**: dark, cinematic, editorial, confident. A premium competition and experiences company. Default on every page.
-- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own navy, ivory, gold and burgundy identity; never Apex's lime.
+- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own slate navy, ivory and soft gold identity (calmer since 2026-10-28; burgundy dropped); never Apex's lime.
 - Both share quality and discipline (grid, spacing, components), not colours or display fonts.
 
 The site should look art-directed, not templated: strong typography, deliberate alignment, generous space, original compositions. No fake numbers, sponsors, testimonials, photos or events.
@@ -22,14 +22,14 @@ Colours are roles, defined as RGB-triplet CSS variables in `globals.css` and use
 
 | Role (Tailwind) | Use | Apex (default, `:root`) | DIPLOVIA (`.theme-diplovia`) |
 |---|---|---|---|
-| `deep` | Darkest step, hover fills | `#070708` (derived) | `#0A111D` |
-| `ground` | Page background | `#0B0B0C` Deep Obsidian Black | `#101B2D` Midnight Navy |
-| `surface` | Secondary surfaces, panels | `#222226` Graphite | `#14253D` |
-| `soft` | Body text, hairlines (`border-soft/15`) | `#E4E4E4` Muted Off-White | `#F1EBDD` Muted Ivory |
-| `bright` | Headlines, strong text | `#F4F4F1` (derived) | `#F9F6EE` (derived) |
-| `accent` | Buttons, markers, labels | `#C7F36B` Acid Lime | `#B99A5F` Antique Gold (6.4:1 on navy) |
-| `on-accent` | Text on accent fills | `#0B0B0C` | `#101B2D` |
-| `wine` | Fills and artwork only, never text | graphite (Apex has none) | `#642C3A` Burgundy |
+| `deep` | Darkest step, hover fills | `#070708` (derived) | `#090E16` |
+| `ground` | Page background | `#0B0B0C` Deep Obsidian Black | `#0E141E` Slate Navy |
+| `surface` | Secondary surfaces, panels | `#222226` Graphite | `#151D2A` |
+| `soft` | Body text, hairlines (`border-soft/15`) | `#E4E4E4` Muted Off-White | `#E6E1D6` Muted Ivory |
+| `bright` | Headlines, strong text | `#F4F4F1` (derived) | `#F4F2ED` Ivory (the logo's own colour) |
+| `accent` | Buttons, markers, labels | `#C7F36B` Acid Lime | `#B09A6E` Soft Gold (6.8:1 on slate navy) |
+| `on-accent` | Text on accent fills | `#0B0B0C` | `#0E141E` |
+| `wine` | Fills and artwork only, never text | graphite (Apex has none) | surface (no burgundy) |
 
 **Scoping.** Apex is the default. DIPLOVIA applies in two ways, both in `globals.css`:
 - `.theme-diplovia` on a section (e.g. the home featured event): redefines the roles inside it and sets its background and text colour.
@@ -39,7 +39,7 @@ Change one brand's block without touching the other. Accent is restrained: butto
 
 **Gradients** only where they add depth (selected heroes, featured artwork), via `.bg-hero`, which reads `--hero-gradient` from the active brand:
 - Apex: `linear-gradient(115deg, #0B0B0C 0%, #17171F 55%, #292A20 100%)`
-- DIPLOVIA: `linear-gradient(115deg, #0A111D 0%, #14253D 58%, #35202A 100%)`
+- DIPLOVIA: `radial-gradient(120% 90% at 0% 0%, #18223A 0%, transparent 70%)`: a light from the top left that fades out before the hero ends, so it runs into the page with no edge
 
 Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (`body::before`), fine grain (`body::after`, 6%), fine grid lines and subtle radial light used selectively. No neon glow, rainbow or purple-blue gradients, glassmorphism or heavy blur.
 
@@ -47,12 +47,12 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 
 | Use | Apex | DIPLOVIA |
 |---|---|---|
-| h1, h2, `font-display` | Space Grotesk (`--font-space-grotesk`, variable 300–700), tracking −0.025em | Cormorant Garamond (`--font-cormorant`, 500/600, italic), tracking −0.005em |
+| h1, h2, `font-display` | Space Grotesk (`--font-space-grotesk`, variable 300–700), tracking −0.025em | Playfair Display (`--font-playfair`, variable, italic), tracking −0.01em; matches the delegate booklet |
 | Body, UI, h3 and below | Inter (`--font-inter`) | Inter |
 
 - `--font-display` switches with the brand, so `h1, h2` and `font-display` follow the scope automatically.
-- All via `next/font` in `app/layout.tsx`. Cormorant is not preloaded; browsers only fetch it where DIPLOVIA type renders. No other families.
-- Cormorant runs small for its size; set DIPLOVIA headlines a step larger than Apex ones.
+- All via `next/font` in `app/layout.tsx`. Playfair Display is not preloaded; browsers only fetch it where DIPLOVIA type renders. No other families.
+- Playfair runs large (x-height 0.516 of its size). The DIPLOVIA block sets `--display-size-adjust: 0.45`, applied as `font-size-adjust` on `h1, h2`, so its headlines draw about 13% smaller than their Tailwind size; Apex leaves it unset. Size DIPLOVIA headlines with the same classes as Apex ones.
 - **₹** comes from the device font (`Rupee` @font-face, U+20B9 only, first in every stack). Keep `Rupee` first in any new stack.
 - **Labels**: `.eyebrow`: 12px uppercase, `tracking-[0.14em]`, `text-accent`.
 
@@ -79,12 +79,12 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `VerticalsGrid` + `VerticalArt` | `components/verticals/` | Real verticals (only Diplomacy) then `comingSoonSlots` identical Coming soon cards; whole card links (event, or `/coming-soon`) |
 | `VesselMark` | `components/verticals/` | Coming soon card art: the hero jar in shadow, lime rim light; pass a unique `uid` per instance |
 | `vesselShapes` | `components/home/vesselShapes.ts` | The two vessel outlines, shared by `VesselDrift` and `VesselMark` |
-| `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.bg-hero`, title, overview, facts, buttons, the booklet cover artwork, committee strip |
+| `FeaturedEvent` | `components/home/` | Home DIPLOVIA band: `.theme-diplovia` + `.band-fade` (navy fades in and out of the page), title, overview, facts, buttons, the DIPLOVIA wordmark, committee strip |
 | `PageHeader` | `components/ui/` | Inner-page header: `.bg-hero` + grid, label, title, optional right column. Use on every inner page |
 | `Ideas` | `components/home/` | The four ideas, numbered in the accent; home About and the About page |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
-**Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer**: on `deep`; logo, description, email, Explore / Events / Follow, Terms, Privacy, Code of Conduct.
+**Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer** (shortened 2026-10-28): on `deep`; logo, email, Events / Follow; legal row FAQ, Terms, Privacy, Code of Conduct, kept clear of the back-to-top button (`pr-14`). No site links (they are in the navbar) and no description.
 
 ## Touch and keyboard (Apple HIG review, 2026-10-23)
 
@@ -112,7 +112,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 - No colours outside the two brand blocks; no lime in DIPLOVIA, no gold or navy in Apex.
 - No recoloured, redrawn or distorted logos.
 - No stock or AI photos, random illustrations, or images posing as real Apex Conclave events.
-- **Use the owner's supplied artwork first** (owner, 2026-10-27): DIPLOVIA artwork comes from the delegate booklet in `docs/` (rendered with `pdftoppm`, cropped, colours untouched), not newly drawn. New graphics only where no supplied asset exists and the brief asks for them (the Apex hero vessels and the vertical line drawings).
+- **Use the owner's supplied artwork first** (owner, 2026-10-27): DIPLOVIA artwork is the supplied wordmark (`public/brand/diplovia-logo-light.png`); anything more comes from the delegate booklet in `docs/` (rendered with `pdftoppm`, cropped, colours untouched), not newly drawn. New graphics only where no supplied asset exists and the brief asks for them (the Apex hero vessels and the vertical line drawings).
 - No mixed icon styles: Lucide outline only, small, where they help.
 - No fake statistics, testimonials, partner logos, awards or endorsements. Planned verticals are not named on the site; "Coming soon" cards stand in for them.
 - No pure white (`#fff`) backgrounds.

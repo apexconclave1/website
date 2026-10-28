@@ -95,7 +95,7 @@ The home page, events directory, footer and event page all read from these files
 
 ## Design
 
-Rules are in `.agents/DESIGN.md`. Two brands share role tokens (`deep`, `ground`, `surface`, `soft`, `bright`, `accent`, `on-accent`, `wine`): Apex Conclave (obsidian, off-white, lime) by default and DIPLOVIA (navy, ivory, gold, burgundy) inside `.theme-diplovia` or on pages with `<main data-brand="diplovia">`. Dark only. Content slides in on scroll (`components/ui/ScrollReveal.tsx`). Fonts: Space Grotesk (Apex headlines), Cormorant Garamond (DIPLOVIA headlines), Inter.
+Rules are in `.agents/DESIGN.md`. Two brands share role tokens (`deep`, `ground`, `surface`, `soft`, `bright`, `accent`, `on-accent`, `wine`): Apex Conclave (obsidian, off-white, lime) by default and DIPLOVIA (slate navy, ivory, soft gold) inside `.theme-diplovia` or on pages with `<main data-brand="diplovia">`. Dark only. Content slides in on scroll (`components/ui/ScrollReveal.tsx`). Fonts: Space Grotesk (Apex headlines), Playfair Display (DIPLOVIA headlines), Inter.
 
 ## Project notes
 

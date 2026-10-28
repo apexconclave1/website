@@ -14,7 +14,7 @@ export const eventStories: Record<string, EventStory> = {
     intro: {
       title: 'Diplomacy without a border.',
       body: [
-        'Diplovia puts the committee room on your screen. Delegates are assigned countries, meet on Zoom or Google Meet, and debate international issues with students who could be logging in from anywhere.',
+        'Diplovia puts the committee room on your screen. Delegates are assigned countries, meet online and debate international issues with students who could be logging in from anywhere.',
         'The format is not watered down. You still research a position, speak for a country, negotiate with other delegates, draft solutions and respond to a crisis when one breaks.',
       ],
     },

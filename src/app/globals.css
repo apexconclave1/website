@@ -24,20 +24,31 @@
 }
 .theme-diplovia,
 body:has(main[data-brand='diplovia']) {
-  --c-deep: 10 17 29; /* #0A111D */
-  --c-ground: 16 27 45; /* #101B2D Midnight Navy */
-  --c-surface: 20 37 61; /* #14253D */
-  --c-soft: 241 235 221; /* #F1EBDD Muted Ivory */
-  --c-bright: 249 246 238; /* #F9F6EE, derived */
-  --c-accent: 185 154 95; /* #B99A5F Antique Gold (6.4:1 on navy) */
-  --c-on-accent: 16 27 45;
-  --c-wine: 100 44 58; /* #642C3A Burgundy: fills and artwork only, never text on navy */
-  --c-glow: 185 154 95;
-  --font-display: var(--font-cormorant);
-  --display-tracking: -0.005em;
-  --hero-gradient: linear-gradient(115deg, #0a111d 0%, #14253d 58%, #35202a 100%);
+  --c-deep: 9 14 22; /* #090E16 */
+  --c-ground: 14 20 30; /* #0E141E Slate Navy */
+  --c-surface: 21 29 42; /* #151D2A */
+  --c-soft: 230 225 214; /* #E6E1D6 Muted Ivory */
+  --c-bright: 244 242 237; /* #F4F2ED Ivory, the logo's own colour */
+  --c-accent: 176 154 110; /* #B09A6E Soft Gold (6.8:1 on slate navy) */
+  --c-on-accent: 14 20 30;
+  --c-wine: 21 29 42; /* no burgundy; falls back to surface */
+  --c-glow: 230 225 214;
+  --font-display: var(--font-playfair);
+  --display-tracking: -0.01em;
+  --display-size-adjust: 0.45; /* Playfair's x-height is 0.516; this draws its headlines about 13% smaller */
+  /* A light from the top left that fades out before the hero ends, so the page below continues without an edge */
+  --hero-gradient: radial-gradient(120% 90% at 0% 0%, #18223a 0%, rgb(14 20 30 / 0) 70%);
 }
 .theme-diplovia { background-color: rgb(var(--c-ground)); color: rgb(var(--c-soft)); }
+/* A DIPLOVIA band inside an Apex page: its navy fades in from the page above and out into the page below, no hard edge */
+.band-fade {
+  background-color: transparent;
+  /* Long eased fade (about a third of the band each side) so no line shows where it starts */
+  background-image: linear-gradient(to bottom,
+    rgb(var(--c-ground) / 0) 0%, rgb(var(--c-ground) / 0.15) 8%, rgb(var(--c-ground) / 0.5) 17%, rgb(var(--c-ground) / 0.85) 25%,
+    rgb(var(--c-ground)) 32%, rgb(var(--c-ground)) 68%,
+    rgb(var(--c-ground) / 0.85) 75%, rgb(var(--c-ground) / 0.5) 83%, rgb(var(--c-ground) / 0.15) 92%, rgb(var(--c-ground) / 0) 100%);
+}
 
 /* ─── ₹ from the device's own font: Inter only has it in its extended file (~170KB more).
    Covers U+20B9 only, listed first in every font stack, so all other letters stay in the brand fonts.
@@ -61,8 +72,8 @@ html {
 
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
 h1, h2, h3 { text-wrap: balance; }
-/* Major headlines in the brand's display face (Space Grotesk for Apex, Cormorant Garamond for DIPLOVIA) */
-h1, h2 { font-family: 'Rupee', var(--font-display), system-ui, sans-serif; letter-spacing: var(--display-tracking); }
+/* Major headlines in the brand's display face (Space Grotesk for Apex, Playfair Display for DIPLOVIA) */
+h1, h2 { font-family: 'Rupee', var(--font-display), system-ui, sans-serif; letter-spacing: var(--display-tracking); font-size-adjust: var(--display-size-adjust, none); }
 p { text-wrap: pretty; }
 
 body {
