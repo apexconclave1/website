@@ -18,6 +18,14 @@ Last updated: 2026-10-28. One file for status, decisions, history and to-dos (th
 
 ## Phase checklist
 
+Launch round v5 (from 2026-10-29). Owner request: Register now in the nav, open registration, no-refund policy, "Terms and Conditions" button, new fonts (the old ones looked AI-made), SEO/GEO skills via find-skills. Stop and report after each phase; owner does all git work.
+
+- [x] 1. Nav "Register now" (replaces Partner With Us), "Terms and Conditions" button on the event page, no-refund policy (except when Apex Conclave cancels)
+- [ ] 2. Supabase and Resend check (tables, storage, access, coupons deactivated, test contact message locally and live, test rows deleted)
+- [ ] 3. Open registration: real UPI id and QR, opens 30 Oct 2026 (₹299 until 1 Nov, then ₹399), full live test registration with payment, test rows deleted
+- [ ] 4. Fonts: Bodoni Moda (Apex headlines), Hanken Grotesk (all body text), Playfair Display kept for DIPLOVIA headlines; line breaks at 5 widths, share image redrawn
+- [ ] 5. SEO/GEO: install `seo-audit` and `ai-seo` (coreyhaines31/marketingskills) project-level after reading them, audit, fix, report
+
 Redesign v4 (from 2026-10-27), owner brief "Final website redesign brief: Apex Conclave × DIPLOVIA". Stop and report after each phase; owner does all git work.
 
 - [x] 0. Baseline: before screenshots (11 pages × 360/390/768/1024/1440), axe and Lighthouse on live, confirmed dates, demo contact message
@@ -132,6 +140,8 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 ## Phase notes (newest first)
 
 **No seat counts on the event page (2026-10-29).** Owner: remove the number of seats. Committee cards show only the theme; `totalSeats` dropped from `chambers.ts` and `ChamberEntity`. Checked: tsc, lint.
+
+**v5 Phase 1, nav, terms button, refunds (2026-10-29).** Navbar CTA is "Register now" for the first event with open registration, else the next upcoming one (`/register?event=diplovia-2026`; shows "opens soon" until registration opens), replacing Partner With Us (Partners stays in the menu; outline over the hero, filled once scrolled: lime on Apex pages, caramel on DIPLOVIA). Event page button "Refunds and terms" → "Terms and Conditions" linking to `/terms`. Terms refund section rewritten: all fees non-refundable in any case (participant cancels, does not attend, removed under the code of conduct); only exception a full refund within 30 business days if Apex Conclave cancels the event (owner chose this over no exception at all, after being told a blanket rule can be challenged under Indian consumer law); the "event page may differ" line removed; terms meta description says "a no-refund policy". Checked: tsc, lint; nav on home and the event page at 1440, mobile menu at 390, terms refund section.
 
 **Coming soon cards as stamps (2026-10-28).** Owner: make the Coming soon cards a diagonal stamped "Coming soon". Chose: stamp only (no jar art), lime worn ink, thump in once, keep "Stay tuned →" only. Done: each card is a plain `.bg-hero` panel (min height 9rem on home phones, 12rem otherwise) with `.stamp` (new in `globals.css`: Space Grotesk 700 uppercase, 3px border plus 1.5px outline 4px out, rotated -12°, `mask-image` of thresholded fractal noise for worn ink; hidden at 1.6× until `.is-in`, then a 0.4s overshoot settle; the second card 160ms later) and a "Stay tuned →" footer that is the stretched link (shown on phones too now). Heading "Coming soon" kept for screen readers (`sr-only` h3); link name "Coming soon: a new Apex Conclave experience. Stay tuned". `ScrollReveal` also watches `.stamp`. `VesselMark.tsx` deleted (no users). Checked: tsc, lint; screenshots home 1440/390, verticals 768/1440; stamp hidden before, settled after 1s, stays after scrolling away; axe 12 pages × 390/1440: 0; layout check clean.
 

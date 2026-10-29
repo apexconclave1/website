@@ -435,8 +435,8 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                     </a>
                   )
                 )}
-                <Link href="/terms#refund-policy" className="btn-secondary w-full sm:w-auto">
-                  Refunds and terms
+                <Link href="/terms" className="btn-secondary w-full sm:w-auto">
+                  Terms and Conditions
                 </Link>
               </div>
             </div>

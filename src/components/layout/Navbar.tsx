@@ -18,10 +18,11 @@ const navLinks = [
 ];
 const mobileLinks = [{ href: '/', label: 'Home' }, ...navLinks];
 
-// ponytail: the button switches to Register for the first event with open registration. Point at /events once several are open at once.
-const openEvent = eventsData.find((e) => e.registrationOpen);
-const cta = openEvent
-  ? { href: `/register?event=${openEvent.slug}`, label: 'Register', track: 'cta_nav_register' }
+// Register now (owner, 2026-10-29) for the first event with open registration, else the next upcoming one; /register
+// shows "opens soon" until it opens. ponytail: point at /events once several are open at once.
+const registerEvent = eventsData.find((e) => e.registrationOpen) ?? eventsData.find((e) => e.status === 'UPCOMING');
+const cta = registerEvent
+  ? { href: `/register?event=${registerEvent.slug}`, label: 'Register now', track: 'cta_nav_register' }
   : { href: partnerEnquiryHref, label: 'Partner With Us', track: 'cta_nav_partner' };
 
 export default function Navbar() {

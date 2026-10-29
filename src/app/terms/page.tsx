@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import { organizationConfig } from '@/lib/data/organization';
 
-export const metadata: Metadata = pageMetadata('Terms & Conditions', 'Terms for every Apex Conclave event: participant code of conduct, registration and fees, refund and cancellation policy, privacy notice and disputes.', '/terms');
+export const metadata: Metadata = pageMetadata('Terms & Conditions', 'Terms for every Apex Conclave event: participant code of conduct, registration and fees, a no-refund policy, privacy notice and disputes.', '/terms');
 
 const termsSectionsNav: SectionItem[] = [
   { id: 'code-of-conduct', label: 'Conduct' },
@@ -15,8 +15,8 @@ const termsSectionsNav: SectionItem[] = [
   { id: 'disputes', label: 'Disputes' },
 ];
 
-// Owner-approved rewrite for all Apex Conclave events (2026-10-22): refund numbers unchanged, format lines,
-// guardian consent, organising team as the deciding body.
+// Owner-approved rewrite for all Apex Conclave events (2026-10-22): format lines, guardian consent, organising team as
+// the deciding body. Refunds (owner, 2026-10-29): none in any case, except a full refund if Apex Conclave cancels the event.
 const sections = [
   {
     id: 'code-of-conduct',
@@ -43,11 +43,8 @@ const sections = [
     id: 'refund-policy',
     title: 'Refund & Cancellation Policy',
     content: [
-      'Cancellations received more than 21 days before the event are eligible for a 75% refund of fees paid.',
-      'Cancellations received between 10 and 21 days before the event are eligible for a 50% refund.',
-      'No refunds are given for cancellations received fewer than 10 days before the event, or for participants who do not attend without prior written notice.',
-      'If Apex Conclave cancels an event for reasons beyond its control (force majeure), full refunds are processed within 30 business days.',
-      'An event page may state different refund terms. If it does, those apply to that event.',
+      'All fees are non-refundable. No refund is given in any case, including if a participant cancels, does not attend, or is removed under the code of conduct.',
+      'The only exception: if Apex Conclave cancels an event, everyone registered receives a full refund of the fees paid, processed within 30 business days.',
     ],
   },
   {
