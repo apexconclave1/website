@@ -290,7 +290,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 >
                   <p className="font-display text-5xl font-semibold leading-none text-accent">{c.code}</p>
                   <p className="mt-3 text-xs uppercase tracking-[0.14em] text-soft/80">
-                    {c.theme} · {c.totalSeats} seats
+                    {c.theme}
                   </p>
                   <h3 className="mt-6 text-sm text-soft">{c.name}</h3>
                   <p className="mt-2 font-display text-xl leading-snug text-bright">{c.topic}</p>

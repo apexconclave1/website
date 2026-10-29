@@ -13,7 +13,6 @@ export const chambersData: ChamberEntity[] = [
     theme: 'POWER',
     challenge: 'Peace and security decisions rarely have a clean answer. You balance national interest against the risk of escalation, and work out what your country can accept when the alternative is a wider war.',
     suits: 'Delegates who like high-stakes negotiation and precise wording.',
-    totalSeats: 15,
     displayOrder: 1,
     portfolios: [
       'United States',
@@ -42,7 +41,6 @@ export const chambersData: ChamberEntity[] = [
     theme: 'SURVIVAL',
     challenge: 'Health emergencies ignore borders, budgets and politics. Delegates weigh preparedness, funding and cooperation before the next outbreak, not after it.',
     suits: 'Delegates who prefer evidence, systems and practical solutions.',
-    totalSeats: 20,
     displayOrder: 2,
     portfolios: [
       'India',
@@ -70,7 +68,6 @@ export const chambersData: ChamberEntity[] = [
     theme: 'PRINCIPLES',
     challenge: 'When technology moves faster than law, whose rights are protected, and who decides? Expect debates on privacy, accountability and bias, where a principled position still has to survive compromise.',
     suits: 'Delegates who argue from values.',
-    totalSeats: 22,
     displayOrder: 3,
     portfolios: [
       'Sweden',
@@ -94,7 +91,6 @@ export const chambersData: ChamberEntity[] = [
     theme: 'DIPLOMACY',
     challenge: 'Multilateralism only works if states believe in it. The task is to rebuild that confidence across competing interests, one clause at a time.',
     suits: 'Delegates who enjoy building consensus.',
-    totalSeats: 30,
     displayOrder: 4,
     portfolios: [
       'India',
@@ -119,7 +115,6 @@ export const chambersData: ChamberEntity[] = [
     theme: 'HISTORY / CRISIS',
     challenge: 'October 1962. Thirteen days, incomplete information, and decisions you can’t undo. You respond to developments as they arrive.',
     suits: 'Fast thinkers who stay steady when the plan falls apart.',
-    totalSeats: 18,
     displayOrder: 5,
     portfolios: [
       'John F. Kennedy (US President)',

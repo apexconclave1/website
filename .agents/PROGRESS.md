@@ -6,9 +6,9 @@ Last updated: 2026-10-28. One file for status, decisions, history and to-dos (th
 
 **What this is.** Website of **Apex Conclave**, a student events and competitions brand with event verticals (diplomacy and MUNs live; further verticals are shown only as "Coming soon" until announced). **Diplovia 2026**, a virtual Model UN on 21 and 22 November 2026, is the first event (`/events/diplovia-2026`). Stack: Next.js 14 (App Router), React 18, TypeScript, Tailwind 3, Supabase, Zod, Vercel Analytics. Fonts: Space Grotesk (Apex headlines), Playfair Display (DIPLOVIA headlines) and Inter.
 
-**Where things stand.** Redesign v3 is merged into `main` and live (https://website-apc20.vercel.app). Redesign v4 started 2026-10-27 from the owner's brief "Apex Conclave × DIPLOVIA" (two brand identities: Apex obsidian/lime, Diplovia espresso/cream/caramel since 2026-10-28). Phases 0–8 done (2026-10-28) and committed on local `main`, not yet pushed: the live site still shows v3 until the owner pushes and Vercel deploys.
+**Where things stand.** Redesign v3 is merged into `main` and live (https://website-apc20.vercel.app). Redesign v4 started 2026-10-27 from the owner's brief "Apex Conclave × DIPLOVIA" (two brand identities: Apex obsidian/lime, Diplovia espresso/cream/caramel since 2026-10-28). Phases 0–8 done and live since 2026-10-28 (`main` at `d1da620` pushed, Vercel deploy succeeded; live pages, share images and sitemap return 200, no console errors).
 
-**Next.** Owner: push `main` and check the Vercel deploy (see Practical notes), then the Owner to-do below. Blocker for forms: the Supabase project in `.env.local` (and on Vercel) does not resolve, see Known gaps.
+**Next.** Owner to-do below; check the live site on real phones. Blocker for forms: the Supabase project in `.env.local` (and on Vercel) does not resolve, see Known gaps.
 
 **How we work.**
 - The owner commits. Claude stops after each phase, reports, and gives a commit command (with `git add -u` plus new files).
@@ -130,6 +130,8 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 - Redirects: `/community` to `/about#community`, `/committees` to the Diplovia committees.
 
 ## Phase notes (newest first)
+
+**No seat counts on the event page (2026-10-29).** Owner: remove the number of seats. Committee cards show only the theme; `totalSeats` dropped from `chambers.ts` and `ChamberEntity`. Checked: tsc, lint.
 
 **Coming soon cards as stamps (2026-10-28).** Owner: make the Coming soon cards a diagonal stamped "Coming soon". Chose: stamp only (no jar art), lime worn ink, thump in once, keep "Stay tuned →" only. Done: each card is a plain `.bg-hero` panel (min height 9rem on home phones, 12rem otherwise) with `.stamp` (new in `globals.css`: Space Grotesk 700 uppercase, 3px border plus 1.5px outline 4px out, rotated -12°, `mask-image` of thresholded fractal noise for worn ink; hidden at 1.6× until `.is-in`, then a 0.4s overshoot settle; the second card 160ms later) and a "Stay tuned →" footer that is the stretched link (shown on phones too now). Heading "Coming soon" kept for screen readers (`sr-only` h3); link name "Coming soon: a new Apex Conclave experience. Stay tuned". `ScrollReveal` also watches `.stamp`. `VesselMark.tsx` deleted (no users). Checked: tsc, lint; screenshots home 1440/390, verticals 768/1440; stamp hidden before, settled after 1s, stays after scrolling away; axe 12 pages × 390/1440: 0; layout check clean.
 

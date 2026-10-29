@@ -64,7 +64,6 @@ export interface ChamberEntity {
   theme: string;     // One-word theme, e.g. 'POWER'
   challenge: string; // What the committee asks of delegates
   suits: string;     // Who the committee suits
-  totalSeats: number;
   bannerImage?: string;
   studyGuidePdfUrl?: string; // Set only when the real guide exists
   displayOrder: number;
