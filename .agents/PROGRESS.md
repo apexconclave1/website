@@ -268,7 +268,7 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 - SVG of the logo from the designer.
 - ~~Buy the domain, set `NEXT_PUBLIC_SITE_URL`~~ done 2026-10-31.
 - Google Search Console: Domain property (DNS TXT), submit `https://apexconclave.com/sitemap.xml`; Bing Webmaster Tools: import from Search Console.
-- Resend: `apexconclave.com` was still unverified on 2026-10-31 (API 403) while `RESEND_FROM` used it, so contact alerts failed; click Verify in Resend (DNS records are live). Email forwarding: ImprovMX MX and SPF live for `hello@`. Update Instagram and LinkedIn bio links to apexconclave.com.
+- ~~Resend domain~~ verified 2026-10-31 (`RESEND_FROM` = noreply@apexconclave.com; the API key can only send). Contact email is now `hello@apexconclave.com` (`organizationConfig.contactEmail`, `llms.txt`), forwarded to apexconclave1@gmail.com by ImprovMX; contact alerts go there too. Reply as hello@ from Gmail: Send mail as via `smtp.resend.com`. Update Instagram and LinkedIn bio links to apexconclave.com.
 
 ## Acceptance checks
 

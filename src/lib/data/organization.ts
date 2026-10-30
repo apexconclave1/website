@@ -4,7 +4,7 @@ export const organizationConfig: OrganizationConfig = {
   name: 'Apex Conclave',
   description:
     'Apex Conclave creates platforms for students to compete, collaborate and showcase their abilities through competitions, conferences and experiences.',
-  contactEmail: 'apexconclave1@gmail.com',
+  contactEmail: 'hello@apexconclave.com', // forwards to apexconclave1@gmail.com (ImprovMX)
   socials: {
     instagram: 'https://instagram.com/apex_conclave',
     linkedin: 'https://linkedin.com/company/apex-conclave',
