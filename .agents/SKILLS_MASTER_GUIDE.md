@@ -15,6 +15,8 @@
 | 5 | **k6 Perf Test Website** | `skills/k6-perf-test-website/` | Grafana's workflow for website load tests (smoke, average, breakpoint). Its Playwright/HAR recording path is optional and not used here |
 | 6 | **Security and Hardening** | `skills/security-and-hardening/` | Addy Osmani's OWASP-based checklist: trust boundaries, input validation, uploads, secrets, rate limits, headers |
 | 7 | **Supabase** | `skills/supabase/` | Supabase's own guidance: RLS, key exposure, storage policies. Its MCP server and CLI login are not used here |
+| 8 | **SEO Audit** | `skills/seo-audit/` | coreyhaines31/marketingskills: crawlability, canonicals, titles and descriptions, headings, schema, Core Web Vitals |
+| 9 | **AI SEO** | `skills/ai-seo/` | coreyhaines31/marketingskills: getting cited by AI search (ChatGPT, Perplexity, AI Overviews), `llms.txt`, AI crawler access |
 
 The earlier hand-written skills (frontend design, animations, React, web guidance, SEO, analytics) were removed by the owner on 2026-10-23. Their rules that still apply live in `DESIGN.md` and `AGENTS.md`.
 
@@ -39,3 +41,5 @@ The earlier hand-written skills (frontend design, animations, React, web guidanc
 | Load testing (many users at once) | `k6`, `k6-perf-test-website` |
 | Security testing or hardening API routes, uploads, headers | `security-and-hardening` |
 | Database access rules, keys, storage | `supabase` |
+| Search rankings, titles, schema, sitemap | `seo-audit` |
+| AI search citations, `llms.txt`, AI crawlers | `ai-seo` |

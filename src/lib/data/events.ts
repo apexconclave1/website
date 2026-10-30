@@ -85,13 +85,17 @@ export function couponsAllowed(event: EventEntity, fee: number): boolean {
   return !!event.pricing && fee >= event.pricing.regular;
 }
 
-/** Fee in INR charged at `now`. Early bird runs from registrationOpensAt (IST midnight) for earlyBirdDays. */
+/** When the early bird ends (ms): it runs from registrationOpensAt (IST midnight) for earlyBirdDays. Null without one. */
+export function earlyBirdEndsAt(event: EventEntity): number | null {
+  const p = event.pricing;
+  if (p?.earlyBird == null || !event.registrationOpensAt) return null;
+  return Date.parse(`${event.registrationOpensAt}T00:00:00+05:30`) + (p.earlyBirdDays ?? 0) * DAY_MS;
+}
+
+/** Fee in INR charged at `now`. */
 export function feeAt(event: EventEntity, now: Date): number | null {
   const p = event.pricing;
   if (!p) return null;
-  if (p.earlyBird != null && event.registrationOpensAt) {
-    const earlyBirdEnds = Date.parse(`${event.registrationOpensAt}T00:00:00+05:30`) + (p.earlyBirdDays ?? 0) * DAY_MS;
-    if (now.getTime() < earlyBirdEnds) return p.earlyBird;
-  }
-  return p.regular;
+  const ends = earlyBirdEndsAt(event);
+  return ends !== null && now.getTime() < ends ? (p.earlyBird ?? p.regular) : p.regular;
 }

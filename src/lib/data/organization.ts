@@ -18,13 +18,12 @@ export const partnerEnquiryFor = (title: string) => `${partnerEnquiryHref}&subje
 
 // ponytail: placeholder UPI id and QR. Replace both before registration opens.
 export const paymentConfig = {
-  upiId: 'staba7788@okaxis', // Ayush Vishnoi (Google Pay); public/payment/upi-qr.jpg encodes the same id
-  qrImage: '/payment/upi-qr.jpg',
+  upiId: 'staba7788@okaxis', // Ayush Vishnoi (Google Pay); public/payment/upi-qr.png encodes the same id
+  qrImage: '/payment/upi-qr.png',
 };
 
 export const homeContent = {
-  // The hero shows this in three lines (components/home/HeroSection.tsx); keep both in sync
-  headline: 'A bigger stage for a bolder generation.',
+  // The hero headline lives in components/home/HeroSection.tsx (set in three lines)
   summary:
     'Apex Conclave creates competitions, conferences and experiences where students compete, collaborate and show what they can do. Diplomacy comes first, with more formats on the way.',
   about: {

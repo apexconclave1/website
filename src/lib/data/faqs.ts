@@ -32,7 +32,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-1',
       category: 'Registration',
       q: 'How do I register as a delegate?',
-      a: 'Use the Register button on this page once registration opens. Fill in your details, list your committee and country preferences, submit, then pay the delegate fee by UPI. You get a tracking code straight away, and the team confirms your seat by email after checking the payment.',
+      a: 'Use the Register button on this page. Fill in your details, list your committee and country preferences, submit, then pay the delegate fee by UPI. You get a tracking code straight away, and the team confirms your seat by email after checking the payment.',
     },
     {
       id: 'dip-2',

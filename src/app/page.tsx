@@ -12,7 +12,7 @@ import { Ideas } from '@/components/home/Ideas';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata(
-  'Apex Conclave',
+  'Apex Conclave: Student Competitions and Virtual MUN in India',
   'Apex Conclave runs student competitions and experiences in India, starting with Diplovia 2026, a two-day virtual Model United Nations. New formats coming soon.',
   '/',
 );

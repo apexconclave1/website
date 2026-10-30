@@ -24,7 +24,7 @@ Launch round v5 (from 2026-10-29). Owner request: Register now in the nav, open 
 - [x] 2. Supabase and Resend check (tables, storage, access, coupons deactivated, test contact message locally and live, test rows deleted)
 - [x] 3. Open registration: real UPI id and QR, opens 30 Oct 2026 (₹299 until 1 Nov, then ₹399), full live test registration with payment, test rows deleted
 - [x] 4. Fonts: dropped (2026-10-30). Bodoni Moda + Hanken Grotesk were tried on a build (Bodoni needed optical size 28 to keep its hairlines on dark); after seeing it the owner chose to keep the original Apex fonts (Space Grotesk + Inter, Playfair for DIPLOVIA). Font edits reverted, nothing shipped
-- [ ] 5. SEO/GEO: install `seo-audit` and `ai-seo` (coreyhaines31/marketingskills) project-level after reading them, audit, fix, report
+- [x] 5. SEO/GEO: domain `apexconclave.com` live; `seo-audit` and `ai-seo` (coreyhaines31/marketingskills) installed project-level after reading them; audit, fixes, report (2026-10-31)
 
 Redesign v4 (from 2026-10-27), owner brief "Final website redesign brief: Apex Conclave × DIPLOVIA". Stop and report after each phase; owner does all git work.
 
@@ -125,7 +125,7 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 | Logo | The approved logo from the design sheet (`public/brand/`); never redrawn in type |
 | Sponsorship | Tiers and prices are never public |
 | Email | No paid services; contact messages stored in Supabase; Resend (free tier) once a domain exists |
-| Hosting | Vercel; domain not bought yet |
+| Hosting | Vercel, functions in `bom1` (Mumbai, `vercel.json`); domain `apexconclave.com` (primary, no www) since 2026-10-31; `www` and `website-apc20.vercel.app` 308 to it |
 | Copy source | The delegate booklet (not the sponsorship brochure) for Diplovia copy and team quotes |
 
 ## Site map
@@ -138,6 +138,10 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 - Redirects: `/community` to `/about#community`, `/committees` to the Diplovia committees.
 
 ## Phase notes (newest first)
+
+**Registration speed and resume (2026-10-31).** Owner: QR slow, submit slow, no way to continue an application. Causes found on live: functions ran in `iad1` (Washington) while visitors and Supabase are in Asia (a rejected register call took 1.2s; Supabase answers India in ~100ms); the QR went through the image optimiser and loaded only on step 5 (cold 0.75s); phone screenshots (several MB, over 5MB refused) uploaded raw; and a delegate who closed the tab after submitting could not pay at all (a second try hit the duplicate-email 409). Fixed: `vercel.json` runs functions in `bom1` (Mumbai); QR redrawn as a 2.5KB black-and-white PNG (`public/payment/upi-qr.png`, decodes to the same `upi://pay?pa=staba7788@okaxis&pn=Ayush Vishnoi&aid=…` as the old jpg, which is removed), served `unoptimized` with `priority`; `StepPayment` shrinks screenshots to a JPEG of at most 1600px (keeps the original if that fails or is bigger); `RegistrationWizard` keeps the unpaid application (`apex-registration:<event>`) and the form draft (`apex-registration-draft:<event>`) in localStorage and shows "Continue to payment" / "Start a new application"; `/api/register` hands back an unpaid application when the same email (any case) comes with the same phone digits (`resumed: true`), else the 409 now says to use the same phone. Tested on a local production build against the live database in headless Chrome at 390px: draft survives a reload, submit 1.3s, QR from `/payment/upi-qr.png` loaded, reload shows the banner with the code and resumes to payment, API resume with the email in capitals 200 same code, different phone 409, a 7.8MB PNG screenshot uploaded as a 0.5MB JPEG, payment 0.9s, no banner after paying; test row and file deleted. Two real unpaid applications (ids 69, 70) left untouched.
+
+**v5 Phase 5, SEO/GEO after the domain (2026-10-31).** Domain `apexconclave.com` bought by the owner; Vercel: plain domain primary (Production), `www` and `website-apc20.vercel.app` 308 to it (first set the other way round with a 307, which contradicted the canonicals); `NEXT_PUBLIC_SITE_URL=https://apexconclave.com` on Vercel and locally. Skills `seo-audit` 2.2.2 and `ai-seo` 2.12.0 from coreyhaines31/marketingskills (commit 820ad2c) read first (markdown only, no scripts, no secrets asked for), installed with `skills@1.7.4`, telemetry off. Live audit: every sitemap page 200 with a self-canonical on the new domain, one h1, description 137–159 characters, no image without alt; `/register` noindex; robots allows all but `/api/`; HSTS on; 404 returns 404; Googlebot, Bingbot, GPTBot, OAI-SearchBot, ClaudeBot and PerplexityBot all get 200. Fixed: (1) Event JSON-LD listed the fee on the build day (the event page is static, so ₹299 would have stayed after 5 Nov); now two offers, Early Bird with `validThrough` and Regular with `validFrom`, from new `earlyBirdEndsAt()` in `events.ts` (also used by `feeAt`); (2) home title was only "Apex Conclave", now "Apex Conclave: Student Competitions and Virtual MUN in India" (`pageMetadata` keeps a title that already starts with the name); (3) home h1 was read twice and run together ("stagefor") by text extractors: the sr-only copy and `homeContent.headline` removed, lines readable with a trailing space; (4) `llms.txt` with full URLs and the facts assistants are asked (dates, eligibility, committees, fees, how to register, refunds, socials); (5) delegate FAQ no longer says "once registration opens". Not changed (low value): sitemap `lastmod`, `/register` h3 under h1 (noindex). Checked: `check-events` (new `earlyBirdEndsAt` checks), tsc, lint, build, title, h1 and offers on the local production build.
 
 **No seat counts on the event page (2026-10-29).** Owner: remove the number of seats. Committee cards show only the theme; `totalSeats` dropped from `chambers.ts` and `ChamberEntity`. Checked: tsc, lint.
 
@@ -262,7 +266,9 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 - Real photos for the five committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
 - Decide on a QR delegate pass.
 - SVG of the logo from the designer.
-- Buy the domain, then set `NEXT_PUBLIC_SITE_URL`.
+- ~~Buy the domain, set `NEXT_PUBLIC_SITE_URL`~~ done 2026-10-31.
+- Google Search Console: Domain property (DNS TXT), submit `https://apexconclave.com/sitemap.xml`; Bing Webmaster Tools: import from Search Console.
+- Resend: `apexconclave.com` was still unverified on 2026-10-31 (API 403) while `RESEND_FROM` used it, so contact alerts failed; click Verify in Resend (DNS records are live). Email forwarding: ImprovMX MX and SPF live for `hello@`. Update Instagram and LinkedIn bio links to apexconclave.com.
 
 ## Acceptance checks
 

@@ -50,6 +50,14 @@ interface PaymentResult {
   finalAmount: number;
 }
 
+/** Write (or with null, remove) a value in browser storage; silently does nothing where storage is blocked. */
+function store(key: string, value: unknown) {
+  try {
+    if (value === null) localStorage.removeItem(key);
+    else localStorage.setItem(key, JSON.stringify(value));
+  } catch {}
+}
+
 export default function RegistrationWizard() {
   const searchParams = useSearchParams();
   const event = eventsData.find((e) => e.slug === searchParams.get('event')) ?? eventsData[0];
@@ -88,6 +96,37 @@ export default function RegistrationWizard() {
   });
 
   const [errors, setErrors] = useState<Record<string, string[] | undefined>>({});
+
+  // This device's unpaid application and the form typed so far, so a closed tab or reload can carry on.
+  // Browser storage can be blocked; the register API also hands back an unpaid application for the same email and phone.
+  const pendingKey = `apex-registration:${event.id}`;
+  const draftKey = `apex-registration-draft:${event.id}`;
+  const [pending, setPending] = useState<RegistrationResult | null>(null);
+
+  // Restore before the URL parameters below, so a link's committee choice wins over the draft
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(pendingKey);
+      if (saved) setPending(JSON.parse(saved));
+      const draft = localStorage.getItem(draftKey);
+      if (draft) setFormData((prev) => ({ ...prev, ...JSON.parse(draft) }));
+    } catch {}
+  }, [pendingKey, draftKey]);
+
+  useEffect(() => {
+    if (!registrationResult) store(draftKey, formData);
+  }, [formData, draftKey, registrationResult]);
+
+  const resumePending = () => {
+    setRegistrationResult(pending);
+    setPending(null);
+    setCurrentStep(5);
+  };
+
+  const discardPending = () => {
+    store(pendingKey, null);
+    setPending(null);
+  };
 
   // Parse URL query parameters if delegate clicked "Claim Portfolio" from /committees
   useEffect(() => {
@@ -166,14 +205,17 @@ export default function RegistrationWizard() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setRegistrationResult({
+        const result: RegistrationResult = {
           registrationId: data.registrationId,
           trackingCode: data.trackingCode,
           submittedAt: data.submittedAt,
           fee: data.fee,
           allotment: data.allotment,
-        });
-        track('registration_submitted', { event: event.id });
+        };
+        setRegistrationResult(result);
+        store(pendingKey, result);
+        store(draftKey, null);
+        track(data.resumed ? 'registration_resumed' : 'registration_submitted', { event: event.id });
         // Advance to Step 5 (Payment)
         setCurrentStep(5);
         window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -190,6 +232,7 @@ export default function RegistrationWizard() {
 
   const handlePaymentComplete = (result: PaymentResult) => {
     track('payment_submitted', { event: event.id, amount: result.finalAmount });
+    store(pendingKey, null);
     setPaymentResult(result);
     window.scrollTo({ top: 100, behavior: 'smooth' });
   };
@@ -242,6 +285,23 @@ export default function RegistrationWizard() {
           );
         })}
       </ol>
+
+      {pending && !registrationResult && (
+        <div role="status" className="panel mb-8">
+          <p className="text-sm leading-relaxed text-soft">
+            You have an application waiting for payment, tracking code{' '}
+            <span className="font-semibold text-bright">{pending.trackingCode}</span>.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <Button type="button" onClick={resumePending}>
+              Continue to payment
+            </Button>
+            <Button type="button" variant="outline" onClick={discardPending}>
+              Start a new application
+            </Button>
+          </div>
+        </div>
+      )}
 
       <div key={currentStep} className="min-h-[380px] animate-step-in">
         {currentStep === 1 && <StepIdentity formData={formData} onChange={updateFormData} errors={errors} />}

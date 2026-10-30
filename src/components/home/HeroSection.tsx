@@ -3,7 +3,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import { homeContent, partnerEnquiryHref } from '@/lib/data/organization';
 import { VesselDrift } from '@/components/home/VesselDrift';
 
-// homeContent.headline split into deliberate lines (keep the two in sync)
+// The headline, in deliberate lines
 const lines = [
   <>A bigger stage</>,
   <>
@@ -23,12 +23,12 @@ export default function HeroSection() {
 
       <div className="mx-auto flex w-full max-w-container flex-1 flex-col justify-end px-6 pb-10 pt-[calc(4.5rem+min(52vw,17rem))] md:pb-14 lg:pt-28">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-6">
-          {/* sr-only full sentence; visual lines rise in one after another. min(…, vw) keeps it on screen with large text */}
+          {/* Lines rise in one after another; the trailing space keeps words apart for search engines and screen readers.
+              min(…, vw) keeps it on screen with large text */}
           <h1 className="text-[min(3.5rem,11.4vw)] font-medium leading-[0.95] text-bright sm:text-[min(5rem,11vw)] lg:col-span-8 lg:text-[min(6.5rem,7.6vw)]">
-            <span className="sr-only">{homeContent.headline}</span>
             {lines.map((line, i) => (
-              <span key={i} aria-hidden="true" className="rise-in block" style={{ animationDelay: `${80 + i * 90}ms` }}>
-                {line}
+              <span key={i} className="rise-in block" style={{ animationDelay: `${80 + i * 90}ms` }}>
+                {line}{' '}
               </span>
             ))}
           </h1>

@@ -97,11 +97,40 @@ export async function POST(req: NextRequest) {
     if (insertError) {
       if (insertError.code === '23505') {
         const duplicateEmail = insertError.message.includes('registrations_event_email_key');
+        if (duplicateEmail) {
+          // Same email and phone, not paid yet (closed tab, other device): hand back that application so they can pay.
+          // ilike matches the index's lower(email); \ escapes the wildcards % and _ (common in emails)
+          const { data: prior } = await supabase
+            .from('registrations')
+            .select('id, tracking_code, created_at, original_amount, phone, status, first_choice_committee, first_choice_country')
+            .eq('event_id', event.id)
+            .ilike('email', data.email.replace(/[\\%_]/g, '\\$&'))
+            .maybeSingle();
+          const digits = (p: string) => p.replace(/\D/g, '');
+          if (prior?.status === 'SUBMITTED' && digits(prior.phone) === digits(data.phone)) {
+            return NextResponse.json({
+              success: true,
+              resumed: true,
+              registrationId: prior.id,
+              trackingCode: prior.tracking_code,
+              submittedAt: prior.created_at,
+              fee: Number(prior.original_amount),
+              allotment: {
+                committee: prior.first_choice_committee,
+                country: prior.first_choice_country,
+                status: 'PREFERENCE_RECORDED',
+                delegateName: data.fullName,
+                track: data.track,
+                institution: data.institutionName,
+              },
+            });
+          }
+        }
         return NextResponse.json(
           {
             success: false,
             error: duplicateEmail
-              ? `This email is already registered for ${event.title}. Contact us if you need to change your application.`
+              ? `This email is already registered for ${event.title}. To pay for an unpaid application, use the same phone number as before. Contact us if you need to change it.`
               : 'Registration conflict. Please try again.',
           },
           { status: 409 }

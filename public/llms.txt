@@ -2,15 +2,25 @@
 
 > Apex Conclave is a student-led events and competitions brand in India. It creates platforms for high school and college students to compete, collaborate and showcase their abilities through competitions, conferences and experiences. Diplovia 2026, a virtual Model United Nations, is its first and currently only event; new formats are coming soon.
 
+## Diplovia 2026 (virtual Model UN)
+
+- Dates: 22 and 23 November 2026, two days, 100% online
+- Who can join: high school and college students, roughly ages 15 to 23; prior MUN experience helps but is not required
+- Committees (five): UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee on the Cuban Missile Crisis of 1962
+- Delegate fee: Early Bird ₹299 until 5 November 2026; regular ₹399 from 6 November 2026; paid by UPI
+- Registration: open now at https://apexconclave.com/register?event=diplovia-2026. Delegates list two committee and country preferences; the team assigns seats and confirms by email after checking the payment
+- Refunds: fees are non-refundable, except a full refund if Apex Conclave cancels the event (https://apexconclave.com/terms)
+- Event page with agendas and FAQ: https://apexconclave.com/events/diplovia-2026
+
 ## Pages
 
-- [Home](/): what Apex Conclave is, its event verticals, the featured event, team and partnerships
-- [Event Verticals](/verticals): Diplomacy & MUNs (active, Diplovia 2026); new formats coming soon
-- [Events](/events): every event, upcoming and past
-- [Diplovia 2026](/events/diplovia-2026): virtual MUN on 22 and 23 November 2026 with five committees (UNSC, WHO, UNHRC, UNGA, Historical Crisis Committee); fees, allotment and FAQ
-- [About](/about): mission, the people it brings together, team and how events are run
-- [Partners](/partners): sponsorships, college partnerships, competition challenges, judges and mentors, campus communities
-- [FAQ](/faq) and [Contact](/contact)
+- [Home](https://apexconclave.com/): what Apex Conclave is, its event verticals, the featured event, team and partnerships
+- [Event Verticals](https://apexconclave.com/verticals): Diplomacy & MUNs (active, Diplovia 2026); new formats coming soon
+- [Events](https://apexconclave.com/events): every event, upcoming and past
+- [Diplovia 2026](https://apexconclave.com/events/diplovia-2026): virtual MUN on 22 and 23 November 2026; committees, agendas, fees, allotment and FAQ
+- [About](https://apexconclave.com/about): mission, the people it brings together, team and how events are run
+- [Partners](https://apexconclave.com/partners): sponsorships, college partnerships, competition challenges, judges and mentors, campus communities
+- [FAQ](https://apexconclave.com/faq), [Contact](https://apexconclave.com/contact) and [Terms](https://apexconclave.com/terms)
 
 ## Team
 
@@ -23,3 +33,5 @@
 Designed and built by Kapish Garg (Co-Founder): https://www.linkedin.com/in/gargkapish/
 
 Contact: apexconclave1@gmail.com
+Instagram: https://instagram.com/apex_conclave
+LinkedIn: https://linkedin.com/company/apex-conclave

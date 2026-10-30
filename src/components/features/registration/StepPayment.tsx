@@ -17,6 +17,25 @@ interface StepPaymentProps {
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
+/**
+ * Phone screenshots run to several MB, slow to upload on mobile data. A JPEG at most 1600px on the long side still
+ * shows the UTR clearly and is usually under 300KB. Keeps the original if shrinking fails or does not help.
+ */
+async function shrinkScreenshot(file: File): Promise<File> {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext('2d')?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+    return blob && blob.size < file.size ? new File([blob], 'payment.jpg', { type: 'image/jpeg' }) : file;
+  } catch {
+    return file;
+  }
+}
+
 export default function StepPayment({ registrationId, trackingCode, fee, allowCoupon, onPaymentComplete }: StepPaymentProps) {
   const [couponCode, setCouponCode] = useState('');
   const [couponApplied, setCouponApplied] = useState<{ code: string; discount: number } | null>(null);
@@ -65,13 +84,14 @@ export default function StepPayment({ registrationId, trackingCode, fee, allowCo
     setCouponError('');
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!ALLOWED_TYPES.includes(file.type)) {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const picked = e.target.files?.[0];
+    if (!picked) return;
+    if (!ALLOWED_TYPES.includes(picked.type)) {
       setSubmitError('Screenshot must be a JPEG, PNG, or WebP image.');
       return;
     }
+    const file = await shrinkScreenshot(picked);
     if (file.size > 5 * 1024 * 1024) {
       setSubmitError('Screenshot must be under 5MB.');
       return;
@@ -226,7 +246,8 @@ export default function StepPayment({ registrationId, trackingCode, fee, allowCo
       <div className="panel text-center">
         <p className="eyebrow mb-4">Scan to pay ₹{finalAmount}</p>
         <div className="mx-auto mb-4 h-[200px] w-[200px] overflow-hidden rounded bg-white p-2">
-          <Image src={paymentConfig.qrImage} alt="UPI QR code for payment" width={184} height={184} className="h-full w-full object-contain" />
+          {/* A 2.5KB black-and-white PNG: served as is (no image optimiser round trip), loaded at once */}
+          <Image src={paymentConfig.qrImage} alt="UPI QR code for payment" width={184} height={184} unoptimized priority className="h-full w-full object-contain" />
         </div>
         <p className="mb-2 text-xs text-soft">Or pay to this UPI id</p>
         <button

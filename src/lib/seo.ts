@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { EventEntity } from '@/types/schema';
 import type { FaqItem } from '@/lib/data/faqs';
 import { organizationConfig, siteCredit } from '@/lib/data/organization';
-import { feeAt } from '@/lib/data/events';
+import { earlyBirdEndsAt } from '@/lib/data/events';
 import { siteUrl } from '@/lib/site';
 
 const shareImage = { url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Apex Conclave' };
@@ -14,7 +14,7 @@ const shareImage = { url: '/opengraph-image.png', width: 1200, height: 630, alt:
  */
 export function pageMetadata(title: string, description: string, path: string, imageUrl?: string): Metadata {
   const name = organizationConfig.name;
-  const fullTitle = title === name ? name : `${title} | ${name}`;
+  const fullTitle = title.startsWith(name) ? title : `${title} | ${name}`;
   const image = imageUrl ? { ...shareImage, url: imageUrl, alt: title } : shareImage;
   return {
     title: { absolute: fullTitle },
@@ -69,10 +69,22 @@ export const breadcrumbSchema = (items: { name: string; href: string }[]) => ({
   })),
 });
 
-/** Event schema needs a start date, so it returns null until dates are announced. */
+/**
+ * Event schema needs a start date, so it returns null until dates are announced.
+ * The page is built ahead of time, so both fees are listed with their dates rather than the fee on the build day.
+ */
 export const eventSchema = (event: EventEntity) => {
   if (!event.startDate) return null;
-  const fee = feeAt(event, new Date());
+  const p = event.pricing;
+  const ends = earlyBirdEndsAt(event);
+  const offer = (price: number, dates: Record<string, string> = {}) => ({
+    '@type': 'Offer',
+    price,
+    priceCurrency: 'INR',
+    url: `${siteUrl}/register?event=${event.slug}`,
+    availability: event.registrationOpen ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
+    ...dates,
+  });
   return {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -89,14 +101,14 @@ export const eventSchema = (event: EventEntity) => {
       : { '@type': 'Place', name: event.location.venue, address: event.location.city },
     image: [`${siteUrl}/events/${event.slug}/opengraph-image`],
     organizer: { '@type': 'Organization', name: organizationConfig.name, url: siteUrl },
-    ...(fee !== null && {
-      offers: {
-        '@type': 'Offer',
-        price: fee,
-        priceCurrency: 'INR',
-        url: `${siteUrl}/register?event=${event.slug}`,
-        availability: event.registrationOpen ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
-      },
+    ...(p && {
+      offers:
+        ends === null || p.earlyBird == null
+          ? offer(p.regular)
+          : [
+              offer(p.earlyBird, { name: 'Early Bird', validThrough: new Date(ends - 1000).toISOString() }),
+              offer(p.regular, { name: 'Regular', validFrom: new Date(ends).toISOString() }),
+            ],
     }),
   };
 };
