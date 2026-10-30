@@ -25,10 +25,11 @@ export const eventsData: EventEntity[] = [
     // The event's logo, shown as its visible name on the event page, home band and events card
     posterImage: '/brand/diplovia-logo-light.png',
     format: 'Virtual Model United Nations · 2 days',
-    // Dates confirmed by the owner on 2026-10-27. Set registrationOpensAt and registrationOpen: true when registration opens.
+    // Dates confirmed by the owner on 2026-10-27. Registration opened 2026-10-30 (owner): early bird ₹299 to 1 Nov, then ₹399.
     startDate: '2026-11-21',
     endDate: '2026-11-22',
-    registrationOpen: false,
+    registrationOpensAt: '2026-10-30',
+    registrationOpen: true,
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',

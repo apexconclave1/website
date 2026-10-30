@@ -18,7 +18,7 @@ export const partnerEnquiryFor = (title: string) => `${partnerEnquiryHref}&subje
 
 // ponytail: placeholder UPI id and QR. Replace both before registration opens.
 export const paymentConfig = {
-  upiId: 'diplovia@demo',
+  upiId: 'staba7788@okaxis', // Ayush Vishnoi (Google Pay); public/payment/upi-qr.jpg encodes the same id
   qrImage: '/payment/upi-qr.jpg',
 };
 
