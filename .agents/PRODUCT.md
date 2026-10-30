@@ -40,7 +40,7 @@ Source: `src/lib/data/verticals.ts`.
 
 ## First Event: Diplovia 2026
 
-A virtual Model United Nations conference online over two days, 21 and 22 November 2026. Five committees (UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee), preference-based country allotment, manual UPI payment, a certificate for every delegate. Copy comes from the delegate booklet (`docs/`).
+A virtual Model United Nations conference online over two days, 22 and 23 November 2026. Five committees (UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee), preference-based country allotment, manual UPI payment, a certificate for every delegate. Copy comes from the delegate booklet (`docs/`).
 
 ---
 

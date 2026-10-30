@@ -10,12 +10,14 @@ interface StepPaymentProps {
   trackingCode: string;
   /** Fee in INR set by the server for this registration */
   fee: number;
+  /** False during the early bird: coupons apply to the regular fee only */
+  allowCoupon: boolean;
   onPaymentComplete: (result: { trackingCode: string; status: string; finalAmount: number }) => void;
 }
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
-export default function StepPayment({ registrationId, trackingCode, fee, onPaymentComplete }: StepPaymentProps) {
+export default function StepPayment({ registrationId, trackingCode, fee, allowCoupon, onPaymentComplete }: StepPaymentProps) {
   const [couponCode, setCouponCode] = useState('');
   const [couponApplied, setCouponApplied] = useState<{ code: string; discount: number } | null>(null);
   const [couponError, setCouponError] = useState('');
@@ -174,49 +176,51 @@ export default function StepPayment({ registrationId, trackingCode, fee, onPayme
         )}
       </div>
 
-      {/* Coupon */}
-      <div>
-        <label htmlFor="coupon" className="field-label">
-          Coupon code (optional)
-        </label>
-        {couponApplied ? (
-          <div className="flex items-center justify-between rounded-sm border border-soft/25 px-4 py-3 text-sm text-bright">
-            <span>
-              {couponApplied.code}: ₹{couponApplied.discount} off
-            </span>
-            <button type="button" onClick={handleRemoveCoupon} className="text-soft underline underline-offset-4 hover:text-bright">
-              Remove
-            </button>
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <input
-              id="coupon"
-              autoComplete="off"
-              type="text"
-              placeholder="Enter code"
-              value={couponCode}
-              onChange={(e) => {
-                setCouponCode(e.target.value.toUpperCase());
-                setCouponError('');
-              }}
-              onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
-              aria-invalid={!!couponError}
-              className="field-input uppercase tracking-wider"
-            />
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleApplyCoupon}
-              disabled={couponLoading || !couponCode.trim()}
-              className="shrink-0 px-5"
-            >
-              {couponLoading ? 'Checking…' : 'Apply'}
-            </Button>
-          </div>
-        )}
-        {couponError && <p className="field-error">{couponError}</p>}
-      </div>
+      {/* Coupon: regular fee only */}
+      {allowCoupon && (
+        <div>
+          <label htmlFor="coupon" className="field-label">
+            Coupon code (optional)
+          </label>
+          {couponApplied ? (
+            <div className="flex items-center justify-between rounded-sm border border-soft/25 px-4 py-3 text-sm text-bright">
+              <span>
+                {couponApplied.code}: ₹{couponApplied.discount} off
+              </span>
+              <button type="button" onClick={handleRemoveCoupon} className="text-soft underline underline-offset-4 hover:text-bright">
+                Remove
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <input
+                id="coupon"
+                autoComplete="off"
+                type="text"
+                placeholder="Enter code"
+                value={couponCode}
+                onChange={(e) => {
+                  setCouponCode(e.target.value.toUpperCase());
+                  setCouponError('');
+                }}
+                onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                aria-invalid={!!couponError}
+                className="field-input uppercase tracking-wider"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleApplyCoupon}
+                disabled={couponLoading || !couponCode.trim()}
+                className="shrink-0 px-5"
+              >
+                {couponLoading ? 'Checking…' : 'Apply'}
+              </Button>
+            </div>
+          )}
+          {couponError && <p className="field-error">{couponError}</p>}
+        </div>
+      )}
 
       {/* UPI */}
       <div className="panel text-center">

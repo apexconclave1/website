@@ -16,7 +16,7 @@ export const apexFaqs: FaqItem[] = [
     id: 'apex-2',
     category: 'About',
     q: 'Which events can I join right now?',
-    a: 'Diplovia 2026 is our first event, on 21 and 22 November 2026. Its registration window will be announced soon. New events are listed on the Events page as soon as they are announced.',
+    a: 'Diplovia 2026 is our first event, on 22 and 23 November 2026. Registration is open now. New events are listed on the Events page as soon as they are announced.',
   },
   {
     id: 'apex-4',
@@ -38,7 +38,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-2',
       category: 'Registration',
       q: 'What does it cost?',
-      a: 'The Early Bird fee is ₹299 for the first 3 days after registration opens. After that the regular fee is ₹399.',
+      a: 'The Early Bird fee is ₹299 until 5 November 2026. From 6 November the regular fee is ₹399.',
     },
     {
       id: 'dip-3',
@@ -50,7 +50,7 @@ export const faqsByEvent: Record<string, FaqItem[]> = {
       id: 'dip-4',
       category: 'Format',
       q: 'Where and when is Diplovia held?',
-      a: 'Diplovia 2026 runs over two days, 21 and 22 November 2026. It is 100% virtual, so you can join from anywhere.',
+      a: 'Diplovia 2026 runs over two days, 22 and 23 November 2026. It is 100% virtual, so you can join from anywhere.',
     },
     {
       id: 'dip-5',

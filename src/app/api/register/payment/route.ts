@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { CouponSchema, PaymentSchema } from '@/lib/validators/registration';
 import { getServiceClient } from '@/lib/supabase/server';
 import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
+import { couponsAllowed, eventsData } from '@/lib/data/events';
 
 const ALLOWED_TYPES: Record<string, string> = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
@@ -58,7 +59,7 @@ export async function POST(req: NextRequest) {
     // The amount comes from the database row the server wrote, never from the browser
     const { data: existingReg, error: fetchError } = await supabase
       .from('registrations')
-      .select('id, status, original_amount')
+      .select('id, event_id, status, original_amount')
       .eq('id', registrationId)
       .eq('tracking_code', trackingCode)
       .single();
@@ -74,6 +75,13 @@ export async function POST(req: NextRequest) {
     }
 
     let finalAmount = Number(existingReg.original_amount);
+    const regEvent = eventsData.find((e) => e.id === existingReg.event_id);
+    if (couponCode && (!regEvent || !couponsAllowed(regEvent, finalAmount))) {
+      return NextResponse.json(
+        { success: false, error: 'Coupons apply to the regular fee only, not the early bird fee. Remove it and try again.' },
+        { status: 400 }
+      );
+    }
     if (couponCode) {
       // Checks and uses the coupon in one atomic step; null means invalid or used up
       const { data: discount, error: couponError } = await supabase.rpc('redeem_coupon', {

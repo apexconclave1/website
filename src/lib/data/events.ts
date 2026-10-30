@@ -25,12 +25,13 @@ export const eventsData: EventEntity[] = [
     // The event's logo, shown as its visible name on the event page, home band and events card
     posterImage: '/brand/diplovia-logo-light.png',
     format: 'Virtual Model United Nations · 2 days',
-    // Dates confirmed by the owner on 2026-10-27. Registration opened 2026-10-30 (owner): early bird ₹299 to 1 Nov, then ₹399.
-    startDate: '2026-11-21',
-    endDate: '2026-11-22',
+    // Dates moved by the owner to 22 and 23 Nov (2026-10-30). Registration opened 2026-10-30: early bird ₹299 to 5 Nov
+    // (7 days), then ₹399; coupons (DIPFRIEND) only on the regular fee.
+    startDate: '2026-11-22',
+    endDate: '2026-11-23',
     registrationOpensAt: '2026-10-30',
     registrationOpen: true,
-    pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 },
+    pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 7 },
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
       '2 days, 100% virtual',
@@ -65,10 +66,23 @@ export function eventFees(event: EventEntity): { label: string; amount: string; 
   if (!p) return [];
   return [
     ...(p.earlyBird != null
-      ? [{ label: 'Early Bird', amount: `₹${p.earlyBird}`, note: `First ${p.earlyBirdDays ?? 0} days of registration` }]
+      ? [{ label: 'Early Bird', amount: `₹${p.earlyBird}`, note: earlyBirdNote(event) }]
       : []),
     { label: 'Regular', amount: `₹${p.regular}` },
   ];
+}
+
+/** "Until 5 Nov" (last early-bird day) once the opening date is set, else "First 7 days of registration". */
+function earlyBirdNote(event: EventEntity): string {
+  const days = event.pricing?.earlyBirdDays ?? 0;
+  if (!event.registrationOpensAt) return `First ${days} days of registration`;
+  const lastDay = new Date(Date.parse(`${event.registrationOpensAt}T00:00:00Z`) + (days - 1) * DAY_MS).toISOString().slice(0, 10);
+  return `Until ${formatDay(lastDay, false)}`;
+}
+
+/** Coupons apply to the regular fee only, never on top of the early bird (owner, 2026-10-30). */
+export function couponsAllowed(event: EventEntity, fee: number): boolean {
+  return !!event.pricing && fee >= event.pricing.regular;
 }
 
 /** Fee in INR charged at `now`. Early bird runs from registrationOpensAt (IST midnight) for earlyBirdDays. */

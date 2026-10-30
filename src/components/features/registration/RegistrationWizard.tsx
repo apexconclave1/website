@@ -11,7 +11,7 @@ import RegistrationReceipt from './RegistrationReceipt';
 import { Button } from '@/components/ui/Button';
 import { readUtm } from '@/components/UtmCapture';
 import { track } from '@vercel/analytics';
-import { eventsData } from '@/lib/data/events';
+import { couponsAllowed, eventsData } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import {
   RegistrationFormData,
@@ -271,6 +271,7 @@ export default function RegistrationWizard() {
             registrationId={registrationResult.registrationId}
             trackingCode={registrationResult.trackingCode}
             fee={registrationResult.fee}
+            allowCoupon={couponsAllowed(event, registrationResult.fee)}
             onPaymentComplete={handlePaymentComplete}
           />
         )}
