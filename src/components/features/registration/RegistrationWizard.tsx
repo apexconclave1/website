@@ -60,7 +60,10 @@ function store(key: string, value: unknown) {
 
 export default function RegistrationWizard() {
   const searchParams = useSearchParams();
-  const event = eventsData.find((e) => e.slug === searchParams.get('event')) ?? eventsData[0];
+  const event =
+    eventsData.find((e) => e.slug === searchParams.get('event')) ??
+    eventsData.find((e) => e.registrationOpen) ??
+    eventsData[0];
   const chambers = chambersData
     .filter((c) => c.eventId === event.id)
     .sort((a, b) => a.displayOrder - b.displayOrder);

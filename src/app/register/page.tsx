@@ -17,8 +17,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function RegisterPage({ searchParams }: { searchParams: { event?: string } }) {
-  const event = eventsData.find((e) => e.slug === searchParams.event) ?? eventsData[0];
+// Static on purpose: reading ?event= here made every visit a fresh server render (no CDN copy, no prefetch from the
+// nav). The wizard reads ?event= in the browser. ponytail: one open event at a time; if several open together, move
+// this header into the wizard so it follows ?event= too.
+export default function RegisterPage() {
+  const event = eventsData.find((e) => e.registrationOpen) ?? eventsData.find((e) => e.status === 'UPCOMING') ?? eventsData[0];
   const committeeCount = chambersData.filter((c) => c.eventId === event.id).length;
 
   if (!event.registrationOpen) {
