@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CouponSchema } from '@/lib/validators/registration';
 import { getServiceClient } from '@/lib/supabase/server';
-import { checkRateLimit, getClientIp } from '@/lib/security/rate-limit';
+import { getClientIp, isSameOrigin, rateLimit } from '@/lib/security/rate-limit';
 
 export async function POST(req: NextRequest) {
   try {
     // Rate limiting: 20 coupon validation attempts per minute per IP
     const ip = getClientIp(req.headers);
-    const rateCheck = checkRateLimit(`coupon:${ip}`, {
+    const rateCheck = await rateLimit(`coupon:${ip}`, {
       windowMs: 60_000,
       maxRequests: 20,
     });
@@ -19,7 +19,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = await req.json();
+    if (!isSameOrigin(req.headers)) {
+      return NextResponse.json({ success: false, error: 'Invalid request origin.' }, { status: 403 });
+    }
+
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 });
+    }
     const parseResult = CouponSchema.safeParse(body);
 
     if (!parseResult.success) {

@@ -1,7 +1,9 @@
+import { getServiceClient } from '@/lib/supabase/server';
+
 /**
- * Simple in-memory sliding-window rate limiter.
- * ponytail: memory is per server instance, so on Vercel it only slows bursts that hit one warm instance.
- * Move to a shared store (Upstash Redis or a Supabase table) if abuse shows up.
+ * Rate limiting in two layers: an in-memory sliding window (per server instance, free and instant), then a
+ * fixed-window count shared by every instance in Supabase (`hit_rate_limit`, migration 004). The live test on
+ * 2026-10-30 showed the memory layer alone lets a burst through, since Vercel spreads it across instances.
  */
 
 interface RateLimitEntry {
@@ -74,6 +76,23 @@ export function checkRateLimit(
     remaining: maxRequests - entry.timestamps.length,
     resetAt: now + windowMs,
   };
+}
+
+/** Both layers. If the database call fails (e.g. migration 004 not run yet), the in-memory result stands. */
+export async function rateLimit(identifier: string, options: RateLimitOptions = {}): Promise<RateLimitResult> {
+  const local = checkRateLimit(identifier, options);
+  if (!local.allowed) return local;
+  const { windowMs = 60_000, maxRequests = 10 } = options;
+  try {
+    const { data, error } = await getServiceClient().rpc('hit_rate_limit', {
+      limit_key: identifier,
+      window_seconds: Math.ceil(windowMs / 1000),
+    });
+    if (error || typeof data !== 'number') return local;
+    return data <= maxRequests ? local : { allowed: false, remaining: 0, resetAt: Date.now() + windowMs };
+  } catch {
+    return local;
+  }
 }
 
 /**

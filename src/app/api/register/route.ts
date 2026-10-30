@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes } from 'node:crypto';
 import { RegistrationRequestSchema } from '@/lib/validators/registration';
 import { getServiceClient } from '@/lib/supabase/server';
-import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
+import { getClientIp, isSameOrigin, rateLimit } from '@/lib/security/rate-limit';
 import { eventsData, feeAt } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
@@ -10,7 +10,7 @@ import { organizationConfig } from '@/lib/data/organization';
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req.headers);
-    const rateCheck = checkRateLimit(`register:${ip}`, { windowMs: 60_000, maxRequests: 10 });
+    const rateCheck = await rateLimit(`register:${ip}`, { windowMs: 60_000, maxRequests: 10 });
     if (!rateCheck.allowed) {
       return NextResponse.json(
         { success: false, error: 'Too many registration attempts. Please wait a moment and try again.' },
@@ -22,7 +22,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Invalid request origin.' }, { status: 403 });
     }
 
-    const parseResult = RegistrationRequestSchema.safeParse(await req.json());
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 });
+    }
+    const parseResult = RegistrationRequestSchema.safeParse(body);
     if (!parseResult.success) {
       return NextResponse.json(
         { success: false, error: 'Validation failed', issues: parseResult.error.flatten().fieldErrors },

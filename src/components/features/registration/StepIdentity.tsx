@@ -9,6 +9,8 @@ interface StepIdentityProps {
 }
 
 type TextKey = 'fullName' | 'email' | 'phone' | 'partnerName' | 'institutionName' | 'city' | 'country';
+// Same limits as the server (lib/validators/registration.ts)
+const MAX_LENGTH: Record<TextKey, number> = { fullName: 100, email: 200, phone: 20, partnerName: 100, institutionName: 150, city: 80, country: 80 };
 
 const TRACKS: { value: Step1FormData['track']; title: string; note: string }[] = [
   { value: 'HIGH_SCHOOL', title: 'High school', note: 'Grades 8 to 12' },
@@ -26,6 +28,7 @@ export default function StepIdentity({ formData, onChange, errors }: StepIdentit
         type={type}
         autoComplete={autoComplete}
         placeholder={placeholder}
+        maxLength={MAX_LENGTH[key]}
         value={formData[key] || ''}
         onChange={(e) => onChange({ [key]: e.target.value })}
         aria-invalid={!!errors[key]}

@@ -55,6 +55,7 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
         </label>
         <input
           id="priorAwards"
+          maxLength={500}
           type="text"
           placeholder="e.g. Best Delegate, XYZ MUN 2025"
           value={formData.priorAwards || ''}
@@ -90,6 +91,7 @@ export default function StepExperience({ formData, onChange, errors }: StepExper
         </label>
         <input
           id="portfolioSampleUrl"
+          maxLength={300}
           type="url"
           placeholder="e.g. a Google Drive link to a position paper"
           value={formData.portfolioSampleUrl || ''}

@@ -13,11 +13,35 @@
       "skillPath": "skills/ios/SKILL.md",
       "computedHash": "4e61d1d5668179860746145d26b9e17179b4822e012a480d6c077656d0f9d324"
     },
+    "k6": {
+      "source": "grafana/skills",
+      "sourceType": "github",
+      "skillPath": "skills/grafana-k6/k6/SKILL.md",
+      "computedHash": "23b6128a86c4cf8fbe95e629ea4e5a01f63b1e9fcf9dab8cbacf10794a3c2244"
+    },
+    "k6-perf-test-website": {
+      "source": "grafana/skills",
+      "sourceType": "github",
+      "skillPath": "skills/grafana-k6/k6-perf-test-website/SKILL.md",
+      "computedHash": "a065721ced4c559d1a0fec67e9161db4b9c3c40265b2c536e527a829906842a8"
+    },
     "macos-design-guidelines": {
       "source": "ehmo/platform-design-skills",
       "sourceType": "github",
       "skillPath": "skills/macos/SKILL.md",
       "computedHash": "fdbeb208feb60e5ed08226e4e1e714eade6cfe6530ad27c792992823de63ca0d"
+    },
+    "security-and-hardening": {
+      "source": "addyosmani/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/security-and-hardening/SKILL.md",
+      "computedHash": "dbab1f4697ece5cab24a90911ae052320d8f8b191324df7f836aa42344699b89"
+    },
+    "supabase": {
+      "source": "supabase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/supabase/SKILL.md",
+      "computedHash": "211141fd078b4b3645803868528d54221bc7755d24d5c8af45a366785c151dba"
     }
   }
 }

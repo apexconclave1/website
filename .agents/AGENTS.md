@@ -100,7 +100,7 @@ src/
 - Schema: `supabase/migrations/001_init.sql`. RLS is on and the anon key has no access; every read/write goes through API routes with the service-role key.
 - Seats are not booked online. Delegates list two preferences; the team fills `assigned_committee` / `assigned_country` by hand.
 - Prices come from `pricing` in `lib/data/events.ts` and are computed on the server (`feeAt`). Never trust an amount sent by the browser.
-- Coupons are redeemed with the `redeem_coupon()` SQL function (atomic).
+- Coupons are redeemed with the `redeem_coupon()` SQL function (atomic). Rate limits use `rateLimit()` (in-memory plus `hit_rate_limit()` in Supabase, migration 004); a UTR can be used once.
 - The service-role key is server-only (`lib/supabase/server.ts`). Never import it in a client component.
 - Content that changes per event lives in `lib/data/*` (events, chambers with country lists, event story, verticals, organisation and team, faqs). There is no CMS.
 - Navbar and Footer are rendered once in `app/layout.tsx`. Do not import them in pages.

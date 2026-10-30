@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { contactSchema, type ContactFields } from '@/lib/validators/contact';
 import { getServiceClient } from '@/lib/supabase/server';
-import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
+import { getClientIp, isSameOrigin, rateLimit } from '@/lib/security/rate-limit';
 import { organizationConfig } from '@/lib/data/organization';
 
 /**
@@ -40,7 +40,7 @@ async function notifyTeam(m: ContactFields) {
 }
 
 export async function POST(req: NextRequest) {
-  if (!checkRateLimit(`contact:${getClientIp(req.headers)}`, { windowMs: 60_000, maxRequests: 5 }).allowed) {
+  if (!(await rateLimit(`contact:${getClientIp(req.headers)}`, { windowMs: 60_000, maxRequests: 5 })).allowed) {
     return NextResponse.json({ error: 'Rate limit exceeded. Please try again in a minute.' }, { status: 429 });
   }
   if (!isSameOrigin(req.headers)) {

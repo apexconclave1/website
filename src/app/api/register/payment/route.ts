@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CouponSchema, PaymentSchema } from '@/lib/validators/registration';
 import { getServiceClient } from '@/lib/supabase/server';
-import { checkRateLimit, getClientIp, isSameOrigin } from '@/lib/security/rate-limit';
+import { getClientIp, isSameOrigin, rateLimit } from '@/lib/security/rate-limit';
 import { couponsAllowed, eventsData } from '@/lib/data/events';
 
 const ALLOWED_TYPES: Record<string, string> = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+// The browser's declared type proves nothing; check the file's first bytes too
+const SIGNATURES: Record<string, (b: Uint8Array) => boolean> = {
+  'image/jpeg': (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
+  'image/png': (b) => [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a].every((v, i) => b[i] === v),
+  'image/webp': (b) => String.fromCharCode(...b.slice(0, 4)) === 'RIFF' && String.fromCharCode(...b.slice(8, 12)) === 'WEBP',
+};
+const UTR_TAKEN = 'This UTR has already been used for another registration. Each delegate pays separately; contact us if this is a mistake.';
 
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req.headers);
-    if (!checkRateLimit(`payment:${ip}`, { windowMs: 60_000, maxRequests: 10 }).allowed) {
+    if (!(await rateLimit(`payment:${ip}`, { windowMs: 60_000, maxRequests: 10 })).allowed) {
       return NextResponse.json({ success: false, error: 'Too many attempts. Please wait.' }, { status: 429 });
     }
     if (!isSameOrigin(req.headers)) {
@@ -52,6 +59,10 @@ export async function POST(req: NextRequest) {
       if (screenshotFile.size > MAX_FILE_SIZE) {
         return NextResponse.json({ success: false, error: 'Screenshot must be under 5MB.' }, { status: 400 });
       }
+      const head = new Uint8Array(await screenshotFile.slice(0, 12).arrayBuffer());
+      if (!SIGNATURES[screenshotFile.type](head)) {
+        return NextResponse.json({ success: false, error: 'Screenshot must be a real JPEG, PNG, or WebP image.' }, { status: 400 });
+      }
     }
 
     const supabase = getServiceClient();
@@ -72,6 +83,13 @@ export async function POST(req: NextRequest) {
         { success: false, error: 'Payment has already been submitted for this registration.' },
         { status: 409 }
       );
+    }
+
+    // One UTR per registration, checked before any coupon is used (the unique index in migration 004 backs this up)
+    const utr = utrResult.data.paymentUtr.toUpperCase();
+    const { data: utrUsed } = await supabase.from('registrations').select('id').eq('payment_utr', utr).limit(1);
+    if (utrUsed?.length) {
+      return NextResponse.json({ success: false, error: UTR_TAKEN }, { status: 409 });
     }
 
     let finalAmount = Number(existingReg.original_amount);
@@ -118,7 +136,7 @@ export async function POST(req: NextRequest) {
     const { data: updatedReg, error: updateError } = await supabase
       .from('registrations')
       .update({
-        payment_utr: utrResult.data.paymentUtr,
+        payment_utr: utr,
         payment_screenshot_path: screenshotPath,
         coupon_code: couponCode,
         final_amount: finalAmount,
@@ -129,6 +147,9 @@ export async function POST(req: NextRequest) {
       .select('tracking_code, status, final_amount')
       .single();
 
+    if (updateError?.code === '23505') {
+      return NextResponse.json({ success: false, error: UTR_TAKEN }, { status: 409 });
+    }
     if (updateError || !updatedReg) {
       console.error('Payment update error:', updateError);
       return NextResponse.json({ success: false, error: 'Failed to record payment. Please try again.' }, { status: 500 });
