@@ -72,8 +72,7 @@ html {
 
 /* Even line lengths: headings avoid one-word last lines, paragraphs avoid orphans */
 h1, h2, h3 { text-wrap: balance; }
-/* Major headlines in the brand's display face (Space Grotesk for Apex, Playfair Display for DIPLOVIA).
-   <em> inside a DIPLOVIA headline is the booklet's italic emphasis */
+/* Major headlines in the brand's display face (Space Grotesk for Apex, Playfair Display for DIPLOVIA) */
 h1, h2 { font-family: 'Rupee', var(--font-display), system-ui, sans-serif; letter-spacing: var(--display-tracking); font-size-adjust: var(--display-size-adjust, none); }
 p { text-wrap: pretty; }
 

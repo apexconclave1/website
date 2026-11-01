@@ -37,8 +37,6 @@ export async function generateMetadata({ params }: EventDetailPageProps): Promis
 const sectionPad = 'scroll-mt-36 py-16 md:py-24';
 const sectionClass = `${sectionPad} border-t border-soft/15`;
 const pad2 = (n: number) => String(n).padStart(2, '0');
-/** Booklet-style emphasis: words wrapped in *asterisks* render in italic */
-const emph = (text: string) => text.split('*').map((part, i) => (i % 2 ? <em key={i}>{part}</em> : part));
 const DAY_MS = 86_400_000;
 
 /**
@@ -188,7 +186,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         <section id="overview" className="scroll-mt-36 py-16 md:py-24">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             <div className="space-y-6 md:col-span-2">
-              <SectionHeading eyebrow="Overview" title={story ? emph(story.intro.title) : `What is ${event.title}?`} />
+              <SectionHeading eyebrow="Overview" title={story ? story.intro.title : `What is ${event.title}?`} />
               {(story?.intro.body ?? [event.fullOverview]).map((p) => (
                 <p key={p} className="max-w-[65ch] text-base leading-relaxed text-soft md:text-lg">
                   {p}
@@ -231,7 +229,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             <div className="reveal lg:col-span-4">
               <p className="eyebrow">The difference</p>
               <h2 id="difference-heading" className="mt-3 text-3xl font-medium leading-[1.1] text-bright md:text-[2.75rem]">
-                {emph(story.difference.title)}
+                {story.difference.title}
               </h2>
               <p className="mt-4 max-w-[40ch] text-base leading-relaxed text-soft md:text-lg">{story.difference.body}</p>
             </div>
@@ -252,14 +250,14 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
         {/* How it works: three phases, each step a tag */}
         {story && (
           <section id="how-it-works" className={sectionPad}>
-            <SectionHeading eyebrow="How it works" title={emph('Your screen becomes *the conference room.*')} />
+            <SectionHeading eyebrow="How it works" title={'Your screen becomes the conference room.'} />
             <ol className="reveal-stagger mt-12 grid gap-12 md:grid-cols-3 md:gap-6">
               {story.phases.map((phase, i) => (
                 <li key={phase.name} className="relative border-t border-accent/40 pt-8">
                   <span aria-hidden="true" className="absolute -top-[5px] left-0 h-2.5 w-2.5 rotate-45 bg-accent" />
                   <p className="text-xs uppercase tracking-[0.14em] text-accent">Phase {pad2(i + 1)}</p>
                   <h3 className="mt-2 font-display text-5xl font-medium">{phase.name}</h3>
-                  <p className="mt-2 font-display text-lg italic text-soft">{phase.lead}</p>
+                  <p className="mt-2 font-display text-lg text-soft">{phase.lead}</p>
                   <ul className="mt-6 flex flex-wrap gap-2">
                     {phase.steps.map((step) => (
                       <li key={step} className="border border-soft/20 px-3 py-1.5 text-sm text-bright">
@@ -278,7 +276,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           <section id="committees" className={sectionClass}>
             <SectionHeading
               eyebrow="Committees"
-              title={emph(`${chambers.length} rooms. *${chambers.length} ways to test yourself.*`)}
+              title={`${chambers.length} rooms. ${chambers.length} ways to test yourself.`}
               description="Not sure? Choose the agenda you can’t stop thinking about."
             />
             <ol className="reveal-stagger mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
@@ -311,7 +309,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
             {story && (
               <div className="mt-16">
-                <h3 className="font-display text-3xl font-medium md:text-4xl">{emph('Who sits *at the table?*')}</h3>
+                <h3 className="font-display text-3xl font-medium md:text-4xl">Who sits at the table?</h3>
                 <p className="mt-2 text-sm text-soft">Five kinds of delegate, and most people are a mix.</p>
                 <ul className="reveal-stagger mt-8 flex flex-wrap gap-3">
                   {story.delegateTypes.map((d) => (
@@ -342,7 +340,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
           <section id="why-mun" className={sectionClass}>
             <SectionHeading
               eyebrow="Why MUN"
-              title={emph('It doesn’t teach you what to think. It teaches you *how to think under pressure.*')}
+              title={'It doesn’t teach you what to think. It teaches you how to think under pressure.'}
             />
             <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-10">
               <div className="reveal lg:col-span-6">
@@ -377,7 +375,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
             <div className="lg:col-span-5">
               <SectionHeading
                 eyebrow="Registration"
-                title={emph('How to take *your seat.*')}
+                title={'How to take your seat.'}
                 description={
                   event.registrationOpen
                     ? 'Registration is open. It takes a few minutes; have your school or college details ready.'

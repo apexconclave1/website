@@ -1,7 +1,7 @@
 // Long-form event page copy, keyed by event id. Source for Diplovia: docs/Diplovia_2026_Delegate_Booklet_home_print.pdf
 
 export interface EventStory {
-  /** Titles may wrap words in *asterisks*: shown in italic, as in the booklet */
+  /** Section headlines (plain text, no italic emphasis: owner, 2026-10-31) */
   intro: { title: string; body: string[] };
   work: { title: string; body: string }[];
   difference: { title: string; body: string };
@@ -14,7 +14,7 @@ export interface EventStory {
 export const eventStories: Record<string, EventStory> = {
   'diplovia-2026': {
     intro: {
-      title: 'Diplomacy *without a border.*',
+      title: 'Diplomacy without a border.',
       body: [
         'Diplovia puts the committee room on your screen. Delegates are assigned countries, meet online and debate international issues with students who could be logging in from anywhere.',
         'The format is not watered down. You still research a position, speak for a country, negotiate with other delegates, draft solutions and respond to a crisis when one breaks.',
@@ -27,7 +27,7 @@ export const eventStories: Record<string, EventStory> = {
       { title: 'Resolve', body: 'Turn agreement into a written draft.' },
     ],
     difference: {
-      title: 'Not just *another MUN.*',
+      title: 'Not just another MUN.',
       body: 'A physical MUN asks for travel, time and money before you have said a word. Diplovia asks you to log in.',
     },
     phases: [

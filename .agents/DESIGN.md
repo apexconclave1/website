@@ -7,7 +7,7 @@
 ## Two brands
 
 - **Apex Conclave**: dark, cinematic, editorial, confident. A premium competition and experiences company. Default on every page.
-- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own espresso brown, cream and caramel identity (since 2026-10-28; burgundy dropped); headlines take the booklet's italic emphasis (`*word*` in titles renders as `<em>`); never Apex's lime.
+- **DIPLOVIA**: diplomatic, intellectual, international, prestigious. Its own espresso brown, cream and caramel identity (since 2026-10-28; burgundy dropped); headlines are plain Playfair, no italic emphasis (owner, 2026-10-31); never Apex's lime.
 - Both share quality and discipline (grid, spacing, components), not colours or display fonts.
 
 The site should look art-directed, not templated: strong typography, deliberate alignment, generous space, original compositions. No fake numbers, sponsors, testimonials, photos or events.
@@ -47,7 +47,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 
 | Use | Apex | DIPLOVIA |
 |---|---|---|
-| h1, h2, `font-display` | Space Grotesk (`--font-space-grotesk`, variable 300–700), tracking −0.025em | Playfair Display (`--font-playfair`, variable, italic), tracking −0.01em; matches the delegate booklet |
+| h1, h2, `font-display` | Space Grotesk (`--font-space-grotesk`, variable 300–700), tracking −0.025em | Playfair Display (`--font-playfair`, variable, upright only: no italic emphasis since 2026-10-31), tracking −0.01em; matches the delegate booklet |
 | Body, UI, h3 and below | Inter (`--font-inter`) | Inter |
 
 - `--font-display` switches with the brand, so `h1, h2` and `font-display` follow the scope automatically.

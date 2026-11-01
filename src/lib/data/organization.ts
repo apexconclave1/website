@@ -39,7 +39,7 @@ export const homeContent = {
 };
 
 // Quotes from the Diplovia 2026 delegate booklet. Bios written from each person's role; edit freely.
-// Website credit: not shown on the page; used in meta tags, JSON-LD and public/llms.txt only.
+// Website credit: not shown on the page; used in meta tags, JSON-LD, /llms.txt and /humans.txt only.
 export const siteCredit = { name: 'Kapish Garg', url: 'https://www.linkedin.com/in/gargkapish/' };
 
 export const leadershipTeam = [
