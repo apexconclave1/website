@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ArrowRight, Plus } from 'lucide-react';
-import { eventsData, eventFees, formatEventDates } from '@/lib/data/events';
+import { eventsData, eventFees, eventWindow, formatEventDates } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { faqsByEvent } from '@/lib/data/faqs';
 import { eventStories } from '@/lib/data/eventStory';
@@ -11,6 +11,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import FAQAccordion from '@/components/faq/FAQAccordion';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { Countdown } from '@/components/events/Countdown';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import { JsonLd } from '@/components/JsonLd';
 import { eventSchema, faqSchema, pageMetadata } from '@/lib/seo';
@@ -51,6 +52,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
   const faqs = faqsByEvent[event.id] ?? [];
   const story = eventStories[event.id];
   const fees = eventFees(event);
+  const runs = eventWindow(event);
   const registerHref = `/register?event=${event.slug}`;
   const askHref = `/contact?category=${encodeURIComponent(`${event.title} Registration`)}`;
 
@@ -132,6 +134,8 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 </div>
               ))}
             </dl>
+
+            {runs && <Countdown name={event.title} start={runs.start} end={runs.end} className="rise-in mt-8 [animation-delay:280ms]" />}
 
             <div className="rise-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: '320ms' }}>
               {event.registrationOpen ? (

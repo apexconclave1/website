@@ -2,16 +2,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { EventEntity } from '@/types/schema';
-import { formatEventDates } from '@/lib/data/events';
+import { eventWindow, formatEventDates } from '@/lib/data/events';
+import { Countdown } from '@/components/events/Countdown';
 import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
 
 /**
  * Home featured event, in the event's own identity (.theme-diplovia: espresso, cream, caramel, Playfair Display):
- * overview, confirmed facts, registration state, the way in, the event's logo as its visible name, then the committees
+ * overview, confirmed facts, registration state, a live countdown, the way in, the event's logo as its visible name, then the committees
  * with their agendas.
  */
 export function FeaturedEvent({ event }: { event: EventEntity }) {
+  const runs = eventWindow(event);
   const committees = chambersData.filter((c) => c.eventId === event.id).sort((a, b) => a.displayOrder - b.displayOrder);
 
   const facts = [
@@ -73,6 +75,8 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
                 </div>
               ))}
             </dl>
+
+            {runs && <Countdown name={event.title} start={runs.start} end={runs.end} className="mt-8" />}
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={`/events/${event.slug}`} className="btn-primary w-full sm:w-auto" data-track="cta_home_featured_event">

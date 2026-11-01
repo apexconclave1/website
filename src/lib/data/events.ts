@@ -85,6 +85,16 @@ export function couponsAllowed(event: EventEntity, fee: number): boolean {
   return !!event.pricing && fee >= event.pricing.regular;
 }
 
+/**
+ * When the event runs (ms): 00:00 IST on startDate until 00:00 IST after endDate. Null until dates are set.
+ * ponytail: counts from midnight (owner, 2026-11-01); add a start time to EventEntity once the opening session is fixed.
+ */
+export function eventWindow(event: EventEntity): { start: number; end: number } | null {
+  if (!event.startDate) return null;
+  const midnightIst = (iso: string) => Date.parse(`${iso}T00:00:00+05:30`);
+  return { start: midnightIst(event.startDate), end: midnightIst(event.endDate ?? event.startDate) + DAY_MS };
+}
+
 /** When the early bird ends (ms): it runs from registrationOpensAt (IST midnight) for earlyBirdDays. Null without one. */
 export function earlyBirdEndsAt(event: EventEntity): number | null {
   const p = event.pricing;

@@ -1,6 +1,6 @@
 // Run: node scripts/check-events.mjs  (Node 22.6+; strips TypeScript types)
 import assert from 'node:assert/strict';
-import { feeAt, formatEventDates, eventFees, couponsAllowed, earlyBirdEndsAt } from '../src/lib/data/events.ts';
+import { feeAt, formatEventDates, eventFees, couponsAllowed, earlyBirdEndsAt, eventWindow } from '../src/lib/data/events.ts';
 
 const ev = { pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 3 }, registrationOpensAt: '2026-11-10' };
 
@@ -21,5 +21,11 @@ assert.equal(eventFees(ev)[0].note, 'Until 12 Nov'); // last early-bird day (ope
 assert.equal(eventFees({ pricing: ev.pricing })[0].note, 'First 3 days of registration');
 assert.equal(couponsAllowed(ev, 399), true);
 assert.equal(couponsAllowed(ev, 299), false); // no coupon on top of the early bird
+
+// Countdown: 00:00 IST on day 1 until 00:00 IST after the last day
+const w = eventWindow({ startDate: '2026-11-22', endDate: '2026-11-23' });
+assert.equal(new Date(w.start).toISOString(), '2026-11-21T18:30:00.000Z');
+assert.equal(new Date(w.end).toISOString(), '2026-11-23T18:30:00.000Z');
+assert.equal(eventWindow({}), null);
 
 console.log('events checks passed');
