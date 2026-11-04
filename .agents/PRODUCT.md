@@ -16,7 +16,7 @@ It is a multi-format student events and competitions brand, not a single-event w
 
 1. **One brand, many kinds of competition**: diplomacy, business cases, hackathons, debate, startup pitching and esports under one name and one standard.
 2. **Experience, competition, community, opportunity**: learn by doing, test ideas under pressure, meet students, colleges, judges and industry, and gain exposure through events and partnerships.
-3. **Direct registration**: participants apply on the site themselves, without agents. For Diplovia, delegates list committee and country preferences and the team assigns seats after payment is verified.
+3. **Simple registration**: participants apply themselves, without agents. Diplovia registrations and payments run on Unstop (registration partner since 2026-11-04; the site's Register buttons go to the listing). Delegates list committee and country preferences and the team assigns seats after payment.
 4. **Credible by design**: no invented numbers, sponsors, testimonials or events. Planned verticals are labelled as planned.
 
 ---
@@ -40,7 +40,7 @@ Source: `src/lib/data/verticals.ts`.
 
 ## First Event: Diplovia 2026
 
-A virtual Model United Nations conference online over two days, 22 and 23 November 2026. Five committees (UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee), preference-based country allotment, manual UPI payment, a certificate for every delegate. Copy comes from the delegate booklet (`docs/`).
+A virtual Model United Nations conference online over two days, 22 and 23 November 2026. Five committees (UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee), preference-based country allotment, registration and payment on Unstop, a certificate for every delegate. Copy comes from the delegate booklet (`docs/`).
 
 ---
 

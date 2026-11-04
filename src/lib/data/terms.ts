@@ -41,6 +41,7 @@ export const termsSections = [
       'We use Vercel Web Analytics to count page visits and key actions (for example, a submitted registration). It sets no cookies and does not identify you; no names, emails or phone numbers are sent to it.',
       'If you arrive through a link with campaign tags (utm_source, utm_medium, utm_campaign), those tags are stored with your registration so we know which channels reach participants.',
       'Your data is held with the services that run this website: Supabase (database and payment screenshots), Vercel (hosting and analytics) and Resend (email notifications about contact messages).',
+      'Events listed on Unstop take registrations and payments there; Unstop shares the registration details with us and handles them under its own privacy policy.',
       'We do not sell, rent or otherwise transfer personal data to commercial third parties.',
       `You may ask us to delete your personal data by writing to ${organizationConfig.contactEmail}. Requests are handled within 14 business days, subject to legal retention obligations.`,
     ],

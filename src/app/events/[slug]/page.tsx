@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ArrowRight, Plus } from 'lucide-react';
-import { eventsData, eventFees, eventWindow, formatEventDates } from '@/lib/data/events';
+import { eventsData, eventFees, eventWindow, formatEventDates, registerHref } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { faqsByEvent } from '@/lib/data/faqs';
 import { eventStories } from '@/lib/data/eventStory';
@@ -14,6 +14,7 @@ import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Countdown } from '@/components/events/Countdown';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import { JsonLd } from '@/components/JsonLd';
+import { PoweredByUnstop } from '@/components/PoweredByUnstop';
 import { eventSchema, faqSchema, pageMetadata } from '@/lib/seo';
 
 interface EventDetailPageProps {
@@ -53,8 +54,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
   const story = eventStories[event.id];
   const fees = eventFees(event);
   const runs = eventWindow(event);
-  const registerHref = `/register?event=${event.slug}`;
-  const askHref = `/contact?category=${encodeURIComponent(`${event.title} Registration`)}`;
+    const askHref = `/contact?category=${encodeURIComponent(`${event.title} Registration`)}`;
 
   const nav: [string, string][] = [
     ['overview', 'Overview'],
@@ -139,7 +139,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
 
             <div className="rise-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: '320ms' }}>
               {event.registrationOpen ? (
-                <Link href={registerHref} className="btn-primary w-full sm:w-auto" data-track="cta_event_register">
+                <Link href={registerHref(event)} className="btn-primary w-full sm:w-auto" data-track="cta_event_register">
                   Register for {event.title} <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               ) : (
@@ -153,6 +153,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 </a>
               )}
             </div>
+            <PoweredByUnstop place="event_hero" className="rise-in mt-6 [animation-delay:360ms]" />
           </div>
 
           {/* Large screens: the committees fill the right side, each a link to its row below */}
@@ -405,7 +406,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               <ol id="allotment" className="reveal-stagger scroll-mt-36 border-t border-accent/30">
                 {[
                   ['Register', 'Fill in your details and list a first and second choice of committee and country.'],
-                  ['Pay', 'Pay the delegate fee by UPI and enter the transaction reference (UTR).'],
+                  ['Pay', 'Pay the delegate fee online.'],
                   ['Get your seat', 'The team assigns every delegate a seat and confirms it by email once your payment is verified.'],
                 ].map(([title, body], i) => (
                   <li key={title} className="flex gap-6 border-b border-soft/15 py-6">
@@ -419,7 +420,7 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
               </ol>
               <div className="reveal mt-8 flex flex-wrap gap-3">
                 {event.registrationOpen ? (
-                  <Link href={registerHref} className="btn-primary w-full sm:w-auto" data-track="cta_event_register">
+                  <Link href={registerHref(event)} className="btn-primary w-full sm:w-auto" data-track="cta_event_register">
                     Register for {event.title} <ArrowRight size={16} aria-hidden="true" />
                   </Link>
                 ) : (

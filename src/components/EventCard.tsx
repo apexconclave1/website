@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { EventEntity } from '@/types/schema';
-import { eventFees, formatEventDates } from '@/lib/data/events';
+import { eventFees, formatEventDates, registerHref } from '@/lib/data/events';
 
 export interface EventCardProps {
   event: EventEntity;
@@ -53,7 +53,7 @@ export function EventCard({ event, trackAs = 'cta_events_view_event', priority =
           </Link>
           {event.registrationOpen ? (
             <Link
-              href={`/register?event=${event.slug}`}
+              href={registerHref(event)}
               data-track="cta_card_register"
               className="btn-secondary"
             >

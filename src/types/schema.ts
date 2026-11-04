@@ -48,7 +48,7 @@ export interface EventEntity {
   };
   registrationOpen: boolean;
   registrationOpensAt?: string; // ISO date (IST). Early-bird window starts here
-  registrationUrl?: string;
+  registrationUrl?: string; // External listing (Unstop); replaces /register for this event when set
   features: string[];
 }
 
@@ -76,7 +76,7 @@ export interface ChamberEntity {
 export interface PartnerEntity {
   id: string;
   name: string;
-  tier: 'TITANIUM' | 'PLATINUM' | 'GOLD' | 'INSTITUTIONAL_PARTNER';
+  tier: 'TITANIUM' | 'PLATINUM' | 'GOLD' | 'INSTITUTIONAL_PARTNER' | 'PLATFORM_PARTNER';
   logoUrl: string;
   websiteUrl: string;
 }

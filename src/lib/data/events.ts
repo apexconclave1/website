@@ -32,6 +32,9 @@ export const eventsData: EventEntity[] = [
     registrationOpensAt: '2026-10-30',
     registrationOpen: true,
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 7 },
+    // Unstop partnership (2026-11-04): registrations happen only on Unstop. Every Register button, /register and the
+    // event schema point here. PLACEHOLDER: swap for the real listing URL before deploying (see ../unstop-swaps.md).
+    registrationUrl: 'https://unstop.com/PLACEHOLDER-diplovia-2026',
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
       '2 days, 100% virtual',
@@ -42,6 +45,9 @@ export const eventsData: EventEntity[] = [
 ];
 
 const DAY_MS = 86_400_000;
+
+/** Where Register buttons go: the external listing (Unstop) when set, else the site's own form. */
+export const registerHref = (event: EventEntity) => event.registrationUrl ?? `/register?event=${event.slug}`;
 
 const formatDay = (iso: string, withYear: boolean) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', {

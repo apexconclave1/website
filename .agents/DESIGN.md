@@ -12,7 +12,7 @@
 
 The site should look art-directed, not templated: strong typography, deliberate alignment, generous space, original compositions. No fake numbers, sponsors, testimonials, photos or events.
 
-**Logos** are used exactly as supplied: `public/brand/apex-conclave-logo-light.png` (via `components/layout/ApexWordmark.tsx`, `next/image`) and `public/brand/diplovia-logo-light.png`. Both are light, with no dark or SVG versions, so they only sit on dark backgrounds. Never recolour (no CSS masks or filters), redraw, stretch or add effects. On DIPLOVIA pages Apex Conclave stays visible as the parent brand.
+**Logos** are used exactly as supplied: `public/brand/apex-conclave-logo-light.png` (via `components/layout/ApexWordmark.tsx`, `next/image`) and `public/brand/diplovia-logo-light.png`. Both are light, with no dark or SVG versions, so they only sit on dark backgrounds. Never recolour (no CSS masks or filters), redraw, stretch or add effects. On DIPLOVIA pages Apex Conclave stays visible as the parent brand. Partner logos follow the same rule: the Unstop logo (`public/brand/unstop-logo.png`, blue) appears unchanged on a transparent background as "Powered by" (`PoweredByUnstop`) in the event hero and the footer, as the Unstop agreement requires.
 
 ---
 
@@ -84,7 +84,7 @@ Solid backgrounds everywhere else. Allowed textures: the fixed faint top light (
 | `Ideas` | `components/home/` | The four ideas, numbered in the accent; home About and the About page |
 | `.texture-grid` | `globals.css` | Fine 64px grid on an absolutely positioned layer, masked to fade; selected heroes only |
 
-**Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer** (shortened 2026-10-28): on `deep`; logo, email, Events / Follow; legal row FAQ, Terms, Privacy, Code of Conduct, kept clear of the back-to-top button (`pr-14`). No site links (they are in the navbar) and no description.
+**Navbar**: transparent at the top of the page, `ground` with a hairline after 8px of scroll or with the menu open. Desktop links (no Home; the logo goes home) get an accent underline that grows on hover and stays on the active page. Phones: full-height menu panel, page scroll locked, Escape closes. **Footer** (shortened 2026-10-28): on `deep`; logo, email, Powered by Unstop, Events / Follow; legal row FAQ, Terms, Privacy, Code of Conduct, kept clear of the back-to-top button (`pr-14`). No site links (they are in the navbar) and no description.
 
 ## Touch and keyboard (Apple HIG review, 2026-10-23)
 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, Menu, X } from 'lucide-react';
 import ApexWordmark from '@/components/layout/ApexWordmark';
-import { eventsData } from '@/lib/data/events';
+import { eventsData, registerHref } from '@/lib/data/events';
 import { organizationConfig, partnerEnquiryHref } from '@/lib/data/organization';
 
 // Desktop: the logo is the way home. The mobile menu lists Home too.
@@ -22,7 +22,7 @@ const mobileLinks = [{ href: '/', label: 'Home' }, ...navLinks];
 // shows "opens soon" until it opens. ponytail: point at /events once several are open at once.
 const registerEvent = eventsData.find((e) => e.registrationOpen) ?? eventsData.find((e) => e.status === 'UPCOMING');
 const cta = registerEvent
-  ? { href: `/register?event=${registerEvent.slug}`, label: 'Register now', track: 'cta_nav_register' }
+  ? { href: registerHref(registerEvent), label: 'Register now', track: 'cta_nav_register' }
   : { href: partnerEnquiryHref, label: 'Partner With Us', track: 'cta_nav_partner' };
 
 export default function Navbar() {

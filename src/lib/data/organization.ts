@@ -81,7 +81,10 @@ export const operatingStandards = [
 ];
 
 // Partner logos once confirmed. Tiers stay internal; they are not shown on the site.
-export const partners: PartnerEntity[] = [];
+export const partners: PartnerEntity[] = [
+  // Registration and payments platform for Diplovia 2026 (agreement accepted 2026-11-04)
+  { id: 'unstop', name: 'Unstop', tier: 'PLATFORM_PARTNER', logoUrl: '/brand/unstop-logo.png', websiteUrl: 'https://unstop.com' },
+];
 
 export const partnersContent = {
   headline: 'Let’s build what’s next, together.',

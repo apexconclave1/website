@@ -1,4 +1,4 @@
-import { earlyBirdEndsAt, eventsData, formatEventDates } from '@/lib/data/events';
+import { earlyBirdEndsAt, eventsData, formatEventDates, registerHref } from '@/lib/data/events';
 import { chambersData } from '@/lib/data/chambers';
 import { eventStories } from '@/lib/data/eventStory';
 import { apexFaqs, faqsByEvent } from '@/lib/data/faqs';
@@ -60,8 +60,8 @@ export function llmsTxt(): string {
       `- What: ${e.shortDescription}`,
       `- Dates: ${formatEventDates(e)}${e.location.isVirtual ? ', 100% online' : `, ${e.location.venue}`}`,
       `- Committees: ${committeesOf(e.id).map((c) => `${c.name} (${c.code}): ${c.topic}`).join('; ')}`,
-      e.pricing && `- Delegate fee: ${feesLine(e)}; paid by UPI`,
-      `- Registration: ${e.registrationOpen ? `open now at ${url(`/register?event=${e.slug}`)}` : 'opens soon'}`,
+      e.pricing && `- Delegate fee: ${feesLine(e)}; paid online`,
+      `- Registration: ${e.registrationOpen ? `open now at ${new URL(registerHref(e), siteUrl).href}` : 'opens soon'}`,
       `- Event page with agendas, how it works and FAQ: ${url(`/events/${e.slug}`)}`,
       '',
     ]),
@@ -121,8 +121,8 @@ export function llmsFullTxt(): string {
         `- Format: ${e.format ?? e.category}`,
         `- Dates: ${formatEventDates(e)}`,
         `- Where: ${e.location.venue}`,
-        e.pricing && `- Delegate fee: ${feesLine(e)}; paid by UPI`,
-        `- Registration: ${e.registrationOpen ? `open now at ${url(`/register?event=${e.slug}`)}` : 'opens soon'}`,
+        e.pricing && `- Delegate fee: ${feesLine(e)}; paid online`,
+        `- Registration: ${e.registrationOpen ? `open now at ${new URL(registerHref(e), siteUrl).href}` : 'opens soon'}`,
         ...(e.features ?? []).map((f) => `- ${f}`),
         '',
         ...(story

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { EventEntity } from '@/types/schema';
 import type { FaqItem } from '@/lib/data/faqs';
 import { organizationConfig, siteCredit } from '@/lib/data/organization';
-import { earlyBirdEndsAt } from '@/lib/data/events';
+import { earlyBirdEndsAt, registerHref } from '@/lib/data/events';
 import { siteUrl } from '@/lib/site';
 
 const shareImage = { url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Apex Conclave' };
@@ -81,7 +81,7 @@ export const eventSchema = (event: EventEntity) => {
     '@type': 'Offer',
     price,
     priceCurrency: 'INR',
-    url: `${siteUrl}/register?event=${event.slug}`,
+    url: new URL(registerHref(event), siteUrl).href,
     availability: event.registrationOpen ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
     ...dates,
   });

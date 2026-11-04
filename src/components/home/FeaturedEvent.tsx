@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { EventEntity } from '@/types/schema';
-import { eventWindow, formatEventDates } from '@/lib/data/events';
+import { eventWindow, formatEventDates, registerHref } from '@/lib/data/events';
 import { Countdown } from '@/components/events/Countdown';
 import { chambersData } from '@/lib/data/chambers';
 import { organizationConfig } from '@/lib/data/organization';
@@ -83,7 +83,7 @@ export function FeaturedEvent({ event }: { event: EventEntity }) {
                 Explore {event.title} <ArrowRight size={16} aria-hidden="true" />
               </Link>
               {event.registrationOpen ? (
-                <Link href={`/register?event=${event.slug}`} className="btn-secondary w-full sm:w-auto" data-track="cta_home_featured_register">
+                <Link href={registerHref(event)} className="btn-secondary w-full sm:w-auto" data-track="cta_home_featured_register">
                   Register now
                 </Link>
               ) : (
