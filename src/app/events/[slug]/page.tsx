@@ -468,6 +468,11 @@ export default function EventDetailPage({ params }: EventDetailPageProps) {
                 </Link>
                 .
               </p>
+              {event.slug === 'diplovia-2026' && (
+                <div className="mt-6 border-t border-soft/15 pt-4">
+                  <PoweredByUnstop place="diplovia_footer" />
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-3 lg:col-span-5 lg:items-end">
               <Link href={askHref} className="btn-primary w-full sm:w-auto">

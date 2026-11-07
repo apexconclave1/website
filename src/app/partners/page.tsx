@@ -74,11 +74,11 @@ export default function PartnersPage() {
           <section className="mx-auto max-w-container border-t border-soft/15 px-6 py-24">
             <p className="eyebrow mb-5">Partners</p>
             <h2 className="text-4xl font-normal md:text-5xl">Who we work with.</h2>
-            <ul className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+            <ul className="mt-10 flex flex-wrap items-center gap-8">
               {partners.map((p) => (
-                <li key={p.id} className="flex h-32 items-center justify-center border border-soft/15 bg-ground">
+                <li key={p.id} className="flex items-center justify-center">
                   <a href={p.websiteUrl} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
-                    <Image src={p.logoUrl} alt={p.name} width={160} height={64} className="h-16 w-auto object-contain" />
+                    <Image src={p.logoUrl} alt={p.name} width={160} height={64} className="h-14 w-auto object-contain transition-opacity duration-200 hover:opacity-80" />
                   </a>
                 </li>
               ))}

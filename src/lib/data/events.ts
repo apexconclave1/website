@@ -32,9 +32,7 @@ export const eventsData: EventEntity[] = [
     registrationOpensAt: '2026-10-30',
     registrationOpen: true,
     pricing: { regular: 399, earlyBird: 299, earlyBirdDays: 7 },
-    // Unstop partnership (2026-11-04): registrations happen only on Unstop. Every Register button, /register and the
-    // event schema point here. PLACEHOLDER: swap for the real listing URL before deploying (see ../unstop-swaps.md).
-    registrationUrl: 'https://unstop.com/PLACEHOLDER-diplovia-2026',
+    // Unstop partnership: branding / powered by kept; registrations run directly on the site via /register and Supabase.
     features: [
       '5 committees: UNSC, WHO, UNHRC, UNGA and a Historical Crisis Committee',
       '2 days, 100% virtual',

@@ -2,7 +2,6 @@ import Link from 'next/link';
 import ApexWordmark from '@/components/layout/ApexWordmark';
 import { eventsData, formatEventDates } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
-import { PoweredByUnstop } from '@/components/PoweredByUnstop';
 
 // min-h-11: 44px rows, Apple's minimum touch target
 const linkClass = 'inline-flex min-h-11 items-center text-sm text-soft transition-colors duration-200 hover:text-bright';
@@ -28,7 +27,6 @@ export default function Footer() {
             >
               {organizationConfig.contactEmail}
             </a>
-            <PoweredByUnstop place="footer" className="mt-4" />
           </div>
 
           <div className="grid grid-cols-2 gap-x-6 lg:col-span-5 lg:col-start-8">

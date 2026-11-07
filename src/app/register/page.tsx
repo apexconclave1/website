@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { eventsData, formatEventDates } from '@/lib/data/events';
 import { organizationConfig } from '@/lib/data/organization';
 import { chambersData } from '@/lib/data/chambers';
@@ -24,10 +23,6 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   const event = eventsData.find((e) => e.registrationOpen) ?? eventsData.find((e) => e.status === 'UPCOMING') ?? eventsData[0];
   const committeeCount = chambersData.filter((c) => c.eventId === event.id).length;
-
-  // Unstop partnership: registrations happen only on the event's listing once its URL is set. The form below stays for
-  // events not listed there.
-  if (event.registrationUrl) redirect(event.registrationUrl);
 
   if (!event.registrationOpen) {
     return (
