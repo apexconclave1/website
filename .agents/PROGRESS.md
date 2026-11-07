@@ -1,6 +1,6 @@
 # Apex Conclave Website: Progress
 
-Last updated: 2026-11-04. One file for status, decisions, history and to-dos (the old `IMPLEMENTATION_PLAN.md` was merged in here on 2026-10-23). Design rules: `DESIGN.md`. Conventions: `AGENTS.md`. Product: `PRODUCT.md`. Skills: `SKILLS_MASTER_GUIDE.md`.
+Last updated: 2026-11-07. One file for status, decisions, history and to-dos (the old `IMPLEMENTATION_PLAN.md` was merged in here on 2026-10-23). Design rules: `DESIGN.md`. Conventions: `AGENTS.md`. Product: `PRODUCT.md`. Skills: `SKILLS_MASTER_GUIDE.md`.
 
 ## Start here
 
@@ -139,7 +139,9 @@ Superseded during the redesign: silver/paper light sections, eased fades between
 
 ## Phase notes (newest first)
 
-**Unstop partnership (2026-11-04).** Owner signed up with Unstop (Flive Consulting) for Diplovia. Agreement: registrations only on Unstop (other platforms can end the partnership), Unstop logo as "Powered By" on the site and all branding, paid events get no Unstop promotion (newsletter, story, notification). Owner choices: no registrations on the site so far; fees, early bird and coupon are set up on Unstop's side; `/register` redirects to Unstop and the form code stays for future events; logo supplied (`public/brand/unstop-logo.png`, blue, used unchanged on a transparent background by owner request). Done: `registrationUrl` on the event (placeholder `https://unstop.com/PLACEHOLDER-diplovia-2026` until the owner swaps in the listing URL; swap list in `../unstop-swaps.md`) and `registerHref()` in `events.ts`, used by the navbar, home band, event card, event page (both buttons), event JSON-LD offer and llms.txt; `/register` calls `redirect()` when it is set (static 307; a real browser follows it, checked in headless Chrome against a test URL); `components/PoweredByUnstop.tsx` in the event hero (under the buttons) and the footer, linking to unstop.com (`partner_click` event); Unstop added to `partners` (new tier `PLATFORM_PARTNER`), so "Who we work with" now shows on `/partners` (tiles now separate bordered boxes, so one logo leaves no grey band); copy made payment-neutral (event steps "Pay the delegate fee online", FAQ dip-1, llms "paid online"); privacy notice names Unstop. Checked: tsc, lint, check-events, build; with the test URL every Register link and the JSON-LD pointed to Unstop and `/register` redirected; without it everything stays on `/register`. The blue logo has low contrast on the dark site; a white version from Unstop's branding page would read better.
+**On-site registration & Diplovia Powered by Unstop updates (2026-11-07).** Owner request: registrations and payments run directly from the website via Supabase only (not external on Unstop). Keep Unstop partnership branding as "Powered by Unstop" specifically for Diplovia (hero and closing section), while removing Unstop from the global Apex Conclave footer. Removed box outline around Unstop logo on `/partners` page. Updated `registrationUrl` and redirect on `/register` so on-site registration wizard is active.
+
+**Unstop partnership (2026-11-04).** Owner signed up with Unstop (Flive Consulting) for Diplovia. Agreement: Unstop logo as "Powered By" on Diplovia branding. Logo supplied (`public/brand/unstop-logo.png`, blue, used unchanged on a transparent background by owner request). `components/PoweredByUnstop.tsx` placed in the Diplovia hero and Diplovia closing section; removed from global Apex footer; Unstop added to `partners` (`PLATFORM_PARTNER`).
 
 **Diplovia countdown (2026-11-01).** Owner: a live days/hours/minutes/seconds countdown to 22 November 2026. Chose: event page hero (under the facts) and the home Diplovia band (under the facts), counting to 00:00 IST, large boxed numbers, "Diplovia 2026 is live" during 22 to 23 November, then hidden. `components/events/Countdown.tsx` (client, ticks every second; shows "--" until the browser clock starts so the cached HTML is never stale; numbers hidden from screen readers, which read the start date instead; Playfair lining figures so 00 does not read as "oo"); `eventWindow()` in `events.ts` gives 00:00 IST on the first day to 00:00 IST after the last (ponytail: add a start time to `EventEntity` once the opening session is fixed). Checked: `check-events` (new `eventWindow` checks), tsc, lint, build; screenshots at 1440 and 390 on the local production build (20d 00h 38m on 1 Nov 23:21 IST, ticking), live state with the clock set to 22 Nov 10:00 IST, hidden with it set to 24 Nov. Registration still says "Open now" on the event days until `registrationOpen` is set to false.
 
@@ -268,12 +270,12 @@ Full notes are in git history (`progress.md` and `IMPLEMENTATION_PLAN.md` before
 
 ## Owner to-do (not code)
 
-- **Unstop:** reply "Yes, I agree"; create the Diplovia listing (with committee and country preference questions); replace the placeholder `registrationUrl` in `src/lib/data/events.ts` with its URL (see `../unstop-swaps.md`) before deploying; the placeholder link is dead. Then the site's form is no longer used for Diplovia.
-- **Unstop deliverables:** Instagram Reel promoting Unstop; LinkedIn and Instagram posts naming Unstop as official partner; Unstop logo at the top of every post and video, Unstop tagged, #Unstop #PartnerwithUnstop; get all deliverables approved and send the shipping address at least 7 days before registration closes. Ask Unstop for the goodies tier table (missing from the agreement copy).
-- Fix Supabase (see Known gaps): the live contact form returns an error for every message.
-- Create the Supabase project, run `supabase/migrations/` in order, fill `.env.local` and Vercel env vars; test one registration and one contact message end to end.
+- **Unstop:** Diplovia is powered by Unstop (platform partner).
+- **Unstop deliverables:** Instagram Reel promoting Unstop; LinkedIn and Instagram posts naming Unstop as official partner; Unstop logo at the top of every post and video, Unstop tagged, #Unstop #PartnerwithUnstop; get all deliverables approved and send the shipping address at least 7 days before registration closes.
+- Fix Supabase (see Known gaps): check Supabase project status and ensure active credentials in `.env.local` and on Vercel.
+- Run `supabase/migrations/` in order on the active project, fill `.env.local` and Vercel env vars; test one registration and one contact message end to end.
 - ~~Real UPI id and QR~~ done 2026-10-30.
-- ~~Open Diplovia registration~~ done 2026-10-30. Until the Unstop link is live, check payments daily: Supabase → `registrations`, status `PAYMENT_SUBMITTED`; match UTR and amount, set `PAYMENT_VERIFIED`, assign seat, set `CONFIRMED`, email the delegate.
+- Check payments daily: Supabase → `registrations`, status `PAYMENT_SUBMITTED`; match UTR and amount, set `PAYMENT_VERIFIED`, assign seat, set `CONFIRMED`, email the delegate (see `../registration-steps.md`).
 - Final country/character lists per committee (`src/lib/data/chambers.ts`; HC has 4 of 18).
 - Real photos for the five committees (`bannerImage` in `chambers.ts`) to bring back the committee gallery.
 - Decide on a QR delegate pass.
